@@ -1,0 +1,104 @@
+body{
+    padding: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-direction: column;
+}
+
+.mb-3{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-label-email, .form-label-password{
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.form-label-email{
+    margin-left: -150px;
+}
+
+.form-label-password{
+    margin-left: -200px;
+}
+
+.form-control{
+    margin-bottom: 50px;
+    padding: 5px 20px;
+    width: 300px;
+    height: 25px;
+    border-radius: 20px;
+    border: 1px solid rgb(209, 208, 208);
+    font-size: 17px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    outline: none;
+}
+
+input[type="email"]:focus{
+    border: 1px solid gray;
+}
+
+.form-control:hover{
+    border: 1px solid gray;
+    -webkit-transition: 0.5s;
+}
+
+.form-control:active{
+    border: 1px solid gray;
+    -webkit-transition: 0.5s;
+    
+}
+
+.mb-3-form-check{
+    display: flex;
+    flex-direction: row;
+    margin-top: -45px;
+    margin-left: -170px;
+    margin-bottom: 50px;
+}
+
+input[type='checkbox'] {
+    margin-top: 3px;
+    width:18px;
+    height:18px;
+    background:white;
+    border-radius:5px;
+    border:2px solid #555;
+}
+
+.form-check-label{
+    font-size: 16px;
+    margin-left: 5px;
+}
+
+.btn-primary{
+    padding: 10px 25px;
+    background-color: blue;
+    color: white;
+    outline: none;
+}
+
+
+.btn-primary:hover{
+    background-color: rgb(70, 70, 238);
+    -webkit-transition: 0.3s;
+    outline: none;
+}
+
+.btn-primary:active{
+    outline: none;
+    background-color: rgb(4, 4, 131);
+}
+
+.btn-primary:focus{
+    outline: none;
+}
