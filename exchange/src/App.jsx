@@ -1,14 +1,38 @@
-//import { useState } from "react";
-
+import { useState } from "react";
 import "./App.css";
 import Navigation from "./components/Navbar/Navbar";
 
 function App() {
-  // const [route, setCount] = useState("signin");
+  const [state, setState] = useState({
+    user: { email: "Remus", password: "123456" },
+    route: "register",
+    isSignedIn: false
+  });
+
+  const onRouteChange = (newRoute) => {
+    setState((prevState) => ({
+      ...prevState,
+      route: newRoute
+    }));
+  };
 
   return (
     <div>
-      <Navigation></Navigation>
+      <Navigation
+        isSignedIn={state.isSignedIn}
+        onRouteChange={onRouteChange}
+      ></Navigation>
+
+      {state.route === "home" ? (
+        <p>here you are on the home page</p>
+      ) : // <Home></Home>
+      state.route === "signin" ? (
+        <p>Welcome on the signin page</p>
+      ) : (
+        // <SignIn></SignIn>
+        <p>Welcome on the register page</p>
+        // <Register></Register>
+      )}
     </div>
   );
 }
