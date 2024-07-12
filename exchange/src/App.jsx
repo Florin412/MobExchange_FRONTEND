@@ -1,4 +1,4 @@
-
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import "./App.css";
 import Navigation from "./components/Navbar/Navbar";
@@ -25,17 +25,15 @@ function App() {
         onRouteChange={onRouteChange}
       ></Navigation>
 
-      {state.route === "home" ? (
-        <p>here you are on the home page</p>
-      ) : // <Home></Home>
-      state.route === "signin" ? (
-        <SignIn></SignIn>
-      ) : (
-        // <SignIn></SignIn>
-        <p>Welcome on the register page</p>
-        // <Register></Register>
-      )}
-    </div>
+      <Routes>
+        <Route path="/" element={<Navigate to={state.route === "home" ? "/home" : state.route === "signin" ? "/signin" : "/register"}></Navigate>}></Route>
+        <Route path="/home" element={<p>here you are on the home page</p>}></Route>
+        <Route path="/signin" element={<SignIn></SignIn>}></Route>
+        <Route path="/register" element={<p>Welcome on the register page</p>}></Route>
+        <Route path="*" element={<Navigate to={"/register"}></Navigate>}></Route>
+      </Routes>
+
+     </div>
   );
 }
 

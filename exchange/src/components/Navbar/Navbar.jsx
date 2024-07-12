@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
+
 // eslint-disable-next-line react/prop-types
-const Navigation = ({ isSignedIn }) => {
+const Navigation = ({ isSignedIn, onRouteChange }) => {
   //console.log(props);
 
   if (isSignedIn) {
@@ -8,9 +10,10 @@ const Navigation = ({ isSignedIn }) => {
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           {/* Logo */}
-          <a className="navbar-brand" href="#">
+          <Link className="navbar-brand" 
+          to="/home">
             Mobiversal
-          </a>
+          </Link>
 
           {/* Button appears for mobile devices */}
           <button
@@ -49,9 +52,10 @@ const Navigation = ({ isSignedIn }) => {
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
           <div className="container-fluid">
             {/* Logo */}
-            <a className="navbar-brand" href="#">
+            <Link className="navbar-brand" 
+            to="/home">
               Mobiversal
-            </a>
+            </Link>
 
             {/* Button appears for mobile devices */}
             <button
@@ -74,14 +78,18 @@ const Navigation = ({ isSignedIn }) => {
               <ul className="navbar-nav">
                 {/* SignIn Link */}
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <Link 
+                  className="nav-link" 
+                  to="/signin">
                     SignIn
-                  </a>
+                  </Link>
                 </li>
 
                 {/* Register Link */}
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <a 
+                  className="nav-link" 
+                  href="/register" >
                     Register
                   </a>
                 </li>
