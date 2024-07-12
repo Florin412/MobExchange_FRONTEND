@@ -1,20 +1,14 @@
+import { Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import "./App.css";
 import Navigation from "./components/Navbar/Navbar";
 import SignIn from "./components/SignIn/SIgnInForm";
 import SignUp from "./components/SignUp/SignUp";
-import Home from "./components/home/Home";
 
 function App() {
   const [state, setState] = useState({
-    user: {
-      id: 1,
-      firstName: "Remus",
-      lastName: "Lupau",
-      email: "lupau.remus15@gmail.com",
-      password: "abcd1234",
-    },
-    route: "register",
+    user: { email: "Remus", password: "123456" },
+    route: "signin",
     isSignedIn: false,
   });
 
@@ -32,22 +26,32 @@ function App() {
         onRouteChange={onRouteChange}
       ></Navigation>
 
-      {state.route === "home" ? (
-        <div>
-          <Home></Home>
-          {/* <Home></Home> */}
-        </div>
-      ) : state.route === "signin" ? (
-        <SignIn></SignIn>
-      ) : (
-        <div>
-          <p>Welcome on the register page</p>
-          <SignUp></SignUp>
-          {/* <Register></Register>
-
-          {/* <Home firstname="Leo" lastname="Smetch" symbol="" /> */}
-        </div>
-      )}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Navigate
+              to={
+                state.route === "home"
+                  ? "/home"
+                  : state.route === "signin"
+                  ? "/signin"
+                  : "/register"
+              }
+            ></Navigate>
+          }
+        ></Route>
+        <Route
+          path="/home"
+          element={<p>here you are on the home page</p>}
+        ></Route>
+        <Route path="/signin" element={<SignIn></SignIn>}></Route>
+        <Route path="/register" element={<SignUp></SignUp>}></Route>
+        <Route
+          path="*"
+          element={<Navigate to={"/register"}></Navigate>}
+        ></Route>
+      </Routes>
     </div>
   );
 }
