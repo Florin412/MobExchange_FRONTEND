@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./App.css";
 import Navigation from "./components/Navbar/Navbar";
 import SignIn from './components/SignIn/SIgnInForm';
+import SignUp from "./components/SignUp/SignUp";
 
 function App() {
   const [state, setState] = useState({
