@@ -32,8 +32,7 @@ function App() {
         <Route path="/register" element={<p>Welcome on the register page</p>}></Route>
         <Route path="*" element={<Navigate to={"/register"}></Navigate>}></Route>
       </Routes>
-
-     </div>
+      </div>
   );
 }
 
