@@ -7,7 +7,7 @@ import SignIn from './components/SignIn/SIgnInForm';
 function App() {
   const [state, setState] = useState({
     user: { email: "Remus", password: "123456" },
-    route: "register",
+    route: "signin",
     isSignedIn: false
   });
 
@@ -29,7 +29,7 @@ function App() {
         <Route path="/" element={<Navigate to={state.route === "home" ? "/home" : state.route === "signin" ? "/signin" : "/register"}></Navigate>}></Route>
         <Route path="/home" element={<p>here you are on the home page</p>}></Route>
         <Route path="/signin" element={<SignIn></SignIn>}></Route>
-        <Route path="/register" element={<p>Welcome on the register page</p>}></Route>
+        <Route path="/register" element={<SingUp></SingUp>}></Route>
         <Route path="*" element={<Navigate to={"/register"}></Navigate>}></Route>
       </Routes>
       </div>
