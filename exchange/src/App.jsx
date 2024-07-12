@@ -9,13 +9,13 @@ function App() {
   const [state, setState] = useState({
     user: { email: "Remus", password: "123456" },
     route: "signin",
-    isSignedIn: false
+    isSignedIn: false,
   });
 
   const onRouteChange = (newRoute) => {
     setState((prevState) => ({
       ...prevState,
-      route: newRoute
+      route: newRoute,
     }));
   };
 
@@ -27,15 +27,30 @@ function App() {
       ></Navigation>
 
       <Routes>
-        <Route path="/" element={<Navigate to={state.route === "home" ? "/home" : state.route === "signin" ? "/signin" : "/register"}></Navigate>}></Route>
-        <Route path="/home" element={<p>here you are on the home page</p>}></Route>
+        <Route
+          path="/"
+          element={
+            <Navigate
+              to={
+                state.route === "home"
+                  ? "/home"
+                  : state.route === "signin"
+                  ? "/signin"
+                  : "/register"
+              }
+            ></Navigate>
+          }
+        ></Route>
+        <Route
+          path="/home"
+          element={<p>here you are on the home page</p>}
+        ></Route>
         <Route path="/signin" element={<SignIn></SignIn>}></Route>
         <Route path="/register" element={<SignUp></SignUp>}></Route>
         <Route path="*" element={<Navigate to={"/register"}></Navigate>}></Route>
       </Routes>
-      </div>
+    </div>
   );
 }
 
 export default App;
-

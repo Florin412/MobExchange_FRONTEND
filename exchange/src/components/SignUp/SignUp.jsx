@@ -3,7 +3,7 @@ import "./SignUp.css";
 
 function SignUp() {
   // Refs for each input field
-  const firstNameRef = useRef("name");
+  const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
   const emailRef = useRef(null);
   const confirmEmailRef = useRef(null);
@@ -11,7 +11,14 @@ function SignUp() {
   const confirmPasswordRef = useRef(null);
 
   const [submit, setSubmit] = useState(false);
+  const [message, setMessage] = useState("Submit");
   const [inputValue, setInputValue] = useState(); // State to store input value
+  const [accountValues, setAccountValues] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
 
   // Event handler for input change
   const handleChange = (ref) => {
@@ -22,29 +29,60 @@ function SignUp() {
   // Click handler for submit button
   const clickButton = (event) => {
     event.preventDefault();
-    setSubmit(true);
 
+    // Check if all required fields are filled
     if (
       firstNameRef.current.value === "" ||
       lastNameRef.current.value === "" ||
       emailRef.current.value === "" ||
-      passwordRef.current.value === ""
+      passwordRef.current.value === "" ||
+      confirmPasswordRef.current.value === ""
     ) {
-      return <p>Fill the inputs</p>;
+      return setMessage("Fill all the inputs");
     }
 
+    // Validate password length
     if (
-      passwordRef.current.value.length() < 6 ||
-      passwordRef.current.value.length() > 20
+      passwordRef.current.value.length < 6 ||
+      passwordRef.current.value.length > 20
     ) {
-      return <p>Password between 6-20</p>;
+      return setMessage("Password must be between 6-20 characters");
     }
-    return {
+
+    // Validate email match
+    if (emailRef.current.value !== confirmEmailRef.current.value) {
+      return setMessage("Emails do not match");
+    }
+
+    // Validate password match
+    if (passwordRef.current.value !== confirmPasswordRef.current.value) {
+      return setMessage("Passwords do not match");
+    }
+
+    // If all validations pass, set success message and clear input values
+    setMessage("Success");
+
+    // Clear input fields
+    firstNameRef.current.value = "";
+    lastNameRef.current.value = "";
+    emailRef.current.value = "";
+    confirmEmailRef.current.value = "";
+    passwordRef.current.value = "";
+    confirmPasswordRef.current.value = "";
+
+    // Reset the state for accountValues
+    setAccountValues({
       firstName: firstNameRef.current.value,
       lastName: lastNameRef.current.value,
       email: emailRef.current.value,
       password: passwordRef.current.value,
-    };
+    });
+
+    // Reset the submit state and message after a short delay
+    setTimeout(() => {
+      setSubmit(false);
+      setMessage("Submit");
+    }, 2000); // Reset submit state and message after 2 seconds
   };
 
   return (
@@ -134,7 +172,7 @@ function SignUp() {
             </label>
             <input
               ref={confirmPasswordRef}
-              onChange={() => handleChange(confirmEmailRef)}
+              onChange={() => handleChange(confirmPasswordRef)}
               type="password"
               className="form-control shadow p-2 mb-3 bg-body rounded hover_input"
               id="pass2"
@@ -148,11 +186,10 @@ function SignUp() {
         >
           {submit ? (
             <div>
-              <h3 className="fs-5">Success</h3>
-              <h3>You will be redirected to login</h3>
+              <h3 className="fs-5">{message}</h3>
             </div>
           ) : (
-            <h3 className="fs-5">Submit</h3>
+            <h3 className="fs-5">{message}</h3>
           )}
         </button>
       </form>
