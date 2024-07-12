@@ -5,15 +5,16 @@ function SignIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    console.log(email, password);
 
-    const SubmitForm = (e) => {
+    const submitForm = (e) => {
         e.preventDefault()
     }
 
     return(
         <>
         <h1>Sign in</h1>
-        <form>
+        <form onSubmit={submitForm}>
             <div className="mb-3">
               <label htmlFor="InputEmail" className="form-label-email">Email address</label>
               <input onChange={(e) => {setEmail(e.target.value)}} type="email" className="form-control" id="InputEmail" aria-describedby="emailHelp"></input>
@@ -26,7 +27,7 @@ function SignIn() {
               <input type="checkbox" className="form-check-input" id="Check1"></input>
               <label className="form-check-label" htmlFor="Check1">Remember me</label>
           </div>
-          <button onClick={SubmitForm} type="submit" className="btn-primary">Submit</button>
+          <button onClick={submitForm} type="submit" className="btn-primary">Submit</button>
         </form>
         </>
     );

@@ -43,13 +43,17 @@ function SignUp() {
       firstName: firstNameRef.current.value,
       lastName: lastNameRef.current.value,
       email: emailRef.current.value,
-      password: passwordRef.current.value,
+      password: passwordRef.current.value
     };
+  };
+
+  const submitForm = (e) => {
+    e.preventDefault();
   };
 
   return (
     <div>
-      <form className="form_base">
+      <form className="form_base" onSubmit={submitForm}>
         <h1 className="signupTitle">Sign up</h1>
         <div className="mb-3">
           <div className="FullName">

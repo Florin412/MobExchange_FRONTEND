@@ -2,39 +2,55 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import "./App.css";
 import Navigation from "./components/Navbar/Navbar";
-import SignIn from './components/SignIn/SIgnInForm';
+import SignIn from "./components/SignIn/SIgnInForm";
+import Home from "./components/Home/Home";
+import SignUp from "./components/SignUp/SignUp";
 
 function App() {
-  const [state, setState] = useState({
-    user: { email: "Remus", password: "123456" },
-    route: "register",
+  // This is the initial state for this app.
+  const initState = {
+    user: {
+      id: 1,
+      firstName: "Mihai",
+      lastName: "Ion",
+      email: "nume.prenume@gmail.com",
+      password: "abcd1234"
+    },
+    route: "signin",
     isSignedIn: false
-  });
-
-  const onRouteChange = (newRoute) => {
-    setState((prevState) => ({
-      ...prevState,
-      route: newRoute
-    }));
   };
+
+  // const [state, setState] = useState(initState);
+  const [state] = useState(initState);
+
+  console.log(state);
 
   return (
     <div>
-      <Navigation
-        isSignedIn={state.isSignedIn}
-        onRouteChange={onRouteChange}
-      ></Navigation>
+      <Navigation isSignedIn={state.isSignedIn}></Navigation>
 
       <Routes>
-        <Route path="/" element={<Navigate to={state.route === "home" ? "/home" : state.route === "signin" ? "/signin" : "/register"}></Navigate>}></Route>
-        <Route path="/home" element={<p>here you are on the home page</p>}></Route>
+        <Route
+          path="/"
+          element={
+            <Navigate
+              to={
+                state.route === "home"
+                  ? "/home"
+                  : state.route === "signin"
+                  ? "/signin"
+                  : "/signup"
+              }
+            ></Navigate>
+          }
+        ></Route>
+        <Route path="/home" element={<Home></Home>}></Route>
         <Route path="/signin" element={<SignIn></SignIn>}></Route>
-        <Route path="/register" element={<p>Welcome on the register page</p>}></Route>
-        <Route path="*" element={<Navigate to={"/register"}></Navigate>}></Route>
+        <Route path="/signup" element={<SignUp></SignUp>}></Route>
+        <Route path="*" element={<Navigate to={"/signin"}></Navigate>}></Route>
       </Routes>
-      </div>
+    </div>
   );
 }
 
 export default App;
-
