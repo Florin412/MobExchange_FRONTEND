@@ -3,6 +3,7 @@ import "./App.css";
 import Navigation from "./components/Navbar/Navbar";
 import SignIn from "./components/SignIn/SIgnInForm";
 import SignUp from "./components/SignUp/SignUp";
+import Home from "./components/home/Home";
 
 function App() {
   const [state, setState] = useState({
@@ -33,7 +34,7 @@ function App() {
 
       {state.route === "home" ? (
         <div>
-          <p>Home page</p>
+          <Home></Home>
           {/* <Home></Home> */}
         </div>
       ) : state.route === "signin" ? (
@@ -42,7 +43,9 @@ function App() {
         <div>
           <p>Welcome on the register page</p>
           <SignUp></SignUp>
-          {/* <Register></Register> */}
+          {/* <Register></Register>
+
+          {/* <Home firstname="Leo" lastname="Smetch" symbol="" /> */}
         </div>
       )}
     </div>
