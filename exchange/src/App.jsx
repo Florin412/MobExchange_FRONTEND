@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import Navigation from "./components/Navbar/Navbar";
 import SignIn from "./components/SignIn/SIgnInForm";
+import SignUp from "./components/SignUp/SignUp";
 
 function App() {
   const [state, setState] = useState({
@@ -10,16 +11,16 @@ function App() {
       firstName: "Remus",
       lastName: "Lupau",
       email: "lupau.remus15@gmail.com",
-      password: "abcd1234"
+      password: "abcd1234",
     },
     route: "register",
-    isSignedIn: false
+    isSignedIn: false,
   });
 
   const onRouteChange = (newRoute) => {
     setState((prevState) => ({
       ...prevState,
-      route: newRoute
+      route: newRoute,
     }));
   };
 
@@ -40,6 +41,7 @@ function App() {
       ) : (
         <div>
           <p>Welcome on the register page</p>
+          <SignUp></SignUp>
           {/* <Register></Register> */}
         </div>
       )}
