@@ -2,8 +2,6 @@ import { Link } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
 const Navigation = ({ isSignedIn }) => {
-  //console.log(props);
-
   if (isSignedIn) {
     // Here is the template for when the user is logged in.
     return (
@@ -33,11 +31,11 @@ const Navigation = ({ isSignedIn }) => {
             id="navbarSupportedContent"
           >
             <ul className="navbar-nav">
-              {/* SignIn Link */}
+              {/* SignOut Link */}
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <Link className="nav-link" to="/signin">
                   SignOut
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
