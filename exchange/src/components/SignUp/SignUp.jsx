@@ -20,6 +20,9 @@ function SignUp() {
     password: ""
   });
 
+  // Delete the console.log after you get data from backend.
+  console.log(accountValues);
+
   // Event handler for input change
   const handleChange = (ref) => {
     setInputValue(ref.current.value);
@@ -75,7 +78,7 @@ function SignUp() {
       firstName: firstNameRef.current.value,
       lastName: lastNameRef.current.value,
       email: emailRef.current.value,
-      password: passwordRef.current.value,
+      password: passwordRef.current.value
     });
 
     // Reset the submit state and message after a short delay
