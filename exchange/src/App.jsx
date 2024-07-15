@@ -7,13 +7,16 @@ import Home from "./components/Home/Home";
 import SignUp from "./components/SignUp/SignUp";
 
 function App() {
+  // Here is the default state of the app.
   const [route, setRoute] = useState("signin");
   const [isSignedIn, setSignIn] = useState(false);
 
+  // Changes the app route.
   const onRouteChange = (newRoute) => {
     setRoute(newRoute);
   };
 
+  // Changes the app signin status.
   const onSignedInChange = (boolValue) => {
     setSignIn(boolValue);
   };
