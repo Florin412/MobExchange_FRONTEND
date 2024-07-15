@@ -7,27 +7,24 @@ import Home from "./components/Home/Home";
 import SignUp from "./components/SignUp/SignUp";
 
 function App() {
-  // This is the initial state for this app.
-  const initState = {
-    user: {
-      id: 1,
-      firstName: "Mihai",
-      lastName: "Ion",
-      email: "nume.prenume@gmail.com",
-      password: "abcd1234"
-    },
-    route: "signin",
-    isSignedIn: false
+  const [route, setRoute] = useState("signin");
+  const [isSignedIn, setSignIn] = useState(false);
+
+  const onRouteChange = (newRoute) => {
+    setRoute(newRoute);
   };
 
-  // const [state, setState] = useState(initState);
-  const [state] = useState(initState);
-
-  console.log(state);
+  const onSignedInChange = (boolValue) => {
+    setSignIn(boolValue);
+  };
 
   return (
     <div>
-      <Navigation isSignedIn={state.isSignedIn}></Navigation>
+      <Navigation
+        isSignedIn={isSignedIn}
+        onSignedInChange={onSignedInChange}
+        onRouteChange={onRouteChange}
+      ></Navigation>
 
       <Routes>
         <Route
@@ -35,9 +32,9 @@ function App() {
           element={
             <Navigate
               to={
-                state.route === "home"
+                route === "home"
                   ? "/home"
-                  : state.route === "signin"
+                  : route === "signin"
                   ? "/signin"
                   : "/signup"
               }

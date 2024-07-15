@@ -1,14 +1,21 @@
 import { Link } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-const Navigation = ({ isSignedIn }) => {
+const Navigation = ({ isSignedIn, onSignedInChange, onRouteChange }) => {
   if (isSignedIn) {
     // Here is the template for when the user is logged in.
     return (
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           {/* Logo */}
-          <Link className="navbar-brand" to="/home">
+          <Link
+            className="navbar-brand"
+            to="/home"
+            onClick={() => {
+              onSignedInChange(true);
+              onRouteChange("home");
+            }}
+          >
             Mobiversal
           </Link>
 
@@ -33,7 +40,14 @@ const Navigation = ({ isSignedIn }) => {
             <ul className="navbar-nav">
               {/* SignOut Link */}
               <li className="nav-item">
-                <Link className="nav-link" to="/signin">
+                <Link
+                  className="nav-link"
+                  to="/signin"
+                  onClick={() => {
+                    onSignedInChange(false);
+                    onRouteChange("signin");
+                  }}
+                >
                   SignOut
                 </Link>
               </li>
@@ -49,7 +63,14 @@ const Navigation = ({ isSignedIn }) => {
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
           <div className="container-fluid">
             {/* Logo */}
-            <Link className="navbar-brand" to="/home">
+            <Link
+              className="navbar-brand"
+              to="/home"
+              onClick={() => {
+                onSignedInChange(true);
+                onRouteChange("home");
+              }}
+            >
               Mobiversal
             </Link>
 
@@ -74,14 +95,28 @@ const Navigation = ({ isSignedIn }) => {
               <ul className="navbar-nav">
                 {/* SignIn Link */}
                 <li className="nav-item">
-                  <Link className="nav-link" to="/signin">
+                  <Link
+                    className="nav-link"
+                    to="/signin"
+                    onClick={() => {
+                      onSignedInChange(false);
+                      onRouteChange("signin");
+                    }}
+                  >
                     SignIn
                   </Link>
                 </li>
 
                 {/* Register Link */}
                 <li className="nav-item">
-                  <Link className="nav-link" to="/signup">
+                  <Link
+                    className="nav-link"
+                    to="/signup"
+                    onClick={() => {
+                      onSignedInChange(false);
+                      onRouteChange("signup");
+                    }}
+                  >
                     SignUp
                   </Link>
                 </li>
