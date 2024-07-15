@@ -17,7 +17,7 @@ function SignUp() {
     firstName: "",
     lastName: "",
     email: "",
-    password: "",
+    password: ""
   });
 
   // Event handler for input change
