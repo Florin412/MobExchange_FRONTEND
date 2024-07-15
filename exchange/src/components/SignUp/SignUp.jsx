@@ -85,9 +85,13 @@ function SignUp() {
     }, 2000); // Reset submit state and message after 2 seconds
   };
 
+  const submitForm = (e) => {
+    e.preventDefault();
+  };
+
   return (
     <div>
-      <form className="form_base">
+      <form className="form_base" onSubmit={submitForm}>
         <h1 className="signupTitle">Sign up</h1>
         <div className="mb-3">
           <div className="FullName">

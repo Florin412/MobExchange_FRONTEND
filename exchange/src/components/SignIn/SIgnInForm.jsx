@@ -1,5 +1,5 @@
-import './SignInForm.css'
-import { useState } from 'react'
+import "./SignInForm.css";
+import { useState } from "react";
 
 function SignIn() {
     const [email, setEmail] = useState("");
@@ -68,4 +68,4 @@ function SignIn() {
     );
 }
 
-export default SignIn
+export default SignIn;

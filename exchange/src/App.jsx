@@ -2,27 +2,30 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { useState } from "react";
 import "./App.css";
 import Navigation from "./components/Navbar/Navbar";
-import SignIn from './components/SignIn/SIgnInForm';
+import SignIn from "./components/SignIn/SIgnInForm";
+import Home from "./components/Home/Home";
 import SignUp from "./components/SignUp/SignUp";
 
 function App() {
-  const [state, setState] = useState({
-    user: { email: "Remus", password: "123456" },
-    route: "signin",
-    isSignedIn: false,
-  });
+  // Here is the default state of the app.
+  const [route, setRoute] = useState("signin");
+  const [isSignedIn, setSignIn] = useState(false);
 
+  // Changes the app route.
   const onRouteChange = (newRoute) => {
-    setState((prevState) => ({
-      ...prevState,
-      route: newRoute,
-    }));
+    setRoute(newRoute);
+  };
+
+  // Changes the app signin status.
+  const onSignedInChange = (boolValue) => {
+    setSignIn(boolValue);
   };
 
   return (
     <div>
       <Navigation
-        isSignedIn={state.isSignedIn}
+        isSignedIn={isSignedIn}
+        onSignedInChange={onSignedInChange}
         onRouteChange={onRouteChange}
       ></Navigation>
 
@@ -32,22 +35,19 @@ function App() {
           element={
             <Navigate
               to={
-                state.route === "home"
+                route === "home"
                   ? "/home"
-                  : state.route === "signin"
+                  : route === "signin"
                   ? "/signin"
-                  : "/register"
+                  : "/signup"
               }
             ></Navigate>
           }
         ></Route>
-        <Route
-          path="/home"
-          element={<p>here you are on the home page</p>}
-        ></Route>
+        <Route path="/home" element={<Home></Home>}></Route>
         <Route path="/signin" element={<SignIn></SignIn>}></Route>
-        <Route path="/register" element={<SignUp></SignUp>}></Route>
-        <Route path="*" element={<Navigate to={"/register"}></Navigate>}></Route>
+        <Route path="/signup" element={<SignUp></SignUp>}></Route>
+        <Route path="*" element={<Navigate to={"/signin"}></Navigate>}></Route>
       </Routes>
     </div>
   );
