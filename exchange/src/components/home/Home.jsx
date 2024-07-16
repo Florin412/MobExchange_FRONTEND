@@ -1,4 +1,47 @@
-const Home = () => {
+import { useRef, useState } from "react";
+import Footer from "../footer/Footer";
+import "./Home.css";
+
+function Home() {
+  const fromCurr = useRef(null);
+
+  const [numberToConvert, setNumberToConvert] = useState("");
+  const [currencyFrom, setCurrencyFrom] = useState("$");
+  const [currencyTo, setCurrencyTo] = useState("");
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    try {
+      if (isNaN(Number(value))) {
+        throw new Error("Not a valid number");
+      } else {
+        setNumberToConvert(value);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const convertHandler = () => {
+    try {
+      console.log(numberToConvert);
+      // Logic to perform the conversion can go here
+      // For now, we are just resetting the values
+
+      setCurrencyTo(numberToConvert);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleCurrencyFromChange = (e) => {
+    setCurrencyFrom(e.target.value);
+  };
+
+  const handleCurrencyToChange = (e) => {
+    setCurrencyTo(e.target.value);
+  };
+
   return (
     <>
       <h1 className="mainHeader">Currency Converter</h1>
@@ -142,16 +185,11 @@ const Home = () => {
         </div>
       </div>
 
-    <div>
-      <h1 className="text-center">Welcome to homepage</h1>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati
-        iusto, tenetur mollitia illum itaque vero enim quis molestiae!
-        Veritatis, eaque? Lorem ipsum dolor sit amet consectetur adipisicing
-        elit. Porro perspiciatis corrupti rem?
-      </p>
-    </div>
+      <div>
+        <Footer />
+      </div>
+    </>
   );
-};
+}
 
 export default Home;
