@@ -1,0 +1,162 @@
+html {
+  font-size: 62.5%;
+}
+body {
+  background-color: #181a20 !important;
+  padding: 0 !important;
+  color: white !important;
+}
+
+.mainDiv {
+  padding: 6.2rem 3.2rem;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 4rem;
+  gap: 3.2rem;
+  width: 85%;
+  border: 1px solid #ffd824;
+  border-radius: 1rem;
+}
+
+.mainDiv > div:nth-child(1),
+.mainDiv > div:nth-child(3) {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+.mainDiv > div:nth-child(2) {
+  width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainDiv > div:nth-child(1) > input,
+.mainDiv > div:nth-child(2) > input,
+.mainDiv > div:nth-child(3) > input {
+  width: 50%;
+  height: 3.6rem;
+}
+
+.divSelect {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.labelFromSelect {
+  height: 2rem;
+  width: 50%;
+  height: 3.6rem;
+}
+
+.mainDiv > div {
+  padding: 0.5rem;
+}
+
+.graph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: fit-content;
+}
+.graph_img {
+  object-fit: contain;
+  width: 75rem;
+  height: 75rem;
+}
+.tableDiv {
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+}
+th,
+tr {
+  font-size: 2rem;
+  border: none;
+  border-style: none;
+}
+
+.spanTh {
+  color: #ffd824;
+}
+
+.colorTh {
+  border-color: inherit;
+  border-style: none;
+  border-width: 0;
+}
+.convertorButton {
+  padding: 1rem 2.4rem;
+  font-size: 2rem;
+  color: black;
+  background-color: #ffd824;
+  border-radius: 2rem;
+  border-color: navajowhite;
+  margin-top: 2rem;
+}
+.percentGreen {
+  color: #05f300;
+}
+.percentRed {
+  color: #fa0000;
+}
+.table {
+  --bs-table-bg: #181a20;
+}
+
+.div_table_button {
+  display: flex;
+  gap: 2.4rem;
+  justify-content: center;
+  align-items: center;
+}
+.mainDiv > div:nth-child(2) {
+  width: 30%;
+}
+.table_p {
+  margin: 0;
+}
+.button_table {
+  border: 0;
+  background-color: #ffd824;
+  border-radius: 2rem;
+  padding: 0.4rem 1.4rem;
+}
+.button_span {
+  font-size: 2rem;
+}
+.table_p {
+  font-size: 1.8rem;
+  color: #ffd824;
+}
+.mainHeader {
+  color: #ffd824;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 2rem;
+  font-size: 4.8rem;
+}
+.second-header-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -2.4rem;
+}
+.second-header {
+  font-size: 3.6rem;
+  color: #ffd824;
+}
+
+@media screen and (max-width: 1000px) {
+  .graph_img {
+    width: 60rem;
+    height: 60rem;
+  }
+}

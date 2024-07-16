@@ -17,7 +17,7 @@ function SignUp() {
     firstName: "",
     lastName: "",
     email: "",
-    password: ""
+    password: "",
   });
 
   // Delete the console.log after you get data from backend.
@@ -33,6 +33,7 @@ function SignUp() {
   const clickButton = (event) => {
     event.preventDefault();
 
+    // Check if all required fields are filled
     // Check if all required fields are filled
     if (
       firstNameRef.current.value === "" ||
@@ -78,7 +79,7 @@ function SignUp() {
       firstName: firstNameRef.current.value,
       lastName: lastNameRef.current.value,
       email: emailRef.current.value,
-      password: passwordRef.current.value
+      password: passwordRef.current.value,
     });
 
     // Reset the submit state and message after a short delay
