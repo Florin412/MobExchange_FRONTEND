@@ -4,6 +4,10 @@ import "./App.css";
 import Navigation from "./components/Navbar/Navbar";
 import SignIn from "./components/SignIn/SIgnInForm";
 import SignUp from "./components/SignUp/SignUp";
+import Home from "./components/home/Home";
+import About from "./components/About/About";
+import Privacy from "./components/Privacy/Privacy";
+import Cookie from "./components/Cookie/Cookie";
 
 function App() {
   const [state, setState] = useState({
@@ -41,16 +45,16 @@ function App() {
             ></Navigate>
           }
         ></Route>
-        <Route
-          path="/home"
-          element={<p>here you are on the home page</p>}
-        ></Route>
+        <Route path="/home" element={<Home />}></Route>
         <Route path="/signin" element={<SignIn></SignIn>}></Route>
         <Route path="/register" element={<SignUp></SignUp>}></Route>
         <Route
           path="*"
           element={<Navigate to={"/register"}></Navigate>}
         ></Route>
+        <Route path="/about" component={<About></About>} />
+        <Route path="/privacy" component={<Privacy></Privacy>} />
+        <Route path="/cookie" component={<Cookie />} />
       </Routes>
     </div>
   );
