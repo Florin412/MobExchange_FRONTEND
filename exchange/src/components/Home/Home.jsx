@@ -1,4 +1,4 @@
-function Home() {
+const Home = () => {
   return (
     <div>
       <h1 className="text-center">Welcome to homepage</h1>
@@ -10,6 +10,6 @@ function Home() {
       </p>
     </div>
   );
-}
+};
 
 export default Home;
