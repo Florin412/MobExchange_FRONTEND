@@ -17,7 +17,7 @@ function SignUp() {
     firstName: "",
     lastName: "",
     email: "",
-    password: "",
+    password: ""
   });
 
   // Delete the console.log after you get data from backend.
@@ -33,7 +33,6 @@ function SignUp() {
   const clickButton = (event) => {
     event.preventDefault();
 
-    // Check if all required fields are filled
     // Check if all required fields are filled
     if (
       firstNameRef.current.value === "" ||
@@ -79,7 +78,7 @@ function SignUp() {
       firstName: firstNameRef.current.value,
       lastName: lastNameRef.current.value,
       email: emailRef.current.value,
-      password: passwordRef.current.value,
+      password: passwordRef.current.value
     });
 
     // Reset the submit state and message after a short delay
@@ -94,113 +93,136 @@ function SignUp() {
   };
 
   return (
-    <div>
-      <form className="form_base" onSubmit={submitForm}>
-        <h1 className="signupTitle">Sign up</h1>
-        <div className="mb-3">
-          <div className="FullName">
-            <div>
-              <div className="col-auto">
-                <label htmlFor="inputPassword6" className="col-form-label">
-                  <h2>First Name </h2>
-                </label>
-              </div>
-              <div className="col-auto">
-                <input
-                  ref={firstNameRef}
-                  onChange={() => handleChange(firstNameRef, firstNameRef)}
-                  type="text"
-                  id="inputText1"
-                  className="form-control shadow py-2 px-3 bg-body rounded hover_input"
-                  aria-describedby="passwordHelpInline"
-                />
-              </div>
-            </div>
-            <div>
-              <div className="col-auto">
-                <label htmlFor="inputPassword7" className="col-form-label">
-                  <h2>Last Name </h2>
-                </label>
-              </div>
-              <div className="col-auto">
-                <input
-                  ref={lastNameRef}
-                  onChange={() => handleChange(lastNameRef)}
-                  type="text"
-                  id="inputText2"
-                  className="form-control shadow p-2 bg-body rounded hover_input"
-                  aria-describedby="passwordHelpInline"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="col-auto">
-            <label htmlFor="exampleInputEmail1" className="form-label">
-              <h2>Email </h2>
-            </label>
-            <input
-              ref={emailRef}
-              onChange={() => handleChange(emailRef)}
-              type="email"
-              className="form-control shadow p-2  bg-body rounded hover_input"
-              id="inputText3"
-              aria-describedby="emailHelp"
-            />
-          </div>
-          <div className="col-auto">
-            <label htmlFor="exampleInputEmail2" className="form-label">
-              <h2>Confirm email </h2>
-            </label>
-            <input
-              ref={confirmEmailRef}
-              onChange={() => handleChange(confirmEmailRef)}
-              type="email"
-              className="form-control shadow p-2  bg-body rounded hover_input"
-              id="inputText4"
-              aria-describedby="emailHelp"
-            />
-          </div>
-          <div className="col-auto">
-            <label htmlFor="exampleInputEmail3" className="form-label">
-              <h2>Password </h2>
-            </label>
-            <input
-              ref={passwordRef}
-              onChange={() => handleChange(passwordRef)}
-              type="password"
-              className="form-control shadow p-2 bg-body rounded hover_input"
-              id="pass1"
-              aria-describedby="emailHelp"
-            />
-          </div>
-          <div className="col-auto">
-            <label htmlFor="exampleInputPassword1" className="form-label">
-              <h2>Confirm password </h2>
-            </label>
-            <input
-              ref={confirmPasswordRef}
-              onChange={() => handleChange(confirmPasswordRef)}
-              type="password"
-              className="form-control shadow p-2 mb-3 bg-body rounded hover_input"
-              id="pass2"
-            />
-          </div>
-        </div>
-        <button
-          type="submit"
-          className="btn btn-dark btn-lg rounded-5 px-5 py-3"
-          onClick={clickButton}
+    <div
+        style={{
+            minHeight: "130vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            position: "relative",
+            zIndex: "0",
+            backgroundColor: "#181A20"
+        }}
         >
-          {submit ? (
-            <div>
-              <h3 className="fs-5">{message}</h3>
+        <div
+            className="signin-form"
+            style={{
+            backgroundColor: "rgba(0, 0, 0, 0.7)",
+            padding: "50px",
+            borderRadius: "30px",
+            width: "500px",
+            textAlign: "center",
+            boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+            height: "800px",
+            }}
+        >
+        <form className="form_base" onSubmit={submitForm}>
+          <h1 className="Sign display-1 text-warning" style={{ fontSize: "50px", marginTop: "0px", fontFamily: "Poppins"}}>Sign up</h1>
+          <div className="mb-3 d-flex flex-column gap-2">
+            <div className="FullName">
+              <div>
+                <div className="col-auto">
+                  <label htmlFor="inputPassword6" className="col-form-label">
+                    <h2>First Name </h2>
+                  </label>
+                </div>
+                <div className="col-auto">
+                  <input
+                    ref={firstNameRef}
+                    onChange={() => handleChange(firstNameRef, firstNameRef)}
+                    type="text"
+                    id="inputText1"
+                    className="form-control shadow py-2 px-3 bg-body rounded hover_input"
+                    aria-describedby="passwordHelpInline"
+                  />
+                </div>
+              </div>
+              <div>
+                <div className="col-auto">
+                  <label htmlFor="inputPassword7" className="col-form-label">
+                    <h2>Last Name </h2>
+                  </label>
+                </div>
+                <div className="col-auto">
+                  <input
+                    ref={lastNameRef}
+                    onChange={() => handleChange(lastNameRef)}
+                    type="text"
+                    id="inputText2"
+                    className="form-control shadow p-2 bg-body rounded hover_input"
+                    aria-describedby="passwordHelpInline"
+                  />
+                </div>
+              </div>
             </div>
-          ) : (
-            <h3 className="fs-5">{message}</h3>
-          )}
-        </button>
-      </form>
+
+            <div className="col-auto">
+              <label htmlFor="exampleInputEmail1" className="form-label">
+                <h2>Email </h2>
+              </label>
+              <input
+                ref={emailRef}
+                onChange={() => handleChange(emailRef)}
+                type="email"
+                className="form-control shadow p-2  bg-body rounded hover_input"
+                id="inputText3"
+                aria-describedby="emailHelp"
+              />
+            </div>
+            <div className="col-auto">
+              <label htmlFor="exampleInputEmail2" className="form-label">
+                <h2>Confirm email </h2>
+              </label>
+              <input
+                ref={confirmEmailRef}
+                onChange={() => handleChange(confirmEmailRef)}
+                type="email"
+                className="form-control shadow p-2  bg-body rounded hover_input"
+                id="inputText4"
+                aria-describedby="emailHelp"
+              />
+            </div>
+            <div className="col-auto">
+              <label htmlFor="exampleInputEmail3" className="form-label">
+                <h2>Password </h2>
+              </label>
+              <input
+                ref={passwordRef}
+                onChange={() => handleChange(passwordRef)}
+                type="password"
+                className="form-control shadow p-2 bg-body rounded hover_input"
+                id="pass1"
+                aria-describedby="emailHelp"
+              />
+            </div>
+            <div className="col-auto">
+              <label htmlFor="exampleInputPassword1" className="form-label">
+                <h2>Confirm password </h2>
+              </label>
+              <input
+                ref={confirmPasswordRef}
+                onChange={() => handleChange(confirmPasswordRef)}
+                type="password"
+                className="form-control shadow p-2 mb-3 bg-body rounded hover_input"
+                id="pass2"
+              />
+            </div>
+          </div>
+          <button
+            type="submit"
+            className="btn btn-dark btn-lg rounded-5 px-5 py-3"
+            onClick={clickButton}
+          >
+            {submit ? (
+              <div>
+                <h3 className="fs-5">{message}</h3>
+              </div>
+            ) : (
+              <h3 className="fs-5">{message}</h3>
+            )}
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
