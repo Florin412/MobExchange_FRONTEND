@@ -3,11 +3,39 @@ import Footer from "../footer/Footer";
 import "./Home.css";
 
 function Home() {
+  //default pentru fiecare moneda
+  // verificare daca moneda este mai mare sau mai mica decat cea cu care vrem sa facem convert
+  // mai mare /
+  // mai mic *
+
+  const exchangeRates = {
+    USD: { RON: 4.1, EUR: 0.85, GBP: 0.75, USD: 1 },
+    RON: { USD: 0.24, EUR: 0.21, GBP: 0.18, RON: 1 },
+    EUR: { USD: 1.18, RON: 4.88, GBP: 0.88, EUR: 1 },
+    GBP: { USD: 1.34, RON: 5.56, EUR: 1.14, GBP: 1 },
+  };
+
+  const tableInfo = [
+    [1, "RON", 1, "+0.075%"],
+    [2, "USD", 0.24, "+0.075%"],
+    [3, "EUR", 0.21, "-0.055%"],
+    [4, "GBP", 0.75, "+0.002%"],
+  ];
+
+  const availableCurrencies = ["RON", "USD", "EUR", "GBP"];
+
+  const titlesTables = ["#", "CurrName", "Price", "Percent"];
+
   const fromCurr = useRef(null);
 
   const [numberToConvert, setNumberToConvert] = useState("");
-  const [currencyFrom, setCurrencyFrom] = useState("$");
+  const [currencyFrom, setCurrencyFrom] = useState("USD");
+  const [currencyFinal, setCurrencyFinal] = useState("USD");
   const [currencyTo, setCurrencyTo] = useState("");
+  const [clickAddCurrency, setClickAddCurrency] = useState(false);
+
+  const [liveExchange, setLiveExchange] = useState();
+  const [buttonLiveExchange, setButtonLiveExchange] = useState();
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -24,13 +52,18 @@ function Home() {
 
   const convertHandler = () => {
     try {
-      console.log(numberToConvert);
-      // Logic to perform the conversion can go here
-      // For now, we are just resetting the values
-
-      setCurrencyTo(numberToConvert);
+      console.log(
+        `Converting from ${currencyFrom} to ${currencyFinal} with amount ${numberToConvert}`
+      );
+      const rate = exchangeRates[currencyFrom]?.[currencyFinal];
+      console.log(rate + " rate");
+      if (rate === undefined) {
+        throw new Error("Conversion rate not found");
+      }
+      const convertedValue = (Number(numberToConvert) * rate).toFixed(2);
+      setCurrencyTo(convertedValue);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
@@ -39,7 +72,18 @@ function Home() {
   };
 
   const handleCurrencyToChange = (e) => {
-    setCurrencyTo(e.target.value);
+    setCurrencyFinal(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const handleClickAddCurrency = (e) => {
+    e.preventDefault();
+    setClickAddCurrency(true);
+    console.log(clickAddCurrency + " add curency");
+  };
+
+  const handleLiveExchange = () => {
+    console.log("changed");
   };
 
   return (
@@ -93,7 +137,7 @@ function Home() {
             <select
               id="toCurr"
               className="labelFromSelect"
-              value={currencyTo}
+              value={currencyFinal}
               onChange={handleCurrencyToChange}
             >
               <option value="RON" id="toCurr0">
@@ -127,61 +171,47 @@ function Home() {
       </div>
 
       <div className="mainDiv tableDiv">
-        <table className="table">
-          <thead className="thead-light">
+        <table className="table table-bordered table-dark">
+          <thead>
             <tr>
-              <th scope="col" className="colorTh">
-                <span className="spanTh">#</span>
-              </th>
-              <th scope="col" className="colorTh">
-                <span className="spanTh">CurrName</span>
-              </th>
-              <th scope="col" className="colorTh">
-                <span className="spanTh">Price</span>
-              </th>
-              <th scope="col" className="colorTh">
-                <span className="spanTh">Percent</span>
-              </th>
+              {titlesTables.map((title) => (
+                <th scope="col" key={title}>
+                  {title}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row" className="colorTh">
-                1
-              </th>
-              <td className="colorTh">Mark</td>
-              <td className="colorTh">Otto</td>
-              <td className="colorTh">
-                <span className="percent percentGreen">+0.075%</span>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row" className="colorTh">
-                2
-              </th>
-              <td className="colorTh">Jacob</td>
-              <td className="colorTh">Thornton</td>
-              <td className="colorTh">
-                <span className="percent percentRed">-0.055%</span>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row" className="colorTh">
-                3
-              </th>
-              <td className="colorTh">fsafa</td>
-              <td className="colorTh">the Bird</td>
-              <td className="colorTh">
-                <span className="percent percentGreen">+0.002%</span>
-              </td>
-            </tr>
+            {tableInfo.map((row) => (
+              <tr key={row[0]}>
+                {row.map((cell, index) => (
+                  <td key={index}>{cell}</td>
+                ))}
+              </tr>
+            ))}
           </tbody>
         </table>
+
         <div className="div_table_button">
-          <button className="button_table">
+          <button className="button_table" onClick={handleClickAddCurrency}>
             <span className="button_span">+</span>
           </button>
-          <p className="table_p">Add Currency</p>
+          {clickAddCurrency ? (
+            <select
+              className="form-select"
+              aria-label="Default select example"
+              onChange={handleLiveExchange}
+            >
+              <option selected>Open this select menu</option>
+              {availableCurrencies.map((curr, index) => (
+                <option value={index} key={index}>
+                  {curr}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <p className="table_p">Add Currency</p>
+          )}
         </div>
       </div>
 
