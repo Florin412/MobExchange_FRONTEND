@@ -54,9 +54,9 @@ function App() {
           path="*"
           element={<Navigate to={"/register"}></Navigate>}
         ></Route>
-        <Route path="/about" component={<About></About>} />
-        <Route path="/privacy" component={<Privacy></Privacy>} />
-        <Route path="/cookie" component={<Cookie />} />
+        <Route path="/about" element={<About></About>} />
+        <Route path="/privacy" element={<Privacy></Privacy>} />
+        <Route path="/cookie" element={<Cookie />} />
       </Routes>
     </div>
   );
