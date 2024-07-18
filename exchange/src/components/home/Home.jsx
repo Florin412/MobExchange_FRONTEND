@@ -22,7 +22,15 @@ function Home() {
     [4, "GBP", 0.75, "+0.002%"],
   ];
 
-  const availableCurrencies = ["RON", "USD", "EUR", "GBP"];
+  const allCurrenciesAvailable = [
+    [1, "RON", 1, "+0.075%"],
+    [2, "USD", 0.24, "+0.075%"],
+    [3, "EUR", 0.21, "-0.055%"],
+    [4, "GBP", 0.75, "+0.002%"],
+    [5, "TEST", 1.11, "-0.001%"],
+  ];
+
+  const availableCurrencies = ["RON", "USD", "EUR", "GBP", "TEST"];
 
   const titlesTables = ["#", "CurrName", "Price", "Percent"];
 
@@ -33,9 +41,9 @@ function Home() {
   const [currencyFinal, setCurrencyFinal] = useState("USD");
   const [currencyTo, setCurrencyTo] = useState("");
   const [clickAddCurrency, setClickAddCurrency] = useState(false);
-
+  const [allCurrencies, setAllCurrencies] = useState(allCurrenciesAvailable);
   const [liveExchange, setLiveExchange] = useState();
-  const [buttonLiveExchange, setButtonLiveExchange] = useState();
+  const [tableInfoState, setTableInfoState] = useState(tableInfo);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -82,8 +90,26 @@ function Home() {
     console.log(clickAddCurrency + " add curency");
   };
 
-  const handleLiveExchange = () => {
-    console.log("changed");
+  const handleLiveExchange = (e) => {
+    const value = e.target.value;
+    setLiveExchange(value);
+    const [filteredInfo] = allCurrencies.filter((item) => item[1] === value);
+    console.log(filteredInfo);
+
+    const isAlreadyListed = tableInfoState.some((item) => item[1] === value);
+    console.log(isAlreadyListed);
+
+    if (isAlreadyListed === false) {
+      const [idTemp, currency, price, percent] = filteredInfo;
+      let id = tableInfoState.length + 1;
+      tableInfo.push[(currency, price, percent)];
+      setTableInfoState((prevTableInfo) => [
+        ...prevTableInfo,
+        [id, currency, price, percent],
+      ]);
+    } else {
+      alert("You have that selected the currency in the table");
+    }
   };
 
   return (
@@ -182,7 +208,7 @@ function Home() {
             </tr>
           </thead>
           <tbody>
-            {tableInfo.map((row) => (
+            {tableInfoState.map((row) => (
               <tr key={row[0]}>
                 {row.map((cell, index) => (
                   <td key={index}>{cell}</td>
@@ -201,10 +227,13 @@ function Home() {
               className="form-select"
               aria-label="Default select example"
               onChange={handleLiveExchange}
+              defaultValue={""}
             >
-              <option selected>Open this select menu</option>
+              <option disabled value={""}>
+                Open this select menu
+              </option>
               {availableCurrencies.map((curr, index) => (
-                <option value={index} key={index}>
+                <option value={curr} key={index}>
                   {curr}
                 </option>
               ))}
