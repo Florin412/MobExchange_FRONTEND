@@ -1,4 +1,4 @@
-h1 {
+/* h1 {
   font-size: 2rem;
 }
 
@@ -43,8 +43,8 @@ h1 {
 .hover_input:hover {
   transform: translateY(-0.5rem);
   transition: all ease 0.4s;
-  padding: 10px; /* Adjust the padding as needed */
+  padding: 10px; /* Adjust the padding as needed 
 
-  border: 1px solid rgb(20, 20, 146); /* Adjust the border as needed */
+  border: 1px solid rgb(20, 20, 146);  Adjust the border as needed 
   border-radius: 5px;
-}
+} */
