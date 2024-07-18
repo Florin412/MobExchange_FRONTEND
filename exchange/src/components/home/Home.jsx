@@ -102,6 +102,7 @@ function Home() {
 
     if (isAlreadyListed === false) {
       const [idTemp, currency, price, percent] = filteredInfo;
+      console.log(setAllCurrencies, liveExchange, idTemp);
       let id = tableInfoState.length + 1;
       tableInfo.push[(currency, price, percent)];
       setTableInfoState((prevTableInfo) => [
