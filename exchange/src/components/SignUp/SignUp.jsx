@@ -107,101 +107,88 @@ function SignUp() {
         className="signin-form"
         style={{
           backgroundColor: "rgba(0, 0, 0, 0.7)",
-          padding: "30px",
+          padding: "50px",
           borderRadius: "20px",
           width: "100%",
-          maxWidth: "500px",
+          maxWidth: "600px",
           textAlign: "center",
           boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
         }}
       >
-        <form className="row g-3" onSubmit={submitForm}>
+        <form className="row g-3" onSubmit={submitForm} style={{ fontFamily: "Poppins" }}>
           <h1 className="Sign display-1 text-warning mb-4" style={{ fontSize: "40px", fontFamily: "Poppins" }}>Sign up</h1>
-          <div className="mb-3">
-            <div className="col-md-12 mb-3">
+          <div className="mb-3 text-start">
+            <div className="col-md-12 mb-5">
               <label htmlFor="inputText1" className="form-label text-warning">
-                <h2 className="mb-2 text-start">First Name:</h2>
+                <h2 className="fs-1 mb-2 text-start" style={{ marginLeft: "40px" }}>First Name:</h2>
               </label>
               <input
                 ref={firstNameRef}
                 type="text"
                 className="form-control form-control-sm rounded-5"
                 id="inputText1"
-                style={{ fontSize: "15px", padding: "10px", marginTop: "-10px" }}
+                style={{ fontSize: "20px", padding: "5px" }}
                 onChange={() => handleChange(firstNameRef)}
               />
             </div>
-            <div className="col-md-12 mb-3" style={{ marginTop: "-40px" }}>
+            <div className="col-md-12 mb-2">
               <label htmlFor="inputText2" className="form-label text-warning">
-                <h2 className="mb-2 text-start">Last Name:</h2>
+                <h2 className="fs-1 mb-2 text-start" style={{ marginLeft: "40px" }}>Last Name:</h2>
               </label>
               <input
                 ref={lastNameRef}
                 type="text"
                 className="form-control form-control-sm rounded-5"
                 id="inputText2"
-                style={{ fontSize: "15px", padding: "10px", marginTop: "-10px" }}
+                style={{ fontSize: "20px", padding: "5px" }}
                 onChange={() => handleChange(lastNameRef)}
               />
             </div>
           </div>
-          <div className="mb-3" style={{ marginTop: "-50px" }}>
+          <div className="mb-4 text-start">
             <label htmlFor="inputEmail" className="form-label text-warning">
-              <h2 className="mb-2 text-start" >Email:</h2>
+              <h2 className="fs-1 mb-2 text-start" style={{ marginLeft: "40px" }}>Email:</h2>
             </label>
             <input
               ref={emailRef}
               type="email"
               className="form-control form-control-sm rounded-5"
               id="inputEmail"
-              style={{ fontSize: "15px", padding: "10px", marginTop: "-10px" }}
+              style={{ fontSize: "20px", padding: "5px" }}
               onChange={() => handleChange(emailRef)}
             />
           </div>
-          <div className="mb-3" style={{ marginTop: "-40px" }}>
-            <label htmlFor="inputConfirmEmail" className="form-label text-warning">
-              <h2 className="mb-2 text-start">Confirm Email:</h2>
-            </label>
-            <input
-              ref={confirmEmailRef}
-              type="email"
-              className="form-control form-control-sm rounded-5"
-              id="inputConfirmEmail"
-              style={{ fontSize: "15px", padding: "10px", marginTop: "-10px" }}
-              onChange={() => handleChange(confirmEmailRef)}
-            />
-          </div>
-          <div className="mb-3" style={{ marginTop: "-40px" }}>
+          <div className="mb-4 text-start">
             <label htmlFor="inputPassword" className="form-label text-warning">
-              <h2 className="mb-2 text-start">Password:</h2>
+              <h2 className="fs-1 mb-2 text-start" style={{ marginLeft: "40px" }}>Password:</h2>
             </label>
             <input
               ref={passwordRef}
               type="password"
               className="form-control form-control-sm rounded-5"
               id="inputPassword"
-              style={{ fontSize: "15px", padding: "10px", marginTop: "-10px" }}
+              style={{ fontSize: "20px", padding: "5px" }}
               onChange={() => handleChange(passwordRef)}
             />
           </div>
-          <div className="mb-3" style={{ marginTop: "-40px" }}>
+          <div className="mb-4 text-start">
             <label htmlFor="inputConfirmPassword" className="form-label text-warning">
-              <h2 className="mb-2 text-start">Confirm Password:</h2>
+              <h2 className="fs-1 mb-2 text-start" style={{ marginLeft: "40px" }}>Confirm Password:</h2>
             </label>
             <input
               ref={confirmPasswordRef}
               type="password"
               className="form-control form-control-sm rounded-5"
               id="inputConfirmPassword"
-              style={{ fontSize: "15px", padding: "10px", marginTop: "-10px" }}
+              style={{ fontSize: "20px", padding: "5px" }}
               onChange={() => handleChange(confirmPasswordRef)}
             />
           </div>
           <div className="text-center">
             <button
               type="submit"
-              className="btn btn-lg btn-warning rounded-pill" // Added btn-lg class to increase button size
-              style={{ marginTop: "-20px", padding: "10px 45px", fontSize: "40px" }} 
+              className="btn btn-lg btn-warning rounded-pill"
+              style={{ marginTop: "30px", padding: "10px 45px", fontSize: "20px" }}
               onClick={clickButton}
             >
               {submit ? (
