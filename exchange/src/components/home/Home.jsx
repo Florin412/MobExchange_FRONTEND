@@ -35,6 +35,7 @@ function Home() {
   const titlesTables = ["#", "CurrName", "Price", "Percent"];
 
   const fromCurr = useRef(null);
+  //salut
 
   const [numberToConvert, setNumberToConvert] = useState("");
   const [currencyFrom, setCurrencyFrom] = useState("USD");

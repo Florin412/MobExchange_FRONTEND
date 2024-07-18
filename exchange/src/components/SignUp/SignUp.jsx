@@ -94,133 +94,112 @@ function SignUp() {
 
   return (
     <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#181A20",
+        padding: "20px",
+      }}
+    >
+      <div
+        className="signin-form"
         style={{
-            minHeight: "130vh",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            position: "relative",
-            zIndex: "0",
-            backgroundColor: "#181A20"
+          backgroundColor: "rgba(0, 0, 0, 0.7)",
+          padding: "50px",
+          borderRadius: "20px",
+          width: "100%",
+          maxWidth: "600px",
+          textAlign: "center",
+          boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
         }}
-        >
-        <div
-            className="signin-form"
-            style={{
-            backgroundColor: "rgba(0, 0, 0, 0.7)",
-            padding: "50px",
-            borderRadius: "30px",
-            width: "500px",
-            textAlign: "center",
-            boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
-            height: "800px",
-            }}
-        >
-        <form className="form_base" onSubmit={submitForm}>
-          <h1 className="Sign display-1 text-warning" style={{ fontSize: "50px", marginTop: "0px", fontFamily: "Poppins"}}>Sign up</h1>
-          <div className="mb-3 d-flex flex-column gap-2">
-            <div className="FullName">
-              <div>
-                <div className="col-auto">
-                  <label htmlFor="inputPassword6" className="col-form-label">
-                    <h2>First Name </h2>
-                  </label>
-                </div>
-                <div className="col-auto">
-                  <input
-                    ref={firstNameRef}
-                    onChange={() => handleChange(firstNameRef, firstNameRef)}
-                    type="text"
-                    id="inputText1"
-                    className="form-control shadow py-2 px-3 bg-body rounded hover_input"
-                    aria-describedby="passwordHelpInline"
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="col-auto">
-                  <label htmlFor="inputPassword7" className="col-form-label">
-                    <h2>Last Name </h2>
-                  </label>
-                </div>
-                <div className="col-auto">
-                  <input
-                    ref={lastNameRef}
-                    onChange={() => handleChange(lastNameRef)}
-                    type="text"
-                    id="inputText2"
-                    className="form-control shadow p-2 bg-body rounded hover_input"
-                    aria-describedby="passwordHelpInline"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="col-auto">
-              <label htmlFor="exampleInputEmail1" className="form-label">
-                <h2>Email </h2>
+      >
+        <form className="row g-3" onSubmit={submitForm} style={{ fontFamily: "Poppins" }}>
+          <h1 className="Sign display-1 text-warning mb-4" style={{ fontSize: "40px", fontFamily: "Poppins" }}>Sign up</h1>
+          <div className="mb-3 text-start">
+            <div className="col-md-12 mb-5">
+              <label htmlFor="inputText1" className="form-label text-warning">
+                <h2 className="fs-1 mb-2 text-start" style={{ marginLeft: "40px" }}>First Name:</h2>
               </label>
               <input
-                ref={emailRef}
-                onChange={() => handleChange(emailRef)}
-                type="email"
-                className="form-control shadow p-2  bg-body rounded hover_input"
-                id="inputText3"
-                aria-describedby="emailHelp"
+                ref={firstNameRef}
+                type="text"
+                className="form-control form-control-sm rounded-5"
+                id="inputText1"
+                style={{ fontSize: "20px", padding: "5px" }}
+                onChange={() => handleChange(firstNameRef)}
               />
             </div>
-            <div className="col-auto">
-              <label htmlFor="exampleInputEmail2" className="form-label">
-                <h2>Confirm email </h2>
+            <div className="col-md-12 mb-2">
+              <label htmlFor="inputText2" className="form-label text-warning">
+                <h2 className="fs-1 mb-2 text-start" style={{ marginLeft: "40px" }}>Last Name:</h2>
               </label>
               <input
-                ref={confirmEmailRef}
-                onChange={() => handleChange(confirmEmailRef)}
-                type="email"
-                className="form-control shadow p-2  bg-body rounded hover_input"
-                id="inputText4"
-                aria-describedby="emailHelp"
-              />
-            </div>
-            <div className="col-auto">
-              <label htmlFor="exampleInputEmail3" className="form-label">
-                <h2>Password </h2>
-              </label>
-              <input
-                ref={passwordRef}
-                onChange={() => handleChange(passwordRef)}
-                type="password"
-                className="form-control shadow p-2 bg-body rounded hover_input"
-                id="pass1"
-                aria-describedby="emailHelp"
-              />
-            </div>
-            <div className="col-auto">
-              <label htmlFor="exampleInputPassword1" className="form-label">
-                <h2>Confirm password </h2>
-              </label>
-              <input
-                ref={confirmPasswordRef}
-                onChange={() => handleChange(confirmPasswordRef)}
-                type="password"
-                className="form-control shadow p-2 mb-3 bg-body rounded hover_input"
-                id="pass2"
+                ref={lastNameRef}
+                type="text"
+                className="form-control form-control-sm rounded-5"
+                id="inputText2"
+                style={{ fontSize: "20px", padding: "5px" }}
+                onChange={() => handleChange(lastNameRef)}
               />
             </div>
           </div>
-          <button
-            type="submit"
-            className="btn btn-dark btn-lg rounded-5 px-5 py-3"
-            onClick={clickButton}
-          >
-            {submit ? (
-              <div>
-                <h3 className="fs-5">{message}</h3>
-              </div>
-            ) : (
-              <h3 className="fs-5">{message}</h3>
-            )}
-          </button>
+          <div className="mb-4 text-start">
+            <label htmlFor="inputEmail" className="form-label text-warning">
+              <h2 className="fs-1 mb-2 text-start" style={{ marginLeft: "40px" }}>Email:</h2>
+            </label>
+            <input
+              ref={emailRef}
+              type="email"
+              className="form-control form-control-sm rounded-5"
+              id="inputEmail"
+              style={{ fontSize: "20px", padding: "5px" }}
+              onChange={() => handleChange(emailRef)}
+            />
+          </div>
+          <div className="mb-4 text-start">
+            <label htmlFor="inputPassword" className="form-label text-warning">
+              <h2 className="fs-1 mb-2 text-start" style={{ marginLeft: "40px" }}>Password:</h2>
+            </label>
+            <input
+              ref={passwordRef}
+              type="password"
+              className="form-control form-control-sm rounded-5"
+              id="inputPassword"
+              style={{ fontSize: "20px", padding: "5px" }}
+              onChange={() => handleChange(passwordRef)}
+            />
+          </div>
+          <div className="mb-4 text-start">
+            <label htmlFor="inputConfirmPassword" className="form-label text-warning">
+              <h2 className="fs-1 mb-2 text-start" style={{ marginLeft: "40px" }}>Confirm Password:</h2>
+            </label>
+            <input
+              ref={confirmPasswordRef}
+              type="password"
+              className="form-control form-control-sm rounded-5"
+              id="inputConfirmPassword"
+              style={{ fontSize: "20px", padding: "5px" }}
+              onChange={() => handleChange(confirmPasswordRef)}
+            />
+          </div>
+          <div className="text-center">
+            <button
+              type="submit"
+              className="btn btn-lg btn-warning rounded-pill"
+              style={{ marginTop: "30px", padding: "10px 45px", fontSize: "20px" }}
+              onClick={clickButton}
+            >
+              {submit ? (
+                <div>
+                  <h3 className="fs-7" style={{ marginTop: "3px" }}>{message}</h3>
+                </div>
+              ) : (
+                <h3 className="fs-7" style={{ marginTop: "3px" }}>{message}</h3>
+              )}
+            </button>
+          </div>
         </form>
       </div>
     </div>
