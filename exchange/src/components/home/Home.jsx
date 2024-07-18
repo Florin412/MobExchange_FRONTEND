@@ -4,6 +4,7 @@ import "./Home.css";
 
 function Home() {
   const fromCurr = useRef(null);
+  //salut
 
   const [numberToConvert, setNumberToConvert] = useState("");
   const [currencyFrom, setCurrencyFrom] = useState("$");

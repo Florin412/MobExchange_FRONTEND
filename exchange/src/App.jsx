@@ -42,7 +42,13 @@ function App() {
                   ? "/home"
                   : route === "signin"
                   ? "/signin"
-                  : "/signup"
+                  : route === "cookie"
+                  ? "/cookie"
+                  : route === "privacy"
+                  ? "/privacy"
+                  : route === "about"
+                  ? "/about"
+                  : "/register"
               }
             ></Navigate>
           }
@@ -50,14 +56,13 @@ function App() {
         <Route path="/home" element={<Home />}></Route>
         <Route path="/signin" element={<SignIn></SignIn>}></Route>
         <Route path="/register" element={<SignUp></SignUp>}></Route>
-        <Route path="/privacy" component={<Privacy></Privacy>} />
+        <Route path="/about" element={<About></About>} />
+        <Route path="/privacy" element={<Privacy></Privacy>} />
+        <Route path="/cookie" element={<Cookie />} />
         <Route
           path="*"
           element={<Navigate to={"/register"}></Navigate>}
         ></Route>
-        <Route path="/about" component={<About></About>} />
-
-        <Route path="/cookie" component={<Cookie />} />
       </Routes>
     </div>
   );
