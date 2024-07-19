@@ -54,7 +54,7 @@ function App() {
           }
         ></Route>
         <Route path="/home" element={<Home />}></Route>
-        <Route path="/signin" element={<SignIn></SignIn>}></Route>
+        <Route path="/signin" element={<SignIn onRouteChange={onRouteChange}></SignIn>}></Route>
         <Route path="/register" element={<SignUp></SignUp>}></Route>
         <Route path="/about" element={<About></About>} />
         <Route path="/privacy" element={<Privacy></Privacy>} />
