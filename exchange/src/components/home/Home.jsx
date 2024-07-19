@@ -1,6 +1,7 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Footer from "../footer/Footer";
 import "./Home.css";
+import axios from "axios";
 
 function Home() {
   //default pentru fiecare moneda
@@ -37,6 +38,7 @@ function Home() {
   const fromCurr = useRef(null);
   //salut
 
+  const [exchangeRatesState, setExchangeRatesState] = useState("");
   const [numberToConvert, setNumberToConvert] = useState("");
   const [currencyFrom, setCurrencyFrom] = useState("USD");
   const [currencyFinal, setCurrencyFinal] = useState("USD");
@@ -45,6 +47,27 @@ function Home() {
   const [allCurrencies, setAllCurrencies] = useState(allCurrenciesAvailable);
   const [liveExchange, setLiveExchange] = useState();
   const [tableInfoState, setTableInfoState] = useState(tableInfo);
+
+  useEffect(() => {
+    const fetchExchangeApi = async () => {
+      const api_key = "ddf8050f97a99073d99d4dcf";
+      const url = `https://v6.exchangerate-api.com/v6/${api_key}/latest/${currencyFrom}`;
+      try {
+        const response = await axios.get(url);
+        if (response.data.result === "success") {
+          setExchangeRatesState(response.data.conversion_rates);
+        } else {
+          console.error(
+            "Error fetching exchange rates:",
+            response.data["error-type"]
+          );
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchExchangeApi();
+  }, [currencyFrom]);
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -70,6 +93,7 @@ function Home() {
         throw new Error("Conversion rate not found");
       }
       const convertedValue = (Number(numberToConvert) * rate).toFixed(2);
+      console.log(convertedValue);
       setCurrencyTo(convertedValue);
     } catch (err) {
       console.error(err);
