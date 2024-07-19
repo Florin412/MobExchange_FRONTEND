@@ -6,7 +6,6 @@ function SignUp() {
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
   const emailRef = useRef(null);
-  const confirmEmailRef = useRef(null);
   const passwordRef = useRef(null);
   const confirmPasswordRef = useRef(null);
 
@@ -52,11 +51,6 @@ function SignUp() {
       return setMessage("Password must be between 6-20 characters");
     }
 
-    // Validate email match
-    if (emailRef.current.value !== confirmEmailRef.current.value) {
-      return setMessage("Emails do not match");
-    }
-
     // Validate password match
     if (passwordRef.current.value !== confirmPasswordRef.current.value) {
       return setMessage("Passwords do not match");
@@ -69,7 +63,6 @@ function SignUp() {
     firstNameRef.current.value = "";
     lastNameRef.current.value = "";
     emailRef.current.value = "";
-    confirmEmailRef.current.value = "";
     passwordRef.current.value = "";
     confirmPasswordRef.current.value = "";
 
