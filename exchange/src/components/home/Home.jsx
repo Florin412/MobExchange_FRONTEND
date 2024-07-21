@@ -4,49 +4,12 @@ import "./Home.css";
 import axios from "axios";
 
 function Home() {
-  //default pentru fiecare moneda
-  // verificare daca moneda este mai mare sau mai mica decat cea cu care vrem sa facem convert
-  // mai mare /
-  // mai mic *
-
-  const exchangeRates = {
-    USD: { RON: 4.1, EUR: 0.85, GBP: 0.75, USD: 1 },
-    RON: { USD: 0.24, EUR: 0.21, GBP: 0.18, RON: 1 },
-    EUR: { USD: 1.18, RON: 4.88, GBP: 0.88, EUR: 1 },
-    GBP: { USD: 1.34, RON: 5.56, EUR: 1.14, GBP: 1 },
-  };
-
-  const tableInfo = [
-    [1, "RON", 1, "+0.075%"],
-    [2, "USD", 0.24, "+0.075%"],
-    [3, "EUR", 0.21, "-0.055%"],
-    [4, "GBP", 0.75, "+0.002%"],
-  ];
-
-  const allCurrenciesAvailable = [
-    [1, "RON", 1, "+0.075%"],
-    [2, "USD", 0.24, "+0.075%"],
-    [3, "EUR", 0.21, "-0.055%"],
-    [4, "GBP", 0.75, "+0.002%"],
-    [5, "TEST", 1.11, "-0.001%"],
-  ];
-
-  const availableCurrencies = ["RON", "USD", "EUR", "GBP", "TEST"];
-
-  const titlesTables = ["#", "CurrName", "Price", "Percent"];
-
-  const fromCurr = useRef(null);
-  //salut
-
   const [exchangeRatesState, setExchangeRatesState] = useState("");
-  const [numberToConvert, setNumberToConvert] = useState("");
   const [currencyFrom, setCurrencyFrom] = useState("USD");
-  const [currencyFinal, setCurrencyFinal] = useState("USD");
-  const [currencyTo, setCurrencyTo] = useState("");
-  const [clickAddCurrency, setClickAddCurrency] = useState(false);
-  const [allCurrencies, setAllCurrencies] = useState(allCurrenciesAvailable);
-  const [liveExchange, setLiveExchange] = useState();
-  const [tableInfoState, setTableInfoState] = useState(tableInfo);
+  const [availableCurrencies, setAvailableCurrencies] = useState([]);
+  const [allCurrenciesAvailable, setAllCurrenciesAvailable] = useState([]);  
+  const [tableInfo, setTableInfo] = useState([]);
+
 
   useEffect(() => {
     const fetchExchangeApi = async () => {
@@ -56,6 +19,18 @@ function Home() {
         const response = await axios.get(url);
         if (response.data.result === "success") {
           setExchangeRatesState(response.data.conversion_rates);
+          setAvailableCurrencies(Object.keys(response.data.conversion_rates));
+
+          const currencies = Object.entries(response.data.conversion_rates).map(
+            ([currency, rate], index) => [index + 1, currency, rate]
+          );
+          setAllCurrenciesAvailable(currencies);
+
+          const filteredCurrencies = currencies.filter(
+            ([_, currency]) => ["RON", "EUR", "USD", "GBP"].includes(currency)
+          );
+
+          setTableInfoState(filteredCurrencies);
         } else {
           console.error(
             "Error fetching exchange rates:",
@@ -68,6 +43,50 @@ function Home() {
     };
     fetchExchangeApi();
   }, [currencyFrom]);
+
+
+
+  // const exchangeRates = {
+  //   USD: { RON: 4.1, EUR: 0.85, GBP: 0.75, USD: 1 },
+  //   RON: { USD: 0.24, EUR: 0.21, GBP: 0.18, RON: 1 },
+  //   EUR: { USD: 1.18, RON: 4.88, GBP: 0.88, EUR: 1 },
+  //   GBP: { USD: 1.34, RON: 5.56, EUR: 1.14, GBP: 1 },
+  // };
+
+  // const tableInfo = [
+  //   [1, "RON", 1, "+0.075%"],
+  //   [2, "USD", 0.24, "+0.075%"],
+  //   [3, "EUR", 0.21, "-0.055%"],
+  //   [4, "GBP", 0.75, "+0.002%"],
+  // ];
+
+  // const allCurrenciesAvailable = [
+  //   [1, "RON", 1, "+0.075%"],
+  //   [2, "USD", 0.24, "+0.075%"],
+  //   [3, "EUR", 0.21, "-0.055%"],
+  //   [4, "GBP", 0.75, "+0.002%"],
+  //   [5, "TEST", 1.11, "-0.001%"],
+  // ];
+
+  //let availableCurrencies = ["RON", "USD", "EUR", "GBP", "TEST"];
+
+  let titlesTables = ["#", "CurrName", "Price", "Percent"];
+
+  let fromCurr = useRef(null);
+
+
+
+  const [numberToConvert, setNumberToConvert] = useState("");
+  const [currencyFinal, setCurrencyFinal] = useState("USD");
+  const [currencyTo, setCurrencyTo] = useState("");
+  const [clickAddCurrency, setClickAddCurrency] = useState(false);
+  const [allCurrencies, setAllCurrencies] = useState(allCurrenciesAvailable);
+  const [liveExchange, setLiveExchange] = useState();
+  const [tableInfoState, setTableInfoState] = useState(tableInfo);
+
+  const availableCurrenciesFunction = () =>{
+    console.log('available curr')
+  }
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -82,31 +101,60 @@ function Home() {
     }
   };
 
+  //convertHandler with api data
   const convertHandler = () => {
     try {
-      console.log(
-        `Converting from ${currencyFrom} to ${currencyFinal} with amount ${numberToConvert}`
-      );
-      const rate = exchangeRates[currencyFrom]?.[currencyFinal];
-      console.log(rate + " rate");
-      if (rate === undefined) {
-        throw new Error("Conversion rate not found");
+      console.log(`The conversion is from ${currencyFrom} to ${currencyFinal}`)
+     
+      let result = Object.keys(exchangeRatesState).map(key => {
+        return { currency: key, rate: exchangeRatesState[key] };});
+
+      let exchangeRateTo = result.filter(item => item.currency.toLowerCase() === currencyFinal.toLowerCase())
+      console.log(exchangeRateTo)
+
+      if(exchangeRateTo === undefined){
+        throw new Error("We dont have that currency status")
       }
-      const convertedValue = (Number(numberToConvert) * rate).toFixed(2);
-      console.log(convertedValue);
-      setCurrencyTo(convertedValue);
+
+      let convertedValue = (Number(numberToConvert) * exchangeRateTo.map((item)=> item.rate)).toFixed(2);
+      console.log(convertedValue)
+      setCurrencyTo(convertedValue)
+     
     } catch (err) {
       console.error(err);
     }
   };
 
+
+
+  // converthandler with dummy data
+  // const convertHandler = () => {
+  //   try {
+  //     console.log(exchangeRatesState)
+  //     console.log(
+  //       `Converting from ${currencyFrom} to ${currencyFinal} with amount ${numberToConvert}`
+  //     );
+  //     const rate = exchangeRates[currencyFrom]?.[currencyFinal];
+  //     console.log(rate + " rate");
+  //     if (rate === undefined) {
+  //       throw new Error("Conversion rate not found");
+  //     }
+  //     const convertedValue = (Number(numberToConvert) * rate).toFixed(2);
+  //     console.log(convertedValue);
+  //     setCurrencyTo(convertedValue);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // };
+
   const handleCurrencyFromChange = (e) => {
     setCurrencyFrom(e.target.value);
   };
 
+
   const handleCurrencyToChange = (e) => {
     setCurrencyFinal(e.target.value);
-    console.log(e.target.value);
+  
   };
 
   const handleClickAddCurrency = (e) => {
@@ -117,8 +165,9 @@ function Home() {
 
   const handleLiveExchange = (e) => {
     const value = e.target.value;
+   
     setLiveExchange(value);
-    const [filteredInfo] = allCurrencies.filter((item) => item[1] === value);
+    const [filteredInfo] = allCurrenciesAvailable.filter((item) => item[1] === value);
     console.log(filteredInfo);
 
     const isAlreadyListed = tableInfoState.some((item) => item[1] === value);
@@ -126,15 +175,16 @@ function Home() {
 
     if (isAlreadyListed === false) {
       const [idTemp, currency, price, percent] = filteredInfo;
-      console.log(setAllCurrencies, liveExchange, idTemp);
       let id = tableInfoState.length + 1;
       tableInfo.push[(currency, price, percent)];
       setTableInfoState((prevTableInfo) => [
         ...prevTableInfo,
         [id, currency, price, percent],
       ]);
+      setClickAddCurrency(false);
     } else {
       alert("You have that selected the currency in the table");
+      setClickAddCurrency(false);
     }
   };
 
@@ -152,19 +202,14 @@ function Home() {
               className="labelFromSelect"
               value={currencyFrom}
               onChange={handleCurrencyFromChange}
+            
             >
-              <option value="RON" id="fromCurr0">
-                RON
-              </option>
-              <option value="USD" id="fromCurr1">
-                $ - US Dollar
-              </option>
-              <option value="EUR" id="fromCurr2">
-                € - Euro
-              </option>
-              <option value="GBP" id="fromCurr3">
-                £ - British Pound
-              </option>
+              {availableCurrencies.map((item, index) => (
+                <option key={index} value={item}>
+                  {item}
+                </option>
+              ))}
+              
             </select>
           </div>
 
@@ -192,18 +237,11 @@ function Home() {
               value={currencyFinal}
               onChange={handleCurrencyToChange}
             >
-              <option value="RON" id="toCurr0">
-                RON
-              </option>
-              <option value="USD" id="toCurr1">
-                $ - US Dollar
-              </option>
-              <option value="EUR" id="toCurr2">
-                € - Euro
-              </option>
-              <option value="GBP" id="toCurr3">
-                £ - British Pound
-              </option>
+               {availableCurrencies.map((item, index) => (
+                <option key={index} value={item}>
+                  {item}
+                </option>
+              ))}
             </select>
           </div>
 
