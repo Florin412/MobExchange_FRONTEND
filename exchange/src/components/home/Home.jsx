@@ -28,7 +28,7 @@ function Home() {
 
           const filteredCurrencies = currencies.filter(
             ([_, currency]) => ["RON", "EUR", "USD", "GBP"].includes(currency)
-          );
+          ).map(([_, currency, rate], index) => [index + 1, currency, rate]);
 
           setTableInfoState(filteredCurrencies);
         } else {
