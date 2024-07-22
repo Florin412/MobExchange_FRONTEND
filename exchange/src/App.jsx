@@ -8,6 +8,7 @@ import SignUp from "./components/SignUp/SignUp";
 import About from "./components/About/About";
 import Privacy from "./components/Privacy/Privacy";
 import Cookie from "./components/Cookie/Cookie";
+import ChangePassword from "./components/ChangePassword/ChangePassword";
 
 function App() {
   // Here is the default state of the app.
@@ -48,6 +49,8 @@ function App() {
                   ? "/privacy"
                   : route === "about"
                   ? "/about"
+                  : route === "changePassword"
+                  ? "/changePassword"
                   : "/register"
               }
             ></Navigate>
@@ -59,6 +62,7 @@ function App() {
         <Route path="/about" element={<About></About>} />
         <Route path="/privacy" element={<Privacy></Privacy>} />
         <Route path="/cookie" element={<Cookie />} />
+        <Route path="/changePassword" element={<ChangePassword></ChangePassword>}></Route>
         <Route
           path="*"
           element={<Navigate to={"/register"}></Navigate>}
