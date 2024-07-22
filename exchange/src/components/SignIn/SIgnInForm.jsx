@@ -46,7 +46,7 @@ const SignIn = ({ onRouteChange }) => {
     return re.test(email);
   };
 
-  const validateData = (e) => {
+  const validateInputsData = (e) => {
     e.preventDefault();
 
     setEmailError("");
@@ -191,7 +191,7 @@ const SignIn = ({ onRouteChange }) => {
               type="submit"
               className="fs-2 btn btn-lg btn-warning rounded-pill"
               style={{ marginTop: "20px", padding: "10px 45px" }}
-              onClick={validateData}
+              onClick={validateInputsData}
             >
               Submit
             </button>
