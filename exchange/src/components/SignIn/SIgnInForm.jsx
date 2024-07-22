@@ -27,6 +27,13 @@ const SignIn = ({ onRouteChange }) => {
         if (response.status === 200 || response.status === 201) {
           console.log("SignIn was a success.");
 
+          const accessToken = response.data.accessToken; // Access token received from the response
+          const refreshToken = response.data.refreshToken; // Refresh token received from the response
+
+          // Store the tokens in Local Storage for future use
+          localStorage.setItem("accessToken", accessToken);
+          localStorage.setItem("refreshToken", refreshToken);
+
           // Redirect the user to the main page
           onRouteChange("home");
           navigate("/home"); // this line just changes the URL route to .../home
@@ -102,7 +109,7 @@ const SignIn = ({ onRouteChange }) => {
           minHeight: "80vh" // Crește înălțimea casetei
         }}
       >
-        <form className="row g-3" onSubmit={validateData}>
+        <form className="row g-3" onSubmit={validateInputsData}>
           <h1
             className="Sign display-1 text-warning mb-4"
             style={{ fontSize: "40px", fontFamily: "Poppins" }}
@@ -191,7 +198,6 @@ const SignIn = ({ onRouteChange }) => {
               type="submit"
               className="fs-2 btn btn-lg btn-warning rounded-pill"
               style={{ marginTop: "20px", padding: "10px 45px" }}
-              onClick={validateInputsData}
             >
               Submit
             </button>
