@@ -18,18 +18,27 @@ const SignUp = ({ onRouteChange }) => {
   const navigate = useNavigate();
 
   const onSubmitRegister = () => {
+    console.log(firstName, lastName, email, password);
+
     axios
       .post("http://192.168.170.144:8080/auth/register", {
-        firstName,
-        lastName,
-        email,
-        password
+        firstname: firstName,
+        lastname: lastName,
+        email: email,
+        password: password
       })
       .then((response) => {
         console.log(response);
 
         if (response.status === 200 || response.status === 201) {
           console.log("Register was a success.");
+
+          const accessToken = response.data.accessToken; // Access token received from the response
+          const refreshToken = response.data.refreshToken; // Refresh token received from the response
+
+          // Store the tokens in Local Storage for future use
+          localStorage.setItem("accessToken", accessToken);
+          localStorage.setItem("refreshToken", refreshToken);
 
           // Redirect the user to the main page
           navigate("/home");
