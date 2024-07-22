@@ -16,21 +16,15 @@ const SignIn = ({ onRouteChange }) => {
   const onSubmitSignIn = () => {
     // Send a POST request to the login API endpoint
     axios
-      .post(
-        "https://api.example.com/login",
-        {
-          email: email,
-          password: password
-        },
-        {
-          headers: {
-            "Content-Type": "application/json"
-          }
-        }
-      )
+      .post("http://192.168.170.144:8080/auth/login", {
+        email: email,
+        password: password
+      })
       .then((response) => {
+        console.log(response);
+
         // If the response status is 200 (OK), log in was successful
-        if (response.status === 200) {
+        if (response.status === 200 || response.status === 201) {
           console.log("SignIn was a success.");
 
           // Redirect the user to the main page
@@ -38,7 +32,6 @@ const SignIn = ({ onRouteChange }) => {
           navigate("/home"); // this line just changes the URL route to .../home
         } else {
           // If the response status is not 200, login failed
-          // Display an error message to the user or redirect to the sign-up page
           console.error("SignIn was a fail.");
         }
       })
@@ -53,7 +46,7 @@ const SignIn = ({ onRouteChange }) => {
     return re.test(email);
   };
 
-  const submitForm = (e) => {
+  const validateData = (e) => {
     e.preventDefault();
 
     setEmailError("");
@@ -79,6 +72,8 @@ const SignIn = ({ onRouteChange }) => {
 
     if (valid) {
       console.log("Form submitted");
+      // Send a POST request to the login API endpoint.
+      onSubmitSignIn();
     }
   };
 
@@ -107,7 +102,7 @@ const SignIn = ({ onRouteChange }) => {
           minHeight: "80vh" // Crește înălțimea casetei
         }}
       >
-        <form className="row g-3" onSubmit={submitForm}>
+        <form className="row g-3" onSubmit={validateData}>
           <h1
             className="Sign display-1 text-warning mb-4"
             style={{ fontSize: "40px", fontFamily: "Poppins" }}
@@ -196,7 +191,7 @@ const SignIn = ({ onRouteChange }) => {
               type="submit"
               className="fs-2 btn btn-lg btn-warning rounded-pill"
               style={{ marginTop: "20px", padding: "10px 45px" }}
-              onClick={onSubmitSignIn}
+              onClick={validateData}
             >
               Submit
             </button>
