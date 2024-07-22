@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const SignIn = ({ onRouteChange }) => {
+const SignIn = ({ onRouteChange, setSignIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -36,6 +36,7 @@ const SignIn = ({ onRouteChange }) => {
 
           // Redirect the user to the main page
           onRouteChange("home");
+          setSignIn(true);
           navigate("/home"); // this line just changes the URL route to .../home
         } else {
           // If the response status is not 200, login failed
