@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const SignUp = ({ onRouteChange }) => {
+const SignUp = ({ onRouteChange, setIsSignedIn }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -42,6 +42,7 @@ const SignUp = ({ onRouteChange }) => {
 
           // Redirect the user to the main page
           navigate("/home");
+          setIsSignedIn(true);
           onRouteChange("home");
         } else {
           console.error("Register was a fail.");
