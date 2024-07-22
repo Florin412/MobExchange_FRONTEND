@@ -1,88 +1,94 @@
-import { useRef, useState } from "react";
-import "./SignUp.css";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-function SignUp() {
-  // Refs for each input field
-  const firstNameRef = useRef(null);
-  const lastNameRef = useRef(null);
-  const emailRef = useRef(null);
-  const passwordRef = useRef(null);
-  const confirmPasswordRef = useRef(null);
+const SignUp = ({ onRouteChange }) => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [firstNameError, setFirstNameError] = useState("");
+  const [lastNameError, setLastNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
-  const [submit, setSubmit] = useState(false);
-  const [message, setMessage] = useState("Submit");
-  const [inputValue, setInputValue] = useState(); // State to store input value
-  const [accountValues, setAccountValues] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: ""
-  });
+  const navigate = useNavigate();
 
-  // Delete the console.log after you get data from backend.
-  console.log(accountValues);
+  const onSubmitRegister = () => {
+    axios
+      .post("http://192.168.170.144:8080/auth/register", {
+        firstName,
+        lastName,
+        email,
+        password
+      })
+      .then((response) => {
+        console.log(response);
 
-  // Event handler for input change
-  const handleChange = (ref) => {
-    setInputValue(ref.current.value);
-    console.log(inputValue);
+        if (response.status === 200 || response.status === 201) {
+          console.log("Register was a success.");
+
+          // Redirect the user to the main page
+          navigate("/home");
+          onRouteChange("home");
+        } else {
+          console.error("Register was a fail.");
+        }
+      })
+      .catch((error) => {
+        console.error("Network error:", error);
+      });
   };
 
-  // Click handler for submit button
-  const clickButton = (event) => {
+  const verifyInputsData = (event) => {
     event.preventDefault();
 
-    // Check if all required fields are filled
-    if (
-      firstNameRef.current.value === "" ||
-      lastNameRef.current.value === "" ||
-      emailRef.current.value === "" ||
-      passwordRef.current.value === "" ||
-      confirmPasswordRef.current.value === ""
-    ) {
-      return setMessage("Fill all the inputs");
+    // Reset error messages
+    setFirstNameError("");
+    setLastNameError("");
+    setEmailError("");
+    setPasswordError("");
+    setConfirmPasswordError("");
+
+    let isValid = true; // Flag to track overall validity
+
+    // Validate first name
+    if (firstName.trim() === "") {
+      setFirstNameError("First name is required.");
+      isValid = false;
+    }
+
+    // Validate last name
+    if (lastName.trim() === "") {
+      setLastNameError("Last name is required.");
+      isValid = false;
+    }
+
+    // Validate email
+    if (email.trim() === "") {
+      setEmailError("Email is required.");
+      isValid = false;
     }
 
     // Validate password length
-    if (
-      passwordRef.current.value.length < 6 ||
-      passwordRef.current.value.length > 20
-    ) {
-      return setMessage("Password must be between 6-20 characters");
+    if (password.length < 6 || password.length > 20) {
+      setPasswordError("Password must be between 6-20 characters.");
+      isValid = false;
     }
 
     // Validate password match
-    if (passwordRef.current.value !== confirmPasswordRef.current.value) {
-      return setMessage("Passwords do not match");
+    if (password !== confirmPassword) {
+      setConfirmPasswordError("Passwords do not match.");
+      isValid = false;
     }
 
-    // If all validations pass, set success message and clear input values
-    setMessage("Success");
-
-    // Clear input fields
-    firstNameRef.current.value = "";
-    lastNameRef.current.value = "";
-    emailRef.current.value = "";
-    passwordRef.current.value = "";
-    confirmPasswordRef.current.value = "";
-
-    // Reset the state for accountValues
-    setAccountValues({
-      firstName: firstNameRef.current.value,
-      lastName: lastNameRef.current.value,
-      email: emailRef.current.value,
-      password: passwordRef.current.value
-    });
-
-    // Reset the submit state and message after a short delay
-    setTimeout(() => {
-      setSubmit(false);
-      setMessage("Submit");
-    }, 2000); // Reset submit state and message after 2 seconds
-  };
-
-  const submitForm = (e) => {
-    e.preventDefault();
+    // If all validations pass, submit the form
+    if (isValid) {
+      onSubmitRegister(); // Call the API to register
+    }
   };
 
   return (
@@ -93,7 +99,7 @@ function SignUp() {
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#181A20",
-        padding: "20px",
+        padding: "20px"
       }}
     >
       <div
@@ -105,98 +111,132 @@ function SignUp() {
           width: "100%",
           maxWidth: "600px",
           textAlign: "center",
-          boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+          boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"
         }}
       >
-        <form className="row g-3" onSubmit={submitForm} style={{ fontFamily: "Poppins" }}>
-          <h1 className="Sign display-1 text-warning mb-4" style={{ fontSize: "40px", fontFamily: "Poppins" }}>Sign up</h1>
+        <form
+          className="row g-3"
+          onSubmit={verifyInputsData}
+          style={{ fontFamily: "Poppins" }}
+        >
+          <h1
+            className="Sign display-1 text-warning mb-4"
+            style={{ fontSize: "40px", fontFamily: "Poppins" }}
+          >
+            Sign up
+          </h1>
           <div className="mb-3 text-start">
             <div className="col-md-12 mb-5">
-              <label htmlFor="inputText1" className="form-label text-warning">
-                <h2 className="fs-1 mb-2 text-start" style={{ marginLeft: "40px" }}>First Name:</h2>
+              <label htmlFor="firstName" className="form-label text-warning">
+                <h2 className="fs-1 mb-2 text-start">First Name:</h2>
               </label>
               <input
-                ref={firstNameRef}
                 type="text"
                 className="form-control form-control-sm rounded-5"
-                id="inputText1"
-                style={{ fontSize: "20px", padding: "5px" }}
-                onChange={() => handleChange(firstNameRef)}
+                id="firstName"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
               />
+              {firstNameError && (
+                <div
+                  className="fs-3 error-message text-danger"
+                  style={{ marginTop: "10px" }}
+                >
+                  {firstNameError}
+                </div>
+              )}
             </div>
             <div className="col-md-12 mb-2">
-              <label htmlFor="inputText2" className="form-label text-warning">
-                <h2 className="fs-1 mb-2 text-start" style={{ marginLeft: "40px" }}>Last Name:</h2>
+              <label htmlFor="lastName" className="form-label text-warning">
+                <h2 className="fs-1 mb-2 text-start">Last Name:</h2>
               </label>
               <input
-                ref={lastNameRef}
                 type="text"
                 className="form-control form-control-sm rounded-5"
-                id="inputText2"
-                style={{ fontSize: "20px", padding: "5px" }}
-                onChange={() => handleChange(lastNameRef)}
+                id="lastName"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
               />
-            </div>
-          </div>
-          <div className="mb-4 text-start">
-            <label htmlFor="inputEmail" className="form-label text-warning">
-              <h2 className="fs-1 mb-2 text-start" style={{ marginLeft: "40px" }}>Email:</h2>
-            </label>
-            <input
-              ref={emailRef}
-              type="email"
-              className="form-control form-control-sm rounded-5"
-              id="inputEmail"
-              style={{ fontSize: "20px", padding: "5px" }}
-              onChange={() => handleChange(emailRef)}
-            />
-          </div>
-          <div className="mb-4 text-start">
-            <label htmlFor="inputPassword" className="form-label text-warning">
-              <h2 className="fs-1 mb-2 text-start" style={{ marginLeft: "40px" }}>Password:</h2>
-            </label>
-            <input
-              ref={passwordRef}
-              type="password"
-              className="form-control form-control-sm rounded-5"
-              id="inputPassword"
-              style={{ fontSize: "20px", padding: "5px" }}
-              onChange={() => handleChange(passwordRef)}
-            />
-          </div>
-          <div className="mb-4 text-start">
-            <label htmlFor="inputConfirmPassword" className="form-label text-warning">
-              <h2 className="fs-1 mb-2 text-start" style={{ marginLeft: "40px" }}>Confirm Password:</h2>
-            </label>
-            <input
-              ref={confirmPasswordRef}
-              type="password"
-              className="form-control form-control-sm rounded-5"
-              id="inputConfirmPassword"
-              style={{ fontSize: "20px", padding: "5px" }}
-              onChange={() => handleChange(confirmPasswordRef)}
-            />
-          </div>
-          <div className="text-center">
-            <button
-              type="submit"
-              className="btn btn-lg btn-warning rounded-pill"
-              style={{ marginTop: "30px", padding: "10px 45px", fontSize: "20px" }}
-              onClick={clickButton}
-            >
-              {submit ? (
-                <div>
-                  <h3 className="fs-7" style={{ marginTop: "3px" }}>{message}</h3>
+              {lastNameError && (
+                <div
+                  className="fs-3 error-message text-danger"
+                  style={{ marginTop: "10px" }}
+                >
+                  {lastNameError}
                 </div>
-              ) : (
-                <h3 className="fs-7" style={{ marginTop: "3px" }}>{message}</h3>
               )}
+            </div>
+            <div className="col-md-12 mb-2">
+              <label htmlFor="email" className="form-label text-warning">
+                <h2 className="fs-1 mb-2 text-start">Email:</h2>
+              </label>
+              <input
+                type="email"
+                className="form-control form-control-sm rounded-5"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              {emailError && (
+                <div
+                  className="fs-3 error-message text-danger"
+                  style={{ marginTop: "10px" }}
+                >
+                  {emailError}
+                </div>
+              )}
+            </div>
+            <div className="col-md-12 mb-2">
+              <label htmlFor="password" className="form-label text-warning">
+                <h2 className="fs-1 mb-2 text-start">Password:</h2>
+              </label>
+              <input
+                type="password"
+                className="form-control form-control-sm rounded-5"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              {passwordError && (
+                <div
+                  className="fs-3 error-message text-danger"
+                  style={{ marginTop: "10px" }}
+                >
+                  {passwordError}
+                </div>
+              )}
+            </div>
+            <div className="col-md-12 mb-5">
+              <label
+                htmlFor="confirmPassword"
+                className="form-label text-warning"
+              >
+                <h2 className="fs-1 mb-2 text-start">Confirm Password:</h2>
+              </label>
+              <input
+                type="password"
+                className="form-control form-control-sm rounded-5"
+                id="confirmPassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+              {confirmPasswordError && (
+                <div
+                  className="fs-3 error-message text-danger"
+                  style={{ marginTop: "10px" }}
+                >
+                  {confirmPasswordError}
+                </div>
+              )}
+            </div>
+            <button type="submit" className="btn btn-warning rounded-5">
+              Register
             </button>
           </div>
         </form>
       </div>
     </div>
   );
-}
+};
 
 export default SignUp;
