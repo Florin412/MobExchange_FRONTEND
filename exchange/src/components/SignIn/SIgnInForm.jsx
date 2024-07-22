@@ -1,23 +1,23 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [emailError, setEmailError] =useState("");
-    const [passwordError, setPasswordError] =useState("");
-
+    const [emailError, setEmailError] = useState("");
+    const [passwordError, setPasswordError] = useState("");
 
     const validateEmail = (email) => {
         const re = /\S+@\S+\.\S+/;
         return re.test(email);
-    }
-
+    };
 
     const submitForm = (e) => {
-        e.preventDefault()
-             
-        setEmailError("")
-        setPasswordError("")
+        e.preventDefault();
+
+        setEmailError("");
+        setPasswordError("");
 
         let valid = true;
 
@@ -40,10 +40,9 @@ function SignIn() {
         if (valid) {
             console.log("Form submitted");
         }
+    };
 
-    }
-
-    return(
+    return (
         <div
             style={{
                 minHeight: "100vh",
@@ -64,8 +63,8 @@ function SignIn() {
                     maxWidth: "600px",
                     textAlign: "center",
                     boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-                    marginTop: "-50px", // Ridică caseta
-                    minHeight: "80vh", // Crește înălțimea casetei
+                    marginTop: "-50px",
+                    minHeight: "80vh",
                 }}
             >
                 <form className="row g-3" onSubmit={submitForm}>
@@ -73,7 +72,7 @@ function SignIn() {
                     <div className="mb-5 text-start">
                         <div className="col-md-12 mb-5">
                             <label htmlFor="InputEmail" className="form-label text-warning">
-                                <h2 className="fs-1 mb-3 text-start" style={{ marginTop:"50px", marginLeft: "40px" }}>Email address:</h2>
+                                <h2 className="fs-1 mb-3 text-start" style={{ marginTop: "50px", marginLeft: "40px" }}>Email address:</h2>
                             </label>
                             <input
                                 type="email"
@@ -98,17 +97,16 @@ function SignIn() {
                             {passwordError && <div className="fs-3 error-message text-danger" style={{ marginLeft: "40px", marginTop: "10px" }}>{passwordError}</div>}
                         </div>
                     </div>
-                    <div className="mb-4 form-check d-flex align-items-center" style={{ marginLeft: "40px", marginTop: "-20px" }}>
-                        <input type="checkbox" className="form-check-input me-2" id="Check1" style={{ transform: "scale(1.7)" }} />
-                        <label className="fs-3 form-check-label text-warning" htmlFor="Check1" style={{ marginLeft: "10px", marginTop: "4px" }}>Remember me</label>
+                    <div className="text-center mb-5">
+                        <Link to="/forgotpassword" className="text-warning text-decoration-none fs-2">Forgot Password</Link>
                     </div>
                     <div className="text-center">
                         <button
                             type="submit"
-                            className="fs-2 btn btn-lg btn-warning rounded-pill"
-                            style={{ marginTop: "20px", padding: "10px 45px" }}
+                            className="btn btn-lg btn-warning rounded-pill px-5 py-2"
+                            style={{ fontSize: "20px" }}
                         >
-                            Submit
+                            Sign In
                         </button>
                     </div>
                 </form>

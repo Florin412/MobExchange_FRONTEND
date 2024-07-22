@@ -30,7 +30,7 @@ const Footer = () => {
       <div className="row align-items-center" style={{ height: '70px' }}>
         {/* Logo Section */}
         <div className="col-12 col-md-6 text-center text-md-start mb-3 mb-md-0">
-          <h1 className="fs-1 fs-md-3 mb-0">
+          <h1 className="fs-md-3 mb-0" style={{ fontSize: "26px" }}>
             Mobi<span className="text-warning">Exchange</span>
           </h1>
         </div>
@@ -42,7 +42,7 @@ const Footer = () => {
             onMouseDown={() => handleMouseDown("about")}
             onMouseUp={handleMouseUp}
           >
-            <h3 className="m-0 fs-3 fs-md-5">
+            <h3 className="m-0 fs-2 fs-md-5">
               <Link to="/about" className="text-white text-decoration-none">
                 About
               </Link>
@@ -54,7 +54,7 @@ const Footer = () => {
             onMouseDown={() => handleMouseDown("privacy")}
             onMouseUp={handleMouseUp}
           >
-            <h3 className="m-0 fs-3 fs-md-5">
+            <h3 className="m-0 fs-2 fs-md-5">
               <Link to="/privacy" className="text-white text-decoration-none">
                 Privacy
               </Link>
@@ -66,7 +66,7 @@ const Footer = () => {
             onMouseDown={() => handleMouseDown("cookie")}
             onMouseUp={handleMouseUp}
           >
-            <h3 className="m-0 fs-3 fs-md-5">
+            <h3 className="m-0 fs-2 fs-md-5">
               <Link to="/cookie" className="text-white text-decoration-none">
                 Cookie
               </Link>
