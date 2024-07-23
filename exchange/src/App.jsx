@@ -14,7 +14,7 @@ import ChangePassword from "./components/ChangePassword/ChangePassword";
 function App() {
   // Here is the default state of the app.
   const [route, setRoute] = useState("signin");
-  const [isSignedIn, setSignIn] = useState(false);
+  const [isSignedIn, setIsSignedIn] = useState(false);
 
   // Changes the app route.
   const onRouteChange = (newRoute) => {
@@ -23,7 +23,7 @@ function App() {
 
   // Changes the app signin status.
   const onSignedInChange = (boolValue) => {
-    setSignIn(boolValue);
+    setIsSignedIn(boolValue);
   };
 
   return (
@@ -60,8 +60,8 @@ function App() {
           }
         ></Route>
         <Route path="/home" element={<Home />}></Route>
-        <Route path="/signin" element={<SignIn></SignIn>}></Route>
-        <Route path="/register" element={<SignUp></SignUp>}></Route>
+        <Route path="/signin" element={<SignIn onRouteChange={onRouteChange} setIsSignedIn={setIsSignedIn}></SignIn>}></Route>
+        <Route path="/register" element={<SignUp onRouteChange={onRouteChange} setIsSignedIn={setIsSignedIn}></SignUp>}></Route>
         <Route path="/about" element={<About></About>} />
         <Route path="/privacy" element={<Privacy></Privacy>} />
         <Route path="/cookie" element={<Cookie />} />
