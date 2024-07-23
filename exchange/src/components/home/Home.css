@@ -107,9 +107,6 @@ tr {
 .percentRed {
   color: #fa0000;
 }
-.table {
-  --bs-table-bg: #181a20;
-}
 
 .div_table_button {
   display: flex;
