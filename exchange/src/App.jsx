@@ -9,6 +9,7 @@ import About from "./components/About/About";
 import Privacy from "./components/Privacy/Privacy";
 import Cookie from "./components/Cookie/Cookie";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
+import ChangePassword from "./components/ChangePassword/ChangePassword";
 
 function App() {
   // Here is the default state of the app.
@@ -51,6 +52,8 @@ function App() {
                   ? "/about"
                   : route === "forgotpassword"
                   ? "/forgotpassword"
+                  : route === "changePassword"
+                  ? "/changePassword"
                   : "/register"
               }
             ></Navigate>
@@ -63,6 +66,7 @@ function App() {
         <Route path="/privacy" element={<Privacy></Privacy>} />
         <Route path="/cookie" element={<Cookie />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/changePassword" element={<ChangePassword></ChangePassword>}></Route>
         <Route
           path="*"
           element={<Navigate to={"/register"}></Navigate>}
