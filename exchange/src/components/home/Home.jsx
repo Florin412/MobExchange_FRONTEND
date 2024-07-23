@@ -19,7 +19,8 @@ function Home() {
 
   useEffect(() => {
     const fetchExchangeApi = async () => {
-      const url = `http://192.168.170.144:8080/exchange-rates/latest/${currencyFrom}`;
+      // const url = `http://192.168.170.144:8080/exchange-rates/latest/${currencyFrom}`;
+      const url = `http://192.168.170.158:8080/exchange-rates/latest/${currencyFrom}`;
 
       try {
         const response = await axios.get(url);
@@ -31,9 +32,14 @@ function Home() {
 
           setAvailableCurrencies([baseCurrency, ...Object.keys(rates)]);
 
-          const currencies = Object.entries(response.data.rates).map(
-            ([currency, rate], index) => [index + 1, currency, rate]
-          );
+          const currencies = [
+            [0, baseCurrency, 1], // Moneda de bază cu rată 1
+            ...Object.entries(rates).map(([currency, rate], index) => [
+              index + 1,
+              currency,
+              rate,
+            ]),
+          ];
           setAllCurrenciesAvailable(currencies);
 
           const filteredCurrencies = currencies
@@ -56,7 +62,7 @@ function Home() {
     fetchExchangeApi();
   }, [currencyFrom]);
 
-  let titlesTables = ["#", "CurrName", "Price", "Percent"];
+  let titlesTables = ["#", "CurrName", "Price"];
 
   let fromCurr = useRef(null);
 
@@ -84,22 +90,34 @@ function Home() {
     try {
       console.log(`The conversion is from ${currencyFrom} to ${currencyFinal}`);
 
+      // Convert exchangeRatesState to an array of objects
       let result = Object.keys(exchangeRatesState).map((key) => {
         return { currency: key, rate: exchangeRatesState[key] };
       });
+      console.log(result);
 
-      let exchangeRateTo = result.filter(
+      // Find the exchange rate for the final currency
+      let exchangeRateTo = result.find(
         (item) => item.currency.toLowerCase() === currencyFinal.toLowerCase()
       );
       console.log(exchangeRateTo);
 
-      if (exchangeRateTo === undefined) {
-        throw new Error("We dont have that currency status");
+      if (
+        !exchangeRateTo &&
+        currencyFrom.toLowerCase() !== currencyFinal.toLowerCase()
+      ) {
+        throw new Error("We don't have that currency status");
       }
 
-      let convertedValue = (
-        Number(numberToConvert) * exchangeRateTo.map((item) => item.rate)
-      ).toFixed(2);
+      let convertedValue;
+      if (currencyFrom.toLowerCase() === currencyFinal.toLowerCase()) {
+        convertedValue = numberToConvert;
+      } else {
+        convertedValue = (
+          Number(numberToConvert) * exchangeRateTo.rate
+        ).toFixed(2);
+      }
+
       console.log(convertedValue);
       setCurrencyTo(convertedValue);
     } catch (err) {
@@ -124,6 +142,7 @@ function Home() {
 
   const handleLiveExchange = (e) => {
     const value = e.target.value;
+    console.log(allCurrenciesAvailable);
 
     setLiveExchange(value);
     const [filteredInfo] = allCurrenciesAvailable.filter(
@@ -141,7 +160,7 @@ function Home() {
       tableInfo.push[(currency, price, percent)];
       setTableInfoState((prevTableInfo) => [
         ...prevTableInfo,
-        [id, currency, price, percent],
+        [id, currency, price],
       ]);
       setClickAddCurrency(false);
     } else {
@@ -235,7 +254,10 @@ function Home() {
             {tableInfoState.map((row) => (
               <tr key={row[0]}>
                 {row.map((cell, index) => (
-                  <td key={index}>{cell}</td>
+                  <td key={index}>
+                    {cell}
+                    {console.log(tableInfoState)}
+                  </td>
                 ))}
               </tr>
             ))}
