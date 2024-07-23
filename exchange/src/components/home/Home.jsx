@@ -1,16 +1,78 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Footer from "../footer/Footer";
 import "./Home.css";
+import axios from "axios";
 
 function Home() {
-  const fromCurr = useRef(null);
-  //salut
-
+  const [exchangeRatesState, setExchangeRatesState] = useState("");
+  const [currencyFrom, setCurrencyFrom] = useState("USD");
+  const [availableCurrencies, setAvailableCurrencies] = useState([]);
+  const [allCurrenciesAvailable, setAllCurrenciesAvailable] = useState([]);
+  const [tableInfo, setTableInfo] = useState([]);
   const [numberToConvert, setNumberToConvert] = useState("");
-  const [currencyFrom, setCurrencyFrom] = useState("$");
+  const [currencyFinal, setCurrencyFinal] = useState("USD");
   const [currencyTo, setCurrencyTo] = useState("");
+  const [clickAddCurrency, setClickAddCurrency] = useState(false);
+  const [allCurrencies, setAllCurrencies] = useState(allCurrenciesAvailable);
+  const [liveExchange, setLiveExchange] = useState();
+  const [tableInfoState, setTableInfoState] = useState(tableInfo);
+
+  useEffect(() => {
+    const fetchExchangeApi = async () => {
+      // const url = `http://192.168.170.144:8080/exchange-rates/latest/${currencyFrom}`;
+      const url = `http://192.168.170.158:8080/exchange-rates/latest/${currencyFrom}`;
+
+      try {
+        const response = await axios.get(url);
+        if (response.status === 200) {
+          const rates = response.data.rates;
+          const baseCurrency = response.data.base;
+
+          setExchangeRatesState(response.data.rates);
+
+          setAvailableCurrencies([baseCurrency, ...Object.keys(rates)]);
+
+          const currencies = [
+            [0, baseCurrency, 1], // Moneda de bază cu rată 1
+            ...Object.entries(rates).map(([currency, rate], index) => [
+              index + 1,
+              currency,
+              rate,
+            ]),
+          ];
+          setAllCurrenciesAvailable(currencies);
+
+          const filteredCurrencies = currencies
+            .filter(([_, currency]) =>
+              ["RON", "EUR", "USD", "GBP"].includes(currency)
+            )
+            .map(([_, currency, rate], index) => [index + 1, currency, rate]);
+
+          setTableInfoState(filteredCurrencies);
+        } else {
+          console.error(
+            "Error fetching exchange rates:",
+            response.data["error-type"]
+          );
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchExchangeApi();
+  }, [currencyFrom]);
+
+  let titlesTables = ["#", "CurrName", "Price"];
+
+  let fromCurr = useRef(null);
 
   const handleChange = (e) => {
+    console.log(
+      setTableInfoState,
+      setAllCurrencies,
+      setTableInfo,
+      liveExchange
+    );
     const value = e.target.value;
     try {
       if (isNaN(Number(value))) {
@@ -23,24 +85,88 @@ function Home() {
     }
   };
 
+  //convertHandler with api data
   const convertHandler = () => {
     try {
-      console.log(numberToConvert);
-      // Logic to perform the conversion can go here
-      // For now, we are just resetting the values
+      console.log(`The conversion is from ${currencyFrom} to ${currencyFinal}`);
 
-      setCurrencyTo(numberToConvert);
+      // Convert exchangeRatesState to an array of objects
+      let result = Object.keys(exchangeRatesState).map((key) => {
+        return { currency: key, rate: exchangeRatesState[key] };
+      });
+      console.log(result);
+
+      // Find the exchange rate for the final currency
+      let exchangeRateTo = result.find(
+        (item) => item.currency.toLowerCase() === currencyFinal.toLowerCase()
+      );
+      console.log(exchangeRateTo);
+
+      if (
+        !exchangeRateTo &&
+        currencyFrom.toLowerCase() !== currencyFinal.toLowerCase()
+      ) {
+        throw new Error("We don't have that currency status");
+      }
+
+      let convertedValue;
+      if (currencyFrom.toLowerCase() === currencyFinal.toLowerCase()) {
+        convertedValue = numberToConvert;
+      } else {
+        convertedValue = (
+          Number(numberToConvert) * exchangeRateTo.rate
+        ).toFixed(2);
+      }
+
+      console.log(convertedValue);
+      setCurrencyTo(convertedValue);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 
   const handleCurrencyFromChange = (e) => {
     setCurrencyFrom(e.target.value);
+    console.log(e.target.value);
   };
 
   const handleCurrencyToChange = (e) => {
-    setCurrencyTo(e.target.value);
+    setCurrencyFinal(e.target.value);
+  };
+
+  const handleClickAddCurrency = (e) => {
+    e.preventDefault();
+    setClickAddCurrency(true);
+    console.log(clickAddCurrency + " add curency");
+  };
+
+  const handleLiveExchange = (e) => {
+    const value = e.target.value;
+    console.log(allCurrenciesAvailable);
+
+    setLiveExchange(value);
+    const [filteredInfo] = allCurrenciesAvailable.filter(
+      (item) => item[1] === value
+    );
+    console.log(filteredInfo);
+
+    const isAlreadyListed = tableInfoState.some((item) => item[1] === value);
+    console.log(isAlreadyListed);
+
+    if (isAlreadyListed === false) {
+      const [idTemp, currency, price, percent] = filteredInfo;
+      console.log(idTemp, allCurrencies);
+      let id = tableInfoState.length + 1;
+      tableInfo.push[(currency, price, percent)];
+      setTableInfoState((prevTableInfo) => [
+        ...prevTableInfo,
+        [id, currency, price],
+      ]);
+      setClickAddCurrency(false);
+    } else {
+      alert("You have that selected the currency in the table");
+      setClickAddCurrency(false);
+    }
   };
 
   return (
@@ -58,18 +184,11 @@ function Home() {
               value={currencyFrom}
               onChange={handleCurrencyFromChange}
             >
-              <option value="RON" id="fromCurr0">
-                RON
-              </option>
-              <option value="USD" id="fromCurr1">
-                $ - US Dollar
-              </option>
-              <option value="EUR" id="fromCurr2">
-                € - Euro
-              </option>
-              <option value="GBP" id="fromCurr3">
-                £ - British Pound
-              </option>
+              {availableCurrencies.map((item, index) => (
+                <option key={index} value={item}>
+                  {item}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -94,21 +213,14 @@ function Home() {
             <select
               id="toCurr"
               className="labelFromSelect"
-              value={currencyTo}
+              value={currencyFinal}
               onChange={handleCurrencyToChange}
             >
-              <option value="RON" id="toCurr0">
-                RON
-              </option>
-              <option value="USD" id="toCurr1">
-                $ - US Dollar
-              </option>
-              <option value="EUR" id="toCurr2">
-                € - Euro
-              </option>
-              <option value="GBP" id="toCurr3">
-                £ - British Pound
-              </option>
+              {availableCurrencies.map((item, index) => (
+                <option key={index} value={item}>
+                  {item}
+                </option>
+              ))}
             </select>
           </div>
 
@@ -124,65 +236,57 @@ function Home() {
       </div>
 
       <div className="second-header-div">
-        <h2 className="second-header">Live Exchange Value</h2>
+        <h2 className="second-header">Live Exchange Value ${currencyFrom}</h2>
       </div>
 
       <div className="mainDiv tableDiv">
-        <table className="table">
-          <thead className="thead-light">
+        <table className="table table-bordered table-dark">
+          <thead>
             <tr>
-              <th scope="col" className="colorTh">
-                <span className="spanTh">#</span>
-              </th>
-              <th scope="col" className="colorTh">
-                <span className="spanTh">CurrName</span>
-              </th>
-              <th scope="col" className="colorTh">
-                <span className="spanTh">Price</span>
-              </th>
-              <th scope="col" className="colorTh">
-                <span className="spanTh">Percent</span>
-              </th>
+              {titlesTables.map((title) => (
+                <th scope="col" key={title}>
+                  {title}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="row" className="colorTh">
-                1
-              </th>
-              <td className="colorTh">Mark</td>
-              <td className="colorTh">Otto</td>
-              <td className="colorTh">
-                <span className="percent percentGreen">+0.075%</span>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row" className="colorTh">
-                2
-              </th>
-              <td className="colorTh">Jacob</td>
-              <td className="colorTh">Thornton</td>
-              <td className="colorTh">
-                <span className="percent percentRed">-0.055%</span>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row" className="colorTh">
-                3
-              </th>
-              <td className="colorTh">fsafa</td>
-              <td className="colorTh">the Bird</td>
-              <td className="colorTh">
-                <span className="percent percentGreen">+0.002%</span>
-              </td>
-            </tr>
+            {tableInfoState.map((row) => (
+              <tr key={row[0]}>
+                {row.map((cell, index) => (
+                  <td key={index}>
+                    {cell}
+                    {console.log(tableInfoState)}
+                  </td>
+                ))}
+              </tr>
+            ))}
           </tbody>
         </table>
+
         <div className="div_table_button">
-          <button className="button_table">
+          <button className="button_table" onClick={handleClickAddCurrency}>
             <span className="button_span">+</span>
           </button>
-          <p className="table_p">Add Currency</p>
+          {clickAddCurrency ? (
+            <select
+              className="form-select"
+              aria-label="Default select example"
+              onChange={handleLiveExchange}
+              defaultValue={""}
+            >
+              <option disabled value={""}>
+                Open this select menu
+              </option>
+              {availableCurrencies.map((curr, index) => (
+                <option value={curr} key={index}>
+                  {curr}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <p className="table_p">Add Currency</p>
+          )}
         </div>
       </div>
 
