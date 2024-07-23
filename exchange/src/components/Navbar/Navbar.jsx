@@ -56,16 +56,16 @@ const Navigation = ({ isSignedIn, onSignedInChange, onRouteChange }) => {
                   border: '1px solid #FFD824'
                 }}>
               <li>
-                <a
+                <Link
+                  to="/change-password"
                   className="dropdown-item"
-                  href="#/change-password"
                   onClick={() => {
                     onRouteChange("change-password");
                   }}
                   style={{ fontSize: '16px' }}
                 >
                   Change Password
-                </a>
+                </Link>
               </li>
               <li>
                 <Link

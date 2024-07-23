@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const SignIn = ({ onRouteChange, setIsSignedIn }) => {
@@ -176,24 +177,9 @@ const SignIn = ({ onRouteChange, setIsSignedIn }) => {
               )}
             </div>
           </div>
-          <div
-            className="mb-4 form-check d-flex align-items-center"
-            style={{ marginLeft: "40px", marginTop: "-20px" }}
-          >
-            <input
-              type="checkbox"
-              className="form-check-input me-2"
-              id="Check1"
-              style={{ transform: "scale(1.7)" }}
-            />
-            <label
-              className="fs-3 form-check-label text-warning"
-              htmlFor="Check1"
-              style={{ marginLeft: "10px", marginTop: "4px" }}
-            >
-              Remember me
-            </label>
-          </div>
+          <div className="text-center mb-5">
+                        <Link to="/forgotpassword" className="text-warning text-decoration-none fs-2">Forgot Password</Link>
+                    </div>
           <div className="text-center">
             <button
               type="submit"

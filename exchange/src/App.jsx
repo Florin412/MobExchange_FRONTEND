@@ -52,8 +52,8 @@ function App() {
                   ? "/about"
                   : route === "forgotpassword"
                   ? "/forgotpassword"
-                  : route === "changePassword"
-                  ? "/changePassword"
+                  : route === "change-password"
+                  ? "/change-password"
                   : "/register"
               }
             ></Navigate>
@@ -66,7 +66,7 @@ function App() {
         <Route path="/privacy" element={<Privacy></Privacy>} />
         <Route path="/cookie" element={<Cookie />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
-        <Route path="/changePassword" element={<ChangePassword></ChangePassword>}></Route>
+        <Route path="/change-password" element={<ChangePassword />} />
         <Route
           path="*"
           element={<Navigate to={"/register"}></Navigate>}
