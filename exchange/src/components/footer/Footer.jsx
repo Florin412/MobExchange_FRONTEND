@@ -30,8 +30,19 @@ const Footer = () => {
       <div className="row align-items-center" style={{ height: '70px' }}>
         {/* Logo Section */}
         <div className="col-12 col-md-6 text-center text-md-start mb-3 mb-md-0">
-          <h1 className="fs-md-3 mb-0" style={{ fontSize: "26px" }}>
-            Mobi<span className="text-warning">Exchange</span>
+         <h1
+            className="fs-md-3 mb-0"
+            style={{
+              fontSize: '2.5rem',
+              fontWeight: '700',
+              letterSpacing: '0px',
+              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)',
+            }}
+          >
+            Mobi
+            <span className="text-warning" style={{ fontWeight: '700', textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>
+              Exchange
+            </span>
           </h1>
         </div>
         {/* Links Section */}

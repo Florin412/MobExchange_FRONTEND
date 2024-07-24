@@ -8,21 +8,32 @@ const Navigation = ({ isSignedIn, onSignedInChange, onRouteChange }) => {
       <div className="container-fluid">
         {/* Logo */}
         <Link
-          className="navbar-brand ms-3"
+          className="navbar-brand d-flex align-items-center ms-3"
           to="/home"
           onClick={() => {
             onSignedInChange(true);
             onRouteChange("home");
           }}
         >
-          <h1 className="mb-0" style={{ fontSize: '2.5rem' }}>
-            Mobi<span className="text-warning">Exchange</span>
+          <h1
+            className="mb-0 d-flex align-items-center"
+            style={{
+              fontSize: '2.5rem',
+              fontWeight: '700',
+              letterSpacing: '0px',
+              textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)'
+            }}
+          >
+            Mobi
+            <span className="text-warning" style={{ fontWeight: '700', textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>
+              Exchange
+            </span>
           </h1>
         </Link>
 
         {/* Conditional rendering for profile image or hamburger menu */}
         {isSignedIn ? (
-          <li className="nav-item dropdown d-lg-none" style={{ listStyleType: 'none' }}>
+          <li className="nav-item dropdown d-lg-none" style={{ listStyleType: 'none'  }}>
             <a
               className="nav-link"
               href="#"
@@ -32,8 +43,6 @@ const Navigation = ({ isSignedIn, onSignedInChange, onRouteChange }) => {
               aria-expanded="false"
               style={{
                 padding: '0',
-                display: 'flex',
-                alignItems: 'center'
               }}
             >
               <img
@@ -49,20 +58,37 @@ const Navigation = ({ isSignedIn, onSignedInChange, onRouteChange }) => {
                 }}
               />
             </a>
-            <ul className="dropdown-menu dropdown-menu-end shadow-lg"
+            <ul className="dropdown-menu dropdown-menu-end shadow-lg p-3"
                 aria-labelledby="profileDropdownMobile"
                 style={{
                   backgroundColor: '#FFD824',
-                  border: '1px solid #FFD824'
+                  border: '1px solid #FFD824',
+                  borderRadius: '10px', // Colțuri rotunjite
+                  minWidth: '200px', // Lățime minimă pentru dropdown
+                  padding: '0', // Eliminăm padding-ul pentru a controla mai bine stilul
                 }}>
               <li>
                 <Link
                   to="/change-password"
                   className="dropdown-item"
                   onClick={() => {
-                    onRouteChange("change-password");
+                    onRouteChange("/change-password");
                   }}
-                  style={{ fontSize: '16px' }}
+                  style={{
+                    fontSize: '18px',
+                    padding: '12px 20px', 
+                    borderRadius: '5px', 
+                    color: 'black', 
+                    transition: 'background-color 0.3s ease, color 0.3s ease', // Tranziție pentru fundal și culoare text
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.backgroundColor = '#f0c300'; // Schimbă culoarea fundalului la hover
+                    e.target.style.color = 'black'; // Schimbă culoarea textului la hover
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.backgroundColor = 'transparent'; // Revine la culoarea inițială
+                    e.target.style.color = 'black'; // Revine la culoarea inițială a textului
+                  }}
                 >
                   Change Password
                 </Link>
@@ -75,7 +101,21 @@ const Navigation = ({ isSignedIn, onSignedInChange, onRouteChange }) => {
                     onSignedInChange(false);
                     onRouteChange("signin");
                   }}
-                  style={{ fontSize: '16px' }}
+                  style={{
+                    fontSize: '18px', 
+                    padding: '12px 20px', 
+                    borderRadius: '5px', 
+                    color: 'black', 
+                    transition: 'background-color 0.3s ease, color 0.3s ease', // Tranziție pentru fundal și culoare text
+                  }}
+                  onMouseEnter={(e) => {
+                    e.target.style.backgroundColor = '#f0c300'; // Schimbă culoarea fundalului la hover
+                    e.target.style.color = 'black'; // Schimbă culoarea textului la hover
+                  }}
+                  onMouseLeave={(e) => {
+                    e.target.style.backgroundColor = 'transparent'; // Revine la culoarea inițială
+                    e.target.style.color = 'black'; // Revine la culoarea inițială a textului
+                  }}
                 >
                   Sign Out
                 </Link>
@@ -205,11 +245,23 @@ const Navigation = ({ isSignedIn, onSignedInChange, onRouteChange }) => {
                       backgroundColor: 'white',
                       color: 'black',
                       border: '1px solid black',
-                      padding: '8px 16px',
+                      padding: '10px 20px',
                       fontFamily: 'Poppins',
                       fontSize: '18px',
                       borderRadius: '30px',
-                      boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 15px',
+                      boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)', // Umbra neagră
+                      textAlign: 'center',
+                      textDecoration: 'none',
+                      transition: 'all 0.3s ease',
+                    }}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.boxShadow = '0px 6px 12px rgba(0, 0, 0, 0.5)';
+                      e.currentTarget.style.backgroundColor = '#f0f0f0'; // Schimbă culoarea de fundal la hover
+                      e.currentTarget.style.color = 'black'; // Culoarea textului rămâne constantă
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.3)';
+                      e.currentTarget.style.backgroundColor = 'white'; // Restaurează culoarea de fundal
                     }}
                   >
                     Sign In
@@ -229,11 +281,23 @@ const Navigation = ({ isSignedIn, onSignedInChange, onRouteChange }) => {
                       backgroundColor: '#FFD824',
                       color: 'black',
                       border: '1px solid black',
-                      padding: '8px 16px',
+                      padding: '10px 20px',
                       fontFamily: 'Poppins',
                       fontSize: '18px',
                       borderRadius: '30px',
-                      boxShadow: 'rgba(0, 0, 0, 0.2) 0px 5px 15px',
+                      boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.3)', // Umbra neagră
+                      textAlign: 'center',
+                      textDecoration: 'none',
+                      transition: 'all 0.3s ease',
+                    }}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.boxShadow = '0px 6px 12px rgba(0, 0, 0, 0.5)';
+                      e.currentTarget.style.backgroundColor = '#f7f0b8'; // Schimbă culoarea de fundal la hover
+                      e.currentTarget.style.color = 'black'; // Culoarea textului rămâne constantă
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.3)';
+                      e.currentTarget.style.backgroundColor = '#FFD824'; // Restaurează culoarea de fundal
                     }}
                   >
                     Sign Up

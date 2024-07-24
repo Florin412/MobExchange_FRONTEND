@@ -25,7 +25,7 @@ const SignUp = ({ onRouteChange, setIsSignedIn }) => {
         firstname: firstName,
         lastname: lastName,
         email: email,
-        password: password
+        password: password,
       })
       .then((response) => {
         console.log(response);
@@ -103,155 +103,166 @@ const SignUp = ({ onRouteChange, setIsSignedIn }) => {
 
   return (
     <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#181A20",
-        padding: "20px"
-      }}
+      className="d-flex justify-content-center align-items-center min-vh-100"
+      style={{ backgroundColor: "#181A20" }}
     >
       <div
-        className="signin-form"
-        style={{
-          backgroundColor: "rgba(0, 0, 0, 0.7)",
-          padding: "50px",
-          borderRadius: "20px",
-          width: "100%",
-          maxWidth: "600px",
-          textAlign: "center",
-          boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px"
-        }}
+        className="bg-dark text-light p-4 rounded-4 shadow-lg mt-4"
+        style={{ maxWidth: "600px", width: "100%" }}
       >
         <form
-          className="row g-3"
+          className="row g-4"
           onSubmit={verifyInputsData}
-          style={{ fontFamily: "Poppins" }}
         >
           <h1
-            className="Sign display-1 text-warning mb-4"
-            style={{ fontSize: "40px", fontFamily: "Poppins" }}
+            className="text-warning text-center mb-4 fw-bold pt-3"
+            style={{ fontSize: "48px", fontFamily: "Poppins", textShadow: "2px 2px 4px rgba(0,0,0,0.6)" }}
           >
-            Sign up
+            Sign Up
           </h1>
-          <div className="mb-3 text-start">
-            <div className="col-md-12 mb-5">
-              <label htmlFor="firstName" className="form-label text-warning">
-                <h2 className="fs-1 mb-2 text-start" style={{ marginLeft: "40px" }}>First Name:</h2>
-              </label>
-              <input
-                type="text"
-                className="form-control form-control-sm rounded-5"
-                id="firstName"
-                style={{ fontSize: "20px", padding: "5px" }}
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-              />
-              {firstNameError && (
-                <div
-                  className="fs-3 error-message text-danger"
-                  style={{ marginTop: "10px", marginLeft: "40px" }}
-                >
-                  {firstNameError}
-                </div>
-              )}
-            </div>
-            <div className="col-md-12 mb-5">
-              <label htmlFor="lastName" className="form-label text-warning">
-                <h2 className="fs-1 mb-2 text-start" style={{ marginLeft: "40px" }}>Last Name:</h2>
-              </label>
-              <input
-                type="text"
-                className="form-control form-control-sm rounded-5"
-                id="lastName"
-                style={{ fontSize: "20px", padding: "5px" }}
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-              />
-              {lastNameError && (
-                <div
-                  className="fs-3 error-message text-danger"
-                  style={{ marginTop: "10px", marginLeft: "40px" }}
-                >
-                  {lastNameError}
-                </div>
-              )}
-            </div>
-            <div className="col-md-12 mb-5">
-              <label htmlFor="email" className="form-label text-warning">
-                <h2 className="fs-1 mb-2 text-start" style={{ marginLeft: "40px" }}>Email:</h2>
-              </label>
-              <input
-                type="email"
-                className="form-control form-control-sm rounded-5"
-                id="email"
-                style={{ fontSize: "20px", padding: "5px" }}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              {emailError && (
-                <div
-                  className="fs-3 error-message text-danger"
-                  style={{ marginTop: "10px", marginLeft: "40px" }}
-                >
-                  {emailError}
-                </div>
-              )}
-            </div>
-            <div className="col-md-12 mb-5">
-              <label htmlFor="password" className="form-label text-warning">
-                <h2 className="fs-1 mb-2 text-start" style={{ marginLeft: "40px" }}>Password:</h2>
-              </label>
-              <input
-                type="password"
-                className="form-control form-control-sm rounded-5"
-                id="password"
-                style={{ fontSize: "20px", padding: "5px" }}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              {passwordError && (
-                <div
-                  className="fs-3 error-message text-danger"
-                  style={{ marginTop: "10px", marginLeft: "40px" }}
-                >
-                  {passwordError}
-                </div>
-              )}
-            </div>
-            <div className="col-md-12 mb-5">
-              <label
-                htmlFor="confirmPassword"
-                className="form-label text-warning"
+          <div className="mb-4">
+            <label htmlFor="firstName" className="form-label text-warning">
+              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>First Name:</h2>
+            </label>
+            <input
+              type="text"
+              className="form-control form-control-sm rounded-pill px-4"
+              id="firstName"
+              style={{ 
+                fontSize: "20px", 
+                padding: "5px", 
+                maxWidth: "510px", 
+                marginLeft: "auto", 
+                marginRight: "auto" 
+                }}
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+            {firstNameError && (
+              <div
+                className="fs-3 text-danger"
+                style={{ marginTop: "10px", marginLeft: "40px" }}
               >
-                <h2 className="fs-1 mb-2 text-start" style={{ marginLeft: "40px" }}>Confirm Password:</h2>
-              </label>
-              <input
-                type="password"
-                className="form-control form-control-sm rounded-5"
-                id="confirmPassword"
-                style={{ fontSize: "20px", padding: "5px" }}
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-              {confirmPasswordError && (
-                <div
-                  className="fs-3 error-message text-danger"
-                  style={{ marginTop: "10px", marginLeft: "40px" }}
-                >
-                  {confirmPasswordError}
-                </div>
-              )}
-            </div>
-            <div className="text-center">
-              <button type="submit" 
-                className="btn btn-lg btn-warning rounded-pill"
-                style={{ marginTop: "30px", padding: "10px 45px", fontSize: "20px" }}
+                {firstNameError}
+              </div>
+            )}
+          </div>
+          <div className="mb-4">
+            <label htmlFor="lastName" className="form-label text-warning">
+              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>Last Name:</h2>
+            </label>
+            <input
+              type="text"
+              className="form-control form-control-sm rounded-pill px-4"
+              id="lastName"
+              style={{ 
+                fontSize: "20px", 
+                padding: "5px", 
+                maxWidth: "510px", 
+                marginLeft: "auto", 
+                marginRight: "auto" 
+                }}
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+            {lastNameError && (
+              <div
+                className="fs-3 text-danger"
+                style={{ marginTop: "10px", marginLeft: "40px" }}
               >
-                Register
-              </button>
-            </div>
+                {lastNameError}
+              </div>
+            )}
+          </div>
+          <div className="mb-4">
+            <label htmlFor="email" className="form-label text-warning">
+              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>Email:</h2>
+            </label>
+            <input
+              type="text"
+              className="form-control form-control-sm rounded-pill px-4"
+              id="email"
+              style={{ 
+                fontSize: "20px", 
+                padding: "5px", 
+                maxWidth: "510px", 
+                marginLeft: "auto", 
+                marginRight: "auto" 
+                }}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            {emailError && (
+              <div
+                className="fs-3 text-danger"
+                style={{ marginTop: "10px", marginLeft: "40px" }}
+              >
+                {emailError}
+              </div>
+            )}
+          </div>
+          <div className="mb-4">
+            <label htmlFor="password" className="form-label text-warning">
+              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>Password:</h2>
+            </label>
+            <input
+              type="password"
+              className="form-control form-control-sm rounded-pill px-4"
+              id="password"
+              style={{ 
+                fontSize: "20px", 
+                padding: "5px", 
+                maxWidth: "510px", 
+                marginLeft: "auto", 
+                marginRight: "auto" 
+                }}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {passwordError && (
+              <div
+                className="fs-3 text-danger"
+                style={{ marginTop: "10px", marginLeft: "40px" }}
+              >
+                {passwordError}
+              </div>
+            )}
+          </div>
+          <div className="mb-4">
+            <label htmlFor="confirmPassword" className="form-label text-warning">
+              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>Confirm Password:</h2>
+            </label>
+            <input
+              type="password"
+              className="form-control form-control-sm rounded-pill px-4"
+              id="confirmPassword"
+              style={{ 
+                fontSize: "20px", 
+                padding: "5px", 
+                maxWidth: "510px", 
+                marginLeft: "auto", 
+                marginRight: "auto" 
+                }}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            {confirmPasswordError && (
+              <div
+                className="fs-3 text-danger"
+                style={{ marginTop: "10px", marginLeft: "40px" }}
+              >
+                {confirmPasswordError}
+              </div>
+            )}
+          </div>
+          <div className="text-center pb-4">
+            <button 
+              type="submit" 
+              className="btn btn-warning rounded-pill shadow-lg"
+              style={{ padding: "12px 40px", fontSize: "18px", fontWeight: "bold" }}
+            >
+              Register
+            </button>
           </div>
         </form>
       </div>
