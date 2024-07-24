@@ -74,7 +74,10 @@ function App() {
 
                 if (refreshResponse.status === 200) {
                   const newAccessToken = refreshResponse.data.accessToken;
+                  const newRefreshToken = refreshResponse.data.refreshToken;
+
                   localStorage.setItem("accessToken", newAccessToken);
+                  localStorage.setItem("refreshToken", newRefreshToken);
 
                   // Check again if the new token is valid
                   const verificationResponse = await axios.get(
