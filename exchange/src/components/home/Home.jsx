@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Footer from "../footer/Footer";
 import "./Home.css";
 import axios from "axios";
+import Graph from "../Graph/Graph";
 
 function Home() {
   const [exchangeRatesState, setExchangeRatesState] = useState("");
@@ -10,12 +11,17 @@ function Home() {
   const [allCurrenciesAvailable, setAllCurrenciesAvailable] = useState([]);
   const [tableInfo, setTableInfo] = useState([]);
   const [numberToConvert, setNumberToConvert] = useState("");
-  const [currencyFinal, setCurrencyFinal] = useState("USD");
+  const [currencyFinal, setCurrencyFinal] = useState("RON");
   const [currencyTo, setCurrencyTo] = useState("");
   const [clickAddCurrency, setClickAddCurrency] = useState(false);
   const [allCurrencies, setAllCurrencies] = useState(allCurrenciesAvailable);
   const [liveExchange, setLiveExchange] = useState();
   const [tableInfoState, setTableInfoState] = useState(tableInfo);
+  let date = new Date();
+  date.setMonth(date.getMonth() - 6);
+  let dateMinusSix = `${date.getFullYear()}-${String(
+    date.getMonth() + 1
+  ).padStart(2, "0")}-${date.getDate()}`;
 
   useEffect(() => {
     const fetchExchangeApi = async () => {
@@ -229,10 +235,11 @@ function Home() {
       </div>
 
       <div className="graph">
-        <img
-          src="https://static.vecteezy.com/system/resources/previews/008/530/537/non_2x/currency-exchange-graph-transparent-png.png"
-          className="graph_img"
-        ></img>
+        <Graph
+          baseCurrency={currencyFrom}
+          startDate={dateMinusSix}
+          targetCurrency={currencyFinal}
+        />
       </div>
 
       <div className="second-header-div">
@@ -254,10 +261,7 @@ function Home() {
             {tableInfoState.map((row) => (
               <tr key={row[0]}>
                 {row.map((cell, index) => (
-                  <td key={index}>
-                    {cell}
-                    {console.log(tableInfoState)}
-                  </td>
+                  <td key={index}>{cell}</td>
                 ))}
               </tr>
             ))}
