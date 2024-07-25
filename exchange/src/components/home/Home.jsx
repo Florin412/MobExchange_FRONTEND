@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import Footer from "../footer/Footer";
 import "./Home.css";
 import axios from "axios";
-//import jwt_decode from "jwt-decode";
+import apiUrl from "../../assets/api_url";
 
 const Home = ({ setRoute, setIsSignedIn, signOut }) => {
   const [exchangeRatesState, setExchangeRatesState] = useState("");
@@ -26,15 +26,20 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
     const refreshToken = localStorage.getItem("refreshToken");
 
     try {
-      // Make a POST request to the API to refresh the access token
-      const response = await axios.post("http://192.168.170.158:8080/auth/getNewAccessToken", { refreshToken });
+      // Make a POST request to the API to get a new access token by using our refresh token.
+      const response = await axios.post(`${apiUrl}/auth/getNewAccessToken`, {
+        headers: {
+          Authorization: `Bearer ${refreshToken}`
+        }
+      });
 
       // If the request was successful, extract the new access token
       if (response.status === 200 || response.status === 201) {
         const newAccessToken = response.data.accessToken;
+        const newRefreshToken = response.data.refreshToken;
 
-        // Update the access token in local storage
         localStorage.setItem("accessToken", newAccessToken);
+        localStorage.setItem("refreshToken", newRefreshToken);
 
         // You can resume the previously failed request
         await fetchExchangeApi();
@@ -46,41 +51,14 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
     }
   };
 
-  // Function checks if the access token has expired
-  // const checkTokenAndUpdate = async () => {
-  //   const token = localStorage.getItem("accessToken");
-
-  //   if (token) {
-  //     const decodedToken = jwt_decode(token);
-  //     const isExpired = Date.now() >= decodedToken.exp * 1000;
-
-  //     if (isExpired) {
-  //       localStorage.removeItem("accessToken");
-  //       // Function below makes a request for a new access token
-  //       await handleRefreshToken(); // Ensure it completes
-  //       return checkTokenAndUpdate(); // Recheck token after refresh
-  //     }
-  //   }
-  //   return true; // Token is valid or there's no token
-  // };
-
   const fetchExchangeApi = async () => {
-    // const url = `http://192.168.170.144:8080/exchange-rates/latest/${currencyFrom}`;
-    const url = `http://192.168.170.158:8080/exchange-rates/latest/${currencyFrom}`;
+    const url = apiUrl + "/exchange-rates/latest/" + `${currencyFrom}`;
 
-    // Here we check if the access token is valid
-    // const isTokenValid = await checkTokenAndUpdate();
+    console.log(url);
 
-    // if (!isTokenValid) {
-    //   console.error("Token was expired and could not be refreshed"); 
-    //   signOut();
-    //   return; // Early exit if token is not valid.
-    // }
+    const accessToken = localStorage.getItem("accessToken");
 
     try {
-      // Retrieve the access token from localStorage
-      const accessToken = localStorage.getItem("accessToken");
-
       const response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${accessToken}` // Add Authorization header with Bearer token

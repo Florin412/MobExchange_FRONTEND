@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import apiUrl from "../../assets/api_url";
 
 const SignIn = ({ onRouteChange, setIsSignedIn }) => {
   const [email, setEmail] = useState("");
@@ -16,7 +17,7 @@ const SignIn = ({ onRouteChange, setIsSignedIn }) => {
   const onSubmitSignIn = () => {
     // Send a POST request to the login API endpoint
     axios
-      .post("http://192.168.170.144:8080/auth/login", {
+      .post(`${apiUrl}/auth/login`, {
         email: email,
         password: password
       })
