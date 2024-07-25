@@ -17,7 +17,7 @@ const SignIn = ({ onRouteChange, setIsSignedIn }) => {
   const onSubmitSignIn = () => {
     // Send a POST request to the login API endpoint
     axios
-      .post("http://192.168.170.144:8080/auth/login", {
+      .post("http://192.168.170.158:8080/auth/login", {
         email: email,
         password: password
       })
