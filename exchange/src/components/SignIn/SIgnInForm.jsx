@@ -88,7 +88,7 @@ const SignIn = ({ onRouteChange, setIsSignedIn }) => {
 
   return (
     <div className="d-flex justify-content-center align-items-center min-vh-100" style={{ backgroundColor: "#181A20", marginTop: "-40px" }}>
-      <div className="bg-dark text-light p-4 rounded-4 shadow-lg" style={{ maxWidth: "600px", width: "100%" }}>
+      <div className="bg-dark text-light p-4 rounded-4" style={{ maxWidth: "600px", width: "100%", boxShadow: "0 10px 20px rgba(0, 0, 0, 0.3), 0 6px 6px rgba(0, 0, 0, 0.1)" }}>
         <form className="row g-4" onSubmit={validateInputsData}>
           <h1 className="text-warning text-center mb-4 fw-bold pt-3" style={{ fontSize: "48px", fontFamily: "Poppins", textShadow: "2px 2px 4px rgba(0,0,0,0.6)" }}>
             Sign in
@@ -102,11 +102,11 @@ const SignIn = ({ onRouteChange, setIsSignedIn }) => {
               className="form-control form-control-sm rounded-pill px-4 w-100"
               id="InputEmail"
               style={{
-                fontSize: "20px", 
-                padding: "5px", 
-                maxWidth: "510px", 
-                marginLeft: "auto", 
-                marginRight: "auto" 
+                fontSize: "20px",
+                padding: "5px",
+                maxWidth: "510px",
+                marginLeft: "auto",
+                marginRight: "auto"
               }}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -124,13 +124,13 @@ const SignIn = ({ onRouteChange, setIsSignedIn }) => {
               type="password"
               className="form-control form-control-sm rounded-pill px-4"
               id="InputPassword"
-              style={{ 
-                fontSize: "20px", 
-                padding: "5px", 
-                maxWidth: "510px", 
-                marginLeft: "auto", 
-                marginRight: "auto" 
-                }}
+              style={{
+                fontSize: "20px",
+                padding: "5px",
+                maxWidth: "510px",
+                marginLeft: "auto",
+                marginRight: "auto"
+              }}
               onChange={(e) => setPassword(e.target.value)}
             />
             {passwordError && (

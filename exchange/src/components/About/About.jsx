@@ -13,7 +13,7 @@ const About = () => {
               >
                 <div className="card-body" style={{ backgroundColor: 'transparent', padding: '3rem 1rem' }}>
                   <h1 className="card-title text-center mb-5" style={{ fontSize: '5rem', fontWeight: 'bold', color: '#FFD824' }}>About Us</h1>
-                  <p className="card-text text-white mb-4" style={{ fontSize: '2rem', textAlign: 'justify' }}>
+                  <p className="card-text text-white mb-4" style={{ fontSize: '2rem', textAlign: 'justify', marginTop: '50px' }}>
                     Welcome to <strong style={{ color: '#FFD824' }}>MobiExchange</strong>, your reliable partner for secure and efficient currency exchanges. We specialize in providing a seamless experience for transactions involving fiat currency. Our platform is designed with your safety and ease of use in mind, making it the ideal choice for all your currency exchange needs.
                   </p>
                   <p className="card-text text-white mb-4" style={{ fontSize: '2rem', textAlign: 'justify' }}>

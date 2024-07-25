@@ -10,7 +10,7 @@ const Cookie = () => {
               <div className="card mb-5" style={{ backgroundColor: 'transparent', border: 'none', padding: '3rem 1rem' }}>
                 <div className="card-body" style={{ backgroundColor: 'transparent', padding: '0' }}>
                   <h1 className="card-title text-center mb-4" style={{ fontSize: '5rem', fontWeight: 'bold', color: '#FFD824' }}>Cookies</h1>
-                  <p className="card-text text-white" style={{ fontSize: '2rem', textAlign: 'justify' }}>
+                  <p className="card-text text-white" style={{ fontSize: '2rem', textAlign: 'justify', marginTop: '50px' }}>
                     Cookies are small text files that our website saves on your device to improve your browsing experience. They can be used to collect information about how users navigate the site and to provide personalized content.
                   </p>
                   <p className="card-text text-white" style={{ fontSize: '2rem', textAlign: 'justify' }}>

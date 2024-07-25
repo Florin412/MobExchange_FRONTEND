@@ -108,7 +108,7 @@ const SignUp = ({ onRouteChange, setIsSignedIn }) => {
     >
       <div
         className="bg-dark text-light p-4 rounded-4 shadow-lg mt-4"
-        style={{ maxWidth: "600px", width: "100%" }}
+        style={{ maxWidth: "600px", width: "100%", boxShadow: "0 10px 20px rgba(0, 0, 0, 0.3), 0 6px 6px rgba(0, 0, 0, 0.1)", marginBottom: '15px' }}
       >
         <form
           className="row g-4"

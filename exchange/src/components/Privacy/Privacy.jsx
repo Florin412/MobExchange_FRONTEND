@@ -10,7 +10,7 @@ function Privacy() {
             <div className="col-lg-10 col-md-12">
               <div className="privacy-section mb-5" style={{ padding: '3rem 1rem' }}>
                 <h1 className="privacy-header text-center mb-4" style={{ fontSize: '5rem', fontWeight: 'bold', color: '#FFD824' }}>Privacy Policy</h1>
-                <p className="privacy-text text-white" style={{ fontSize: '2rem' }}>
+                <p className="privacy-text text-white" style={{ fontSize: '2rem', marginTop: '50px' }}>
                   Your privacy is important to us. This privacy statement explains the personal data we collect, how we process it, and for what purposes.
                 </p>
               </div>

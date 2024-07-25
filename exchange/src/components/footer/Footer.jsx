@@ -26,11 +26,11 @@ const Footer = () => {
   };
 
   return (
-    <footer className="container-fluid px-4 py-3 bg-dark text-light">
-      <div className="row align-items-center" style={{ height: '70px' }}>
+    <footer className="container-fluid px-4 py-3 bg-dark text-light" style={{ position: 'relative' }}>
+      <div className="row align-items-center" style={{ minHeight: '70px' }}>
         {/* Logo Section */}
         <div className="col-12 col-md-6 text-center text-md-start mb-3 mb-md-0">
-         <h1
+          <h1
             className="fs-md-3 mb-0"
             style={{
               fontSize: '2.5rem',
@@ -87,12 +87,12 @@ const Footer = () => {
       </div>
       {/* Extend background color on mobile */}
       <div className="d-block d-md-none" style={{
-        position: 'relative',
+        position: 'absolute',
         bottom: 0,
         left: 0,
         right: 0,
-        minHeight: '70px', // Ensure it matches the footer height
-        backgroundColor: '#28292D', // Match the background color
+        height: '70px', // Ensure it matches the footer height
+        backgroundColor: '#343a40', // Match the background color
         zIndex: -1, // Ensure it doesn't cover footer content
       }}></div>
     </footer>

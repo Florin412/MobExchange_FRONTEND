@@ -32,7 +32,7 @@ function SignIn() {
 
     return(
         <div className="d-flex justify-content-center align-items-center min-vh-100" style={{ backgroundColor: "#181A20", marginTop: "-45px" }}>
-            <div className="bg-dark text-light p-4 rounded-4 shadow-lg" style={{ maxWidth: "600px", width: "100%" }}>
+            <div className="bg-dark text-light p-4 rounded-4 shadow-lg" style={{ maxWidth: "600px", width: "100%", boxShadow: "0 10px 20px rgba(0, 0, 0, 0.3), 0 6px 6px rgba(0, 0, 0, 0.1)" }}>
                 <form className="row g-4" onSubmit={submitForm}>
                     <h1 className="text-warning text-center mb-5 fw-bold pt-3" style={{ fontSize: "48px", fontFamily: "Poppins", textShadow: "2px 2px 4px rgba(0,0,0,0.6)" }}>
                         Forgot Password
