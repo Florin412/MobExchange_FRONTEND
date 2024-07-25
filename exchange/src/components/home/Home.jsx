@@ -445,12 +445,23 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
         </div>
 
         {/* Chart Section */}
-        <div className="graph graph_display">
-          <h1>
-            Acest graph contine datele din {dateButton} pana in prezent {year}-
-            {month}-{day}
+        <div className="graph graph_display" style={{ marginTop: '50px' }}>
+          <h1 className="mb-5 mt-5 text-center text-warning fw-bold"
+              style={{
+                marginTop: "50px",
+                fontSize: "4rem",
+                color: "#FFD824", // Text color
+                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)", 
+                fontWeight: "bold",
+                position: "relative",
+                display: "inline-block",
+                textAlign: "center",
+                zIndex: "1", // Ensure the text is on top
+              }}
+          >
+            This graph contains data from <span style={{ color: 'white'}}>{dateButton}</span> to the present <span style={{ color: 'white'}}>{year}-{month}-{day}</span>
           </h1>
-          <div className="flexButtons">
+          <div className="flexButtons mb-5">
             <button value={1} onClick={handleDateFunction}>
               1 Luna
             </button>
@@ -480,7 +491,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
                 marginTop: "50px",
                 fontSize: "4.5rem",
                 color: "#FFD824", // Text color
-                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)", // Simple and subtle shadow
+                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)", 
                 fontWeight: "bold",
                 position: "relative",
                 display: "inline-block",
