@@ -42,14 +42,20 @@ const SignIn = ({ onRouteChange, setIsSignedIn }) => {
           onRouteChange("home");
           setIsSignedIn(true);
           navigate("/home"); // this line just changes the URL route to .../home
-        } else {
+        } else if (response.status === 400) {
+          console.error("Password incorrect, try again!");
           // If the response status is not 200, login failed
-          console.error("SignIn was a fail.");
+          //console.error("SignIn was a fail.");
         }
       })
       .catch((error) => {
-        // Handle network errors
-        console.error("Network error:", error);
+        // Check if the error response status is 400
+        if (error.response && error.response.status === 400) {
+          console.error("Email or password incorrect, try again!");
+        } else {
+          // Handle other network errors
+          console.error("Network error:", error);
+        }
       });
   };
 
@@ -90,15 +96,35 @@ const SignIn = ({ onRouteChange, setIsSignedIn }) => {
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center min-vh-100" style={{ backgroundColor: "#181A20", marginTop: "-40px" }}>
-      <div className="bg-dark text-light p-4 rounded-4" style={{ maxWidth: "600px", width: "100%", boxShadow: "0 10px 20px rgba(0, 0, 0, 0.3), 0 6px 6px rgba(0, 0, 0, 0.1)" }}>
+    <div
+      className="d-flex justify-content-center align-items-center min-vh-100"
+      style={{ backgroundColor: "#181A20", marginTop: "-40px" }}
+    >
+      <div
+        className="bg-dark text-light p-4 rounded-4"
+        style={{
+          maxWidth: "600px",
+          width: "100%",
+          boxShadow:
+            "0 10px 20px rgba(0, 0, 0, 0.3), 0 6px 6px rgba(0, 0, 0, 0.1)"
+        }}
+      >
         <form className="row g-4" onSubmit={validateInputsData}>
-          <h1 className="text-warning text-center mb-4 fw-bold pt-3" style={{ fontSize: "48px", fontFamily: "Poppins", textShadow: "2px 2px 4px rgba(0,0,0,0.6)" }}>
+          <h1
+            className="text-warning text-center mb-4 fw-bold pt-3"
+            style={{
+              fontSize: "48px",
+              fontFamily: "Poppins",
+              textShadow: "2px 2px 4px rgba(0,0,0,0.6)"
+            }}
+          >
             Sign in
           </h1>
           <div className="mb-4">
             <label htmlFor="InputEmail" className="form-label text-warning">
-              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>Email address:</h2>
+              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>
+                Email address:
+              </h2>
             </label>
             <input
               type="text"
@@ -114,14 +140,19 @@ const SignIn = ({ onRouteChange, setIsSignedIn }) => {
               onChange={(e) => setEmail(e.target.value)}
             />
             {emailError && (
-              <div className="fs-3 text-danger" style={{ marginTop: "10px", marginLeft: "40px" }}>
+              <div
+                className="fs-3 text-danger"
+                style={{ marginTop: "10px", marginLeft: "40px" }}
+              >
                 {emailError}
               </div>
             )}
           </div>
           <div className="mb-4">
             <label htmlFor="InputPassword" className="form-label text-warning">
-              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>Password:</h2>
+              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>
+                Password:
+              </h2>
             </label>
             <input
               type="password"
@@ -137,19 +168,31 @@ const SignIn = ({ onRouteChange, setIsSignedIn }) => {
               onChange={(e) => setPassword(e.target.value)}
             />
             {passwordError && (
-              <div className="fs-3 text-danger" style={{ marginTop: "10px", marginLeft: "40px" }}>
+              <div
+                className="fs-3 text-danger"
+                style={{ marginTop: "10px", marginLeft: "40px" }}
+              >
                 {passwordError}
               </div>
             )}
           </div>
           <div className="text-center mb-4">
-            <Link to="/forgotpassword" className="text-warning text-decoration-none fs-3">Forgot Password</Link>
+            <Link
+              to="/forgotpassword"
+              className="text-warning text-decoration-none fs-3"
+            >
+              Forgot Password
+            </Link>
           </div>
           <div className="text-center pb-4">
             <button
               type="submit"
               className="btn btn-warning rounded-pill shadow-lg"
-              style={{ padding: "12px 40px", fontSize: "18px", fontWeight: "bold" }}
+              style={{
+                padding: "12px 40px",
+                fontSize: "18px",
+                fontWeight: "bold"
+              }}
             >
               Submit
             </button>
