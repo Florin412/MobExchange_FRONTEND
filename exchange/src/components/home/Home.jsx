@@ -54,8 +54,6 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
   const fetchExchangeApi = async () => {
     const url = apiUrl + "/exchange-rates/latest/" + `${currencyFrom}`;
 
-    console.log(url);
-
     const accessToken = localStorage.getItem("accessToken");
 
     try {
