@@ -29,28 +29,54 @@ const Graph = ({ baseCurrency, startDate, targetCurrency }) => {
   const [chartDataRates, setChartDataRates] = useState([]);
   console.log(startDate);
 
-  useEffect(() => {
-    const fetchApiData = async () => {
-      try {
-        console.log(baseCurrency, startDate, targetCurrency);
-        const url = `http://192.168.170.158:8080/exchange-rates/historical/${startDate}/${baseCurrency}/${targetCurrency}`;
-        const response = await axios.get(url);
-        const data = await response.data;
+  const handleRefreshToken = async () => {
+    const refreshToken = localStorage.getItem("refreshToken");
+    try {
+      const response = await axios.post(
+        "http://192.168.170.158:8080/auth/getNewAccessToken",
+        { refreshToken }
+      );
+      if (response.status === 200 || response.status === 201) {
+        const newAccessToken = response.data.accessToken;
+        localStorage.setItem("accessToken", newAccessToken);
+        return newAccessToken;
+      }
+    } catch (error) {
+      console.error("Refresh token invalid. Please log in again.", error);
+      return null;
+    }
+  };
 
-        const exchangeRates = data.rates;
+  const fetchApiData = async () => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const url = `http://192.168.170.158:8080/exchange-rates/historical/${startDate}/${baseCurrency}/${targetCurrency}`;
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
 
+      if (response.status === 200 || response.status === 201) {
+        const exchangeRates = response.data.rates;
         const dates = Object.keys(exchangeRates);
         const rates = dates.map((date) => exchangeRates[date][targetCurrency]);
-
-        // Process the data here and update chartData accordingly
-
         setChartDataDates(dates);
         setChartDataRates(rates);
-      } catch (error) {
-        console.error("Error fetching API data:", error);
+      } else if (response.status === 401) {
+        const newAccessToken = await handleRefreshToken();
+        if (newAccessToken) {
+          fetchApiData(); // Retry the request with the new access token
+        } else {
+          console.error("Failed to refresh token");
+        }
       }
-    };
+    } catch (error) {
+      console.error("Error fetching API data:", error);
+    }
+  };
 
+  useEffect(() => {
     fetchApiData();
   }, [baseCurrency, targetCurrency, startDate]);
 
@@ -91,4 +117,5 @@ Graph.propTypes = {
   startDate: PropTypes.string.isRequired,
   targetCurrency: PropTypes.string.isRequired,
 };
+
 export default Graph;
