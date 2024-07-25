@@ -18,7 +18,7 @@ const ForgotPassword = () => {
       .post(url, { email })
       .then((response) => {
         if (response.status === 200 || response.status === 201) {
-          console.log("Check your email, there you can change your password");
+          alert("Check your email, there you can change your password");
           console.log(response);
         }
       })
