@@ -43,8 +43,8 @@ function App() {
         try {
           const response = await axios.get(`${apiUrl}/auth/verifyAccessToken`, {
             headers: {
-              Authorization: `Bearer ${accessToken}`
-            }
+              Authorization: `Bearer ${accessToken}`,
+            },
           });
 
           // Token valid
@@ -66,8 +66,8 @@ function App() {
                   `${apiUrl}/auth/getNewAccessToken`,
                   {
                     headers: {
-                      Authorization: `Bearer ${refreshToken}`
-                    }
+                      Authorization: `Bearer ${refreshToken}`,
+                    },
                   }
                 );
 
@@ -122,8 +122,8 @@ function App() {
         {
           // Body is empty if no additional data is needed
           headers: {
-            Authorization: `Bearer ${accessToken}` // Add Authorization header with Bearer token
-          }
+            Authorization: `Bearer ${accessToken}`, // Add Authorization header with Bearer token
+          },
         }
       )
       .then((response) => {
@@ -211,9 +211,10 @@ function App() {
         <Route path="/cookie" element={<Cookie />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route
-          path="/changePassword"
+          path="/change-password"
           element={<ChangePassword></ChangePassword>}
         ></Route>
+
         <Route
           path="*"
           element={<Navigate to={"/register"}></Navigate>}
