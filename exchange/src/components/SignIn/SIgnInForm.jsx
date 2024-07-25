@@ -28,8 +28,10 @@ const SignIn = ({ onRouteChange, setIsSignedIn }) => {
         if (response.status === 200 || response.status === 201) {
           console.log("SignIn was a success.");
 
-          const accessToken = response.data.accessToken; // Access token received from the response
-          const refreshToken = response.data.refreshToken; // Refresh token received from the response
+          // accessToken is used to access protected resources.
+          // refreshToken is used to get a new accessToken when it expires.
+          const accessToken = response.data.accessToken;
+          const refreshToken = response.data.refreshToken;
 
           // Store the tokens in Local Storage for future use
           localStorage.setItem("accessToken", accessToken);

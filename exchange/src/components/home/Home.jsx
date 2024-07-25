@@ -1,9 +1,13 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useEffect, useRef, useState } from "react";
 import Footer from "../footer/Footer";
 import "./Home.css";
 import axios from "axios";
+//import jwt_decode from "jwt-decode";
 
-function Home() {
+const Home = ({ setRoute, setIsSignedIn, signOut }) => {
   const [exchangeRatesState, setExchangeRatesState] = useState("");
   const [currencyFrom, setCurrencyFrom] = useState("USD");
   const [availableCurrencies, setAvailableCurrencies] = useState([]);
@@ -17,49 +21,114 @@ function Home() {
   const [liveExchange, setLiveExchange] = useState();
   const [tableInfoState, setTableInfoState] = useState(tableInfo);
 
-  useEffect(() => {
-    const fetchExchangeApi = async () => {
-      // const url = `http://192.168.170.144:8080/exchange-rates/latest/${currencyFrom}`;
-      const url = `http://192.168.170.158:8080/exchange-rates/latest/${currencyFrom}`;
+  const handleRefreshToken = async () => {
+    // Retrieve the refresh token from local storage
+    const refreshToken = localStorage.getItem("refreshToken");
 
-      try {
-        const response = await axios.get(url);
-        if (response.status === 200) {
-          const rates = response.data.rates;
-          const baseCurrency = response.data.base;
+    try {
+      // Make a POST request to the API to refresh the access token
+      const response = await axios.post("http://192.168.170.158:8080/auth/getNewAccessToken", { refreshToken });
 
-          setExchangeRatesState(response.data.rates);
+      // If the request was successful, extract the new access token
+      if (response.status === 200 || response.status === 201) {
+        const newAccessToken = response.data.accessToken;
 
-          setAvailableCurrencies([baseCurrency, ...Object.keys(rates)]);
+        // Update the access token in local storage
+        localStorage.setItem("accessToken", newAccessToken);
 
-          const currencies = [
-            [0, baseCurrency, 1], // Moneda de bază cu rată 1
-            ...Object.entries(rates).map(([currency, rate], index) => [
-              index + 1,
-              currency,
-              rate,
-            ]),
-          ];
-          setAllCurrenciesAvailable(currencies);
-
-          const filteredCurrencies = currencies
-            .filter(([_, currency]) =>
-              ["RON", "EUR", "USD", "GBP"].includes(currency)
-            )
-            .map(([_, currency, rate], index) => [index + 1, currency, rate]);
-
-          setTableInfoState(filteredCurrencies);
-        } else {
-          console.error(
-            "Error fetching exchange rates:",
-            response.data["error-type"]
-          );
-        }
-      } catch (err) {
-        console.error(err);
+        // You can resume the previously failed request
+        await fetchExchangeApi();
       }
-    };
+    } catch (error) {
+      // Handle errors, such as invalid or expired refresh token
+      console.error("Refresh token invalid. Please log in again.", error);
+      signOut(); // Function that logs out the user
+    }
+  };
+
+  // Function checks if the access token has expired
+  // const checkTokenAndUpdate = async () => {
+  //   const token = localStorage.getItem("accessToken");
+
+  //   if (token) {
+  //     const decodedToken = jwt_decode(token);
+  //     const isExpired = Date.now() >= decodedToken.exp * 1000;
+
+  //     if (isExpired) {
+  //       localStorage.removeItem("accessToken");
+  //       // Function below makes a request for a new access token
+  //       await handleRefreshToken(); // Ensure it completes
+  //       return checkTokenAndUpdate(); // Recheck token after refresh
+  //     }
+  //   }
+  //   return true; // Token is valid or there's no token
+  // };
+
+  const fetchExchangeApi = async () => {
+    // const url = `http://192.168.170.144:8080/exchange-rates/latest/${currencyFrom}`;
+    const url = `http://192.168.170.158:8080/exchange-rates/latest/${currencyFrom}`;
+
+    // Here we check if the access token is valid
+    // const isTokenValid = await checkTokenAndUpdate();
+
+    // if (!isTokenValid) {
+    //   console.error("Token was expired and could not be refreshed"); 
+    //   signOut();
+    //   return; // Early exit if token is not valid.
+    // }
+
+    try {
+      // Retrieve the access token from localStorage
+      const accessToken = localStorage.getItem("accessToken");
+
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}` // Add Authorization header with Bearer token
+        }
+      });
+
+      if (response.status === 200 || response.status === 201) {
+        const rates = response.data.rates;
+        const baseCurrency = response.data.base;
+
+        setExchangeRatesState(response.data.rates);
+
+        setAvailableCurrencies([baseCurrency, ...Object.keys(rates)]);
+
+        const currencies = [
+          [0, baseCurrency, 1], // Base currency with rate 1
+          ...Object.entries(rates).map(([currency, rate], index) => [
+            index + 1,
+            currency,
+            rate
+          ])
+        ];
+        setAllCurrenciesAvailable(currencies);
+
+        const filteredCurrencies = currencies
+          .filter(([_, currency]) =>
+            ["RON", "EUR", "USD", "GBP"].includes(currency)
+          )
+          .map(([_, currency, rate], index) => [index + 1, currency, rate]);
+
+        setTableInfoState(filteredCurrencies);
+      } else if (response.status === 401) {
+        // Auth error (token expired)
+        await handleRefreshToken();
+      } else {
+        console.error(
+          "Error fetching exchange rates:",
+          response.data["error-type"]
+        );
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
     fetchExchangeApi();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currencyFrom]);
 
   let titlesTables = ["#", "Currency Name", "Price"];
@@ -160,7 +229,7 @@ function Home() {
       tableInfo.push[(currency, price, percent)];
       setTableInfoState((prevTableInfo) => [
         ...prevTableInfo,
-        [id, currency, price],
+        [id, currency, price]
       ]);
       setClickAddCurrency(false);
     } else {
@@ -450,6 +519,6 @@ function Home() {
       </div>
     </>
   );
-}
+};
 
 export default Home;
