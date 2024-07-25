@@ -105,6 +105,39 @@ const Graph = ({ baseCurrency, startDate, targetCurrency }) => {
             return `${tooltipItem.dataset.label}: ${tooltipItem.raw}`;
           },
         },
+        bodyFont: {
+          size: 18, // Font size for tooltip text
+        },
+        titleFont: {
+          size: 20, // Font size for tooltip title
+        },
+        footerFont: {
+          size: 16, // Font size for tooltip footer (if any)
+        },
+        padding: 10, // Padding inside the tooltip
+        backgroundColor: "#333", // Background color of tooltip
+        titleColor: "#FFD824", // Title color
+        bodyColor: "#FFFFFF", // Body text color
+        borderColor: "#FFD824", // Border color of the tooltip
+        borderWidth: 1, // Border width of the tooltip
+      },
+    },
+    scales: {
+      x: {
+        ticks: {
+          font: {
+            size: 16, // Increase font size for x-axis labels
+          },
+          color: "white",
+        },
+      },
+      y: {
+        ticks: {
+          font: {
+            size: 16, // Increase font size for y-axis labels
+          },
+          color: "white",
+        },
       },
     },
   };
