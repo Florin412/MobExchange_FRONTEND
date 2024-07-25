@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const SignIn = ({ onRouteChange, setIsSignedIn }) => {
@@ -16,7 +17,7 @@ const SignIn = ({ onRouteChange, setIsSignedIn }) => {
   const onSubmitSignIn = () => {
     // Send a POST request to the login API endpoint
     axios
-      .post("http://192.168.170.144:8080/auth/login", {
+      .post("http://192.168.170.158:8080/auth/login", {
         email: email,
         password: password
       })
@@ -27,8 +28,10 @@ const SignIn = ({ onRouteChange, setIsSignedIn }) => {
         if (response.status === 200 || response.status === 201) {
           console.log("SignIn was a success.");
 
-          const accessToken = response.data.accessToken; // Access token received from the response
-          const refreshToken = response.data.refreshToken; // Refresh token received from the response
+          // accessToken is used to access protected resources.
+          // refreshToken is used to get a new accessToken when it expires.
+          const accessToken = response.data.accessToken;
+          const refreshToken = response.data.refreshToken;
 
           // Store the tokens in Local Storage for future use
           localStorage.setItem("accessToken", accessToken);
@@ -86,119 +89,66 @@ const SignIn = ({ onRouteChange, setIsSignedIn }) => {
   };
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#181A20",
-        fontFamily: "Poppins"
-      }}
-    >
-      <div
-        className="signin-form"
-        style={{
-          backgroundColor: "rgba(0, 0, 0, 0.7)",
-          padding: "50px",
-          borderRadius: "20px",
-          width: "100%",
-          maxWidth: "600px",
-          textAlign: "center",
-          boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-          marginTop: "-50px", // Ridică caseta
-          minHeight: "80vh" // Crește înălțimea casetei
-        }}
-      >
-        <form className="row g-3" onSubmit={validateInputsData}>
-          <h1
-            className="Sign display-1 text-warning mb-4"
-            style={{ fontSize: "40px", fontFamily: "Poppins" }}
-          >
+    <div className="d-flex justify-content-center align-items-center min-vh-100" style={{ backgroundColor: "#181A20", marginTop: "-40px" }}>
+      <div className="bg-dark text-light p-4 rounded-4" style={{ maxWidth: "600px", width: "100%", boxShadow: "0 10px 20px rgba(0, 0, 0, 0.3), 0 6px 6px rgba(0, 0, 0, 0.1)" }}>
+        <form className="row g-4" onSubmit={validateInputsData}>
+          <h1 className="text-warning text-center mb-4 fw-bold pt-3" style={{ fontSize: "48px", fontFamily: "Poppins", textShadow: "2px 2px 4px rgba(0,0,0,0.6)" }}>
             Sign in
           </h1>
-          <div className="mb-5 text-start">
-            <div className="col-md-12 mb-5">
-              <label htmlFor="InputEmail" className="form-label text-warning">
-                <h2
-                  className="fs-1 mb-3 text-start"
-                  style={{ marginTop: "50px", marginLeft: "40px" }}
-                >
-                  Email address:
-                </h2>
-              </label>
-              <input
-                type="email"
-                className="form-control form-control-sm rounded-5"
-                id="InputEmail"
-                style={{ fontSize: "20px", padding: "5px" }}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-              />
-              {emailError && (
-                <div
-                  className="fs-3 error-message text-danger"
-                  style={{ marginLeft: "40px", marginTop: "10px" }}
-                >
-                  {emailError}
-                </div>
-              )}
-            </div>
-            <div className="col-md-12 mb-1">
-              <label
-                htmlFor="InputPassword"
-                className="form-label text-warning"
-              >
-                <h2
-                  className="fs-1 mb-3 text-start"
-                  style={{ marginLeft: "40px" }}
-                >
-                  Password:
-                </h2>
-              </label>
-              <input
-                type="password"
-                className="form-control form-control-sm rounded-5"
-                id="InputPassword"
-                style={{ fontSize: "20px", padding: "5px" }}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
-              {passwordError && (
-                <div
-                  className="fs-3 error-message text-danger"
-                  style={{ marginLeft: "40px", marginTop: "10px" }}
-                >
-                  {passwordError}
-                </div>
-              )}
-            </div>
-          </div>
-          <div
-            className="mb-4 form-check d-flex align-items-center"
-            style={{ marginLeft: "40px", marginTop: "-20px" }}
-          >
-            <input
-              type="checkbox"
-              className="form-check-input me-2"
-              id="Check1"
-              style={{ transform: "scale(1.7)" }}
-            />
-            <label
-              className="fs-3 form-check-label text-warning"
-              htmlFor="Check1"
-              style={{ marginLeft: "10px", marginTop: "4px" }}
-            >
-              Remember me
+          <div className="mb-4">
+            <label htmlFor="InputEmail" className="form-label text-warning">
+              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>Email address:</h2>
             </label>
+            <input
+              type="text"
+              className="form-control form-control-sm rounded-pill px-4 w-100"
+              id="InputEmail"
+              style={{
+                fontSize: "20px",
+                padding: "5px",
+                maxWidth: "510px",
+                marginLeft: "auto",
+                marginRight: "auto"
+              }}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            {emailError && (
+              <div className="fs-3 text-danger" style={{ marginTop: "10px", marginLeft: "40px" }}>
+                {emailError}
+              </div>
+            )}
           </div>
-          <div className="text-center">
+          <div className="mb-4">
+            <label htmlFor="InputPassword" className="form-label text-warning">
+              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>Password:</h2>
+            </label>
+            <input
+              type="password"
+              className="form-control form-control-sm rounded-pill px-4"
+              id="InputPassword"
+              style={{
+                fontSize: "20px",
+                padding: "5px",
+                maxWidth: "510px",
+                marginLeft: "auto",
+                marginRight: "auto"
+              }}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {passwordError && (
+              <div className="fs-3 text-danger" style={{ marginTop: "10px", marginLeft: "40px" }}>
+                {passwordError}
+              </div>
+            )}
+          </div>
+          <div className="text-center mb-4">
+            <Link to="/forgotpassword" className="text-warning text-decoration-none fs-3">Forgot Password</Link>
+          </div>
+          <div className="text-center pb-4">
             <button
               type="submit"
-              className="fs-2 btn btn-lg btn-warning rounded-pill"
-              style={{ marginTop: "20px", padding: "10px 45px" }}
+              className="btn btn-warning rounded-pill shadow-lg"
+              style={{ padding: "12px 40px", fontSize: "18px", fontWeight: "bold" }}
             >
               Submit
             </button>

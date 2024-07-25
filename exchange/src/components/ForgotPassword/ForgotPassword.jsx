@@ -31,52 +31,43 @@ function SignIn() {
     }
 
     return(
-        <div
-            style={{
-                minHeight: "100vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#181A20",
-                fontFamily: "Poppins"
-            }}
-        >
-            <div
-                className="signin-form"
-                style={{
-                    backgroundColor: "rgba(0, 0, 0, 0.7)",
-                    padding: "30px", // Micșorează padding-ul pentru a micșora dimensiunea casetei
-                    borderRadius: "15px", // Reduce raza colțurilor pentru a face caseta mai compactă
-                    width: "100%",
-                    maxWidth: "500px", // Reduce lățimea maximă a casetei
-                    textAlign: "center",
-                    boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-                    marginTop: "-50px", // Ridică caseta
-                    minHeight: "70vh", // Ajustează înălțimea minimă a casetei
-                }}
-            >
-                <form className="row g-5" onSubmit={submitForm} style={{ marginTop: "5px" }}>
-                    <h1 className="Sign display-1 text-warning mb-4" style={{ fontSize: "40px", fontFamily: "Poppins" }}>Forgot Password</h1>
-                    <div className="mb-5 text-start">
-                        <div className="col-md-12 mb-5">
-                            <label htmlFor="InputEmail" className="form-label text-warning">
-                                <h2 className="fs-1 mb-3 text-start" style={{ marginTop: "50%", marginLeft: "40px" }}>Email address:</h2>
-                            </label>
-                            <input
-                                type="email"
-                                className="form-control form-control-sm rounded-5"
-                                id="InputEmail"
-                                style={{ fontSize: "20px", padding: "5px" }}
-                                onChange={(e) => { setEmail(e.target.value) }}
-                            />
-                            {emailError && <div className="fs-3 error-message text-danger" style={{ marginLeft: "40px", marginTop: "10px" }}>{emailError}</div>}
-                        </div>
+        <div className="d-flex justify-content-center align-items-center min-vh-100" style={{ backgroundColor: "#181A20", marginTop: "-45px" }}>
+            <div className="bg-dark text-light p-4 rounded-4 shadow-lg" style={{ maxWidth: "600px", width: "100%", boxShadow: "0 10px 20px rgba(0, 0, 0, 0.3), 0 6px 6px rgba(0, 0, 0, 0.1)" }}>
+                <form className="row g-4" onSubmit={submitForm}>
+                    <h1 className="text-warning text-center mb-5 fw-bold pt-3" style={{ fontSize: "48px", fontFamily: "Poppins", textShadow: "2px 2px 4px rgba(0,0,0,0.6)" }}>
+                        Forgot Password
+                    </h1>
+                    <p className="text-warning text-center mb-5" style={{ fontSize: "18px", lineHeight: "1.5" }}>
+                        Enter your email and we will help you reset the password.
+                    </p>
+                    <div className="mb-5">
+                        <label htmlFor="InputEmail" className="form-label text-warning">
+                            <h2 className="fs-1 mb-4" style={{ marginLeft: "60px" }}>Email address:</h2>
+                        </label>
+                        <input
+                            type="email"
+                            className="form-control form-control-sm rounded-pill px-4"
+                            id="InputEmail"
+                            style={{ 
+                                fontSize: "20px", 
+                                padding: "5px", 
+                                maxWidth: "510px", 
+                                marginLeft: "auto", 
+                                marginRight: "auto" 
+                                }}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        {emailError && (
+                            <div className="fs-4 text-danger mt-3" style={{ marginLeft: "40px" }}>
+                                {emailError}
+                            </div>
+                        )}
                     </div>
-                    <div className="mt-auto text-center">
+                    <div className="text-center mb-5">
                         <button
                             type="submit"
-                            className="btn btn-warning btn-lg rounded-pill px-5 py-2"
-                            style={{ marginTop: "20%", marginBottom: "20px", fontSize: "18px" }}
+                            className="btn btn-warning rounded-pill shadow-lg"
+                            style={{ padding: "14px 50px", fontSize: "20px", fontWeight: "bold" }}
                         >
                             Submit
                         </button>
