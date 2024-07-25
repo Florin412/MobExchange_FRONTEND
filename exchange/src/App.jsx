@@ -189,8 +189,8 @@ function App() {
                   ? "/about"
                   : route === "forgotpassword"
                   ? "/forgotpassword"
-                  : route === "changePassword"
-                  ? "/changePassword"
+                  : route === "change-password"
+                  ? "/change-password"
                   : "/register"
               }
             ></Navigate>
