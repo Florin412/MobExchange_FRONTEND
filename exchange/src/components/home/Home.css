@@ -64,7 +64,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: fit-content;
+  max-height: fit-content;
+  margin-bottom: 24px;
+  margin-top: 24px;
 }
 .graph_img {
   object-fit: contain;
@@ -157,4 +159,16 @@ tr {
     width: 60rem;
     height: 60rem;
   }
+}
+
+.graph_display {
+  display: flex;
+  flex-direction: column;
+}
+.flexButtons {
+  display: flex;
+  gap: 20px;
+}
+.flexButtons > button {
+  padding: 20px;
 }
