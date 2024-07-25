@@ -84,10 +84,10 @@ const Navigation = ({
             >
               <li>
                 <Link
-                  to="/change-password"
+                  to="/changePassword"
                   className="dropdown-item"
                   onClick={() => {
-                    onRouteChange("/change-password");
+                    onRouteChange("changePassword");
                   }}
                   style={{
                     fontSize: "18px",

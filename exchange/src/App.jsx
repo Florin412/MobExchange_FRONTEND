@@ -172,7 +172,7 @@ function App() {
                   : route === "forgotpassword"
                   ? "/forgotpassword"
                   : route === "change-password"
-                  ? "/change-password"
+                  ? "/home#/change-password"
                   : "/register"
               }
             ></Navigate>

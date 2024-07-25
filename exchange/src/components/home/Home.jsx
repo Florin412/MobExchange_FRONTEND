@@ -23,7 +23,6 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
   const [tableInfoState, setTableInfoState] = useState(tableInfo);
   const [monthButton, setMonthButton] = useState(6);
   const [dateButton, setDateButton] = useState("");
-  console.log(dateButton);
 
   const today = new Date();
 
