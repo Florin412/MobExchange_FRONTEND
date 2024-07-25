@@ -180,7 +180,7 @@ const SignUp = ({ onRouteChange, setIsSignedIn }) => {
               <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>Email:</h2>
             </label>
             <input
-              type="text"
+              type="email"
               className="form-control form-control-sm rounded-pill px-4"
               id="email"
               style={{ 
