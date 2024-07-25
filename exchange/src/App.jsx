@@ -13,6 +13,7 @@ import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import ChangePassword from "./components/ChangePassword/ChangePassword";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import apiUrl from "./assets/api_url";
 
 function App() {
   // Here is the default state of the app.
@@ -31,40 +32,38 @@ function App() {
 
   let navigate = useNavigate();
 
+  // When user refresh the page, we try to sign in automatically, by using the access
+  // token stored in local storage.
   useEffect(() => {
     const checkAccessToken = async () => {
       const accessToken = localStorage.getItem("accessToken");
       const refreshToken = localStorage.getItem("refreshToken");
 
-      console.log("am intrat in useEffect");
-
       if (accessToken) {
         try {
-          const response = await axios.get(
-            "http://192.168.170.158:8080/auth/verifyAccessToken",
-            {
-              headers: {
-                Authorization: `Bearer ${accessToken}`
-              }
+          const response = await axios.get(`${apiUrl}/auth/verifyAccessToken`, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`
             }
-          );
+          });
 
           // Token valid
           if (response.status === 200 || response.status === 201) {
             setIsSignedIn(true);
             setRoute("home");
             navigate("/home");
+
             return;
           }
           // Token invalid
-          else if (response.status === 401) {
-            console.warn("Access token invalid. Attempting to refresh.");
+          else if (response.status === 400 || response.status === 401) {
+            console.error("Access token invalid. Attempting to refresh.");
 
             // Attempt to obtain a new `accessToken` with `refreshToken`
             if (refreshToken) {
               try {
                 const refreshResponse = await axios.post(
-                  "http://192.168.170.158:8080/auth/getNewAccessToken",
+                  `${apiUrl}/auth/getNewAccessToken`,
                   {
                     headers: {
                       Authorization: `Bearer ${refreshToken}`
@@ -79,31 +78,15 @@ function App() {
                   localStorage.setItem("accessToken", newAccessToken);
                   localStorage.setItem("refreshToken", newRefreshToken);
 
-                  // Check again if the new token is valid
-                  const verificationResponse = await axios.get(
-                    "http://192.168.170.158:8080/checkAccessToken",
-                    {
-                      headers: {
-                        Authorization: `Bearer ${newAccessToken}`
-                      }
-                    }
-                  );
-
-                  if (
-                    verificationResponse.status === 200 ||
-                    verificationResponse.status === 201
-                  ) {
-                    setIsSignedIn(true);
-                    setRoute("home");
-                    navigate("/home");
-                  }
+                  setIsSignedIn(true);
+                  setRoute("home");
+                  navigate("/home");
                 }
               } catch (refreshError) {
                 console.error(
                   "Failed to refresh access token. Please log in again.",
                   refreshError
                 );
-                // Handle user re-authentication here
               }
             }
           }
@@ -132,10 +115,9 @@ function App() {
     const accessToken = localStorage.getItem("accessToken");
 
     // Here is an request to invalidate the session on the server
-    // Here is a request to invalidate the session on the server
     axios
       .post(
-        "http://192.168.170.158:8080/auth/logout",
+        `${apiUrl}/auth/logout`,
         {},
         {
           // Body is empty if no additional data is needed
@@ -190,7 +172,7 @@ function App() {
                   : route === "forgotpassword"
                   ? "/forgotpassword"
                   : route === "change-password"
-                  ? "/change-password"
+                  ? "/home#/change-password"
                   : "/register"
               }
             ></Navigate>

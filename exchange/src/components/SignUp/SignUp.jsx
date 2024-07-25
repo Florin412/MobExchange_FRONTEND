@@ -2,6 +2,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import apiUrl from "../../assets/api_url";
 
 const SignUp = ({ onRouteChange, setIsSignedIn }) => {
   const [firstName, setFirstName] = useState("");
@@ -21,7 +22,7 @@ const SignUp = ({ onRouteChange, setIsSignedIn }) => {
     console.log(firstName, lastName, email, password);
 
     axios
-      .post("http://192.168.170.144:8080/auth/register", {
+      .post(`${apiUrl}/auth/register`, {
         firstname: firstName,
         lastname: lastName,
         email: email,
@@ -179,7 +180,7 @@ const SignUp = ({ onRouteChange, setIsSignedIn }) => {
               <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>Email:</h2>
             </label>
             <input
-              type="text"
+              type="email"
               className="form-control form-control-sm rounded-pill px-4"
               id="email"
               style={{ 
