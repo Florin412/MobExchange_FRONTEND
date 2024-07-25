@@ -17,11 +17,25 @@ function Home() {
   const [allCurrencies, setAllCurrencies] = useState(allCurrenciesAvailable);
   const [liveExchange, setLiveExchange] = useState();
   const [tableInfoState, setTableInfoState] = useState(tableInfo);
-  let date = new Date();
-  date.setMonth(date.getMonth() - 6);
-  let dateMinusSix = `${date.getFullYear()}-${String(
-    date.getMonth() + 1
-  ).padStart(2, "0")}-${date.getDate()}`;
+  const [monthButton, setMonthButton] = useState(6);
+  const [dateButton, setDateButton] = useState("");
+  console.log(dateButton);
+
+  const today = new Date();
+
+  // Extrage anul, luna și ziua
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0"); // getMonth() returnează luna de la 0 la 11
+  const day = String(today.getDate()).padStart(2, "0");
+
+  useEffect(() => {
+    let date = new Date();
+    date.setMonth(date.getMonth() - monthButton);
+    const formattedDate = `${date.getFullYear()}-${String(
+      date.getMonth() + 1
+    ).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+    setDateButton(formattedDate);
+  }, [monthButton]);
 
   useEffect(() => {
     const fetchExchangeApi = async () => {
@@ -175,6 +189,17 @@ function Home() {
     }
   };
 
+  const handleDateFunction = (e) => {
+    const value = Number(e.target.value);
+
+    if ([1, 3, 6, 12].includes(value)) {
+      setMonthButton(value);
+      console.log(true);
+    }
+
+    console.log(value);
+  };
+
   return (
     <>
       <h1 className="mainHeader">Currency Converter</h1>
@@ -234,10 +259,28 @@ function Home() {
         </div>
       </div>
 
-      <div className="graph">
+      <div className="graph graph_display">
+        <h1>
+          Acest graph contine datele din {dateButton} pana in prezent {year}-
+          {month}-{day}
+        </h1>
+        <div className="flexButtons">
+          <button value={1} onClick={handleDateFunction}>
+            1 Luna
+          </button>
+          <button value={3} onClick={handleDateFunction}>
+            3 Luni
+          </button>
+          <button value={6} onClick={handleDateFunction}>
+            6 Luni
+          </button>
+          <button value={12} onClick={handleDateFunction}>
+            1 an
+          </button>
+        </div>
         <Graph
           baseCurrency={currencyFrom}
-          startDate={dateMinusSix}
+          startDate={dateButton}
           targetCurrency={currencyFinal}
         />
       </div>

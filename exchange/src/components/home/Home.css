@@ -160,3 +160,15 @@ tr {
     height: 60rem;
   }
 }
+
+.graph_display {
+  display: flex;
+  flex-direction: column;
+}
+.flexButtons {
+  display: flex;
+  gap: 20px;
+}
+.flexButtons > button {
+  padding: 20px;
+}
