@@ -1,0 +1,50 @@
+/* h1 {
+  font-size: 2rem;
+}
+
+.mb-3 {
+  width: 60%;
+}
+.form_base {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+.form_base > h1 {
+  margin-bottom: 1.4rem;
+  padding: 1.4rem;
+}
+.col-form-label > h2,
+.form-label > h2 {
+  font-size: 1.6rem;
+}
+.FullName {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.FullName > div {
+  width: 100%;
+}
+.FullName > div:nth-child(1) {
+  margin-right: 2rem;
+}
+
+.FullName > div > .col-auto {
+  width: 100%;
+}
+.signupTitle {
+  font-size: 3.2rem;
+}
+
+.hover_input:hover {
+  transform: translateY(-0.5rem);
+  transition: all ease 0.4s;
+  padding: 10px; /* Adjust the padding as needed 
+
+  border: 1px solid rgb(20, 20, 146);  Adjust the border as needed 
+  border-radius: 5px;
+} */
