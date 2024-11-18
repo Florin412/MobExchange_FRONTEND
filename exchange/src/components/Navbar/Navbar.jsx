@@ -7,7 +7,7 @@ const Navigation = ({
   isSignedIn,
   onSignedInChange,
   onRouteChange,
-  signOut,
+  signOut
 }) => {
   return (
     <nav
@@ -16,14 +16,17 @@ const Navigation = ({
     >
       <div className="container-fluid">
         {/* Logo */}
-        <Link className="navbar-brand d-flex align-items-center ms-3">
+        <Link
+          to={isSignedIn ? "/home" : "/signin"}
+          className="navbar-brand d-flex align-items-center ms-3"
+        >
           <h1
             className="mb-0 d-flex align-items-center"
             style={{
               fontSize: "2.5rem",
               fontWeight: "700",
               letterSpacing: "0px",
-              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)"
             }}
           >
             Mobi
@@ -31,7 +34,7 @@ const Navigation = ({
               className="text-warning"
               style={{
                 fontWeight: "700",
-                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)"
               }}
             >
               Exchange
@@ -55,7 +58,7 @@ const Navigation = ({
               style={{
                 padding: "0",
                 display: "flex",
-                alignItems: "center",
+                alignItems: "center"
               }}
             >
               <img
@@ -67,7 +70,7 @@ const Navigation = ({
                   borderRadius: "50%",
                   cursor: "pointer",
                   objectFit: "cover",
-                  boxShadow: "rgba(0, 0, 0, 0.3) 0px 5px 15px",
+                  boxShadow: "rgba(0, 0, 0, 0.3) 0px 5px 15px"
                 }}
               />
             </a>
@@ -79,7 +82,7 @@ const Navigation = ({
                 border: "1px solid #FFD824",
                 borderRadius: "10px", // Colțuri rotunjite
                 minWidth: "200px", // Lățime minimă pentru dropdown
-                padding: "0", // Eliminăm padding-ul pentru a controla mai bine stilul
+                padding: "0" // Eliminăm padding-ul pentru a controla mai bine stilul
               }}
             >
               <li>
@@ -94,7 +97,7 @@ const Navigation = ({
                     padding: "12px 20px",
                     borderRadius: "5px",
                     color: "black",
-                    transition: "background-color 0.3s ease, color 0.3s ease", // Tranziție pentru fundal și culoare text
+                    transition: "background-color 0.3s ease, color 0.3s ease" // Tranziție pentru fundal și culoare text
                   }}
                   onMouseEnter={(e) => {
                     e.target.style.backgroundColor = "#f0c300"; // Schimbă culoarea fundalului la hover
@@ -120,7 +123,7 @@ const Navigation = ({
                     padding: "12px 20px",
                     borderRadius: "5px",
                     color: "black",
-                    transition: "background-color 0.3s ease, color 0.3s ease", // Tranziție pentru fundal și culoare text
+                    transition: "background-color 0.3s ease, color 0.3s ease" // Tranziție pentru fundal și culoare text
                   }}
                   onMouseEnter={(e) => {
                     e.target.style.backgroundColor = "#f0c300"; // Schimbă culoarea fundalului la hover
@@ -149,7 +152,7 @@ const Navigation = ({
               marginLeft: "10px",
               border: "2px solid white", // White border
               borderRadius: "4px", // Optional: adjust as needed
-              padding: "8px", // Optional: adjust padding for better alignment
+              padding: "8px" // Optional: adjust padding for better alignment
             }}
           >
             <span
@@ -158,7 +161,7 @@ const Navigation = ({
                 position: "relative",
                 display: "block",
                 width: "24px",
-                height: "24px",
+                height: "24px"
               }}
             >
               <span
@@ -169,7 +172,7 @@ const Navigation = ({
                   backgroundColor: "white", // White line
                   position: "absolute",
                   top: "4px",
-                  left: "0",
+                  left: "0"
                 }}
               ></span>
               <span
@@ -180,7 +183,7 @@ const Navigation = ({
                   backgroundColor: "white", // White line
                   position: "absolute",
                   top: "10px",
-                  left: "0",
+                  left: "0"
                 }}
               ></span>
               <span
@@ -191,7 +194,7 @@ const Navigation = ({
                   backgroundColor: "white", // White line
                   position: "absolute",
                   top: "16px",
-                  left: "0",
+                  left: "0"
                 }}
               ></span>
             </span>
@@ -216,7 +219,7 @@ const Navigation = ({
                   style={{
                     padding: "0",
                     display: "flex",
-                    alignItems: "center",
+                    alignItems: "center"
                   }}
                 >
                   <img
@@ -228,7 +231,7 @@ const Navigation = ({
                       borderRadius: "50%",
                       cursor: "pointer",
                       objectFit: "cover",
-                      boxShadow: "rgba(0, 0, 0, 0.3) 0px 5px 15px",
+                      boxShadow: "rgba(0, 0, 0, 0.3) 0px 5px 15px"
                     }}
                   />
                 </a>
@@ -238,7 +241,7 @@ const Navigation = ({
                   aria-labelledby="profileDropdown"
                   style={{
                     backgroundColor: "#FFD824",
-                    border: "1px solid #FFD824",
+                    border: "1px solid #FFD824"
                   }}
                 >
                   <li>
@@ -291,7 +294,7 @@ const Navigation = ({
                       boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)", // Umbra neagră
                       textAlign: "center",
                       textDecoration: "none",
-                      transition: "all 0.3s ease",
+                      transition: "all 0.3s ease"
                     }}
                     onMouseOver={(e) => {
                       e.currentTarget.style.boxShadow =
@@ -329,7 +332,7 @@ const Navigation = ({
                       boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)", // Umbra neagră
                       textAlign: "center",
                       textDecoration: "none",
-                      transition: "all 0.3s ease",
+                      transition: "all 0.3s ease"
                     }}
                     onMouseOver={(e) => {
                       e.currentTarget.style.boxShadow =
