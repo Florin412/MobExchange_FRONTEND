@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import apiUrl from "../../assets/api_url";
 
-const SignIn = ({ onRouteChange, setIsSignedIn, setUserName }) => {
+const SignIn = ({ onRouteChange, setIsSignedIn, getUserName }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -15,26 +15,6 @@ const SignIn = ({ onRouteChange, setIsSignedIn, setUserName }) => {
   // This function allow us to navitate in different pages.
   // It uses react route v5, so it could change in time and not working, so read the docs if error appears.
   let navigate = useNavigate();
-
-  const getUserName = (data) => {
-    // Convertește string-ul JSON într-un obiect
-    const parsedData = JSON.parse(data);
-
-    // Extrage email-ul din obiectul parsuit
-    const email = parsedData.email;
-
-    // Extrage numele din email (partea de dinainte de "@")
-    let userName = email.split("@")[0];
-
-    // Transformă prima literă în majusculă
-    userName =
-      userName.charAt(0).toUpperCase() + userName.slice(1).toLowerCase();
-
-    // Stochează numele în localStorage
-    localStorage.setItem("userName", userName);
-
-    setUserName(userName);
-  };
 
   const onSubmitSignIn = () => {
     setLoginError("");

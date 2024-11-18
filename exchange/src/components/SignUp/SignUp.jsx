@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import apiUrl from "../../assets/api_url";
 
-const SignUp = ({ onRouteChange, setIsSignedIn }) => {
+const SignUp = ({ onRouteChange, setIsSignedIn, getUserName }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -34,10 +34,11 @@ const SignUp = ({ onRouteChange, setIsSignedIn }) => {
         password: password
       })
       .then((response) => {
-        console.log(response);
-
         if (response.status === 200 || response.status === 201) {
           console.log("Register was a success.");
+
+          // Get the userName and store it.
+          getUserName(response.config.data);
 
           const accessToken = response.data.accessToken; // Access token received from the response
           const refreshToken = response.data.refreshToken; // Refresh token received from the response
