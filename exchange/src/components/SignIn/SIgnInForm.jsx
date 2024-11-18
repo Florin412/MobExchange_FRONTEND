@@ -10,12 +10,14 @@ const SignIn = ({ onRouteChange, setIsSignedIn }) => {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [loginError, setLoginError] = useState("");
 
   // This function allow us to navitate in different pages.
   // It uses react route v5, so it could change in time and not working, so read the docs if error appears.
   let navigate = useNavigate();
 
   const onSubmitSignIn = () => {
+    setLoginError("");
     // Send a POST request to the login API endpoint
     axios
       .post(`${apiUrl}/auth/login`, {
@@ -42,19 +44,17 @@ const SignIn = ({ onRouteChange, setIsSignedIn }) => {
           onRouteChange("home");
           setIsSignedIn(true);
           navigate("/home"); // this line just changes the URL route to .../home
-        } else if (response.status === 400) {
-          console.error("Password incorrect, try again!");
-          // If the response status is not 200, login failed
-          //console.error("SignIn was a fail.");
         }
       })
       .catch((error) => {
         // Check if the error response status is 400
         if (error.response && error.response.status === 400) {
-          console.error("Email or password incorrect, try again!");
+          setLoginError("Email or password incorrect, try again!");
         } else {
           // Handle other network errors
-          console.error("Network error:", error);
+          setLoginError(
+            "Network error: Unable to log in. Please try again later."
+          );
         }
       });
   };
@@ -176,6 +176,16 @@ const SignIn = ({ onRouteChange, setIsSignedIn }) => {
               </div>
             )}
           </div>
+
+          {loginError && ( // Show UI error to user when credentials are not correct
+            <div
+              className="text-danger text-center fs-3"
+              style={{ marginTop: "20px" }}
+            >
+              {loginError}
+            </div>
+          )}
+
           <div className="text-center mb-4">
             <Link
               to="/forgotpassword"
