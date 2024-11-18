@@ -19,6 +19,7 @@ function App() {
   // Here is the default state of the app.
   const [route, setRoute] = useState("signin");
   const [isSignedIn, setIsSignedIn] = useState(false);
+  const [userName, setUserName] = useState("");
 
   // Changes the app route.
   const onRouteChange = (newRoute) => {
@@ -35,6 +36,12 @@ function App() {
   // When user refresh the page, we try to sign in automatically, by using the access
   // token stored in local storage.
   useEffect(() => {
+    // Verifică dacă există un nume stocat în localStorage
+    const storedUserName = localStorage.getItem("userName");
+    if (storedUserName) {
+      setUserName(storedUserName); // Actualizează state-ul cu numele din localStorage
+    }
+
     const checkAccessToken = async () => {
       const accessToken = localStorage.getItem("accessToken");
       const refreshToken = localStorage.getItem("refreshToken");
@@ -111,6 +118,9 @@ function App() {
     // Redirect to the signIn page
     navigate("/signin");
 
+    setUserName(""); // Resetează state-ul local
+    localStorage.removeItem("userName"); // Șterge numele din localStorage
+
     // Retrieve the access token from localStorage
     const accessToken = localStorage.getItem("accessToken");
 
@@ -146,6 +156,24 @@ function App() {
 
   return (
     <div>
+      {/* Header cu mesajul de salut */}
+      <header
+        style={{
+          textAlign: "center",
+          padding: "10px",
+          backgroundColor: "#1a1a1a",
+          color: "#FFD700"
+        }}
+      >
+        {isSignedIn && userName && (
+          <p
+            style={{ fontStyle: "italic", fontSize: "1.2rem", margin: "5px 0" }}
+          >
+            Good to see you, {userName}! 👋
+          </p>
+        )}
+      </header>
+
       <Navigation
         isSignedIn={isSignedIn}
         onSignedInChange={onSignedInChange}
@@ -194,6 +222,7 @@ function App() {
             <SignIn
               onRouteChange={onRouteChange}
               setIsSignedIn={setIsSignedIn}
+              setUserName={setUserName}
             ></SignIn>
           }
         ></Route>
@@ -212,11 +241,7 @@ function App() {
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route
           path="/change-password"
-          element={
-            <ChangePassword
-            signOut={signOut}
-            ></ChangePassword>
-          }
+          element={<ChangePassword signOut={signOut}></ChangePassword>}
         ></Route>
 
         <Route

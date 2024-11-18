@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import apiUrl from "../../assets/api_url";
 
-const SignIn = ({ onRouteChange, setIsSignedIn }) => {
+const SignIn = ({ onRouteChange, setIsSignedIn, setUserName }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -16,6 +16,26 @@ const SignIn = ({ onRouteChange, setIsSignedIn }) => {
   // It uses react route v5, so it could change in time and not working, so read the docs if error appears.
   let navigate = useNavigate();
 
+  const getUserName = (data) => {
+    // Convertește string-ul JSON într-un obiect
+    const parsedData = JSON.parse(data);
+
+    // Extrage email-ul din obiectul parsuit
+    const email = parsedData.email;
+
+    // Extrage numele din email (partea de dinainte de "@")
+    let userName = email.split("@")[0];
+
+    // Transformă prima literă în majusculă
+    userName =
+      userName.charAt(0).toUpperCase() + userName.slice(1).toLowerCase();
+
+    // Stochează numele în localStorage
+    localStorage.setItem("userName", userName);
+
+    setUserName(userName);
+  };
+
   const onSubmitSignIn = () => {
     setLoginError("");
     // Send a POST request to the login API endpoint
@@ -25,11 +45,12 @@ const SignIn = ({ onRouteChange, setIsSignedIn }) => {
         password: password
       })
       .then((response) => {
-        console.log(response);
-
         // If the response status is 200 (OK), log in was successful
         if (response.status === 200 || response.status === 201) {
           console.log("SignIn was a success.");
+
+          // Get the userName and store it.
+          getUserName(response.config.data);
 
           // accessToken is used to access protected resources.
           // refreshToken is used to get a new accessToken when it expires.
