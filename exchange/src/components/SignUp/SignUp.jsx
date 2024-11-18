@@ -18,6 +18,11 @@ const SignUp = ({ onRouteChange, setIsSignedIn }) => {
 
   const navigate = useNavigate();
 
+  const validateEmail = (email) => {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  };
+
   const onSubmitRegister = () => {
     console.log(firstName, lastName, email, password);
 
@@ -26,7 +31,7 @@ const SignUp = ({ onRouteChange, setIsSignedIn }) => {
         firstname: firstName,
         lastname: lastName,
         email: email,
-        password: password,
+        password: password
       })
       .then((response) => {
         console.log(response);
@@ -78,7 +83,15 @@ const SignUp = ({ onRouteChange, setIsSignedIn }) => {
       isValid = false;
     }
 
-    // Validate email
+    // -- Validate email
+
+    // Verify if email is valid
+    if (!validateEmail(email)) {
+      setEmailError("Invalid email format.");
+      isValid = false;
+    }
+
+    // Verify if email field is empty
     if (email.trim() === "") {
       setEmailError("Email is required.");
       isValid = false;
@@ -109,33 +122,42 @@ const SignUp = ({ onRouteChange, setIsSignedIn }) => {
     >
       <div
         className="bg-dark text-light p-4 rounded-4 shadow-lg mt-4"
-        style={{ maxWidth: "600px", width: "100%", boxShadow: "0 10px 20px rgba(0, 0, 0, 0.3), 0 6px 6px rgba(0, 0, 0, 0.1)", marginBottom: '15px' }}
+        style={{
+          maxWidth: "600px",
+          width: "100%",
+          boxShadow:
+            "0 10px 20px rgba(0, 0, 0, 0.3), 0 6px 6px rgba(0, 0, 0, 0.1)",
+          marginBottom: "15px"
+        }}
       >
-        <form
-          className="row g-4"
-          onSubmit={verifyInputsData}
-        >
+        <form className="row g-4" onSubmit={verifyInputsData}>
           <h1
             className="text-warning text-center mb-4 fw-bold pt-3"
-            style={{ fontSize: "48px", fontFamily: "Poppins", textShadow: "2px 2px 4px rgba(0,0,0,0.6)" }}
+            style={{
+              fontSize: "48px",
+              fontFamily: "Poppins",
+              textShadow: "2px 2px 4px rgba(0,0,0,0.6)"
+            }}
           >
             Sign Up
           </h1>
           <div className="mb-4">
             <label htmlFor="firstName" className="form-label text-warning">
-              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>First Name:</h2>
+              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>
+                First Name:
+              </h2>
             </label>
             <input
               type="text"
               className="form-control form-control-sm rounded-pill px-4"
               id="firstName"
-              style={{ 
-                fontSize: "20px", 
-                padding: "5px", 
-                maxWidth: "510px", 
-                marginLeft: "auto", 
-                marginRight: "auto" 
-                }}
+              style={{
+                fontSize: "20px",
+                padding: "5px",
+                maxWidth: "510px",
+                marginLeft: "auto",
+                marginRight: "auto"
+              }}
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
@@ -150,19 +172,21 @@ const SignUp = ({ onRouteChange, setIsSignedIn }) => {
           </div>
           <div className="mb-4">
             <label htmlFor="lastName" className="form-label text-warning">
-              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>Last Name:</h2>
+              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>
+                Last Name:
+              </h2>
             </label>
             <input
               type="text"
               className="form-control form-control-sm rounded-pill px-4"
               id="lastName"
-              style={{ 
-                fontSize: "20px", 
-                padding: "5px", 
-                maxWidth: "510px", 
-                marginLeft: "auto", 
-                marginRight: "auto" 
-                }}
+              style={{
+                fontSize: "20px",
+                padding: "5px",
+                maxWidth: "510px",
+                marginLeft: "auto",
+                marginRight: "auto"
+              }}
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
             />
@@ -177,19 +201,21 @@ const SignUp = ({ onRouteChange, setIsSignedIn }) => {
           </div>
           <div className="mb-4">
             <label htmlFor="email" className="form-label text-warning">
-              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>Email:</h2>
+              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>
+                Email:
+              </h2>
             </label>
             <input
               type="email"
               className="form-control form-control-sm rounded-pill px-4"
               id="email"
-              style={{ 
-                fontSize: "20px", 
-                padding: "5px", 
-                maxWidth: "510px", 
-                marginLeft: "auto", 
-                marginRight: "auto" 
-                }}
+              style={{
+                fontSize: "20px",
+                padding: "5px",
+                maxWidth: "510px",
+                marginLeft: "auto",
+                marginRight: "auto"
+              }}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
@@ -204,19 +230,21 @@ const SignUp = ({ onRouteChange, setIsSignedIn }) => {
           </div>
           <div className="mb-4">
             <label htmlFor="password" className="form-label text-warning">
-              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>Password:</h2>
+              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>
+                Password:
+              </h2>
             </label>
             <input
               type="password"
               className="form-control form-control-sm rounded-pill px-4"
               id="password"
-              style={{ 
-                fontSize: "20px", 
-                padding: "5px", 
-                maxWidth: "510px", 
-                marginLeft: "auto", 
-                marginRight: "auto" 
-                }}
+              style={{
+                fontSize: "20px",
+                padding: "5px",
+                maxWidth: "510px",
+                marginLeft: "auto",
+                marginRight: "auto"
+              }}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -230,20 +258,25 @@ const SignUp = ({ onRouteChange, setIsSignedIn }) => {
             )}
           </div>
           <div className="mb-4">
-            <label htmlFor="confirmPassword" className="form-label text-warning">
-              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>Confirm Password:</h2>
+            <label
+              htmlFor="confirmPassword"
+              className="form-label text-warning"
+            >
+              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>
+                Confirm Password:
+              </h2>
             </label>
             <input
               type="password"
               className="form-control form-control-sm rounded-pill px-4"
               id="confirmPassword"
-              style={{ 
-                fontSize: "20px", 
-                padding: "5px", 
-                maxWidth: "510px", 
-                marginLeft: "auto", 
-                marginRight: "auto" 
-                }}
+              style={{
+                fontSize: "20px",
+                padding: "5px",
+                maxWidth: "510px",
+                marginLeft: "auto",
+                marginRight: "auto"
+              }}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
@@ -257,10 +290,14 @@ const SignUp = ({ onRouteChange, setIsSignedIn }) => {
             )}
           </div>
           <div className="text-center pb-4">
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className="btn btn-warning rounded-pill shadow-lg"
-              style={{ padding: "12px 40px", fontSize: "18px", fontWeight: "bold" }}
+              style={{
+                padding: "12px 40px",
+                fontSize: "18px",
+                fontWeight: "bold"
+              }}
             >
               Register
             </button>
