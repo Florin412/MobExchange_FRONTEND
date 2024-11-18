@@ -20,8 +20,12 @@ const ChangePassword = ({ signOut }) => {
 
     let valid = true;
 
-    if (!currentPassword) {
-      setCurrentPasswordError("Current password is required.");
+    if (!currentPassword || currentPassword.length < 6) {
+      setCurrentPasswordError(
+        !currentPassword
+          ? "Current password is required."
+          : "Password must be at least 6 characters."
+      );
       valid = false;
     }
 
@@ -66,6 +70,7 @@ const ChangePassword = ({ signOut }) => {
       );
 
       if (response.status === 200 || response.status === 201) {
+        alert("Password changed successfully!");
         console.log("Password changed successfully");
         signOut();
       } else if (response.status === 400) {
@@ -104,6 +109,7 @@ const ChangePassword = ({ signOut }) => {
       // return response.data;
     } catch (error) {
       console.error("Error changing password:", error);
+      alert("Your current password is incorrect.");
     }
   };
 
