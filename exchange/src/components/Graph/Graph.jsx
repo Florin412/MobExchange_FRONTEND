@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
 import { Line } from "react-chartjs-2";
 import axios from "axios";
@@ -13,6 +13,8 @@ import {
   Tooltip,
   Legend
 } from "chart.js";
+import { Filler } from "chart.js";
+import { Chart } from "chart.js";
 
 // Register the necessary chart components
 ChartJS.register(
@@ -24,10 +26,12 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
+Chart.register(Filler);
 const Graph = ({ baseCurrency, startDate, targetCurrency }) => {
   const [chartDataDates, setChartDataDates] = useState([]);
   const [chartDataRates, setChartDataRates] = useState([]);
+
+  const isMounted = useRef(false);
 
   const handleRefreshToken = async () => {
     // Retrieve the refresh token from local storage
@@ -73,15 +77,13 @@ const Graph = ({ baseCurrency, startDate, targetCurrency }) => {
       });
 
       if (response.status === 200 || response.status === 201) {
-        console.log("am intrat in 200");
-
         const exchangeRates = response.data.rates;
         const dates = Object.keys(exchangeRates);
         const rates = dates.map((date) => exchangeRates[date][targetCurrency]);
         setChartDataDates(dates);
         setChartDataRates(rates);
 
-        console.log(exchangeRates, dates, rates);
+        //console.log(exchangeRates, dates, rates);
       } else if (response.status === 400 || response.status === 401) {
         // If access token is expired creat a new one.
         const newAccessToken = await handleRefreshToken();
@@ -97,7 +99,11 @@ const Graph = ({ baseCurrency, startDate, targetCurrency }) => {
   };
 
   useEffect(() => {
-    fetchApiData();
+    if (isMounted.current && baseCurrency && targetCurrency && startDate) {
+      fetchApiData();
+    } else {
+      isMounted.current = true;
+    }
   }, [baseCurrency, targetCurrency, startDate]);
 
   const data = {
@@ -123,43 +129,43 @@ const Graph = ({ baseCurrency, startDate, targetCurrency }) => {
         callbacks: {
           label: function (tooltipItem) {
             return `${tooltipItem.dataset.label}: ${tooltipItem.raw}`;
-          },
+          }
         },
         bodyFont: {
-          size: 18, // Font size for tooltip text
+          size: 18 // Font size for tooltip text
         },
         titleFont: {
-          size: 20, // Font size for tooltip title
+          size: 20 // Font size for tooltip title
         },
         footerFont: {
-          size: 16, // Font size for tooltip footer (if any)
+          size: 16 // Font size for tooltip footer (if any)
         },
         padding: 10, // Padding inside the tooltip
         backgroundColor: "#333", // Background color of tooltip
         titleColor: "#FFD824", // Title color
         bodyColor: "#FFFFFF", // Body text color
         borderColor: "#FFD824", // Border color of the tooltip
-        borderWidth: 1, // Border width of the tooltip
-      },
+        borderWidth: 1 // Border width of the tooltip
+      }
     },
     scales: {
       x: {
         ticks: {
           font: {
-            size: 16, // Increase font size for x-axis labels
+            size: 16 // Increase font size for x-axis labels
           },
-          color: "white",
-        },
+          color: "white"
+        }
       },
       y: {
         ticks: {
           font: {
-            size: 16, // Increase font size for y-axis labels
+            size: 16 // Increase font size for y-axis labels
           },
-          color: "white",
-        },
-      },
-    },
+          color: "white"
+        }
+      }
+    }
   };
 
   return <Line data={data} options={options} />;

@@ -14,7 +14,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
   const [availableCurrencies, setAvailableCurrencies] = useState([]);
   const [allCurrenciesAvailable, setAllCurrenciesAvailable] = useState([]);
   const [tableInfo, setTableInfo] = useState([]);
-  const [numberToConvert, setNumberToConvert] = useState("");
+  const [numberToConvert, setNumberToConvert] = useState(0);
   const [currencyFinal, setCurrencyFinal] = useState("RON");
   const [currencyTo, setCurrencyTo] = useState("");
   const [clickAddCurrency, setClickAddCurrency] = useState(false);
@@ -78,8 +78,8 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
     try {
       const response = await axios.get(url, {
         headers: {
-          Authorization: `Bearer ${accessToken}`, // Add Authorization header with Bearer token
-        },
+          Authorization: `Bearer ${accessToken}` // Add Authorization header with Bearer token
+        }
       });
 
       if (response.status === 200 || response.status === 201) {
@@ -95,8 +95,8 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
           ...Object.entries(rates).map(([currency, rate], index) => [
             index + 1,
             currency,
-            rate,
-          ]),
+            rate
+          ])
         ];
         setAllCurrenciesAvailable(currencies);
 
@@ -131,12 +131,12 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
   let fromCurr = useRef(null);
 
   const handleChange = (e) => {
-    console.log(
-      setTableInfoState,
-      setAllCurrencies,
-      setTableInfo,
-      liveExchange
-    );
+    // console.log(
+    //   setTableInfoState,
+    //   setAllCurrencies,
+    //   setTableInfo,
+    //   liveExchange
+    // );
     const value = e.target.value;
     try {
       if (isNaN(Number(value))) {
@@ -158,7 +158,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
       let result = Object.keys(exchangeRatesState).map((key) => {
         return { currency: key, rate: exchangeRatesState[key] };
       });
-      console.log(result);
+      // console.log(result);
 
       // Find the exchange rate for the final currency
       let exchangeRateTo = result.find(
@@ -224,7 +224,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
       tableInfo.push[(currency, price, percent)];
       setTableInfoState((prevTableInfo) => [
         ...prevTableInfo,
-        [id, currency, price],
+        [id, currency, price]
       ]);
       setClickAddCurrency(false);
     } else {
@@ -260,7 +260,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
               position: "relative",
               display: "inline-block",
               textAlign: "center",
-              zIndex: "1", // Ensure the text is on top
+              zIndex: "1" // Ensure the text is on top
             }}
           >
             Currency Converter
@@ -276,7 +276,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
               maxWidth: "90%",
               marginTop: "50px",
               textAlign: "justify",
-              textAlignLast: "left",
+              textAlignLast: "left"
             }}
           >
             Welcome to the Currency Converter tool. Easily convert between
@@ -296,7 +296,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
                 backgroundColor: "transparent",
                 border: "2px solid #FFD824",
                 borderRadius: "15px",
-                marginTop: "40px",
+                marginTop: "40px"
               }}
             >
               <div className="card-body">
@@ -307,7 +307,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
                     style={{
                       color: "#FFD824",
                       marginTop: "20px",
-                      marginLeft: "30px",
+                      marginLeft: "30px"
                     }}
                   >
                     From Currency
@@ -321,7 +321,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
                       borderColor: "#FFD824",
                       backgroundColor: "#FFF9E5",
                       padding: "0.75rem",
-                      boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                      boxShadow: "0 4px 6px rgba(0,0,0,0.1)"
                     }}
                     value={currencyFrom}
                     onChange={handleCurrencyFromChange}
@@ -369,7 +369,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
                       borderColor: "#FFD824",
                       backgroundColor: "#FFF9E5",
                       padding: "0.75rem",
-                      boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                      boxShadow: "0 4px 6px rgba(0,0,0,0.1)"
                     }}
                     value={currencyFinal}
                     onChange={handleCurrencyToChange}
@@ -405,7 +405,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
                     style={{
                       padding: "12px 40px",
                       fontSize: "18px",
-                      fontWeight: "bold",
+                      fontWeight: "bold"
                     }}
                     onClick={convertHandler}
                   >
@@ -418,57 +418,66 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
         </div>
 
         {/* Chart Section */}
-        <div className="graph graph_display" style={{ marginTop: '50px' }}>
-        <h1 className="mb-5 mt-5 text-center fw-bold"
-          style={{
-            fontSize: "3.8rem", 
-            color: "#FFD824",
-            textShadow: `
+        <div className="graph graph_display" style={{ marginTop: "50px" }}>
+          <h1
+            className="mb-5 mt-5 text-center fw-bold"
+            style={{
+              fontSize: "3.8rem",
+              color: "#FFD824",
+              textShadow: `
               1px 1px 2px rgba(0, 0, 0, 0.3), 
               0 0 3px rgba(255, 215, 36, 0.3)
             `, // Very subtle shadows for a light 3D effect
-            backgroundColor: "#28292D", 
-            padding: "15px", 
-            borderRadius: "8px", 
-            textAlign: "center",
-            display: "inline-block",
-            fontFamily: "'Poppins', sans-serif", 
-            position: "relative",
-            maxWidth: "90%", 
-            margin: "0 auto", 
-            boxShadow: "0 1px 4px rgba(0, 0, 0, 0.1)",
-          }}
-      >
-        This graph contains data from <span style={{ color: '#FFFFFF' }}>{dateButton}</span> to the present <span style={{ color: '#FFFFFF' }}>{year}-{month}-{day}</span>
-      </h1>
-          <div className="flexButtons mb-5 d-flex justify-content-center flex-wrap gap-4" style={{ marginTop: '15px' }}>
-            <button 
+              backgroundColor: "#28292D",
+              padding: "15px",
+              borderRadius: "8px",
+              textAlign: "center",
+              display: "inline-block",
+              fontFamily: "'Poppins', sans-serif",
+              position: "relative",
+              maxWidth: "90%",
+              margin: "0 auto",
+              boxShadow: "0 1px 4px rgba(0, 0, 0, 0.1)"
+            }}
+          >
+            This graph contains data from{" "}
+            <span style={{ color: "#FFFFFF" }}>{dateButton}</span> to the
+            present{" "}
+            <span style={{ color: "#FFFFFF" }}>
+              {year}-{month}-{day}
+            </span>
+          </h1>
+          <div
+            className="flexButtons mb-5 d-flex justify-content-center flex-wrap gap-4"
+            style={{ marginTop: "15px" }}
+          >
+            <button
               className="btn btn-outline-warning btn-lg rounded-pill px-4 fs-3"
-              style={{ width: '150px', minWidth: '150px' }} // Set a consistent width
+              style={{ width: "150px", minWidth: "150px" }} // Set a consistent width
               value={1}
               onClick={handleDateFunction}
             >
               1 Month
             </button>
-            <button 
+            <button
               className="btn btn-outline-warning btn-lg rounded-pill px-4 fs-3"
-              style={{ width: '150px', minWidth: '150px' }} // Set a consistent width
+              style={{ width: "150px", minWidth: "150px" }} // Set a consistent width
               value={3}
               onClick={handleDateFunction}
             >
               3 Months
             </button>
-            <button 
+            <button
               className="btn btn-outline-warning btn-lg rounded-pill px-4 fs-3"
-              style={{ width: '150px', minWidth: '150px' }} // Set a consistent width
+              style={{ width: "150px", minWidth: "150px" }} // Set a consistent width
               value={6}
               onClick={handleDateFunction}
             >
               6 Months
             </button>
-            <button 
+            <button
               className="btn btn-outline-warning btn-lg rounded-pill px-4 fs-3"
-              style={{ width: '150px', minWidth: '150px' }} // Set a consistent width
+              style={{ width: "150px", minWidth: "150px" }} // Set a consistent width
               value={12}
               onClick={handleDateFunction}
             >
@@ -491,12 +500,12 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
                 marginTop: "50px",
                 fontSize: "4.5rem",
                 color: "#FFD824", // Text color
-                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)", 
+                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
                 fontWeight: "bold",
                 position: "relative",
                 display: "inline-block",
                 textAlign: "center",
-                zIndex: "1", // Ensure the text is on top
+                zIndex: "1" // Ensure the text is on top
               }}
             >
               Live Exchange Rates
@@ -509,7 +518,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
                 marginTop: "50px",
                 textAlign: "justify",
                 textAlignLast: "left",
-                marginBottom: "50px",
+                marginBottom: "50px"
               }}
             >
               Check the latest exchange rates and compare the values of
@@ -535,7 +544,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
                         padding: "1rem",
                         boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
                         transition: "transform 0.3s ease, box-shadow 0.3s ease",
-                        transform: "perspective(500px) rotateX(0deg)",
+                        transform: "perspective(500px) rotateX(0deg)"
                       }}
                       onMouseEnter={(e) => {
                         e.currentTarget.style.transform =
@@ -562,7 +571,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
                     style={{
                       textAlign: "center",
                       transition: "background-color 0.3s ease, color 0.3s ease",
-                      cursor: "pointer",
+                      cursor: "pointer"
                     }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.backgroundColor = "#FFFACD";
@@ -580,7 +589,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
                           padding: "1rem",
                           borderBottom: "1px solid #EEE",
                           backgroundColor: "transparent",
-                          color: "inherit",
+                          color: "inherit"
                         }}
                       >
                         {cell}
@@ -600,7 +609,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
               style={{
                 fontSize: "2rem",
                 padding: "0.75rem 1.5rem",
-                borderRadius: "0.5rem",
+                borderRadius: "0.5rem"
               }}
             >
               <span className="font-weight-bold" style={{ fontSize: "2rem" }}>
@@ -624,7 +633,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
                   fontSize: "2rem",
                   padding: "0.75rem",
                   borderRadius: "0.5rem",
-                  borderColor: "#DDD",
+                  borderColor: "#DDD"
                 }}
               >
                 <option disabled value="">
