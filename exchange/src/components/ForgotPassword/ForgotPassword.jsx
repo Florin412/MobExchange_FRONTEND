@@ -5,6 +5,7 @@ import axios from "axios";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [serverError, setServerError] = useState(""); // New state for server error message
 
   const validateEmail = (email) => {
     const re = /\S+@\S+\.\S+/;
@@ -20,15 +21,20 @@ const ForgotPassword = () => {
         if (response.status === 200 || response.status === 201) {
           alert("Check your email, there you can change your password");
           console.log(response);
+          setServerError(""); // Clear previous server errors
         }
       })
       .catch((error) => {
         if (error.response) {
           // The request was made and the server responded with a status code
           if (error.response.status === 400) {
-            console.error(
-              "The email you provided does not exist in our database:",
-              error
+            // Set the server error message to display in the UI
+            setServerError(
+              "The email you provided does not exist in our database."
+            );
+          } else {
+            setServerError(
+              "An unexpected error occurred. Please try again later."
             );
           }
         }
@@ -39,6 +45,7 @@ const ForgotPassword = () => {
     e.preventDefault();
 
     setEmailError("");
+    setServerError(""); // Clear previous server errors
 
     let valid = true;
 
@@ -48,6 +55,7 @@ const ForgotPassword = () => {
     } else if (!validateEmail(email)) {
       setEmailError("Invalid email address.");
       valid = false;
+      return;
     }
 
     if (valid) {
@@ -116,7 +124,17 @@ const ForgotPassword = () => {
                 {emailError}
               </div>
             )}
+
+            {serverError && ( // Display the server error if it exists
+              <div
+                className="fs-4 text-danger mt-3"
+                style={{ marginLeft: "40px" }}
+              >
+                {serverError}
+              </div>
+            )}
           </div>
+
           <div className="text-center mb-5">
             <button
               type="submit"
