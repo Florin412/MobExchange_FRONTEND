@@ -24,7 +24,7 @@ const SignUp = ({ onRouteChange, setIsSignedIn, getUserName }) => {
   };
 
   const onSubmitRegister = () => {
-    console.log(firstName, lastName, email, password);
+    //console.log(firstName, lastName, email, password);
 
     axios
       .post(`${apiUrl}/auth/register`, {
@@ -56,6 +56,15 @@ const SignUp = ({ onRouteChange, setIsSignedIn, getUserName }) => {
         }
       })
       .catch((error) => {
+        // Verificăm dacă este o eroare Axios și are status 400
+        if (axios.isAxiosError(error) && error.response?.status === 400) {
+          const errorMessage = error.response.data; // Extragem mesajul din data
+
+          if (errorMessage.includes("Email already used")) {
+            setEmailError("Email alredy used.");
+          }
+        }
+
         console.error("Network error:", error);
       });
   };
@@ -161,6 +170,8 @@ const SignUp = ({ onRouteChange, setIsSignedIn, getUserName }) => {
               }}
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
+              minLength={2}
+              required
             />
             {firstNameError && (
               <div
@@ -190,6 +201,8 @@ const SignUp = ({ onRouteChange, setIsSignedIn, getUserName }) => {
               }}
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
+              required
+              minLength={2}
             />
             {lastNameError && (
               <div
@@ -219,6 +232,7 @@ const SignUp = ({ onRouteChange, setIsSignedIn, getUserName }) => {
               }}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
             {emailError && (
               <div

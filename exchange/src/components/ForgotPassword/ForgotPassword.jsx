@@ -106,6 +106,7 @@ const ForgotPassword = () => {
                 marginRight: "auto"
               }}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
             {emailError && (
               <div
