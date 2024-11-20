@@ -31,24 +31,55 @@ function App() {
     setIsSignedIn(boolValue);
   };
 
-  const getUserName = (data) => {
-    // Convertește string-ul JSON într-un obiect
-    const parsedData = JSON.parse(data);
+  // const getUserName = (data) => {
+  //   // Convertește string-ul JSON într-un obiect
+  //   const parsedData = JSON.parse(data);
 
-    // Extrage email-ul din obiectul parsuit
-    const email = parsedData.email;
+  //   // Extrage email-ul din obiectul parsuit
+  //   const email = parsedData.email;
 
-    // Extrage numele din email (partea de dinainte de "@")
-    let userName = email.split("@")[0];
+  //   // Extrage numele din email (partea de dinainte de "@")
+  //   let userName = email.split("@")[0];
 
-    // Transformă prima literă în majusculă
-    userName =
-      userName.charAt(0).toUpperCase() + userName.slice(1).toLowerCase();
+  //   // Transformă prima literă în majusculă
+  //   userName =
+  //     userName.charAt(0).toUpperCase() + userName.slice(1).toLowerCase();
 
-    // Stochează numele în localStorage
-    localStorage.setItem("userName", userName);
+  //   // Stochează numele în localStorage
+  //   localStorage.setItem("userName", userName);
 
-    setUserName(userName);
+  //   setUserName(userName);
+  // };
+
+  const getUserName = async (accessToken) => {
+    try {
+      // Trimite cererea către endpoint-ul backend
+      const response = await axios.get(`${apiUrl}/auth/getUserDetails`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json"
+        }
+      });
+
+      // Extrage firstname din răspuns
+      const { firstname } = response.data;
+
+      if (!firstname) {
+        throw new Error("Firstname is missing from the API response.");
+      }
+
+      // Transformă prima literă în majusculă și restul în litere mici
+      const formattedFirstname =
+        firstname.charAt(0).toUpperCase() + firstname.slice(1).toLowerCase();
+
+      // Salvează firstname formatat în localStorage
+      localStorage.setItem("userName", formattedFirstname);
+
+      // Actualizează numele utilizatorului (de exemplu, în UI)
+      setUserName(formattedFirstname);
+    } catch (error) {
+      console.error("Error fetching user details:", error);
+    }
   };
 
   let navigate = useNavigate();

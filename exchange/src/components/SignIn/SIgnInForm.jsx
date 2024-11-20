@@ -29,13 +29,13 @@ const SignIn = ({ onRouteChange, setIsSignedIn, getUserName }) => {
         if (response.status === 200 || response.status === 201) {
           console.log("SignIn was a success.");
 
-          // Get the userName and store it.
-          getUserName(response.config.data);
-
           // accessToken is used to access protected resources.
           // refreshToken is used to get a new accessToken when it expires.
           const accessToken = response.data.accessToken;
           const refreshToken = response.data.refreshToken;
+
+          // Get the userName and store it.
+          getUserName(accessToken);
 
           // Store the tokens in Local Storage for future use
           localStorage.setItem("accessToken", accessToken);

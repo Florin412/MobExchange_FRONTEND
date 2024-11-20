@@ -37,11 +37,11 @@ const SignUp = ({ onRouteChange, setIsSignedIn, getUserName }) => {
         if (response.status === 200 || response.status === 201) {
           console.log("Register was a success.");
 
-          // Get the userName and store it.
-          getUserName(response.config.data);
-
           const accessToken = response.data.accessToken; // Access token received from the response
           const refreshToken = response.data.refreshToken; // Refresh token received from the response
+
+          // Get the userName and store it.
+          getUserName(accessToken);
 
           // Store the tokens in Local Storage for future use
           localStorage.setItem("accessToken", accessToken);
