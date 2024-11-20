@@ -31,26 +31,6 @@ function App() {
     setIsSignedIn(boolValue);
   };
 
-  // const getUserName = (data) => {
-  //   // Convertește string-ul JSON într-un obiect
-  //   const parsedData = JSON.parse(data);
-
-  //   // Extrage email-ul din obiectul parsuit
-  //   const email = parsedData.email;
-
-  //   // Extrage numele din email (partea de dinainte de "@")
-  //   let userName = email.split("@")[0];
-
-  //   // Transformă prima literă în majusculă
-  //   userName =
-  //     userName.charAt(0).toUpperCase() + userName.slice(1).toLowerCase();
-
-  //   // Stochează numele în localStorage
-  //   localStorage.setItem("userName", userName);
-
-  //   setUserName(userName);
-  // };
-
   const getUserName = async (accessToken) => {
     try {
       // Trimite cererea către endpoint-ul backend

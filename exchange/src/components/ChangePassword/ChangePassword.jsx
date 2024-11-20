@@ -149,6 +149,29 @@ const ChangePassword = ({ signOut }) => {
             Enter your current password, new password, and confirm your new
             password to proceed.
           </p>
+
+          {/* Username Field, it's defined just for accesibility but its hidded in page */}
+          <div className="mb-4 d-none">
+            <label htmlFor="InputUsername" className="form-label text-warning">
+              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>
+                Username:
+              </h2>
+            </label>
+            <input
+              autoComplete="username"
+              type="text"
+              className="form-control form-control-sm rounded-pill px-4"
+              id="InputUsername"
+              style={{
+                fontSize: "20px",
+                padding: "5px",
+                maxWidth: "510px",
+                marginLeft: "auto",
+                marginRight: "auto"
+              }}
+            />
+          </div>
+
           <div className="mb-4">
             <label
               htmlFor="InputCurrentPassword"
@@ -169,6 +192,7 @@ const ChangePassword = ({ signOut }) => {
                 marginLeft: "auto",
                 marginRight: "auto"
               }}
+              autoComplete="current-password"
               onChange={(e) => setCurrentPassword(e.target.value)}
             />
             {currentPasswordError && (
@@ -180,6 +204,7 @@ const ChangePassword = ({ signOut }) => {
               </div>
             )}
           </div>
+
           <div className="mb-4">
             <label
               htmlFor="InputNewPassword"
@@ -200,6 +225,7 @@ const ChangePassword = ({ signOut }) => {
                 marginLeft: "auto",
                 marginRight: "auto"
               }}
+              autoComplete="new-password"
               onChange={(e) => setNewPassword(e.target.value)}
             />
             {newPasswordError && (
@@ -231,6 +257,7 @@ const ChangePassword = ({ signOut }) => {
                 marginLeft: "auto",
                 marginRight: "auto"
               }}
+              autoComplete="new-password"
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
             {confirmPasswordError && (

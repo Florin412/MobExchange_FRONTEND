@@ -128,7 +128,7 @@ const SignIn = ({ onRouteChange, setIsSignedIn, getUserName }) => {
               </h2>
             </label>
             <input
-              type="text"
+              type="email"
               className="form-control form-control-sm rounded-pill px-4 w-100"
               id="InputEmail"
               style={{
@@ -138,6 +138,7 @@ const SignIn = ({ onRouteChange, setIsSignedIn, getUserName }) => {
                 marginLeft: "auto",
                 marginRight: "auto"
               }}
+              autoComplete="email"
               onChange={(e) => setEmail(e.target.value)}
             />
             {emailError && (
@@ -166,6 +167,7 @@ const SignIn = ({ onRouteChange, setIsSignedIn, getUserName }) => {
                 marginLeft: "auto",
                 marginRight: "auto"
               }}
+              autoComplete="current-password"
               onChange={(e) => setPassword(e.target.value)}
             />
             {passwordError && (

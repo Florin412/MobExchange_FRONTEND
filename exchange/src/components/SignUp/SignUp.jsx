@@ -230,6 +230,7 @@ const SignUp = ({ onRouteChange, setIsSignedIn, getUserName }) => {
                 marginLeft: "auto",
                 marginRight: "auto"
               }}
+              autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -261,6 +262,7 @@ const SignUp = ({ onRouteChange, setIsSignedIn, getUserName }) => {
                 marginRight: "auto"
               }}
               value={password}
+              autoComplete="new-password"
               onChange={(e) => setPassword(e.target.value)}
             />
             {passwordError && (
@@ -292,6 +294,7 @@ const SignUp = ({ onRouteChange, setIsSignedIn, getUserName }) => {
                 marginLeft: "auto",
                 marginRight: "auto"
               }}
+              autoComplete="new-password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
