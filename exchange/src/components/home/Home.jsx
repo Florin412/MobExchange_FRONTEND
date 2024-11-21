@@ -228,7 +228,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
       ]);
       setClickAddCurrency(false);
     } else {
-      alert("You have that selected the currency in the table");
+      alert("You have selected that currency in the table.");
       setClickAddCurrency(false);
     }
   };
@@ -524,6 +524,10 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
               Check the latest exchange rates and compare the values of
               different currencies. The table below provides real-time
               information to help you make informed decisions.
+              <br></br>
+              <br></br>
+              The currency marked with the number 1, is the reference currency,
+              while the rest from 2 onward, are target currencies.
             </p>
           </div>
           <div className="table-responsive mb-5">

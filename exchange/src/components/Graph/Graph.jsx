@@ -110,7 +110,8 @@ const Graph = ({ baseCurrency, startDate, targetCurrency }) => {
     labels: chartDataDates.map((item) => item),
     datasets: [
       {
-        label: `${targetCurrency} value in ${baseCurrency}`,
+        // label: `${targetCurrency} value in 1 ${baseCurrency}`,
+        label: ` 1 ${baseCurrency} = ${targetCurrency}`,
         data: chartDataRates.map((item) => item),
         borderColor: "#FFD824",
         backgroundColor: "blue",
