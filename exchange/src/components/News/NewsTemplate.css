@@ -1,0 +1,41 @@
+.news-container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.section {
+  margin: 20px 0;
+}
+
+.section-1 {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main-news {
+  flex: 0 0 48%; /* 2 linii și 2 coloane: ocupă 48% din lățime */
+  margin-bottom: 20px;
+}
+
+.secondary-news {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 coloane */
+  gap: 10px;
+  flex-grow: 1; /* Permite extinderea pe toată lățimea tabelului */
+}
+
+.news-item {
+  background: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.section-2 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 coloane */
+  gap: 10px;
+}
+
+.section-3 {
+  display: block; /* O singură coloană */
+}

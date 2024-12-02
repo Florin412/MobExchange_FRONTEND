@@ -15,6 +15,14 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import apiUrl from "./assets/api_url";
 
+// News imports
+import BusinessNews from "./components/News/BusinessNews";
+import StocksNews from "./components/News/StocksNews";
+import CryptoNews from "./components/News/CryptoNews";
+import ForexNews from "./components/News/ForexNews";
+import RealEstateNews from "./components/News/RealEstateNews";
+import PreciousMetalsNews from "./components/News/PreciousMetalsNews";
+
 function App() {
   // Here is the default state of the app.
   const [route, setRoute] = useState("signin");
@@ -275,6 +283,13 @@ function App() {
           path="/change-password"
           element={<ChangePassword signOut={signOut}></ChangePassword>}
         ></Route>
+
+        <Route path="/news/business" element={<BusinessNews></BusinessNews>} />
+        <Route path="/news/stocks"  element={<StocksNews></StocksNews>} />
+        <Route path="/news/crypto"  element={<CryptoNews></CryptoNews>} />
+        <Route path="/news/forex"  element={<ForexNews></ForexNews>} />
+        <Route path="/news/real-estate"  element={<RealEstateNews></RealEstateNews>} />
+        <Route path="/news/precious-metals" element={<PreciousMetalsNews></PreciousMetalsNews>} />
 
         <Route
           path="*"
