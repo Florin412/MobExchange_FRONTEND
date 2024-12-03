@@ -25,7 +25,7 @@ const About = () => {
                     <li><strong style={{ color: '#FFD824' }}>Transparency</strong>: We believe in being clear and open about our processes. From transaction fees to exchange rates, we ensure that you are fully informed every step of the way.</li>
                   </ul>
                   <p className="card-text text-white mb-4" style={{ fontSize: '2rem', textAlign: 'justify' }}>
-                    Our team of dedicated experts is here to support you around the clock. We work tirelessly to ensure that your experience with our platform is smooth and enjoyable. Whether you're exchanging a small amount or engaging in larger transactions, we are here to assist you at every turn.
+                    Our team of dedicated experts is here to support you around the clock. We work tirelessly to ensure that your experience with our platform is smooth and enjoyable. Whether youre exchanging a small amount or engaging in larger transactions, we are here to assist you at every turn.
                   </p>
                   <p className="card-text text-white mb-4" style={{ fontSize: '2rem', textAlign: 'justify' }}>
                     We offer a wide range of fiat currencies and advanced trading features to cater to your specific needs. Our user-friendly interface makes it easy for you to navigate and complete your transactions quickly and efficiently.

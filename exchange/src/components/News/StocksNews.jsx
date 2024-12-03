@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import NewsTemplate from "./NewsTemplate";
-import axios from "axios"; // Asigură-te că ai axios instalat
+import Footer from "../footer/Footer";
+import axios from "axios";
 
 const StocksNews = () => {
   const [newsData, setNewsData] = useState([]);
@@ -9,7 +10,7 @@ const StocksNews = () => {
     const fetchNews = async () => {
       try {
         const response = await axios.get("http://localhost:8080/news/stocks");
-        setNewsData(response.data); // Păstrează doar data
+        setNewsData(response.data);
       } catch (error) {
         console.error("Error fetching news:", error);
       }
@@ -20,8 +21,8 @@ const StocksNews = () => {
 
   return (
     <div>
-      <h1>Stock Market News</h1>
-      <NewsTemplate newsData={newsData} />
+      <NewsTemplate newsData={newsData} pageTitle={"Stock Market News"} />
+      <Footer></Footer>
     </div>
   );
 };
