@@ -112,7 +112,7 @@
 
 /* Descrierea articolelor */
 .article-description {
-  font-size: 1rem;
+  font-size: 14px;
   color: #7f8c8d;
   line-height: 1.6;
   margin-bottom: 20px;
@@ -248,24 +248,71 @@ a:hover {
 .news-item img,
 .news-item h3,
 .news-item .article-description {
-  cursor: pointer; /* Schimbă cursorul la hover */
+  cursor: pointer;
 }
 
 .main-news .article-img,
 .main-news .article-title,
 .main-news .article-description {
-  cursor: pointer; /* Schimbă cursorul la hover */
+  cursor: pointer;
 }
 
 /* Schimbă culoarea titlului la hover */
-.news-item img:hover,
-.news-item h3:hover,
-.news-item .article-description:hover {
+
+.news-item h3:hover {
   color: #2980b9;
 }
 
-.main-news .article-img:hover,
-.main-news .article-title:hover,
-.main-news .article-description:hover {
+.main-news .article-title:hover {
   color: #2980b9;
+}
+
+@media (max-width: 500px) {
+  .main-news .article-title {
+    font-size: 24px;
+  }
+
+  .main-news .article-description {
+    font-size: 14px;
+  }
+
+  .page-title {
+    font-size: 24px;
+  }
+}
+
+/* Layout pentru telefoane */
+@media (max-width: 768px) {
+  .section-1 {
+    flex-direction: column;
+  }
+
+  /* Aplicăm stilurile pentru section-3 la section-2 */
+  .section-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Două coloane */
+    gap: 20px; /* Spațiu între articole */
+  }
+
+  .news-item {
+    padding: 15px;
+  }
+
+  /* Limităm titlurile și descrierile la 3 linii */
+  .secondary-news .news-item h3,
+  .article-description,
+  .section-2 .news-item h3,
+  .section-3 .news-item h3 {
+    display: -webkit-box; /* Folosește flexbox pentru a controla rândurile */
+    -webkit-box-orient: vertical; /* Setează orientarea pe verticală */
+    -webkit-line-clamp: 3; /* Limitează la 3 rânduri */
+    line-clamp: 3;
+    overflow: hidden; /* Ascunde textul care depășește limita */
+    text-overflow: ellipsis; /* Adaugă "..." la finalul textului tăiat */
+    max-width: 100%; /* Asigură-te că nu depășește lățimea containerului */
+  }
+
+  .news-item {
+    padding: 15px;
+  }
 }
