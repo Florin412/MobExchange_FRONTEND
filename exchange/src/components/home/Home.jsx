@@ -7,6 +7,7 @@ import "./Home.css";
 import axios from "axios";
 import apiUrl from "../../assets/api_url";
 import Graph from "../Graph/Graph";
+import { Link } from "react-router-dom"; // Importă Link
 
 const Home = ({ setRoute, setIsSignedIn, signOut }) => {
   const [exchangeRatesState, setExchangeRatesState] = useState("");
@@ -265,6 +266,13 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
           >
             Currency Converter
           </h1>
+
+           {/* Buton pentru navigare la Stocks News */}
+           <Link to="/news/stocks">
+            <button className="btn btn-warning mt-3" style={{ fontSize: "1.5rem", padding: "10px 20px" }}>
+              Vezi știrile despre acțiuni
+            </button>
+          </Link>
         </div>
 
         {/* Introductory Text */}
