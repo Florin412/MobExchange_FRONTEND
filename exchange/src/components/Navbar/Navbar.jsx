@@ -48,6 +48,7 @@ const Navigation = ({
             className="nav-item dropdown d-lg-none"
             style={{ listStyleType: "none" }}
           >
+            {/* Profile picture image from navbar */}
             <a
               className="nav-link"
               href="#"
@@ -86,6 +87,7 @@ const Navigation = ({
               }}
             >
               <li>
+                {/* Mai jos sunt butoanele din iconul de profile */}
                 <Link
                   to="/changePassword"
                   className="dropdown-item"
@@ -139,6 +141,7 @@ const Navigation = ({
               </li>
             </ul>
           </li>
+          
         ) : (
           <button
             className="navbar-toggler custom-toggler"
