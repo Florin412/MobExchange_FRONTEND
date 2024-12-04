@@ -1,6 +1,30 @@
+import { useEffect, useState } from "react";
+import NewsTemplate from "./NewsTemplate";
+import Footer from "../footer/Footer";
+import axios from "axios";
+
 const ForexNews = () => {
-    return <div>Forex Content Here</div>;
-  };
-  
-  export default ForexNews;
-  
+  const [newsData, setNewsData] = useState([]);
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/news/forex");
+        setNewsData(response.data);
+      } catch (error) {
+        console.error("Error fetching news:", error);
+      }
+    };
+
+    fetchNews();
+  }, []);
+
+  return (
+    <div>
+      <NewsTemplate newsData={newsData} pageTitle={"Forex News"} />
+      <Footer></Footer>
+    </div>
+  );
+};
+
+export default ForexNews;

@@ -80,6 +80,33 @@ const Navigation = ({
                   Crypto News
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/news/forex"
+                  className="dropdown-item"
+                  style={{ fontSize: "1.5rem", padding: "10px 20px" }}
+                >
+                  Forex
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/news/precious-metals"
+                  className="dropdown-item"
+                  style={{ fontSize: "1.5rem", padding: "10px 20px" }}
+                >
+                  Precious Metals
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/news/real-estate"
+                  className="dropdown-item"
+                  style={{ fontSize: "1.5rem", padding: "10px 20px" }}
+                >
+                  Real Estate
+                </Link>
+              </li>
             </ul>
           </div>
         )}
