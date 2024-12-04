@@ -7,7 +7,7 @@ const NewsTemplate = ({ newsData, pageTitle }) => {
 
   // Verificăm dacă newsData este valid
   if (!newsData || newsData.length === 0) {
-    return <div>No news available.</div>;
+    return <div>Wait for news...</div>;
   }
 
   // Funcția care calculează timpul scurs
