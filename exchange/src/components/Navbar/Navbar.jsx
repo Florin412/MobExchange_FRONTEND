@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
 
 const Navigation = ({
   isSignedIn,
@@ -19,6 +18,7 @@ const Navigation = ({
         <Link
           to={isSignedIn ? "/home" : "/signin"}
           className="navbar-brand d-flex align-items-center ms-3"
+          style={{ marginRight: "60px" }}
         >
           <h1
             className="mb-0 d-flex align-items-center"
@@ -29,18 +29,109 @@ const Navigation = ({
               textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)"
             }}
           >
-            Mobi
-            <span
-              className="text-warning"
-              style={{
-                fontWeight: "700",
-                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)"
-              }}
-            >
-              Exchange
-            </span>
+            Mobi<span className="text-warning">Exchange</span>
           </h1>
         </Link>
+
+        {/* Dropdown pentru News */}
+        {isSignedIn && (
+          <div className="dropdown mx-3">
+            <button
+              className="btn btn-warning dropdown-toggle"
+              type="button"
+              id="newsDropdown"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              style={{
+                fontSize: "1.7rem",
+                padding: "10px 20px", // Mai mult padding
+                transition: "background-color 0.3s"
+              }}
+            >
+              News
+            </button>
+            <ul className="dropdown-menu" aria-labelledby="newsDropdown">
+              <li>
+                <Link
+                  to="/news/business"
+                  className="dropdown-item"
+                  style={{ fontSize: "1.5rem", padding: "10px 20px" }}
+                >
+                  {" "}
+                  {/* Mărirea fontului */}
+                  Business News
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/news/stocks"
+                  className="dropdown-item"
+                  style={{ fontSize: "1.5rem", padding: "10px 20px" }}
+                >
+                  Stocks News
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/news/crypto"
+                  className="dropdown-item"
+                  style={{ fontSize: "1.5rem", padding: "10px 20px" }}
+                >
+                  Crypto News
+                </Link>
+              </li>
+            </ul>
+          </div>
+        )}
+
+        {/* Dropdown pentru Market */}
+        {isSignedIn && (
+          <div className="dropdown mx-3">
+            <button
+              className="btn btn-warning dropdown-toggle"
+              type="button"
+              id="marketDropdown"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              style={{
+                fontSize: "1.7rem", // Mărirea fontului
+                padding: "10px 20px", // Mai mult padding
+                transition: "background-color 0.3s"
+              }}
+            >
+              Market
+            </button>
+            <ul className="dropdown-menu" aria-labelledby="marketDropdown">
+              <li>
+                <Link
+                  to="/market/forex"
+                  className="dropdown-item"
+                  style={{ fontSize: "1.5rem", padding: "10px 20px" }}
+                >
+                  Forex Market
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/market/real-estate"
+                  className="dropdown-item"
+                  style={{ fontSize: "1.5rem", padding: "10px 20px" }}
+                >
+                  Real Estate Market
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/market/precious-metals"
+                  className="dropdown-item"
+                  style={{ fontSize: "1.5rem", padding: "10px 20px" }}
+                >
+                  Precious Metals Market
+                </Link>
+              </li>
+            </ul>
+          </div>
+        )}
 
         {/* Conditional rendering for profile image or hamburger menu */}
         {isSignedIn ? (
@@ -48,7 +139,6 @@ const Navigation = ({
             className="nav-item dropdown d-lg-none"
             style={{ listStyleType: "none" }}
           >
-            {/* Profile picture image from navbar */}
             <a
               className="nav-link"
               href="#"
@@ -56,11 +146,7 @@ const Navigation = ({
               role="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
-              style={{
-                padding: "0",
-                display: "flex",
-                alignItems: "center"
-              }}
+              style={{ padding: "0", display: "flex", alignItems: "center" }}
             >
               <img
                 src="https://tse1.mm.bing.net/th?q=blank%20profile%20picture%20image&w=250&h=250&c=7"
@@ -81,13 +167,12 @@ const Navigation = ({
               style={{
                 backgroundColor: "#FFD824",
                 border: "1px solid #FFD824",
-                borderRadius: "10px", // Colțuri rotunjite
+                borderRadius: "10px",
                 minWidth: "200px", // Lățime minimă pentru dropdown
                 padding: "0" // Eliminăm padding-ul pentru a controla mai bine stilul
               }}
             >
               <li>
-                {/* Mai jos sunt butoanele din iconul de profile */}
                 <Link
                   to="/changePassword"
                   className="dropdown-item"
@@ -141,7 +226,6 @@ const Navigation = ({
               </li>
             </ul>
           </li>
-          
         ) : (
           <button
             className="navbar-toggler custom-toggler"
@@ -265,7 +349,6 @@ const Navigation = ({
                       className="dropdown-item"
                       onClick={() => {
                         onSignedInChange(false);
-                        onRouteChange("signin");
                         signOut();
                       }}
                       style={{ fontSize: "16px" }}
@@ -345,7 +428,7 @@ const Navigation = ({
                     }}
                     onMouseOut={(e) => {
                       e.currentTarget.style.boxShadow =
-                        "0px 4px 8px rgba(0, 0, 0, 0.3)";
+                        "0px 4px 8px rgba(0, 0,                       0, 0.3)"; // Restaurează culoarea de fundal
                       e.currentTarget.style.backgroundColor = "#FFD824"; // Restaurează culoarea de fundal
                     }}
                   >
