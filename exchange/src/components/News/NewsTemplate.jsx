@@ -7,7 +7,7 @@ const NewsTemplate = ({ newsData, pageTitle }) => {
 
   // Verificăm dacă newsData este valid
   if (!newsData || newsData.length === 0) {
-    return <div>Wait for news...</div>;
+    return <div className="fs-1 text-center m-5">Wait for news...</div>;
   }
 
   // Funcția care calculează timpul scurs
@@ -75,53 +75,80 @@ const NewsTemplate = ({ newsData, pageTitle }) => {
     <div className="news-container">
       <h1 className="page-title">{pageTitle}</h1>
 
-      {/* Sectiunea 1 */}
-      <div className="section section-1">
-        {newsData[0] && (
-          <div className="main-news">
-            {newsData[0].urlToImage && (
-              <img
-                src={newsData[0].urlToImage}
-                alt={newsData[0].title}
-                className="article-img"
-                onClick={() => window.open(newsData[0].url, "_blank")} // Click pe imagine
-              />
-            )}
-            <h2
-              className="article-title"
-              onClick={() => window.open(newsData[0].url, "_blank")}
-            >
-              {newsData[0].title}
-            </h2>
-            <p
-              className="article-description"
-              onClick={() => window.open(newsData[0].url, "_blank")}
-            >
-              {newsData[0].description}
-            </p>
-            <div className="article-meta">
-              <p className="article-source">{newsData[0].source.name}</p>
-              <span className="bullet"> • </span>
-              <p className="article-time">
-                {getTimeAgo(newsData[0].publishedAt)}
-              </p>
+      {/* Filtrarea articolelor valide */}
+      {(() => {
+        const validNews = newsData.filter(
+          (news) => news.urlToImage && news.source.name !== "Biztoc.com"
+        );
+
+        // Secțiunea 1
+        const section1News = validNews.slice(0, 5);
+
+        // Secțiunea 2
+        const section2News = validNews.slice(5, 11);
+
+        return (
+          <>
+            {/* Secțiunea 1 */}
+            <div className="section section-1">
+              {section1News.length > 0 && (
+                <div className="main-news">
+                  {section1News[0] && (
+                    <>
+                      <img
+                        src={section1News[0].urlToImage}
+                        alt={section1News[0].title}
+                        className="article-img"
+                        onClick={() =>
+                          window.open(section1News[0].url, "_blank")
+                        }
+                      />
+                      <h2
+                        className="article-title"
+                        onClick={() =>
+                          window.open(section1News[0].url, "_blank")
+                        }
+                      >
+                        {section1News[0].title}
+                      </h2>
+                      <p
+                        className="article-description"
+                        onClick={() =>
+                          window.open(section1News[0].url, "_blank")
+                        }
+                      >
+                        {section1News[0].description}
+                      </p>
+                      <div className="article-meta">
+                        <p className="article-source">
+                          {section1News[0].source.name}
+                        </p>
+                        <span className="bullet"> • </span>
+                        <p className="article-time">
+                          {getTimeAgo(section1News[0].publishedAt)}
+                        </p>
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
+              <div className="secondary-news">
+                {renderNewsItems(section1News.slice(1))}
+              </div>
             </div>
-          </div>
-        )}
-        <div className="secondary-news">
-          {renderNewsItems(newsData.slice(1, 5))}
-        </div>
-      </div>
 
-      {/* Sectiunea 2 */}
-      <div className="section section-2">
-        {renderNewsItems(newsData.slice(5, 11))}
-      </div>
+            {/* Secțiunea 2 */}
+            <div className="section section-2">
+              {renderNewsItems(section2News)}
+            </div>
 
-      {/* Sectiunea 3 */}
-      <div className="section section-3">
-        {renderNewsItems(newsData.slice(11))}
-      </div>
+            {/* Secțiunea 3 */}
+            <div className="section section-3">
+              {renderNewsItems(validNews.slice(11))}
+            </div>
+          </>
+        );
+      })()}
     </div>
   );
 };
