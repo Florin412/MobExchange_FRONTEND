@@ -22,6 +22,7 @@ import CryptoNews from "./components/News/CryptoNews";
 import ForexNews from "./components/News/ForexNews";
 import RealEstateNews from "./components/News/RealEstateNews";
 import PreciousMetalsNews from "./components/News/PreciousMetalsNews";
+import MarketOverview from "./components/Markets/MarketOverview/MarketOverview";
 
 function App() {
   // Here is the default state of the app.
@@ -301,6 +302,13 @@ function App() {
         <Route
           path="/news/precious-metals"
           element={<PreciousMetalsNews></PreciousMetalsNews>}
+        />
+
+        {/* Market Routes */}
+
+        <Route
+          path="/markets/overview"
+          element={<MarketOverview></MarketOverview>}
         />
 
         <Route
