@@ -195,24 +195,6 @@ function App() {
 
   return (
     <div>
-      {/* Header cu mesajul de salut */}
-      <header
-        style={{
-          textAlign: "center",
-          padding: "10px",
-          backgroundColor: "#1a1a1a",
-          color: "#FFD700"
-        }}
-      >
-        {isSignedIn && userName && (
-          <p
-            style={{ fontStyle: "italic", fontSize: "1.2rem", margin: "5px 0" }}
-          >
-            Good to see you, {userName}! 👋
-          </p>
-        )}
-      </header>
-
       <Navigation
         isSignedIn={isSignedIn}
         onSignedInChange={onSignedInChange}
@@ -248,13 +230,37 @@ function App() {
         <Route
           path="/home"
           element={
-            <Home
-              setRoute={setRoute}
-              setIsSignedIn={setIsSignedIn}
-              signOut={signOut}
-            />
+            <>
+              {/* Header cu mesajul de salut */}
+              <header
+                style={{
+                  textAlign: "center",
+                  padding: "10px",
+                  backgroundColor: "#1a1a1a",
+                  color: "#FFD700"
+                }}
+              >
+                {isSignedIn && userName && (
+                  <p
+                    style={{
+                      fontStyle: "italic",
+                      fontSize: "1.2rem",
+                      margin: "5px 0"
+                    }}
+                  >
+                    Good to see you, {userName}! 👋
+                  </p>
+                )}
+              </header>
+              <Home
+                setRoute={setRoute}
+                setIsSignedIn={setIsSignedIn}
+                signOut={signOut}
+              />
+            </>
           }
-        ></Route>
+        />
+
         <Route
           path="/signin"
           element={
@@ -285,11 +291,17 @@ function App() {
         ></Route>
 
         <Route path="/news/business" element={<BusinessNews></BusinessNews>} />
-        <Route path="/news/stocks"  element={<StocksNews></StocksNews>} />
-        <Route path="/news/crypto"  element={<CryptoNews></CryptoNews>} />
-        <Route path="/news/forex"  element={<ForexNews></ForexNews>} />
-        <Route path="/news/real-estate"  element={<RealEstateNews></RealEstateNews>} />
-        <Route path="/news/precious-metals" element={<PreciousMetalsNews></PreciousMetalsNews>} />
+        <Route path="/news/stocks" element={<StocksNews></StocksNews>} />
+        <Route path="/news/crypto" element={<CryptoNews></CryptoNews>} />
+        <Route path="/news/forex" element={<ForexNews></ForexNews>} />
+        <Route
+          path="/news/real-estate"
+          element={<RealEstateNews></RealEstateNews>}
+        />
+        <Route
+          path="/news/precious-metals"
+          element={<PreciousMetalsNews></PreciousMetalsNews>}
+        />
 
         <Route
           path="*"
