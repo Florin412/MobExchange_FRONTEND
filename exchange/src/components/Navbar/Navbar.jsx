@@ -33,6 +33,44 @@ const Navigation = ({
           </h1>
         </Link>
 
+        {/* Input de căutare */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            maxWidth: "800px", // Crește lățimea containerului
+            width: "25%", // Ocupă întreaga lățime disponibilă
+            margin: "0 auto" // Centrează elementul
+          }}
+        >
+          <input
+            className="form-control"
+            type="search"
+            placeholder="Search for news, symbols or companies"
+            aria-label="Search"
+            style={{
+              flex: "1", // Face input-ul să ocupe tot spațiul disponibil în container
+              padding: "0.8rem 2rem",
+              border: "1px solid #ccc",
+              borderRadius: "15px 0 0 15px"
+            }}
+          />
+          <button
+            className="btn btn-success"
+            type="submit"
+            style={{
+              padding: "0.9rem 1rem",
+              border: "none",
+              backgroundColor: "#28a745",
+              color: "white",
+              borderRadius: "0 15px 15px 0",
+              cursor: "pointer"
+            }}
+          >
+            Search
+          </button>
+        </div>
+
         {/* Dropdown pentru News */}
         {isSignedIn && (
           <div className="dropdown mx-3">
@@ -44,7 +82,7 @@ const Navigation = ({
               aria-expanded="false"
               style={{
                 fontSize: "1.7rem",
-                padding: "10px 20px", // Mai mult padding
+                padding: "5px 20px", // Mai mult padding
                 transition: "background-color 0.3s"
               }}
             >
@@ -122,7 +160,7 @@ const Navigation = ({
               aria-expanded="false"
               style={{
                 fontSize: "1.7rem", // Mărirea fontului
-                padding: "10px 20px", // Mai mult padding
+                padding: "5px 20px", // Mai mult padding
                 transition: "background-color 0.3s"
               }}
             >
