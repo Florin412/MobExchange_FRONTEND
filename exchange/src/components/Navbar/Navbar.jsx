@@ -180,11 +180,11 @@ const Navigation = ({
               </li>
               <li>
                 <Link
-                  to="/markets/forex"
+                  to="/markets/world-indices"
                   className="dropdown-item"
                   style={{ fontSize: "1.5rem", padding: "10px 20px" }}
                 >
-                  Forex Market
+                  World Indices
                 </Link>
               </li>
               <li>

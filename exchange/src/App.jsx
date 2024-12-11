@@ -23,6 +23,7 @@ import ForexNews from "./components/News/ForexNews";
 import RealEstateNews from "./components/News/RealEstateNews";
 import PreciousMetalsNews from "./components/News/PreciousMetalsNews";
 import MarketOverview from "./components/Markets/MarketOverview/MarketOverview";
+import WorldIndices from "./components/Markets/WorldIndices/WordlIndices";
 
 function App() {
   // Here is the default state of the app.
@@ -309,6 +310,11 @@ function App() {
         <Route
           path="/markets/overview"
           element={<MarketOverview></MarketOverview>}
+        />
+
+        <Route
+          path="/markets/world-indices"
+          element={<WorldIndices></WorldIndices>}
         />
 
         <Route
