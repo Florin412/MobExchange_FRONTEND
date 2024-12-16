@@ -106,8 +106,8 @@ const About = () => {
                   >
                     Our team of dedicated experts is here to support you around
                     the clock. We work tirelessly to ensure that your experience
-                    with our platform is smooth and enjoyable. Whether you're
-                    exchanging a small amount or engaging in larger
+                    with our platform is smooth and enjoyable. Whether
+                    you&apos;re exchanging a small amount or engaging in larger
                     transactions, we are here to assist you at every turn.
                   </p>
                   <p
