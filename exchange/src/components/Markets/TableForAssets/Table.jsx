@@ -9,7 +9,18 @@ const Table = ({ data, columns }) => {
         <thead>
           <tr>
             {columns.map((col, index) => (
-              <th key={index}>{col}</th> // Afișăm numele coloanelor
+              <th
+                key={index}
+                className={
+                  col === "Symbol"
+                    ? "symbol-column"
+                    : col === "Name"
+                    ? "name-column"
+                    : ""
+                }
+              >
+                {col}
+              </th>
             ))}
           </tr>
         </thead>
@@ -19,29 +30,64 @@ const Table = ({ data, columns }) => {
           {data.map((item, rowIndex) => (
             <tr key={rowIndex}>
               {columns.map((col, colIndex) => {
-                // Obținem valorile corespunzătoare coloanelor
                 let value = "";
                 switch (col) {
                   case "Symbol":
-                    value = item.symbol || "-";
+                    value = (
+                      <a
+                        href={`/details/${item.symbol}`}
+                        className="symbol-link"
+                      >
+                        {item.symbol || "-"}
+                      </a>
+                    );
                     break;
                   case "Name":
                     value = item.shortName || "-";
                     break;
                   case "Price":
-                    value = item.regularMarketPrice || "-";
+                    value = item.regularMarketPrice
+                      ? new Intl.NumberFormat("en-US", {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 2
+                        }).format(item.regularMarketPrice)
+                      : "-";
                     break;
                   case "Change":
-                    value = item.regularMarketChange || "-";
+                    value = item.regularMarketChange
+                      ? item.regularMarketChange > 0
+                        ? `+${new Intl.NumberFormat("en-US", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                          }).format(item.regularMarketChange)}`
+                        : new Intl.NumberFormat("en-US", {
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                          }).format(item.regularMarketChange)
+                      : "-";
                     break;
+
                   case "Change%":
                     value = item.regularMarketChangePercent
-                      ? `${item.regularMarketChangePercent.toFixed(2)}%`
+                      ? item.regularMarketChangePercent > 0
+                        ? `+${item.regularMarketChangePercent.toFixed(2)}%`
+                        : `${item.regularMarketChangePercent.toFixed(2)}%`
                       : "-";
                     break;
                   case "Volume":
-                    value = item.regularMarketVolume || "0";
+                    value = item.regularMarketVolume
+                      ? item.regularMarketVolume >= 1_000_000_000
+                        ? `${(item.regularMarketVolume / 1_000_000_000).toFixed(
+                            3
+                          )}B` // Format pentru miliarde
+                        : item.regularMarketVolume >= 1_000_000
+                        ? `${(item.regularMarketVolume / 1_000_000).toFixed(
+                            3
+                          )}M` // Format pentru milioane
+                        : item.regularMarketVolume.toLocaleString() // În cazul în care valoarea este mai mică de 1 milion
+                      : "0";
                     break;
+
                   case "Day Range":
                     value = item.regularMarketDayRange || "-";
                     break;
@@ -61,7 +107,16 @@ const Table = ({ data, columns }) => {
                     : "";
 
                 return (
-                  <td key={colIndex} className={className}>
+                  <td
+                    key={colIndex}
+                    className={`${className} ${
+                      col === "Symbol"
+                        ? "symbol-column"
+                        : col === "Name"
+                        ? "name-column"
+                        : ""
+                    }`}
+                  >
                     {value}
                   </td>
                 );

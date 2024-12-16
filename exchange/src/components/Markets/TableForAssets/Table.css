@@ -18,6 +18,18 @@
   white-space: nowrap;
 }
 
+.custom-table td,
+.custom-table th {
+  text-align: right; /* Aliniere la dreapta pentru toate coloanele */
+}
+
+.custom-table td.symbol-column,
+.custom-table th.symbol-column,
+.custom-table td.name-column,
+.custom-table th.name-column {
+  text-align: left; /* Aliniere la stânga pentru coloanele Symbol și Name */
+}
+
 .custom-table thead th {
   background-color: #f4f4f4;
   /* font-weight: normal; */
