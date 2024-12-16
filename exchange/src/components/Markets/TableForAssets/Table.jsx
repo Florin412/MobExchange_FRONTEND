@@ -1,6 +1,72 @@
 /* eslint-disable react/prop-types */
 import "./Table.css";
 
+// Funcție pentru a clampa valorile între un minim și un maxim
+const clampValue = (value, min, max) => Math.min(Math.max(value, min), max);
+
+// Funcție pentru a formata numerele
+const formatNumber = (num) =>
+  new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }).format(num);
+
+// Funcție pentru a reda coloanele de tip range
+const renderRangeColumn = (
+  range,
+  currentValue,
+  rowIndex,
+  colIndex,
+  columnKey
+) => {
+  if (range && currentValue) {
+    const [minRange, maxRange] = range
+      .split("-")
+      .map((val) => parseFloat(val.trim()));
+
+    // Validare range
+    if (isNaN(minRange) || isNaN(maxRange) || minRange >= maxRange) {
+      return (
+        <td key={`${columnKey}-${rowIndex}-${colIndex}`}>Invalid range</td>
+      );
+    }
+
+    // Determinarea valorii slider-ului
+    const sliderValue = clampValue(currentValue, minRange, maxRange);
+
+    // Adăugare clasă CSS pentru a indica poziția slider-ului
+    const rangeClass =
+      sliderValue === minRange
+        ? "slider-min"
+        : sliderValue === maxRange
+        ? "slider-max"
+        : "slider-in-range";
+
+    return (
+      <td key={`${columnKey}-${rowIndex}-${colIndex}`}>
+        <div className="range-container">
+          <input
+            type="range"
+            className={`form-range ${rangeClass}`}
+            id={`${columnKey}-${rowIndex}`}
+            min={minRange}
+            max={maxRange}
+            value={sliderValue}
+            disabled
+          />
+          <div className="range-labels">
+            <span>{formatNumber(minRange)}</span>
+            <span>{formatNumber(maxRange)}</span>
+          </div>
+        </div>
+      </td>
+    );
+  } else {
+    return <td key={`${columnKey}-${rowIndex}-${colIndex}`}>-</td>;
+  }
+};
+
+// Componenta principală Table
 const Table = ({ data, columns }) => {
   return (
     <div className="table-container">
@@ -29,10 +95,9 @@ const Table = ({ data, columns }) => {
         <tbody>
           {data.map((item, rowIndex) => (
             <tr key={rowIndex}>
-              {" "}
-              {/* Setează key-ul pentru fiecare tr */}
               {columns.map((col, colIndex) => {
                 let value = "";
+
                 switch (col) {
                   case "Symbol":
                     value = (
@@ -50,27 +115,21 @@ const Table = ({ data, columns }) => {
                   case "Name":
                     value = item.shortName || "-";
                     break;
+
                   case "Price":
                     value = item.regularMarketPrice
-                      ? new Intl.NumberFormat("en-US", {
-                          minimumFractionDigits: 2,
-                          maximumFractionDigits: 2
-                        }).format(item.regularMarketPrice)
+                      ? formatNumber(item.regularMarketPrice)
                       : "-";
                     break;
+
                   case "Change":
                     value = item.regularMarketChange
                       ? item.regularMarketChange > 0
-                        ? `+${new Intl.NumberFormat("en-US", {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                          }).format(item.regularMarketChange)}`
-                        : new Intl.NumberFormat("en-US", {
-                            minimumFractionDigits: 2,
-                            maximumFractionDigits: 2
-                          }).format(item.regularMarketChange)
+                        ? `+${formatNumber(item.regularMarketChange)}`
+                        : formatNumber(item.regularMarketChange)
                       : "-";
                     break;
+
                   case "Change%":
                     value = item.regularMarketChangePercent
                       ? item.regularMarketChangePercent > 0
@@ -78,6 +137,7 @@ const Table = ({ data, columns }) => {
                         : `${item.regularMarketChangePercent.toFixed(2)}%`
                       : "-";
                     break;
+
                   case "Volume":
                     value = item.regularMarketVolume
                       ? item.regularMarketVolume >= 1_000_000_000
@@ -91,101 +151,24 @@ const Table = ({ data, columns }) => {
                         : item.regularMarketVolume.toLocaleString()
                       : "0";
                     break;
-                  case "Day Range":
-                    if (item.regularMarketDayRange && item.regularMarketPrice) {
-                      const [minRange, maxRange] = item.regularMarketDayRange
-                        .split("-")
-                        .map((val) => parseFloat(val.trim()));
-                      const currentValue = item.regularMarketPrice;
-                      const sliderValue =
-                        currentValue >= minRange && currentValue <= maxRange
-                          ? currentValue
-                          : minRange;
 
-                      return (
-                        <td key={`dayRange-${rowIndex}-${colIndex}`}>
-                          {" "}
-                          {/* Atribuim key pentru <td> */}
-                          <div className="range-container" key={colIndex}>
-                            <input
-                              type="range"
-                              className="form-range"
-                              id="weekRange"
-                              min={minRange}
-                              max={maxRange}
-                              value={sliderValue}
-                              disabled
-                            />
-                            <div className="range-labels">
-                              <span>
-                                {new Intl.NumberFormat("en-US", {
-                                  minimumFractionDigits: 2,
-                                  maximumFractionDigits: 2
-                                }).format(minRange)}
-                              </span>
-                              <span>
-                                {new Intl.NumberFormat("en-US", {
-                                  minimumFractionDigits: 2,
-                                  maximumFractionDigits: 2
-                                }).format(maxRange)}
-                              </span>
-                            </div>
-                          </div>
-                        </td>
-                      );
-                    } else {
-                      return (
-                        <td key={`dayRange-${rowIndex}-${colIndex}`}>-</td>
-                      );
-                    }
+                  case "Day Range":
+                    return renderRangeColumn(
+                      item.regularMarketDayRange,
+                      item.regularMarketPrice,
+                      rowIndex,
+                      colIndex,
+                      "dayRange"
+                    );
 
                   case "52 Wk Range":
-                    if (item.fiftyTwoWeekRange && item.regularMarketPrice) {
-                      const [minRange, maxRange] = item.fiftyTwoWeekRange
-                        .split("-")
-                        .map((val) => parseFloat(val.trim()));
-                      const currentValue = item.regularMarketPrice;
-                      const sliderValue =
-                        currentValue >= minRange && currentValue <= maxRange
-                          ? currentValue
-                          : minRange;
-
-                      return (
-                        <td key={`52WkRange-${rowIndex}-${colIndex}`}>
-                          {" "}
-                          {/* Atribuim key pentru <td> */}
-                          <div className="range-container" key={colIndex}>
-                            <input
-                              type="range"
-                              className="form-range"
-                              id="weekRange"
-                              min={minRange}
-                              max={maxRange}
-                              value={sliderValue}
-                              disabled
-                            />
-                            <div className="range-labels">
-                              <span>
-                                {new Intl.NumberFormat("en-US", {
-                                  minimumFractionDigits: 2,
-                                  maximumFractionDigits: 2
-                                }).format(minRange)}
-                              </span>
-                              <span>
-                                {new Intl.NumberFormat("en-US", {
-                                  minimumFractionDigits: 2,
-                                  maximumFractionDigits: 2
-                                }).format(maxRange)}
-                              </span>
-                            </div>
-                          </div>
-                        </td>
-                      );
-                    } else {
-                      return (
-                        <td key={`52WkRange-${rowIndex}-${colIndex}`}>-</td>
-                      );
-                    }
+                    return renderRangeColumn(
+                      item.fiftyTwoWeekRange,
+                      item.regularMarketPrice,
+                      rowIndex,
+                      colIndex,
+                      "52WkRange"
+                    );
 
                   default:
                     value = "-";

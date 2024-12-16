@@ -13,7 +13,7 @@ const WorldIndices = () => {
           "http://localhost:8080/markets/world-indices"
         );
         console.log("Salut, mai jos ai raspunsul pentru world indices");
-        console.log(response);
+        console.log(response.data.quoteResponse.result);
         setData(response.data.quoteResponse.result); // Stocăm datele în state
       } catch (error) {
         console.error("Error fetching market data for world indices:", error);
