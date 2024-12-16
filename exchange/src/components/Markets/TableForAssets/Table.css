@@ -58,3 +58,39 @@
   color: red;
   /* font-weight: bold; */
 }
+
+/*  */
+/* Mai jos sunt stiluri pentru coloana de Day Range */
+/*  */
+.range-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* padding: 5px 0; */
+  /* border-bottom: 1px solid #ddd;  */
+}
+
+.form-label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-range {
+  width: 90%;
+}
+
+.range-labels {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.range-labels span {
+  padding: 0 5px;
+}
+
+.range-labels span {
+  font-size: 12px;
+}
