@@ -40,10 +40,13 @@ const Table = ({ data, columns }) => {
                         href={`/details/${item.symbol}`}
                         className="symbol-link"
                       >
-                        {item.symbol || "-"}
+                        {item.symbol && item.symbol.length > 9
+                          ? `${item.symbol.slice(0, 9)}...`
+                          : item.symbol || "-"}
                       </a>
                     );
                     break;
+
                   case "Name":
                     value = item.shortName || "-";
                     break;

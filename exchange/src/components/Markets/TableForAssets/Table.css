@@ -7,7 +7,7 @@
   width: 100%;
   border-collapse: collapse;
   font-family: Arial, sans-serif;
-  font-size: 12px; /* Diminuează fontul */
+  font-size: 12px;
 }
 
 .custom-table th,
@@ -20,19 +20,19 @@
 
 .custom-table td,
 .custom-table th {
-  text-align: right; /* Aliniere la dreapta pentru toate coloanele */
+  text-align: right;
 }
 
 .custom-table td.symbol-column,
 .custom-table th.symbol-column,
 .custom-table td.name-column,
 .custom-table th.name-column {
-  text-align: left; /* Aliniere la stânga pentru coloanele Symbol și Name */
+  text-align: left;
 }
 
 .custom-table thead th {
   background-color: #f4f4f4;
-  /* font-weight: normal; */
+
   font-size: 12px;
 }
 
@@ -51,23 +51,19 @@
 
 .custom-table td.positive {
   color: green;
-  /* font-weight: bold; */
 }
 
 .custom-table td.negative {
   color: red;
-  /* font-weight: bold; */
 }
 
-/*  */
+/* ----------------------- */
 /* Mai jos sunt stiluri pentru coloana de Day Range */
-/*  */
+/* ------------------------- */
 .range-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* padding: 5px 0; */
-  /* border-bottom: 1px solid #ddd;  */
 }
 
 .form-label {
@@ -93,4 +89,45 @@
 
 .range-labels span {
   font-size: 12px;
+}
+
+/* --------------------------- */
+/* Styles for borders in table */
+/* --------------------------- */
+.custom-table thead th {
+  border: none;
+  border-bottom: 1px solid #eee;
+  border-top: 1px solid #ddd;
+}
+
+thead tr th:first-child {
+  border: 1px solid #ddd;
+  border-bottom: 1px solid #eee;
+}
+
+thead tr th:last-child {
+  border-right: 1px solid #ddd;
+}
+
+.custom-table tbody td {
+  border: none;
+  border-bottom: 1px solid #eee;
+}
+
+/* Adăugăm border-right doar pentru primul td din fiecare tr */
+tbody tr td:first-child {
+  border: 1px solid #ddd;
+  border-bottom: 1px solid #eee;
+}
+
+tbody tr td:last-child {
+  border-right: 1px solid #ddd;
+}
+
+.custom-table {
+  border-radius: 20px;
+}
+
+.table-container {
+  border-radius: 8px;
 }
