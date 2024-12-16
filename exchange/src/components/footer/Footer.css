@@ -1,0 +1,11 @@
+.good-footer {
+  width: 1650px;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import "./Navbar.css";
 const Navigation = ({
   isSignedIn,
   onSignedInChange,
@@ -13,7 +13,7 @@ const Navigation = ({
       className="navbar navbar-expand-lg navbar-dark bg-dark"
       style={{ height: "70px" }}
     >
-      <div className="container-fluid">
+      <div className="container-fluid good-navbar">
         {/* Logo */}
         <Link
           to={isSignedIn ? "/home" : "/signin"}

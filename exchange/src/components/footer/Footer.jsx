@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./Footer.css";
 
 const Footer = () => {
   const [activeButton, setActiveButton] = useState(null);
@@ -27,10 +28,13 @@ const Footer = () => {
 
   return (
     <footer
-      className="container-fluid px-4 py-3 bg-dark text-light"
+      className="container-fluid px-4 py-3 bg-dark text-light footer-container"
       style={{ position: "relative" }}
     >
-      <div className="row align-items-center" style={{ minHeight: "70px" }}>
+      <div
+        className="row align-items-center good-footer"
+        style={{ minHeight: "70px" }}
+      >
         {/* Logo Section */}
         <div className="col-12 col-md-6 text-center text-md-start mb-3 mb-md-0">
           <Link

@@ -1,31 +1,46 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../../footer/Footer";
 import axios from "axios";
-// import Table from "../TableForAssets/Table";
+import Table from "../TableForAssets/Table";
 
 const WorldIndices = () => {
+  const [data, setData] = useState([]); // State pentru a stoca datele primite de la API
+
   useEffect(() => {
     const fetchMarketData = async () => {
       try {
         const response = await axios.get(
           "http://localhost:8080/markets/world-indices"
-        ); // Replace with your API endpoint
+        );
         console.log("Salut, mai jos ai raspunsul pentru world indices");
         console.log(response);
+        setData(response.data.quoteResponse.result); // Stocăm datele în state
       } catch (error) {
         console.error("Error fetching market data for world indices:", error);
       }
     };
 
-    // pe backend, la fiecare 60 de minute se face cerere la API pentru date, iar eu primesc datele stocate intr-un fisier, astfel nu ajung la limita cu apelurile api
     fetchMarketData();
   }, []);
+
+  // Array cu numele coloanelor
+  const columns = [
+    "Symbol",
+    "Name",
+    "Price",
+    "Change",
+    "Change%",
+    "Volume",
+    "Day Range",
+    "52 Wk Range"
+  ];
 
   return (
     <div>
       <div className="market-container">
         <h1 className="page-title">World Indices</h1>
-        {/* <Table></Table> */}
+        <Table data={data} columns={columns} />{" "}
+        {/* Trimitem datele și coloanele */}
       </div>
 
       <Footer />
