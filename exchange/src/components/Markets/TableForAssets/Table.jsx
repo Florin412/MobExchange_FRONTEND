@@ -24,13 +24,6 @@ const renderRangeColumn = (
       .split("-")
       .map((val) => parseFloat(val.trim()));
 
-    // Validare range
-    if (isNaN(minRange) || isNaN(maxRange) || minRange >= maxRange) {
-      return (
-        <td key={`${columnKey}-${rowIndex}-${colIndex}`}>Invalid range</td>
-      );
-    }
-
     // Determinarea valorii slider-ului
     const sliderValue = clampValue(currentValue, minRange, maxRange);
 
