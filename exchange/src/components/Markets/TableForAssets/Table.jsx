@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import "./Table.css";
+import DynamicChart from "../DimamicChart/DynamicChart";
 
 // Funcție pentru a clampa valorile între un minim și un maxim
 const clampValue = (value, min, max) => Math.min(Math.max(value, min), max);
@@ -108,6 +109,14 @@ const Table = ({ data, columns }) => {
                   case "Name":
                     value = item.shortName || "-";
                     break;
+
+                  case "Graph": // Cazul pentru coloana graficului
+                    return (
+                      <td key={colIndex}>
+                        <DynamicChart symbol={item.symbol} />{" "}
+                        {/* Aici transmiți simbolul */}
+                      </td>
+                    );
 
                   case "Price":
                     value = item.regularMarketPrice

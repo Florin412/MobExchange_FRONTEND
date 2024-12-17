@@ -27,6 +27,7 @@ const WorldIndices = () => {
   const columns = [
     "Symbol",
     "Name",
+    "Graph",
     "Price",
     "Change",
     "Change%",
