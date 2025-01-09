@@ -11,20 +11,12 @@ const DynamicChart = ({ symbol }) => {
   useEffect(() => {
     const fetchChartData = async () => {
       try {
+        const encodedSymbol = encodeURIComponent(symbol);
         const response = await axios.get(
-          `https://yahoo-finance166.p.rapidapi.com/api/stock/get-chart?region=US&range=1d&symbol=${symbol}&interval=1m`,
-          {
-            headers: {
-              "X-RapidAPI-Key":
-                "7a9e286ae5mshc4b30cf1ca2dbcap1dce89jsn96bd6cb77d14", // Înlocuiește cu API Key-ul tău
-              "X-RapidAPI-Host": "yahoo-finance166.p.rapidapi.com" // Hostul corect pentru RapidAPI
-            }
-          }
+          `http://localhost:8080/markets/stock-chart?symbol=${encodedSymbol}`
         );
 
-        const data = response.data.chart.result[0].indicators.quote[0].close; // Extrage datele de închidere
-        // console.log("Mai jos ai datele istorice pentru moneda ", symbol);
-        // console.log(data);
+        const data = response.data; // Extrage datele de închidere
         setChartData(data);
         setLoading(false);
       } catch (err) {
@@ -34,7 +26,7 @@ const DynamicChart = ({ symbol }) => {
     };
 
     fetchChartData();
-  }, [symbol]); // Dependință la simbol, se va reîncărca datele când simbolul se schimbă
+  }, [symbol]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error fetching data</div>;
