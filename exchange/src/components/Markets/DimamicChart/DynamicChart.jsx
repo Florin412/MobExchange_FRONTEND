@@ -32,7 +32,8 @@ const DynamicChart = ({ symbol }) => {
           ? "rgba(76, 175, 80, 0.2)"
           : "rgba(244, 67, 54, 0.2)";
 
-        // Procesează datele pentru grafic (ultimele 20 de puncte)
+        // Procesează datele pentru grafic (ultimele x puncte, unde distanta dintre ele este de 5 minute)
+        // -10 e echivalent cu 1 minut intre puncte, -50 e echivalent cu 5 minute intre puncte
         const processedData = {
           labels: timestampData
             .slice(-50)
