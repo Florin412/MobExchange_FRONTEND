@@ -14,16 +14,38 @@ const DynamicChart = ({ symbol }) => {
     const fetchChartData = async () => {
       try {
         const encodedSymbol = encodeURIComponent(symbol);
+        // Vreau sa primesc date de la API pentru o zi, iar distanta dintre date sa fie de 1 minut.
+        const range = "60d";
+        const interval = "1d";
+
         const response = await axios.get(
-          `http://localhost:8080/markets/stock-chart?symbol=${encodedSymbol}`
+          `http://localhost:8080/markets/stock-chart?symbol=${encodedSymbol}&range=${range}&interval=${interval}`
         );
 
         const data = response.data;
-        console.log("Datele primite de la backend:", data);
 
         // Extrage datele de închidere și timp
         const closeData = data.chart.result[0].indicators.quote[0].close;
         const timestampData = data.chart.result[0].timestamp;
+
+        // De obiecei, timestamp este un array cu cateva sute de date numerice, aceste date numerice, daca sunt convertite cu un algoritm,
+        // ele semnifica o data calendarisitica: 08/01/2025 16:41:00,
+        // fiecare valore din array reprezinta o data cu un interval de 1 MINUT diferenta dintre ele.
+        // closeData reprezinta valorile de închidere ale acelui interval de timp pentru un asset.
+
+        // daca am 480 de date in timestampData, si in closeData o sa am tot 480 de valori
+        // se pare ca nu am date istorice de pe o periada mai mare de 1 zi...
+
+        timestampData.forEach((timestamp) => {
+          const date = new Date(timestamp * 1000);
+          const day = date.getDate().toString().padStart(2, "0");
+          const month = (date.getMonth() + 1).toString().padStart(2, "0");
+          const year = date.getFullYear();
+          const hours = date.getHours().toString().padStart(2, "0");
+          const minutes = date.getMinutes().toString().padStart(2, "0");
+          const seconds = date.getSeconds().toString().padStart(2, "0");
+          console.log(`${day}/${month}/${year} ${hours}:${minutes}:${seconds}`);
+        });
 
         // Determină culorile liniei în funcție de trend
         const isPositive = closeData[closeData.length - 1] > closeData[0];
