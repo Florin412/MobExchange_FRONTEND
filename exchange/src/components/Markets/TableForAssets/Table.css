@@ -133,9 +133,13 @@ tbody tr td:last-child {
 }
 
 td.name-column {
-  max-width: 150px; /* Setează lățimea maximă a coloanei */
+  max-width: 170px; /* Setează lățimea maximă a coloanei */
   overflow: hidden; /* Ascunde textul care depășește lățimea */
   text-overflow: ellipsis; /* Adaugă "..." la sfârșitul textului trunchiat */
   white-space: nowrap; /* Nu permite textul să se rupă pe mai multe linii */
   padding-right: 0;
+}
+
+p[title] {
+  margin-bottom: 0;
 }

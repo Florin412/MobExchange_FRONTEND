@@ -107,7 +107,11 @@ const Table = ({ data, columns }) => {
                     break;
 
                   case "Name":
-                    value = item.shortName || "-";
+                    value = (
+                      <p title={item.shortName || ""}>
+                        {item.shortName || "-"}
+                      </p>
+                    );
                     break;
 
                   case "Graph": // Cazul pentru coloana graficului
