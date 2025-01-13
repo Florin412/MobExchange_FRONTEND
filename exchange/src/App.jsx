@@ -22,8 +22,11 @@ import CryptoNews from "./components/News/CryptoNews";
 import ForexNews from "./components/News/ForexNews";
 import RealEstateNews from "./components/News/RealEstateNews";
 import PreciousMetalsNews from "./components/News/PreciousMetalsNews";
+
+// Market imports
 import MarketOverview from "./components/Markets/MarketOverview/MarketOverview";
 import WorldIndices from "./components/Markets/WorldIndices/WordlIndices";
+import Quote from "./components/Quote/Quote";
 
 function App() {
   // Here is the default state of the app.
@@ -205,7 +208,7 @@ function App() {
       ></Navigation>
 
       <Routes>
-        <Route
+        {/* <Route
           path="/"
           element={
             <Navigate
@@ -224,11 +227,13 @@ function App() {
                   ? "/forgotpassword"
                   : route === "change-password"
                   ? "/home#/change-password"
+                  : route === "quote"
+                  ? "/quote"
                   : "/register"
               }
             ></Navigate>
           }
-        ></Route>
+        ></Route> */}
         <Route
           path="/home"
           element={
@@ -316,6 +321,8 @@ function App() {
           path="/markets/world-indices"
           element={<WorldIndices></WorldIndices>}
         />
+
+        <Route path="/quote/:symbol" element={<Quote></Quote>} />
 
         <Route
           path="*"

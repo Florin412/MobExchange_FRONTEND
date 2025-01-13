@@ -33,7 +33,7 @@ const Footer = () => {
     >
       <div
         className="row align-items-center good-footer"
-        style={{ minHeight: "70px" }}
+        style={{ minHeight: "50px" }}
       >
         {/* Logo Section */}
         <div className="col-12 col-md-6 text-center text-md-start mb-3 mb-md-0">
@@ -111,7 +111,7 @@ const Footer = () => {
           bottom: 0,
           left: 0,
           right: 0,
-          height: "70px", // Ensure it matches the footer height
+          height: "50px", // Ensure it matches the footer height
           backgroundColor: "#343a40", // Match the background color
           zIndex: -1 // Ensure it doesn't cover footer content
         }}

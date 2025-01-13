@@ -1,0 +1,125 @@
+/* Quote.css */
+
+/* General container styling */
+.quote-container {
+  font-family: Arial, sans-serif;
+  padding: 16px;
+  background-color: #f8f9fa;
+  font-size: 12px;
+}
+
+.market-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 16px;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  color: #333;
+  text-align: center;
+}
+
+/* Asset details section */
+.asset-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.asset-price {
+  margin-top: -5px;
+}
+
+.asset-price .price {
+  font-size: 32px;
+  font-weight: bold;
+  color: #000;
+  margin-right: 10px;
+}
+
+.asset-price .change {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.asset-price .change.positive {
+  color: #28a745;
+}
+
+.asset-price .change.negative {
+  color: #dc3545;
+}
+
+.asset-stats {
+  flex: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.stat {
+  flex: 1 1 200px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
+}
+
+.asset-price .close-time {
+  margin-top: -5px;
+}
+
+.stat .label {
+  font-weight: bold;
+  color: #555;
+}
+
+.stat .value {
+  color: #000;
+}
+
+.symbol-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000;
+  margin-top: 5px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .asset-details {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .asset-price {
+    justify-content: center;
+  }
+
+  .asset-stats {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 20px;
+  }
+
+  .asset-price .price {
+    font-size: 24px;
+  }
+
+  .asset-price .change {
+    font-size: 16px;
+  }
+}

@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 import "./DynamicChart.css";
 
-const DynamicChart = ({ symbol }) => {
+const DynamicChart = ({ symbol, change }) => {
   const [chartData, setChartData] = useState({ labels: [], datasets: [] });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -14,9 +14,10 @@ const DynamicChart = ({ symbol }) => {
     const fetchChartData = async () => {
       try {
         const encodedSymbol = encodeURIComponent(symbol);
+
         // Vreau sa primesc date de la API pentru o zi, iar distanta dintre date sa fie de 1 minut.
-        const range = "60d";
-        const interval = "1d";
+        const range = "1d";
+        const interval = "1m";
 
         const response = await axios.get(
           `http://localhost:8080/markets/stock-chart?symbol=${encodedSymbol}&range=${range}&interval=${interval}`
@@ -28,13 +29,12 @@ const DynamicChart = ({ symbol }) => {
         const closeData = data.chart.result[0].indicators.quote[0].close;
         const timestampData = data.chart.result[0].timestamp;
 
-        // De obiecei, timestamp este un array cu cateva sute de date numerice, aceste date numerice, daca sunt convertite cu un algoritm,
+        // timestamp este un array cu cateva sute de date numerice, aceste date numerice, daca sunt convertite cu un algoritm,
         // ele semnifica o data calendarisitica: 08/01/2025 16:41:00,
-        // fiecare valore din array reprezinta o data cu un interval de 1 MINUT diferenta dintre ele.
+        // fiecare valore din array reprezinta o data cu un interval de x minute/ore/zile diferenta dintre ele.
         // closeData reprezinta valorile de închidere ale acelui interval de timp pentru un asset.
 
         // daca am 480 de date in timestampData, si in closeData o sa am tot 480 de valori
-        // se pare ca nu am date istorice de pe o periada mai mare de 1 zi...
 
         timestampData.forEach((timestamp) => {
           const date = new Date(timestamp * 1000);
@@ -48,24 +48,23 @@ const DynamicChart = ({ symbol }) => {
         });
 
         // Determină culorile liniei în funcție de trend
-        const isPositive = closeData[closeData.length - 1] > closeData[0];
-        const lineColor = isPositive ? "#4CAF50" : "#F44336";
+        const isPositive = change >= 0; // Verifică dacă change este pozitiv
+        const lineColor = isPositive ? "#4CAF50" : "#F44336"; // Verde pentru pozitiv, roșu pentru negativ
         const fillColor = isPositive
           ? "rgba(76, 175, 80, 0.2)"
           : "rgba(244, 67, 54, 0.2)";
 
-        // Procesează datele pentru grafic (ultimele x puncte, unde distanta dintre ele este de 5 minute)
-        // -10 e echivalent cu 1 minut intre puncte, -50 e echivalent cu 5 minute intre puncte
+        // Procesează datele pentru grafic
         const processedData = {
           labels: timestampData
-            .slice(-50)
+            .slice(-30)
             .map((timestamp) =>
               new Date(timestamp * 1000).toLocaleDateString()
             ),
           datasets: [
             {
               label: "", // Fără etichetă
-              data: closeData.slice(-50),
+              data: closeData.slice(-30),
               borderColor: lineColor,
               backgroundColor: fillColor,
               fill: true,
@@ -85,7 +84,7 @@ const DynamicChart = ({ symbol }) => {
     };
 
     fetchChartData();
-  }, [symbol]);
+  }, [symbol, change]); // Adaugă change în array-ul de dependențe
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error fetching data</div>;
@@ -133,7 +132,8 @@ const DynamicChart = ({ symbol }) => {
 };
 
 DynamicChart.propTypes = {
-  symbol: PropTypes.string.isRequired
+  symbol: PropTypes.string.isRequired,
+  change: PropTypes.number.isRequired
 };
 
 export default DynamicChart;

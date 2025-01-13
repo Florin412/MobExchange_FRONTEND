@@ -4,7 +4,7 @@ import axios from "axios";
 import Table from "../TableForAssets/Table";
 
 const WorldIndices = () => {
-  const [data, setData] = useState([]); // State pentru a stoca datele primite de la API
+  const [data, setData] = useState([]); // State pentru a stoca datele generale pentur fiecare asset, NU CONTINE DATE ISTORICE ALE PRETURILOR UNUI ASSET
 
   useEffect(() => {
     const fetchMarketData = async () => {

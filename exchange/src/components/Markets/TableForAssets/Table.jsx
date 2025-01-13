@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import "./Table.css";
 import DynamicChart from "../DimamicChart/DynamicChart";
-
+import { Link } from "react-router-dom";
 // Funcție pentru a clampa valorile între un minim și un maxim
 const clampValue = (value, min, max) => Math.min(Math.max(value, min), max);
 
@@ -94,15 +94,17 @@ const Table = ({ data, columns }) => {
 
                 switch (col) {
                   case "Symbol":
+                    console.log("Item are urmatoarele proprietati: ", item);
                     value = (
-                      <a
-                        href={`/details/${item.symbol}`}
+                      <Link
+                        to={`/quote/${item.symbol}`}
                         className="symbol-link"
+                        state={{ item }}
                       >
                         {item.symbol && item.symbol.length > 9
                           ? `${item.symbol.slice(0, 9)}...`
                           : item.symbol || "-"}
-                      </a>
+                      </Link>
                     );
                     break;
 
@@ -117,7 +119,10 @@ const Table = ({ data, columns }) => {
                   case "Graph": // Cazul pentru coloana graficului
                     return (
                       <td key={colIndex}>
-                        <DynamicChart symbol={item.symbol} />{" "}
+                        <DynamicChart
+                          symbol={item.symbol}
+                          change={item.regularMarketChange}
+                        />{" "}
                         {/* Aici transmiți simbolul */}
                       </td>
                     );
