@@ -1,0 +1,33 @@
+.chart-controls {
+  display: flex;
+  justify-content: flex-start; /* Aliniază butoanele la stânga */
+  margin-bottom: 10px; /* Spațiu între butoane și grafic */
+}
+
+.chart-controls button {
+  margin-right: 10px; /* Spațiu între butoane */
+  padding: 5px 10px; /* Spațiu interior pentru butoane */
+  background-color: #4caf50; /* Culoarea de fundal a butoanelor */
+  color: white; /* Culoarea textului */
+  border: none; /* Fără margine */
+  border-radius: 5px; /* Colțuri rotunjite */
+  cursor: pointer; /* Cursor pointer pentru butoane */
+}
+
+.chart-controls button:hover {
+  background-color: #45a049; /* Culoare la hover */
+}
+
+.price-display {
+  text-align: right; /* Aliniază prețul la dreapta */
+  font-size: 18px; /* Dimensiune mai mare pentru preț */
+  margin-bottom: 10px; /* Spațiu între preț și grafic */
+}
+
+.chartjs-tooltip {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}

@@ -1,4 +1,3 @@
-// QuoteChart.jsx
 import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import axios from "axios";
@@ -10,57 +9,55 @@ const QuoteChart = ({ symbol, change }) => {
   const [chartData, setChartData] = useState({ labels: [], datasets: [] });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [range, setRange] = useState("1d");
+  const [interval, setInterval] = useState("1m");
+
+  const fetchChartData = async () => {
+    try {
+      const encodedSymbol = encodeURIComponent(symbol);
+      const response = await axios.get(
+        `http://localhost:8080/markets/stock-chart?symbol=${encodedSymbol}&range=${range}&interval=${interval}`
+      );
+
+      const data = response.data;
+      const closeData = data.chart.result[0].indicators.quote[0].close;
+
+      const timestampData = data.chart.result[0].timestamp;
+
+      const processedData = {
+        labels: timestampData.map((timestamp) => {
+          const date = new Date(timestamp * 1000);
+          return date.toLocaleTimeString("ro-RO", {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false
+          });
+        }),
+        datasets: [
+          {
+            label: "Price",
+            data: closeData,
+            borderColor: change >= 0 ? "#4CAF50" : "#F44336",
+            backgroundColor:
+              change >= 0 ? "rgba(76, 175, 80, 0.2)" : "rgba(244, 67, 54, 0.2)",
+            fill: true,
+            pointRadius: 0,
+            borderWidth: 2
+          }
+        ]
+      };
+
+      setChartData(processedData);
+      setLoading(false);
+    } catch (err) {
+      setError(err);
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchChartData = async () => {
-      try {
-        const encodedSymbol = encodeURIComponent(symbol);
-        const range = "1d";
-        const interval = "1m";
-
-        const response = await axios.get(
-          `http://localhost:8080/markets/stock-chart?symbol=${encodedSymbol}&range=${range}&interval=${interval}`
-        );
-
-        const data = response.data;
-        const closeData = data.chart.result[0].indicators.quote[0].close;
-        const timestampData = data.chart.result[0].timestamp;
-
-        const processedData = {
-          labels: timestampData.map((timestamp) => {
-            const date = new Date(timestamp * 1000);
-            return date.toLocaleTimeString("ro-RO", {
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: false // Asigură-te că ora este în format 24 de ore
-            });
-          }),
-          datasets: [
-            {
-              label: "Price",
-              data: closeData,
-              borderColor: change >= 0 ? "#4CAF50" : "#F44336", // Verde pentru pozitiv, roșu pentru negativ
-              backgroundColor:
-                change >= 0
-                  ? "rgba(76, 175, 80, 0.2)"
-                  : "rgba(244, 67, 54, 0.2)",
-              fill: true,
-              pointRadius: 0,
-              borderWidth: 2
-            }
-          ]
-        };
-
-        setChartData(processedData);
-        setLoading(false);
-      } catch (err) {
-        setError(err);
-        setLoading(false);
-      }
-    };
-
     fetchChartData();
-  }, [symbol, change]); // Adaugă change în array-ul de dependențe
+  }, [symbol, change, range, interval]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error fetching data</div>;
@@ -74,8 +71,22 @@ const QuoteChart = ({ symbol, change }) => {
         intersect: false,
         callbacks: {
           label: (tooltipItem) => {
+            const index = tooltipItem.dataIndex;
             const price = tooltipItem.raw;
-            return `Price: $${price.toFixed(2)}`;
+            const date = chartData.labels[index];
+            const open = chartData.datasets[0].data[index]; // Folosește datele corespunzătoare
+            const high = chartData.datasets[0].data[index]; // Folosește datele corespunzătoare
+            const low = chartData.datasets[0].data[index]; // Folosește datele corespunzătoare
+            const volume = chartData.datasets[0].data[index]; // Folosește datele corespunzătoare
+
+            return [
+              `Date: ${date}`,
+              `Close: $${price.toFixed(2)}`,
+              `Open: $${open.toFixed(2)}`,
+              `High: $${high.toFixed(2)}`,
+              `Low: $${low.toFixed(2)}`,
+              `Volume: ${volume.toLocaleString()}`
+            ];
           }
         }
       },
@@ -111,7 +122,67 @@ const QuoteChart = ({ symbol, change }) => {
   };
 
   return (
-    <div style={{ width: "100%", height: "300px" }}>
+    <div style={{ width: "100%", minHeight: "150px" }}>
+      {/* Butoanele pentru interval și gamă */}
+      <div className="chart-controls">
+        <button
+          onClick={() => {
+            setRange("1d");
+            setInterval("1m");
+          }}
+        >
+          1D
+        </button>
+        <button
+          onClick={() => {
+            setRange("5d");
+            setInterval("10m");
+          }}
+        >
+          5D
+        </button>
+        <button
+          onClick={() => {
+            setRange("20d");
+            setInterval("1d");
+          }}
+        >
+          1M
+        </button>
+        <button
+          onClick={() => {
+            setRange("120d");
+            setInterval("1d");
+          }}
+        >
+          6M
+        </button>
+        <button
+          onClick={() => {
+            setRange("240d");
+            setInterval("1d");
+          }}
+        >
+          1Y
+        </button>
+        <button
+          onClick={() => {
+            setRange("1200d");
+            setInterval("1d");
+          }}
+        >
+          5Y
+        </button>
+        <button
+          onClick={() => {
+            setRange("max");
+            setInterval("1mo");
+          }}
+        >
+          ALL
+        </button>
+      </div>
+
       <Line data={chartData} options={options} className="full-size" />
     </div>
   );
@@ -119,7 +190,7 @@ const QuoteChart = ({ symbol, change }) => {
 
 QuoteChart.propTypes = {
   symbol: PropTypes.string.isRequired,
-  change: PropTypes.number.isRequired // Adaugă propType pentru change
+  change: PropTypes.number.isRequired
 };
 
 export default QuoteChart;
