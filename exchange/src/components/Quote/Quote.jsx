@@ -80,22 +80,9 @@ const Quote = () => {
                 </span>
               </div>
               <div className="stat">
-                <span className="label">Open:</span>
-                <span className="value">
-                  {formatNumber(item.regularMarketOpen)}
-                </span>
-              </div>
-              <div className="stat">
                 <span className="label">Volume:</span>
                 <span className="value">
                   {formatNumber(item.regularMarketVolume)}
-                </span>
-              </div>
-              <div className="stat">
-                <span className="label">Days Range:</span>
-                <span className="value">
-                  {formatNumber(item.regularMarketDayLow)} -{" "}
-                  {formatNumber(item.regularMarketDayHigh)}
                 </span>
               </div>
               <div className="stat">
@@ -106,7 +93,22 @@ const Quote = () => {
                 </span>
               </div>
               <div className="stat">
-                <span className="label">Avg Volume (3M):</span>
+                <span className="label">Open:</span>
+                <span className="value">
+                  {formatNumber(item.regularMarketOpen)}
+                </span>
+              </div>
+
+              <div className="stat">
+                <span className="label">Day&rsquo;s Range:</span>
+                <span className="value">
+                  {formatNumber(item.regularMarketDayLow)} -{" "}
+                  {formatNumber(item.regularMarketDayHigh)}
+                </span>
+              </div>
+
+              <div className="stat">
+                <span className="label">Avg Volume:</span>
                 <span className="value">
                   {formatNumber(item.averageDailyVolume3Month)}
                 </span>

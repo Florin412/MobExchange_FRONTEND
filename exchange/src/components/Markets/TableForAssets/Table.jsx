@@ -94,7 +94,6 @@ const Table = ({ data, columns }) => {
 
                 switch (col) {
                   case "Symbol":
-                    console.log("Item are urmatoarele proprietati: ", item);
                     value = (
                       <Link
                         to={`/quote/${item.symbol}`}

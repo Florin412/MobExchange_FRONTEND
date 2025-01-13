@@ -6,6 +6,9 @@
   padding: 16px;
   background-color: #f8f9fa;
   font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  min-height: 89.5vh; /* Asigură că containerul ocupă întreaga înălțime a ferestrei */
 }
 
 .market-container {
@@ -14,8 +17,9 @@
   background: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
+  /* overflow: hidden; */
   padding: 16px;
+  flex: 1;
 }
 
 .page-title {
@@ -121,5 +125,29 @@
 
   .asset-price .change {
     font-size: 16px;
+  }
+}
+
+.asset-stats {
+  display: flex;
+  flex-wrap: wrap; /* Permite rânduri multiple */
+  gap: 16px; /* Spațiu între coloane */
+}
+
+.stat-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%; /* Asigură că containerul folosește toată lățimea */
+}
+
+.stat {
+  flex: 1 1 calc(33.33% - 16px); /* 3 coloane pe dispozitive mai mari */
+  box-sizing: border-box; /* Include padding în lățime */
+}
+
+@media (max-width: 768px) {
+  .stat {
+    flex: 1 1 calc(50% - 16px); /* 2 coloane pe dispozitive medii */
   }
 }
