@@ -31,3 +31,17 @@
   padding: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
+
+.chart-controls button {
+  padding: 10px 15px;
+  margin: 5px;
+  border: none;
+  cursor: pointer;
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.chart-controls button.active {
+  background-color: #4caf50; /* Culoare pentru butonul activ */
+  color: white;
+}

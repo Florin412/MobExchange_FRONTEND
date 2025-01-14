@@ -11,6 +11,7 @@ const QuoteChart = ({ symbol, change }) => {
   const [error, setError] = useState(null);
   const [range, setRange] = useState("1d");
   const [interval, setInterval] = useState("1m");
+  const [activeButton, setActiveButton] = useState("1d");
 
   const fetchChartData = async () => {
     try {
@@ -21,7 +22,10 @@ const QuoteChart = ({ symbol, change }) => {
 
       const data = response.data;
       const closeData = data.chart.result[0].indicators.quote[0].close;
-
+      const highData = data.chart.result[0].indicators.quote[0].high;
+      const lowData = data.chart.result[0].indicators.quote[0].low;
+      const openData = data.chart.result[0].indicators.quote[0].open;
+      const volumeData = data.chart.result[0].indicators.quote[0].volume;
       const timestampData = data.chart.result[0].timestamp;
 
       const processedData = {
@@ -44,7 +48,12 @@ const QuoteChart = ({ symbol, change }) => {
             pointRadius: 0,
             borderWidth: 2
           }
-        ]
+        ],
+        highData, // Adaugă highData
+        lowData, // Adaugă lowData
+        openData, // Adaugă openData
+        volumeData, // Adaugă volumeData
+        timestampData
       };
 
       setChartData(processedData);
@@ -57,7 +66,7 @@ const QuoteChart = ({ symbol, change }) => {
 
   useEffect(() => {
     fetchChartData();
-  }, [symbol, change, range, interval]);
+  }, [symbol, change, range, interval]); // Asigură-te că ai toate dependențele
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error fetching data</div>;
@@ -73,19 +82,29 @@ const QuoteChart = ({ symbol, change }) => {
           label: (tooltipItem) => {
             const index = tooltipItem.dataIndex;
             const price = tooltipItem.raw;
-            const date = chartData.labels[index];
-            const open = chartData.datasets[0].data[index]; // Folosește datele corespunzătoare
-            const high = chartData.datasets[0].data[index]; // Folosește datele corespunzătoare
-            const low = chartData.datasets[0].data[index]; // Folosește datele corespunzătoare
-            const volume = chartData.datasets[0].data[index]; // Folosește datele corespunzătoare
+            const timestamp = chartData.timestampData[index]; // Obține timestamp-ul
+            console.log("Timestamp:", timestamp); // Verifică valoarea timestamp-ului
+            const date = new Date(timestamp * 1000).toLocaleDateString("en-US"); // Folosește formatul american
+            const open = chartData.openData[index].toLocaleString("en-US", {
+              minimumFractionDigits: 2
+            });
+            const high = chartData.highData[index].toLocaleString("en-US", {
+              minimumFractionDigits: 2
+            });
+            const low = chartData.lowData[index].toLocaleString("en-US", {
+              minimumFractionDigits: 2
+            });
+            const volume = chartData.volumeData[index].toLocaleString("en-US");
 
             return [
               `Date: ${date}`,
-              `Close: $${price.toFixed(2)}`,
-              `Open: $${open.toFixed(2)}`,
-              `High: $${high.toFixed(2)}`,
-              `Low: $${low.toFixed(2)}`,
-              `Volume: ${volume.toLocaleString()}`
+              `Close: ${price.toLocaleString("en-US", {
+                minimumFractionDigits: 2
+              })}`,
+              `Open: ${open}`,
+              `High: ${high}`,
+              `Low: ${low}`,
+              `Volume: ${volume}`
             ];
           }
         }
@@ -121,63 +140,54 @@ const QuoteChart = ({ symbol, change }) => {
     }
   };
 
+  const handleButtonClick = (newRange, newInterval) => {
+    setRange(newRange);
+    setInterval(newInterval);
+    setActiveButton(newRange);
+  };
+
   return (
     <div style={{ width: "100%", minHeight: "150px" }}>
-      {/* Butoanele pentru interval și gamă */}
       <div className="chart-controls">
         <button
-          onClick={() => {
-            setRange("1d");
-            setInterval("1m");
-          }}
+          className={activeButton === "1d" ? "active" : ""}
+          onClick={() => handleButtonClick("1d", "1m")}
         >
           1D
         </button>
         <button
-          onClick={() => {
-            setRange("5d");
-            setInterval("10m");
-          }}
+          className={activeButton === "5d" ? "active" : ""}
+          onClick={() => handleButtonClick("5d", "10m")}
         >
           5D
         </button>
         <button
-          onClick={() => {
-            setRange("20d");
-            setInterval("1d");
-          }}
+          className={activeButton === "20d" ? "active" : ""}
+          onClick={() => handleButtonClick("20d", "1d")}
         >
           1M
         </button>
         <button
-          onClick={() => {
-            setRange("120d");
-            setInterval("1d");
-          }}
+          className={activeButton === "120d" ? "active" : ""}
+          onClick={() => handleButtonClick("120d", "1d")}
         >
           6M
         </button>
         <button
-          onClick={() => {
-            setRange("240d");
-            setInterval("1d");
-          }}
+          className={activeButton === "240d" ? "active" : ""}
+          onClick={() => handleButtonClick("240d", "1d")}
         >
           1Y
         </button>
         <button
-          onClick={() => {
-            setRange("1200d");
-            setInterval("1d");
-          }}
+          className={activeButton === "1200d" ? "active" : ""}
+          onClick={() => handleButtonClick("1200d", "1d")}
         >
           5Y
         </button>
         <button
-          onClick={() => {
-            setRange("max");
-            setInterval("1mo");
-          }}
+          className={activeButton === "max" ? "active" : ""}
+          onClick={() => handleButtonClick("max", "1mo")}
         >
           ALL
         </button>

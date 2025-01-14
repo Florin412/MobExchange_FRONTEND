@@ -6,6 +6,8 @@ import "./Quote.css";
 
 const Quote = () => {
   const location = useLocation();
+
+  // item contine informatii generale despre un asset, NU contine date istorice !!
   const item = location.state.item;
 
   // Funcție pentru formatarea numerelor în stilul US
