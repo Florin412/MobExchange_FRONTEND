@@ -122,7 +122,6 @@ const Table = ({ data, columns }) => {
                           symbol={item.symbol}
                           change={item.regularMarketChange}
                         />{" "}
-                        {/* Aici transmiți simbolul */}
                       </td>
                     );
 

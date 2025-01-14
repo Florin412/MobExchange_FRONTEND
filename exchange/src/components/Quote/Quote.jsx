@@ -8,6 +8,8 @@ const Quote = () => {
   const location = useLocation();
 
   // item contine informatii generale despre un asset, NU contine date istorice !!
+  // item contine date de la World Indices component, acolo se face un request iar datele sunt pasate pana aici.
+  // asta sincronizeaza datele in aplicatie, incat sa fie peste tot aceleasi date.
   const item = location.state.item;
 
   // Funcție pentru formatarea numerelor în stilul US

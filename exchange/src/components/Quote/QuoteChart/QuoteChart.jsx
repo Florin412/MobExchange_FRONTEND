@@ -49,10 +49,10 @@ const QuoteChart = ({ symbol, change }) => {
             borderWidth: 2
           }
         ],
-        highData, // Adaugă highData
-        lowData, // Adaugă lowData
-        openData, // Adaugă openData
-        volumeData, // Adaugă volumeData
+        highData,
+        lowData,
+        openData,
+        volumeData,
         timestampData
       };
 
@@ -66,7 +66,7 @@ const QuoteChart = ({ symbol, change }) => {
 
   useEffect(() => {
     fetchChartData();
-  }, [symbol, change, range, interval]); // Asigură-te că ai toate dependențele
+  }, [symbol, change, range, interval]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error fetching data</div>;
@@ -83,7 +83,6 @@ const QuoteChart = ({ symbol, change }) => {
             const index = tooltipItem.dataIndex;
             const price = tooltipItem.raw;
             const timestamp = chartData.timestampData[index]; // Obține timestamp-ul
-            console.log("Timestamp:", timestamp); // Verifică valoarea timestamp-ului
             const date = new Date(timestamp * 1000).toLocaleDateString("en-US"); // Folosește formatul american
             const open = chartData.openData[index].toLocaleString("en-US", {
               minimumFractionDigits: 2

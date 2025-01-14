@@ -4,7 +4,9 @@ import axios from "axios";
 import Table from "../TableForAssets/Table";
 
 const WorldIndices = () => {
-  const [data, setData] = useState([]); // State pentru a stoca datele generale pentur fiecare asset, NU CONTINE DATE ISTORICE ALE PRETURILOR UNUI ASSET
+  // data este un array cu 40 de obiecte, obiecte ce reprezinta cate un asset, iar in obiect sunt date generale despre asset.
+  // NU contine date istorice, deci nu se poate crea coloana pentru graph !!
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchMarketData = async () => {
