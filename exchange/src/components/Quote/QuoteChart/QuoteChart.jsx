@@ -156,31 +156,39 @@ const QuoteChart = ({ symbol, change }) => {
         </button>
         <button
           className={activeButton === "5d" ? "active" : ""}
-          onClick={() => handleButtonClick("5d", "10m")}
+          onClick={() => handleButtonClick("5d", "15m")}
         >
           5D
         </button>
         <button
-          className={activeButton === "20d" ? "active" : ""}
-          onClick={() => handleButtonClick("20d", "1d")}
+          className={activeButton === "1mo" ? "active" : ""}
+          onClick={() => handleButtonClick("1mo", "1d")}
         >
           1M
         </button>
         <button
-          className={activeButton === "120d" ? "active" : ""}
-          onClick={() => handleButtonClick("120d", "1d")}
+          className={activeButton === "6mo" ? "active" : ""}
+          onClick={() => handleButtonClick("6mo", "1d")}
         >
           6M
         </button>
+
         <button
-          className={activeButton === "240d" ? "active" : ""}
-          onClick={() => handleButtonClick("240d", "1d")}
+          className={activeButton === "ytd" ? "active" : ""}
+          onClick={() => handleButtonClick("ytd", "1d")}
+        >
+          YTD
+        </button>
+
+        <button
+          className={activeButton === "1y" ? "active" : ""}
+          onClick={() => handleButtonClick("1y", "1d")}
         >
           1Y
         </button>
         <button
-          className={activeButton === "1200d" ? "active" : ""}
-          onClick={() => handleButtonClick("1200d", "1d")}
+          className={activeButton === "5y" ? "active" : ""}
+          onClick={() => handleButtonClick("5y", "1wk")}
         >
           5Y
         </button>
