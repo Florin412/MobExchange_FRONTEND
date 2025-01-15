@@ -121,7 +121,7 @@ const QuoteChart = ({ symbol, change }) => {
       x: {
         display: true,
         grid: {
-          display: true
+          display: false
         },
         ticks: {
           color: "#aaa",
