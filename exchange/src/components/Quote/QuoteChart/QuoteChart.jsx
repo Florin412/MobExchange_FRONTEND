@@ -71,80 +71,135 @@ const QuoteChart = ({ symbol, change }) => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error fetching data</div>;
 
-  const options = {  
-    responsive: true,  
-    plugins: {  
-      tooltip: {  
-        enabled: true,  
-        mode: "index",  
-        intersect: false,  
-        callbacks: {  
-          label: (tooltipItem) => {  
-            const index = tooltipItem.dataIndex;  
-            const price = tooltipItem.raw;  
-            const timestamp = chartData.timestampData[index];  
-            const date = new Date(timestamp * 1000).toLocaleDateString("en-US");  
-            const open = chartData.openData[index].toLocaleString("en-US", {  
-              minimumFractionDigits: 2  
-            });  
-            const high = chartData.highData[index].toLocaleString("en-US", {  
-              minimumFractionDigits: 2  
-            });  
-            const low = chartData.lowData[index].toLocaleString("en-US", {  
-              minimumFractionDigits: 2  
-            });  
-            const volume = chartData.volumeData[index].toLocaleString("en-US");  
-  
-            return [  
-              `Date: ${date}`,  
-              `Close: ${price.toLocaleString("en-US", {  
-                minimumFractionDigits: 2  
-              })}`,  
-              `Open: ${open}`,  
-              `High: ${high}`,  
-              `Low: ${low}`,  
-              `Volume: ${volume}`  
-            ];  
-          }  
-        }  
-      },  
-      legend: { display: false }  
-    },  
-    elements: {  
-      point: { radius: 0 }  
-    },  
-    animation: {  
-      duration: 1000,  
-      easing: "easeOutQuart"  
-    },  
-    scales: {  
-      x: {  
-        display: true,  
-        grid: {  
-          display: true  
-        },  
-        ticks: {  
-          color: "#aaa",  
-          callback: (value, index) => {  
-            // Obține minutul din eticheta curentă  
-            const date = new Date(chartData.timestampData[index] * 1000);  
-            const minutes = date.getMinutes();  
-            const hours = date.getHours();  
-            // Afișează eticheta doar dacă minutul este 00 sau 30  
-            return (minutes === 0 || minutes === 30) ? `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}` : '';  
-          }  
-        }  
-      },  
-      y: {  
-        display: true,  
-        grid: {  
-          display: true  
-        },  
-        ticks: {  
-          color: "#aaa"  
-        }  
-      }  
-    }  
+  const options = {
+    responsive: true,
+    plugins: {
+      tooltip: {
+        enabled: true,
+        mode: "index",
+        intersect: false,
+        callbacks: {
+          label: (tooltipItem) => {
+            const index = tooltipItem.dataIndex;
+            const price = tooltipItem.raw;
+            const timestamp = chartData.timestampData[index];
+            const date = new Date(timestamp * 1000).toLocaleDateString("en-US");
+            const open = chartData.openData[index].toLocaleString("en-US", {
+              minimumFractionDigits: 2
+            });
+            const high = chartData.highData[index].toLocaleString("en-US", {
+              minimumFractionDigits: 2
+            });
+            const low = chartData.lowData[index].toLocaleString("en-US", {
+              minimumFractionDigits: 2
+            });
+            const volume = chartData.volumeData[index].toLocaleString("en-US");
+
+            return [
+              `Date: ${date}`,
+              `Close: ${price.toLocaleString("en-US", {
+                minimumFractionDigits: 2
+              })}`,
+              `Open: ${open}`,
+              `High: ${high}`,
+              `Low: ${low}`,
+              `Volume: ${volume}`
+            ];
+          }
+        }
+      },
+      legend: { display: false }
+    },
+    elements: {
+      point: { radius: 0 }
+    },
+    animation: {
+      duration: 1000,
+      easing: "easeOutQuart"
+    },
+    scales: {
+      x: {
+        display: true,
+        grid: {
+          display: true
+        },
+        ticks: {
+          color: "#aaa",
+          callback: (value, index) => {
+            const date = new Date(chartData.timestampData[index] * 1000);
+
+            if (activeButton === "max" || activeButton === "5y") {
+              // Afișează doar anul
+              return date.getFullYear(); // Returnează anul
+            } else if (activeButton === "ytd" || activeButton === "1mo") {
+              // Afișează doar ziua lunii
+              return date.getDate(); // Returnează ziua lunii
+            } else if (activeButton === "1y" || activeButton === "6mo") {
+              const month = date.getMonth(); // Obține luna (0-11)
+              const monthNames = [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+              ];
+              return monthNames[month];
+              // return date.getDate(); // Returnează ziua lunii
+            } else if (activeButton === "1d") {
+              const minutes = date.getMinutes();
+              // Afișează etichetele doar dacă minutul este 00, 5, 10, 15, 20 ssmd
+              return minutes === 0 ||
+                minutes === 5 ||
+                minutes === 10 ||
+                minutes === 15 ||
+                minutes === 20 ||
+                minutes === 25 ||
+                minutes === 30 ||
+                minutes === 35 ||
+                minutes === 40 ||
+                minutes === 45 ||
+                minutes === 50 ||
+                minutes === 55
+                ? `${date.getHours().toString().padStart(2, "0")}:${minutes
+                    .toString()
+                    .padStart(2, "0")}`
+                : "";
+            } else if (activeButton === "5d") {
+              const minutes = date.getMinutes();
+              // Afișează etichetele doar dacă minutul este 00, 5, 10, 15, 20 ssmd
+              return minutes === 0 ||
+                minutes === 10 ||
+                minutes === 20 ||
+                minutes === 30 ||
+                minutes === 40 ||
+                minutes === 50
+                ? `${date.getHours().toString().padStart(2, "0")}:${minutes
+                    .toString()
+                    .padStart(2, "0")}`
+                : "";
+            }
+            return ""; // Default
+          }
+        }
+      },
+      y: {
+        display: true,
+        position: "right", // Mută axa Y la dreapta
+        grid: {
+          display: true
+        },
+        ticks: {
+          color: "#aaa"
+        }
+      }
+    }
   };
 
   const handleButtonClick = (newRange, newInterval) => {
