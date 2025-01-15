@@ -71,72 +71,80 @@ const QuoteChart = ({ symbol, change }) => {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error fetching data</div>;
 
-  const options = {
-    responsive: true,
-    plugins: {
-      tooltip: {
-        enabled: true,
-        mode: "index",
-        intersect: false,
-        callbacks: {
-          label: (tooltipItem) => {
-            const index = tooltipItem.dataIndex;
-            const price = tooltipItem.raw;
-            const timestamp = chartData.timestampData[index]; // Obține timestamp-ul
-            const date = new Date(timestamp * 1000).toLocaleDateString("en-US"); // Folosește formatul american
-            const open = chartData.openData[index].toLocaleString("en-US", {
-              minimumFractionDigits: 2
-            });
-            const high = chartData.highData[index].toLocaleString("en-US", {
-              minimumFractionDigits: 2
-            });
-            const low = chartData.lowData[index].toLocaleString("en-US", {
-              minimumFractionDigits: 2
-            });
-            const volume = chartData.volumeData[index].toLocaleString("en-US");
-
-            return [
-              `Date: ${date}`,
-              `Close: ${price.toLocaleString("en-US", {
-                minimumFractionDigits: 2
-              })}`,
-              `Open: ${open}`,
-              `High: ${high}`,
-              `Low: ${low}`,
-              `Volume: ${volume}`
-            ];
-          }
-        }
-      },
-      legend: { display: false }
-    },
-    elements: {
-      point: { radius: 0 }
-    },
-    animation: {
-      duration: 1000,
-      easing: "easeOutQuart"
-    },
-    scales: {
-      x: {
-        display: true,
-        grid: {
-          display: true
-        },
-        ticks: {
-          color: "#aaa"
-        }
-      },
-      y: {
-        display: true,
-        grid: {
-          display: true
-        },
-        ticks: {
-          color: "#aaa"
-        }
-      }
-    }
+  const options = {  
+    responsive: true,  
+    plugins: {  
+      tooltip: {  
+        enabled: true,  
+        mode: "index",  
+        intersect: false,  
+        callbacks: {  
+          label: (tooltipItem) => {  
+            const index = tooltipItem.dataIndex;  
+            const price = tooltipItem.raw;  
+            const timestamp = chartData.timestampData[index];  
+            const date = new Date(timestamp * 1000).toLocaleDateString("en-US");  
+            const open = chartData.openData[index].toLocaleString("en-US", {  
+              minimumFractionDigits: 2  
+            });  
+            const high = chartData.highData[index].toLocaleString("en-US", {  
+              minimumFractionDigits: 2  
+            });  
+            const low = chartData.lowData[index].toLocaleString("en-US", {  
+              minimumFractionDigits: 2  
+            });  
+            const volume = chartData.volumeData[index].toLocaleString("en-US");  
+  
+            return [  
+              `Date: ${date}`,  
+              `Close: ${price.toLocaleString("en-US", {  
+                minimumFractionDigits: 2  
+              })}`,  
+              `Open: ${open}`,  
+              `High: ${high}`,  
+              `Low: ${low}`,  
+              `Volume: ${volume}`  
+            ];  
+          }  
+        }  
+      },  
+      legend: { display: false }  
+    },  
+    elements: {  
+      point: { radius: 0 }  
+    },  
+    animation: {  
+      duration: 1000,  
+      easing: "easeOutQuart"  
+    },  
+    scales: {  
+      x: {  
+        display: true,  
+        grid: {  
+          display: true  
+        },  
+        ticks: {  
+          color: "#aaa",  
+          callback: (value, index) => {  
+            // Obține minutul din eticheta curentă  
+            const date = new Date(chartData.timestampData[index] * 1000);  
+            const minutes = date.getMinutes();  
+            const hours = date.getHours();  
+            // Afișează eticheta doar dacă minutul este 00 sau 30  
+            return (minutes === 0 || minutes === 30) ? `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}` : '';  
+          }  
+        }  
+      },  
+      y: {  
+        display: true,  
+        grid: {  
+          display: true  
+        },  
+        ticks: {  
+          color: "#aaa"  
+        }  
+      }  
+    }  
   };
 
   const handleButtonClick = (newRange, newInterval) => {
