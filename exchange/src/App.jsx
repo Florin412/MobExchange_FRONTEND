@@ -324,10 +324,7 @@ function App() {
 
         <Route path="/quote/:symbol" element={<Quote></Quote>} />
 
-        <Route
-          path="*"
-          element={<Navigate to={"/register"}></Navigate>}
-        ></Route>
+        <Route path="*" element={<Navigate to={"/signin"}></Navigate>}></Route>
       </Routes>
     </div>
   );

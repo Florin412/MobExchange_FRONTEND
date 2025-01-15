@@ -478,10 +478,10 @@ const Navigation = ({
                 <li className="nav-item text-center my-2 my-lg-0">
                   <Link
                     className="nav-link d-block d-sm-block mx-2"
-                    to="/signup"
+                    to="/register"
                     onClick={() => {
                       onSignedInChange(false);
-                      onRouteChange("signup");
+                      onRouteChange("register");
                     }}
                     style={{
                       backgroundColor: "#FFD824",
