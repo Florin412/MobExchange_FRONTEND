@@ -45,3 +45,58 @@
   background-color: #4caf50; /* Culoare pentru butonul activ */
   color: white;
 }
+
+.chart-controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.chart-controls button {
+  background-color: #71c774; /* Culoare de fundal pentru butoane */
+  color: white; /* Culoare text */
+  border: none; /* Fără bordură */
+  padding: 10px 15px; /* Padding pentru butoane */
+  cursor: pointer; /* Cursor pointer */
+  border-radius: 5px; /* Colțuri rotunjite */
+  transition: background-color 0.3s; /* Tranziție pentru hover */
+}
+
+.chart-controls button:hover {
+  background-color: #45a049; /* Culoare de fundal la hover */
+}
+
+.chart-controls button.active {
+  background-color: #398bff; /* Culoare pentru butonul activ */
+}
+
+.chart-type-controls {
+  display: flex;
+  justify-content: flex-end; /* Aliniere la dreapta */
+  margin-bottom: 10px; /* Spațiu deasupra */
+}
+
+.chart-type-controls button {
+  background-color: #f0f0f0; /* Culoare de fundal pentru butoanele de tip grafic */
+  color: #333; /* Culoare text */
+  border: 1px solid #ccc; /* Bordură */
+  padding: 10px 20px; /* Padding pentru butoane */
+  cursor: pointer; /* Cursor pointer */
+  border-radius: 5px; /* Colțuri rotunjite */
+  margin: 5px; /* Spațiu între butoane */
+  transition: background-color 0.3s; /* Tranziție pentru hover */
+}
+
+.chart-type-controls button:hover {
+  background-color: #e0e0e0; /* Culoare de fundal la hover */
+}
+
+.chart-type-controls button.active {
+  background-color: #398bff; /* Culoare pentru butonul activ */
+  color: white; /* Culoare text pentru butonul activ */
+}
+
+.numeUnic {
+  display: flex;
+  justify-content: space-between;
+}

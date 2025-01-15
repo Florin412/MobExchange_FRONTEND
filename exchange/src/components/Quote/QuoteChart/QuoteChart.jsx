@@ -12,6 +12,7 @@ const QuoteChart = ({ symbol, change }) => {
   const [range, setRange] = useState("1d");
   const [interval, setInterval] = useState("1m");
   const [activeButton, setActiveButton] = useState("1d");
+  const [chartType, setChartType] = useState("mountain"); // Tipul graficului default
 
   const fetchChartData = async () => {
     try {
@@ -112,8 +113,7 @@ const QuoteChart = ({ symbol, change }) => {
     },
     elements: {
       point: { radius: 0 }
-    },
-    animation: {
+    },animation: {
       duration: 1000,
       easing: "easeOutQuart"
     },
@@ -121,77 +121,76 @@ const QuoteChart = ({ symbol, change }) => {
       x: {
         display: true,
         grid: {
-          display: false
-        },
-        ticks: {
-          color: "#aaa",
-          callback: (value, index) => {
-            const date = new Date(chartData.timestampData[index] * 1000);
-
-            if (activeButton === "max" || activeButton === "5y") {
-              // Afișează doar anul
-              return date.getFullYear(); // Returnează anul
-            } else if (activeButton === "ytd" || activeButton === "1mo") {
-              // Afișează doar ziua lunii
-              return date.getDate(); // Returnează ziua lunii
-            } else if (activeButton === "1y" || activeButton === "6mo") {
-              const month = date.getMonth(); // Obține luna (0-11)
-              const monthNames = [
-                "Jan",
-                "Feb",
-                "Mar",
-                "Apr",
-                "May",
-                "Jun",
-                "Jul",
-                "Aug",
-                "Sep",
-                "Oct",
-                "Nov",
-                "Dec"
-              ];
-              return monthNames[month];
-              // return date.getDate(); // Returnează ziua lunii
-            } else if (activeButton === "1d") {
-              const minutes = date.getMinutes();
-              // Afișează etichetele doar dacă minutul este 00, 5, 10, 15, 20 ssmd
-              return minutes === 0 ||
-                minutes === 5 ||
-                minutes === 10 ||
-                minutes === 15 ||
-                minutes === 20 ||
-                minutes === 25 ||
-                minutes === 30 ||
-                minutes === 35 ||
-                minutes === 40 ||
-                minutes === 45 ||
-                minutes === 50 ||
-                minutes === 55
-                ? `${date.getHours().toString().padStart(2, "0")}:${minutes
-                    .toString()
-                    .padStart(2, "0")}`
-                : "";
-            } else if (activeButton === "5d") {
-              const minutes = date.getMinutes();
-              // Afișează etichetele doar dacă minutul este 00, 5, 10, 15, 20 ssmd
-              return minutes === 0 ||
-                minutes === 10 ||
-                minutes === 20 ||
-                minutes === 30 ||
-                minutes === 40 ||
-                minutes === 50
-                ? `${date.getHours().toString().padStart(2, "0")}:${minutes
-                    .toString()
-                    .padStart(2, "0")}`
-                : "";
+          display: false},
+          ticks: {
+            color: "#aaa",
+            callback: (value, index) => {
+              const date = new Date(chartData.timestampData[index] * 1000);
+  
+              if (activeButton === "max" || activeButton === "5y") {
+                // Afișează doar anul
+                return date.getFullYear(); // Returnează anul
+              } else if (activeButton === "ytd" || activeButton === "1mo") {
+                // Afișează doar ziua lunii
+                return date.getDate(); // Returnează ziua lunii
+              } else if (activeButton === "1y" || activeButton === "6mo") {
+                const month = date.getMonth(); // Obține luna (0-11)
+                const monthNames = [
+                  "Jan",
+                  "Feb",
+                  "Mar",
+                  "Apr",
+                  "May",
+                  "Jun",
+                  "Jul",
+                  "Aug",
+                  "Sep",
+                  "Oct",
+                  "Nov",
+                  "Dec"
+                ];
+                return monthNames[month];
+                // return date.getDate(); // Returnează ziua lunii
+              } else if (activeButton === "1d") {
+                const minutes = date.getMinutes();
+                // Afișează etichetele doar dacă minutul este 00, 5, 10, 15, 20 ssmd
+                return minutes === 0 ||
+                  minutes === 5 ||
+                  minutes === 10 ||
+                  minutes === 15 ||
+                  minutes === 20 ||
+                  minutes === 25 ||
+                  minutes === 30 ||
+                  minutes === 35 ||
+                  minutes === 40 ||
+                  minutes === 45 ||
+                  minutes === 50 ||
+                  minutes === 55
+                  ? `${date.getHours().toString().padStart(2, "0")}:${minutes
+                      .toString()
+                      .padStart(2, "0")}`
+                  : "";
+              } else if (activeButton === "5d") {
+                const minutes = date.getMinutes();
+                // Afișează etichetele doar dacă minutul este 00, 5, 10, 15, 20 ssmd
+                return minutes === 0 ||
+                  minutes === 10 ||
+                  minutes === 20 ||
+                  minutes === 30 ||
+                  minutes === 40 ||
+                  minutes === 50
+                  ? `${date.getHours().toString().padStart(2, "0")}:${minutes
+                      .toString()
+                      .padStart(2, "0")}`
+                  : "";
+              }
+              return ""; // Default
             }
-            return ""; // Default
-          }
         }
       },
       y: {
         display: true,
-        position: "right", // Mută axa Y la dreapta
+        position: "right",
         grid: {
           display: true
         },
@@ -208,62 +207,108 @@ const QuoteChart = ({ symbol, change }) => {
     setActiveButton(newRange);
   };
 
+  const handleChartTypeChange = (type) => {
+    setChartType(type);
+  };
+
+  // Configurarea datelor pentru grafic în funcție de tipul selectat
+  const chartDataset = {
+    label: "Price",
+    data: chartData.datasets[0].data,
+    borderColor:
+      chartType === "mountain"
+        ? change >= 0
+          ? "#4CAF50"
+          : "#F44336"
+        : "#398bff",
+    backgroundColor:
+      chartType === "mountain"
+        ? change >= 0
+          ? "rgba(76, 175, 80, 0.2)"
+          : "rgba(244, 67, 54, 0.2)"
+        : "rgba(255, 255, 255, 0.2)",
+    fill: true,
+    pointRadius: 0,
+    borderWidth: 2
+  };
+
   return (
     <div style={{ width: "100%", minHeight: "150px" }}>
-      <div className="chart-controls">
-        <button
-          className={activeButton === "1d" ? "active" : ""}
-          onClick={() => handleButtonClick("1d", "1m")}
-        >
-          1D
-        </button>
-        <button
-          className={activeButton === "5d" ? "active" : ""}
-          onClick={() => handleButtonClick("5d", "15m")}
-        >
-          5D
-        </button>
-        <button
-          className={activeButton === "1mo" ? "active" : ""}
-          onClick={() => handleButtonClick("1mo", "1d")}
-        >
-          1M
-        </button>
-        <button
-          className={activeButton === "6mo" ? "active" : ""}
-          onClick={() => handleButtonClick("6mo", "1d")}
-        >
-          6M
-        </button>
+      <div className="numeUnic">
+        <div className="chart-controls">
+          {/* Butoanele de timp */}
+          <button
+            className={activeButton === "1d" ? "active" : ""}
+            onClick={() => handleButtonClick("1d", "1m")}
+          >
+            1D
+          </button>
+          <button
+            className={activeButton === "5d" ? "active" : ""}
+            onClick={() => handleButtonClick("5d", "15m")}
+          >
+            5D
+          </button>
+          <button
+            className={activeButton === "1mo" ? "active" : ""}
+            onClick={() => handleButtonClick("1mo", "1d")}
+          >
+            1M
+          </button>
+          <button
+            className={activeButton === "6mo" ? "active" : ""}
+            onClick={() => handleButtonClick("6mo", "1d")}
+          >
+            6M
+          </button>
+          <button
+            className={activeButton === "ytd" ? "active" : ""}
+            onClick={() => handleButtonClick("ytd", "1d")}
+          >
+            YTD
+          </button>
+          <button
+            className={activeButton === "1y" ? "active" : ""}
+            onClick={() => handleButtonClick("1y", "1d")}
+          >
+            1Y
+          </button>
+          <button
+            className={activeButton === "5y" ? "active" : ""}
+            onClick={() => handleButtonClick("5y", "1wk")}
+          >
+            5Y
+          </button>
+          <button
+            className={activeButton === "max" ? "active" : ""}
+            onClick={() => handleButtonClick("max", "1mo")}
+          >
+            ALL
+          </button>
+        </div>
 
-        <button
-          className={activeButton === "ytd" ? "active" : ""}
-          onClick={() => handleButtonClick("ytd", "1d")}
-        >
-          YTD
-        </button>
-
-        <button
-          className={activeButton === "1y" ? "active" : ""}
-          onClick={() => handleButtonClick("1y", "1d")}
-        >
-          1Y
-        </button>
-        <button
-          className={activeButton === "5y" ? "active" : ""}
-          onClick={() => handleButtonClick("5y", "1wk")}
-        >
-          5Y
-        </button>
-        <button
-          className={activeButton === "max" ? "active" : ""}
-          onClick={() => handleButtonClick("max", "1mo")}
-        >
-          ALL
-        </button>
+        {/* Butoane pentru tipul graficului */}
+        <div className="chart-type-controls">
+          <button
+            className={chartType === "mountain" ? "active" : ""}
+            onClick={() => handleChartTypeChange("mountain")}
+          >
+            Mountain
+          </button>
+          <button
+            className={chartType === "line" ? "active" : ""}
+            onClick={() => handleChartTypeChange("line")}
+          >
+            Line
+          </button>
+        </div>
       </div>
 
-      <Line data={chartData} options={options} className="full-size" />
+      <Line
+        data={{ labels: chartData.labels, datasets: [chartDataset] }}
+        options={options}
+        className="full-size"
+      />
     </div>
   );
 };
