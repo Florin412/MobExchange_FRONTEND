@@ -1,102 +1,82 @@
-.chart-controls {
-  display: flex;
-  justify-content: flex-start; /* Aliniază butoanele la stânga */
-  margin-bottom: 10px; /* Spațiu între butoane și grafic */
-}
+.chart-controls {  
+  display: flex;  
+  justify-content: flex-start; /* Aliniază butoanele la stânga */  
+  margin-bottom: 10px; /* Spațiu între butoane și grafic */  
+}  
 
-.chart-controls button {
-  margin-right: 10px; /* Spațiu între butoane */
-  padding: 5px 10px; /* Spațiu interior pentru butoane */
-  background-color: #4caf50; /* Culoarea de fundal a butoanelor */
-  color: white; /* Culoarea textului */
-  border: none; /* Fără margine */
-  border-radius: 5px; /* Colțuri rotunjite */
-  cursor: pointer; /* Cursor pointer pentru butoane */
-}
+.chart-controls button {  
+  margin-right: 10px; /* Spațiu între butoane */  
+  padding: 5px 15px; /* Spațiu interior pentru butoane (am redus înălțimea) */  
+  background-color: #f0f0f0; /* Culoarea de fundal a butoanelor */  
+  color: #333; /* Culoarea textului */  
+  border: 1px solid transparent; /* Fără margine vizibilă */  
+  border-radius: 5px; /* Colțuri rotunjite */  
+  cursor: pointer; /* Cursor pointer pentru butoane */  
+  transition: background-color 0.3s, border-color 0.3s; /* Tranziție pentru hover */  
+}  
 
-.chart-controls button:hover {
-  background-color: #45a049; /* Culoare la hover */
-}
+.chart-controls button:hover {  
+  background-color: #e0e0e0; /* Culoare la hover */  
+}  
 
-.price-display {
-  text-align: right; /* Aliniază prețul la dreapta */
-  font-size: 18px; /* Dimensiune mai mare pentru preț */
-  margin-bottom: 10px; /* Spațiu între preț și grafic */
-}
+.chart-controls button.active {  
+  background-color: #398bff; /* Culoare pentru butonul activ */  
+  color: white; /* Culoare text pentru butonul activ */  
+  border-color: #398bff; /* Bordură pentru butonul activ */  
+}  
 
-.chartjs-tooltip {
-  background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-}
+.price-display {  
+  text-align: right; /* Aliniază prețul la dreapta */  
+  font-size: 18px; /* Dimensiune mai mare pentru preț */  
+  margin-bottom: 10px; /* Spațiu între preț și grafic */  
+}  
 
-.chart-controls button {
-  padding: 10px 15px;
-  margin: 5px;
-  border: none;
-  cursor: pointer;
-  background-color: #f0f0f0;
-  color: #333;
-}
+.chartjs-tooltip {  
+  background-color: rgba(255, 255, 255, 0.9);  
+  border: 1px solid #ccc;  
+  border-radius: 4px;  
+  padding: 10px;  
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);  
+}  
 
-.chart-controls button.active {
-  background-color: #4caf50; /* Culoare pentru butonul activ */
-  color: white;
-}
+.chart-type-controls {  
+  display: flex;  
+  justify-content: flex-end; /* Aliniere la dreapta */  
+  margin-bottom: 10px; /* Spațiu deasupra */  
+}  
 
-.chart-controls {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
+.chart-type-controls button {  
+  background-color: #f0f0f0; /* Culoare de fundal pentru butoanele de tip grafic */  
+  color: #333; /* Culoare text */  
+  border: 1px solid transparent; /* Fără margine vizibilă */  
+  padding: 5px 15px; /* Padding pentru butoane (am redus înălțimea) */  
+  cursor: pointer; /* Cursor pointer */  
+  border-radius: 5px; /* Colțuri rotunjite */  
+  margin: 5px; /* Spațiu între butoane */  
+  transition: background-color 0.3s, border-color 0.3s; /* Tranziție pentru hover */  
+}  
 
-.chart-controls button {
-  background-color: #71c774; /* Culoare de fundal pentru butoane */
-  color: white; /* Culoare text */
-  border: none; /* Fără bordură */
-  padding: 10px 15px; /* Padding pentru butoane */
-  cursor: pointer; /* Cursor pointer */
-  border-radius: 5px; /* Colțuri rotunjite */
-  transition: background-color 0.3s; /* Tranziție pentru hover */
-}
+.chart-type-controls button:hover {  
+  background-color: #e0e0e0; /* Culoare de fundal la hover */  
+}  
 
-.chart-controls button:hover {
-  background-color: #45a049; /* Culoare de fundal la hover */
-}
+.chart-type-controls button.active {  
+  background-color: #398bff; /* Culoare pentru butonul activ */  
+  color: white; /* Culoare text pentru butonul activ */  
+  border-color: #398bff; /* Bordură pentru butonul activ */  
+}  
 
-.chart-controls button.active {
-  background-color: #398bff; /* Culoare pentru butonul activ */
-}
+.numeUnic {  
+  display: flex;  
+  justify-content: space-between;  
+}  
 
-.chart-type-controls {
-  display: flex;
-  justify-content: flex-end; /* Aliniere la dreapta */
-  margin-bottom: 10px; /* Spațiu deasupra */
-}
-
-.chart-type-controls button {
-  background-color: #f0f0f0; /* Culoare de fundal pentru butoanele de tip grafic */
-  color: #333; /* Culoare text */
-  border: 1px solid #ccc; /* Bordură */
-  padding: 10px 20px; /* Padding pentru butoane */
-  cursor: pointer; /* Cursor pointer */
-  border-radius: 5px; /* Colțuri rotunjite */
-  margin: 5px; /* Spațiu între butoane */
-  transition: background-color 0.3s; /* Tranziție pentru hover */
-}
-
-.chart-type-controls button:hover {
-  background-color: #e0e0e0; /* Culoare de fundal la hover */
-}
-
-.chart-type-controls button.active {
-  background-color: #398bff; /* Culoare pentru butonul activ */
-  color: white; /* Culoare text pentru butonul activ */
-}
-
-.numeUnic {
-  display: flex;
-  justify-content: space-between;
+/* Stilizare pentru procentaj */  
+.percentage-display {  
+  background-color: #4caf50; /* Culoare de fundal pentru procentaj pozitiv */  
+  color: white; /* Culoare text */  
+  padding: 5px 10px; /* Padding pentru procentaj */  
+  border-radius: 5px; /* Colțuri rotunjite */  
+  margin-left: 10px; /* Spațiu între butoane și procentaj */  
+  font-weight: bold; /* Font îngroșat */  
 }

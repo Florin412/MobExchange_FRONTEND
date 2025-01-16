@@ -13,6 +13,7 @@ const QuoteChart = ({ symbol, change }) => {
   const [interval, setInterval] = useState("1m");
   const [activeButton, setActiveButton] = useState("1d");
   const [chartType, setChartType] = useState("mountain"); // Tipul graficului default
+  const [percentageChange, setPercentageChange] = useState(null); // Adăugat pentru procentaj
 
   const fetchChartData = async () => {
     try {
@@ -65,9 +66,26 @@ const QuoteChart = ({ symbol, change }) => {
     }
   };
 
+  const calculatePercentageChange = () => {
+    const closeData = chartData.datasets[0].data;
+    const openPrice = closeData[0]; // Prețul de deschidere
+    const closePrice = closeData[closeData.length - 1]; // Prețul de închidere
+
+    if (openPrice && closePrice) {
+      const change = ((closePrice - openPrice) / openPrice) * 100;
+      setPercentageChange(change.toFixed(2)); // Păstrează două zecimale
+    }
+  };
+
   useEffect(() => {
     fetchChartData();
   }, [symbol, change, range, interval]);
+
+  useEffect(() => {
+    if (chartData.datasets.length > 0) {
+      calculatePercentageChange();
+    }
+  }, [chartData, activeButton]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error fetching data</div>;
@@ -113,7 +131,8 @@ const QuoteChart = ({ symbol, change }) => {
     },
     elements: {
       point: { radius: 0 }
-    },animation: {
+    },
+    animation: {
       duration: 1000,
       easing: "easeOutQuart"
     },
@@ -121,71 +140,67 @@ const QuoteChart = ({ symbol, change }) => {
       x: {
         display: true,
         grid: {
-          display: false},
-          ticks: {
-            color: "#aaa",
-            callback: (value, index) => {
-              const date = new Date(chartData.timestampData[index] * 1000);
-  
-              if (activeButton === "max" || activeButton === "5y") {
-                // Afișează doar anul
-                return date.getFullYear(); // Returnează anul
-              } else if (activeButton === "ytd" || activeButton === "1mo") {
-                // Afișează doar ziua lunii
-                return date.getDate(); // Returnează ziua lunii
-              } else if (activeButton === "1y" || activeButton === "6mo") {
-                const month = date.getMonth(); // Obține luna (0-11)
-                const monthNames = [
-                  "Jan",
-                  "Feb",
-                  "Mar",
-                  "Apr",
-                  "May",
-                  "Jun",
-                  "Jul",
-                  "Aug",
-                  "Sep",
-                  "Oct",
-                  "Nov",
-                  "Dec"
-                ];
-                return monthNames[month];
-                // return date.getDate(); // Returnează ziua lunii
-              } else if (activeButton === "1d") {
-                const minutes = date.getMinutes();
-                // Afișează etichetele doar dacă minutul este 00, 5, 10, 15, 20 ssmd
-                return minutes === 0 ||
-                  minutes === 5 ||
-                  minutes === 10 ||
-                  minutes === 15 ||
-                  minutes === 20 ||
-                  minutes === 25 ||
-                  minutes === 30 ||
-                  minutes === 35 ||
-                  minutes === 40 ||
-                  minutes === 45 ||
-                  minutes === 50 ||
-                  minutes === 55
-                  ? `${date.getHours().toString().padStart(2, "0")}:${minutes
-                      .toString()
-                      .padStart(2, "0")}`
-                  : "";
-              } else if (activeButton === "5d") {
-                const minutes = date.getMinutes();
-                // Afișează etichetele doar dacă minutul este 00, 5, 10, 15, 20 ssmd
-                return minutes === 0 ||
-                  minutes === 10 ||
-                  minutes === 20 ||
-                  minutes === 30 ||
-                  minutes === 40 ||
-                  minutes === 50
-                  ? `${date.getHours().toString().padStart(2, "0")}:${minutes
-                      .toString()
-                      .padStart(2, "0")}`
-                  : "";
-              }
-              return ""; // Default
+          display: false
+        },
+        ticks: {
+          color: "#aaa",
+          callback: (value, index) => {
+            const date = new Date(chartData.timestampData[index] * 1000);
+
+            if (activeButton === "max" || activeButton === "5y") {
+              return date.getFullYear(); // Returnează anul
+            } else if (activeButton === "ytd" || activeButton === "1mo") {
+              return date.getDate(); // Returnează ziua lunii
+            } else if (activeButton === "1y" || activeButton === "6mo") {
+              const month = date.getMonth(); // Obține luna (0-11)
+              const monthNames = [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+              ];
+              return monthNames[month];
+            } else if (activeButton === "1d") {
+              const minutes = date.getMinutes();
+              return minutes === 0 ||
+                minutes === 5 ||
+                minutes === 10 ||
+                minutes === 15 ||
+                minutes === 20 ||
+                minutes === 25 ||
+                minutes === 30 ||
+                minutes === 35 ||
+                minutes === 40 ||
+                minutes === 45 ||
+                minutes === 50 ||
+                minutes === 55
+                ? `${date.getHours().toString().padStart(2, "0")}:${minutes
+                    .toString()
+                    .padStart(2, "0")}`
+                : "";
+            } else if (activeButton === "5d") {
+              const minutes = date.getMinutes();
+              return minutes === 0 ||
+                minutes === 10 ||
+                minutes === 20 ||
+                minutes === 30 ||
+                minutes === 40 ||
+                minutes === 50
+                ? `${date.getHours().toString().padStart(2, "0")}:${minutes
+                    .toString()
+                    .padStart(2, "0")}`
+                : "";
             }
+            return ""; // Default
+          }
         }
       },
       y: {
@@ -205,6 +220,7 @@ const QuoteChart = ({ symbol, change }) => {
     setRange(newRange);
     setInterval(newInterval);
     setActiveButton(newRange);
+    calculatePercentageChange(); // Calculează procentajul la apăsarea butonului
   };
 
   const handleChartTypeChange = (type) => {
@@ -217,13 +233,13 @@ const QuoteChart = ({ symbol, change }) => {
     data: chartData.datasets[0].data,
     borderColor:
       chartType === "mountain"
-        ? change >= 0
+        ? percentageChange >= 0
           ? "#4CAF50"
           : "#F44336"
         : "#398bff",
     backgroundColor:
       chartType === "mountain"
-        ? change >= 0
+        ? percentageChange >= 0
           ? "rgba(76, 175, 80, 0.2)"
           : "rgba(244, 67, 54, 0.2)"
         : "rgba(255, 255, 255, 0.2)",
@@ -285,6 +301,24 @@ const QuoteChart = ({ symbol, change }) => {
           >
             ALL
           </button>
+        </div>
+
+        {/* Afișarea procentajului sub butoanele de timp */}
+        <div style={{ textAlign: "center", marginTop: "10px" }}>
+          {percentageChange !== null && (
+            <span
+              style={{
+                backgroundColor: percentageChange >= 0 ? "#4CAF50" : "#F44336",
+                color: "white",
+                padding: "5px 10px",
+                borderRadius: "5px",
+                marginLeft: "10px",
+                fontWeight: "bold"
+              }}
+            >
+              {percentageChange}%
+            </span>
+          )}
         </div>
 
         {/* Butoane pentru tipul graficului */}
