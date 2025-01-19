@@ -12,6 +12,8 @@ const Quote = () => {
   // asta sincronizeaza datele in aplicatie, incat sa fie peste tot aceleasi date.
   const item = location.state.item;
 
+  console.log("Date generale snp: ", item);
+
   // Funcție pentru formatarea numerelor în stilul US
   const formatNumber = (num) => {
     return num.toLocaleString("en-US", {
@@ -26,7 +28,7 @@ const Quote = () => {
         <div className="market-container">
           <div className="header">
             <span className="exchange">
-              {item.fullExchangeName} - Delayed Quote • {item.currency}
+              {item.fullExchangeName} - {item.quoteSourceName} • {item.currency}
             </span>
             <h1 className="symbol-title">
               {item.shortName} ({item.symbol})
@@ -57,16 +59,15 @@ const Quote = () => {
               </div>
               <div className="close-time">
                 At close:{" "}
-                {new Date(item.regularMarketTime * 1000).toLocaleString(
-                  "ro-RO",
-                  {
-                    timeZone: item.exchangeTimezoneName,
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit",
-                    hour12: false // Asigură-te că ora este în format 24 de ore
-                  }
-                )}
+                {new Intl.DateTimeFormat("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  hour12: false, // Asigură-te că ora este în format 24 de ore
+                  timeZone: item.exchangeTimezoneName
+                }).format(new Date(item.regularMarketTime * 1000))}
               </div>
             </div>
 

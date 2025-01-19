@@ -27,6 +27,7 @@ import PreciousMetalsNews from "./components/News/PreciousMetalsNews";
 import MarketOverview from "./components/Markets/MarketOverview/MarketOverview";
 import WorldIndices from "./components/Markets/WorldIndices/WordlIndices";
 import Quote from "./components/Quote/Quote";
+import ErrorBoundary from "./components/Quote/ErrorBoundary";
 
 function App() {
   // Here is the default state of the app.
@@ -322,7 +323,14 @@ function App() {
           element={<WorldIndices></WorldIndices>}
         />
 
-        <Route path="/quote/:symbol" element={<Quote></Quote>} />
+        <Route
+          path="/quote/:symbol"
+          element={
+            <ErrorBoundary>
+              <Quote />
+            </ErrorBoundary>
+          }
+        />
 
         <Route path="*" element={<Navigate to={"/signin"}></Navigate>}></Route>
       </Routes>
