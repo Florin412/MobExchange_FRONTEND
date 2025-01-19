@@ -40,10 +40,12 @@ const WorldIndices = () => {
 
   return (
     <div>
-      <div className="market-container">
-        <h1 className="page-title">World Indices</h1>
-        <Table data={data} columns={columns} />{" "}
-        {/* Trimitem datele și coloanele */}
+      <div className="quote-container">
+        <div className="market-container">
+          <h1 className="page-title">World Indices</h1>
+          <Table data={data} columns={columns} />{" "}
+          {/* Trimitem datele și coloanele */}
+        </div>
       </div>
 
       <Footer />

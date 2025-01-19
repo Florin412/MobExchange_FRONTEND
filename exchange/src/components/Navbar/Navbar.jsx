@@ -189,20 +189,84 @@ const Navigation = ({
               </li>
               <li>
                 <Link
-                  to="/markets/real-estate"
+                  to="/markets/commodities"
                   className="dropdown-item"
                   style={{ fontSize: "1.5rem", padding: "10px 20px" }}
                 >
-                  Real Estate Market
+                  Commodities
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/markets/precious-metals"
+                  to="/markets/bonds"
                   className="dropdown-item"
                   style={{ fontSize: "1.5rem", padding: "10px 20px" }}
                 >
-                  Precious Metals Market
+                  Bonds
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/markets/currencies"
+                  className="dropdown-item"
+                  style={{ fontSize: "1.5rem", padding: "10px 20px" }}
+                >
+                  Currencies
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/markets/options/most-active"
+                  className="dropdown-item"
+                  style={{ fontSize: "1.5rem", padding: "10px 20px" }}
+                >
+                  Options
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/markets/sectors"
+                  className="dropdown-item"
+                  style={{ fontSize: "1.5rem", padding: "10px 20px" }}
+                >
+                  Sectors
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/markets/stocks/most-active"
+                  className="dropdown-item"
+                  style={{ fontSize: "1.5rem", padding: "10px 20px" }}
+                >
+                  Stocks
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/markets/crypto/all"
+                  className="dropdown-item"
+                  style={{ fontSize: "1.5rem", padding: "10px 20px" }}
+                >
+                  Crypto
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/markets/etfs/most-active"
+                  className="dropdown-item"
+                  style={{ fontSize: "1.5rem", padding: "10px 20px" }}
+                >
+                  ETFs
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/markets/mutualfunds/gainers"
+                  className="dropdown-item"
+                  style={{ fontSize: "1.5rem", padding: "10px 20px" }}
+                >
+                  Mutual Funds
                 </Link>
               </li>
             </ul>
