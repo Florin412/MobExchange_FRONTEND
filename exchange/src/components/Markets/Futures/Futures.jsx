@@ -12,13 +12,13 @@ const Futures = () => {
     const fetchMarketData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8080/markets/world-indices"
+          "http://localhost:8080/markets/commodities"
         );
-        console.log("Salut, mai jos ai raspunsul pentru world indices");
+        console.log("Salut, mai jos ai raspunsul pentru futures/commodities: ");
         console.log(response.data.quoteResponse.result);
         setData(response.data.quoteResponse.result); // Stocăm datele în state
       } catch (error) {
-        console.error("Error fetching market data for world indices:", error);
+        console.error("Error fetching market data for futures:", error);
       }
     };
 

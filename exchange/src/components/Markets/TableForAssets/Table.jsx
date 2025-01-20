@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 /* eslint-disable react/prop-types */
 import "./Table.css";
 import DynamicChart from "../DimamicChart/DynamicChart";
@@ -178,6 +179,26 @@ const Table = ({ data, columns }) => {
                       colIndex,
                       "52WkRange"
                     );
+
+                  case "Open Interest":
+                    value = item.openInterest
+                      ? item.openInterest >= 1_000_000_000
+                        ? `${(item.openInterest / 1_000_000_000).toFixed(3)}B`
+                        : item.openInterest >= 1_000_000
+                        ? `${(item.openInterest / 1_000_000).toFixed(3)}M`
+                        : item.openInterest.toLocaleString()
+                      : "0";
+                    break;
+
+                  case "Market Time":
+                    const date = new Date(item.regularMarketTime * 1000); // Convertim din secunde în milisecunde
+                    value = date.toLocaleString("en-RO", {
+                      timeZone: "Europe/Bucharest",
+                      hour: "numeric",
+                      minute: "numeric",
+                      hour12: false // Setăm la false pentru format de 24h
+                    }); // Formatare pentru ora României
+                    break;
 
                   default:
                     value = "-";

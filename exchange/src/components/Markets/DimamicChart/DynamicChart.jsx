@@ -48,14 +48,14 @@ const DynamicChart = ({ symbol, change }) => {
         // pentru ca este o distanta de 1 minut intre date.
         const processedData = {
           labels: timestampData
-            .slice(-30)
+            .slice(-60)
             .map((timestamp) =>
               new Date(timestamp * 1000).toLocaleDateString()
             ),
           datasets: [
             {
               label: "", // Fără etichetă
-              data: closeData.slice(-30),
+              data: closeData.slice(-60),
               borderColor: lineColor,
               backgroundColor: fillColor,
               fill: true,
