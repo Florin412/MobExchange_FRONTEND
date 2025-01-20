@@ -78,7 +78,7 @@ const DynamicChart = ({ symbol, change }) => {
   }, [symbol, change]); // Adaugă change în array-ul de dependențe
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error fetching data</div>;
+  if (error) return <div></div>;
 
   const options = {
     responsive: true,

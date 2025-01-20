@@ -137,7 +137,7 @@ const Table = ({ data, columns }) => {
                       ? item.regularMarketChange > 0
                         ? `+${formatNumber(item.regularMarketChange)}`
                         : formatNumber(item.regularMarketChange)
-                      : "-";
+                      : "0.00";
                     break;
 
                   case "Change%":
@@ -145,7 +145,7 @@ const Table = ({ data, columns }) => {
                       ? item.regularMarketChangePercent > 0
                         ? `+${item.regularMarketChangePercent.toFixed(2)}%`
                         : `${item.regularMarketChangePercent.toFixed(2)}%`
-                      : "-";
+                      : "0.00%";
                     break;
 
                   case "Volume":

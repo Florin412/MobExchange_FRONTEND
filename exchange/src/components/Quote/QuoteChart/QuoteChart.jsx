@@ -90,7 +90,16 @@ const QuoteChart = ({ symbol, change }) => {
   }, [chartData, activeButton]);
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error fetching data</div>;
+  if (error)
+    return (
+      <div className="error-message">
+        <p>Volume Not Available</p>
+        <p>
+          Error fetching data, you may have exceeded the MONTHLY quota for
+          Requests on your current plan.
+        </p>
+      </div>
+    );
 
   const options = {
     responsive: true,
