@@ -1,0 +1,56 @@
+import { useEffect, useState } from "react";
+import Footer from "../../footer/Footer";
+import axios from "axios";
+import Table from "../TableForAssets/Table";
+
+const Futures = () => {
+  // data este un array cu 40 de obiecte, obiecte ce reprezinta cate un asset, iar in obiect sunt date generale despre asset.
+  // NU contine date istorice, deci nu se poate crea coloana pentru graph !!
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const fetchMarketData = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8080/markets/world-indices"
+        );
+        console.log("Salut, mai jos ai raspunsul pentru world indices");
+        console.log(response.data.quoteResponse.result);
+        setData(response.data.quoteResponse.result); // Stocăm datele în state
+      } catch (error) {
+        console.error("Error fetching market data for world indices:", error);
+      }
+    };
+
+    fetchMarketData();
+  }, []);
+
+  // Array cu numele coloanelor
+  const columns = [
+    "Symbol",
+    "Name",
+    "Graph",
+    "Price",
+    "Market Time",
+    "Change",
+    "Change%",
+    "Volume",
+    "Open Interest"
+  ];
+
+  return (
+    <div>
+      <div className="quote-container">
+        <div className="market-container">
+          <h1 className="page-title">Futures</h1>
+          <Table data={data} columns={columns} />{" "}
+          {/* Trimitem datele și coloanele */}
+        </div>
+      </div>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default Futures;

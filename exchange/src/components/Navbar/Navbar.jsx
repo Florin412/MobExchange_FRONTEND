@@ -193,7 +193,7 @@ const Navigation = ({
                   className="dropdown-item"
                   style={{ fontSize: "1.5rem", padding: "10px 20px" }}
                 >
-                  Commodities
+                  Futures
                 </Link>
               </li>
               <li>

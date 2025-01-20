@@ -28,6 +28,7 @@ import MarketOverview from "./components/Markets/MarketOverview/MarketOverview";
 import WorldIndices from "./components/Markets/WorldIndices/WordlIndices";
 import Quote from "./components/Quote/Quote";
 import ErrorBoundary from "./components/Quote/ErrorBoundary";
+import Futures from "./components/Markets/Futures/Futures";
 
 function App() {
   // Here is the default state of the app.
@@ -322,6 +323,8 @@ function App() {
           path="/markets/world-indices"
           element={<WorldIndices></WorldIndices>}
         />
+
+        <Route path="/markets/commodities" element={<Futures></Futures>} />
 
         <Route
           path="/quote/:symbol"
