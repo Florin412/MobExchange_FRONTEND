@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Footer from "../../footer/Footer";
 import axios from "axios";
 import Table from "../TableForAssets/Table";
+import { getNewAccessToken } from "../../Auth/auth_functions";
 
 const Futures = () => {
   // data este un array cu 40 de obiecte, obiecte ce reprezinta cate un asset, iar in obiect sunt date generale despre asset.
@@ -10,13 +11,33 @@ const Futures = () => {
 
   useEffect(() => {
     const fetchMarketData = async () => {
+      const accessToken = localStorage.getItem("accessToken");
+
       try {
         const response = await axios.get(
-          "http://localhost:8080/markets/commodities"
+          "http://localhost:8080/markets/commodities",
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`
+            }
+          }
         );
-        console.log("Salut, mai jos ai raspunsul pentru futures/commodities: ");
-        console.log(response.data.quoteResponse.result);
-        setData(response.data.quoteResponse.result); // Stocăm datele în state
+
+        if (response.status === 200 || response.status === 201) {
+          console.log(
+            "Salut, acces token bun, mai jos ai raspunsul pentru futures/commodities: "
+          );
+          console.log(response.data.quoteResponse.result);
+          setData(response.data.quoteResponse.result); // Stocăm datele în state
+        } else if (response.status === 400 || response.status === 401) {
+          // If access token is expired, lets creat a new one.
+          const newAccessToken = await getNewAccessToken();
+          if (newAccessToken) {
+            fetchMarketData(); // Retry the request with the new access token
+          } else {
+            console.error("Failed to refresh token");
+          }
+        }
       } catch (error) {
         console.error("Error fetching market data for futures:", error);
       }

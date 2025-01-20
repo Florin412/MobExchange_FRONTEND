@@ -4,6 +4,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import { FaMountain, FaChartLine } from "react-icons/fa"; // Importă iconițele
 import "./QuoteChart.css";
+import { getNewAccessToken } from "../../Auth/auth_functions";
 
 const QuoteChart = ({ symbol, change }) => {
   const [chartData, setChartData] = useState({ labels: [], datasets: [] });
@@ -18,50 +19,69 @@ const QuoteChart = ({ symbol, change }) => {
   const [percentageChange, setPercentageChange] = useState(null); // Adăugat pentru procentaj
 
   const fetchChartData = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+
     try {
       const encodedSymbol = encodeURIComponent(symbol);
       const response = await axios.get(
-        `http://localhost:8080/markets/stock-chart?symbol=${encodedSymbol}&range=${range}&interval=${interval}`
+        `http://localhost:8080/markets/stock-chart?symbol=${encodedSymbol}&range=${range}&interval=${interval}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        }
       );
 
-      const data = response.data;
-      const closeData = data.chart.result[0].indicators.quote[0].close;
-      const highData = data.chart.result[0].indicators.quote[0].high;
-      const lowData = data.chart.result[0].indicators.quote[0].low;
-      const openData = data.chart.result[0].indicators.quote[0].open;
-      const volumeData = data.chart.result[0].indicators.quote[0].volume;
-      const timestampData = data.chart.result[0].timestamp;
+      if (response.status === 200 || response.status === 201) {
+        const data = response.data;
+        const closeData = data.chart.result[0].indicators.quote[0].close;
+        const highData = data.chart.result[0].indicators.quote[0].high;
+        const lowData = data.chart.result[0].indicators.quote[0].low;
+        const openData = data.chart.result[0].indicators.quote[0].open;
+        const volumeData = data.chart.result[0].indicators.quote[0].volume;
+        const timestampData = data.chart.result[0].timestamp;
 
-      const processedData = {
-        labels: timestampData.map((timestamp) => {
-          const date = new Date(timestamp * 1000);
-          return date.toLocaleTimeString("ro-RO", {
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: false
-          });
-        }),
-        datasets: [
-          {
-            label: "Price",
-            data: closeData,
-            borderColor: change >= 0 ? "#4CAF50" : "#F44336",
-            backgroundColor:
-              change >= 0 ? "rgba(76, 175, 80, 0.2)" : "rgba(244, 67, 54, 0.2)",
-            fill: true,
-            pointRadius: 0,
-            borderWidth: 2
-          }
-        ],
-        highData,
-        lowData,
-        openData,
-        volumeData,
-        timestampData
-      };
+        const processedData = {
+          labels: timestampData.map((timestamp) => {
+            const date = new Date(timestamp * 1000);
+            return date.toLocaleTimeString("ro-RO", {
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: false
+            });
+          }),
+          datasets: [
+            {
+              label: "Price",
+              data: closeData,
+              borderColor: change >= 0 ? "#4CAF50" : "#F44336",
+              backgroundColor:
+                change >= 0
+                  ? "rgba(76, 175, 80, 0.2)"
+                  : "rgba(244, 67, 54, 0.2)",
+              fill: true,
+              pointRadius: 0,
+              borderWidth: 2
+            }
+          ],
+          highData,
+          lowData,
+          openData,
+          volumeData,
+          timestampData
+        };
 
-      setChartData(processedData);
-      setLoading(false);
+        setChartData(processedData);
+        setLoading(false);
+      } else if (response.status === 400 || response.status === 401) {
+        // If access token is expired, lets creat a new one.
+        const newAccessToken = await getNewAccessToken();
+        if (newAccessToken) {
+          fetchChartData(); // Retry the request with the new access token
+        } else {
+          console.error("Failed to refresh token");
+        }
+      }
     } catch (err) {
       setError(err);
       setLoading(false);
