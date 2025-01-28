@@ -11,15 +11,26 @@ const Quote = () => {
   // item contine date de la World Indices component, acolo se face un request iar datele sunt pasate pana aici.
   // asta sincronizeaza datele in aplicatie, incat sa fie peste tot aceleasi date.
   const item = location.state.item;
+  const formatType = location.state.formatType;
+  console.log("Salut, aici aici formatul: ", formatType);
 
-  console.log("Date generale snp: ", item);
+  console.log("Date generale asset: ", item);
 
   // Funcție pentru formatarea numerelor în stilul US
-  const formatNumber = (num) => {
-    return num.toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    });
+  // const formatNumber = (num) => {
+  //   return num.toLocaleString("en-US", {
+  //     minimumFractionDigits: 2,
+  //     maximumFractionDigits: 2
+  //   });
+  // };
+
+  const formatNumber = (num, formatType = "normal") => {
+    const options = {
+      minimumFractionDigits: formatType === "long" ? 4 : 2,
+      maximumFractionDigits: formatType === "long" ? 4 : 2
+    };
+
+    return new Intl.NumberFormat("en-US", options).format(num);
   };
 
   return (
@@ -40,7 +51,7 @@ const Quote = () => {
             <div className="asset-price">
               <div className="price-change">
                 <span className="price">
-                  {formatNumber(item.regularMarketPrice)}
+                  {formatNumber(item.regularMarketPrice, formatType)}
                 </span>
                 <span
                   className={`change ${
@@ -48,8 +59,8 @@ const Quote = () => {
                   }`}
                 >
                   {item.regularMarketChange >= 0
-                    ? "+" + formatNumber(item.regularMarketChange)
-                    : formatNumber(item.regularMarketChange)}{" "}
+                    ? "+" + formatNumber(item.regularMarketChange, formatType)
+                    : formatNumber(item.regularMarketChange, formatType)}{" "}
                   {/* Adaugă "+" fără spațiu */}(
                   {item.regularMarketChangePercent >= 0
                     ? "+" + formatNumber(item.regularMarketChangePercent)
@@ -83,7 +94,7 @@ const Quote = () => {
                 <div className="stat">
                   <span className="label">Previous Close:</span>
                   <span className="value">
-                    {formatNumber(item.regularMarketPreviousClose)}
+                    {formatNumber(item.regularMarketPreviousClose, formatType)}
                   </span>
                 </div>
                 <div className="stat">
@@ -95,21 +106,21 @@ const Quote = () => {
                 <div className="stat">
                   <span className="label">52 Week Range:</span>
                   <span className="value">
-                    {formatNumber(item.fiftyTwoWeekLow)} -{" "}
-                    {formatNumber(item.fiftyTwoWeekHigh)}
+                    {formatNumber(item.fiftyTwoWeekLow, formatType)} -{" "}
+                    {formatNumber(item.fiftyTwoWeekHigh, formatType)}
                   </span>
                 </div>
                 <div className="stat">
                   <span className="label">Open:</span>
                   <span className="value">
-                    {formatNumber(item.regularMarketOpen)}
+                    {formatNumber(item.regularMarketOpen, formatType)}
                   </span>
                 </div>
                 <div className="stat">
                   <span className="label">Day&rsquo;s Range:</span>
                   <span className="value">
-                    {formatNumber(item.regularMarketDayLow)} -{" "}
-                    {formatNumber(item.regularMarketDayHigh)}
+                    {formatNumber(item.regularMarketDayLow, formatType)} -{" "}
+                    {formatNumber(item.regularMarketDayHigh, formatType)}
                   </span>
                 </div>
                 <div className="stat">
@@ -169,6 +180,52 @@ const Quote = () => {
                 <div className="stat">
                   <span className="label">Ask:</span>
                   <span className="value">{formatNumber(item.ask)}</span>
+                </div>
+              </div>
+            )}
+
+            {/* MAI JOS E ASSET-STATS PENTRU Currency */}
+            {item.quoteType === "CURRENCY" && (
+              <div className="asset-stats">
+                <div className="stat">
+                  <span className="label">Previous Close:</span>
+                  <span className="value">
+                    {formatNumber(item.regularMarketPreviousClose, formatType)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Open:</span>
+                  <span className="value">
+                    {formatNumber(item.regularMarketOpen, formatType)}
+                  </span>
+                </div>
+
+                <div className="stat">
+                  <span className="label">52 Week Range:</span>
+                  <span className="value">
+                    {formatNumber(item.fiftyTwoWeekLow, formatType)} -{" "}
+                    {formatNumber(item.fiftyTwoWeekHigh, formatType)}
+                  </span>
+                </div>
+
+                <div className="stat">
+                  <span className="label">Bid:</span>
+                  <span className="value">
+                    {formatNumber(item.bid, formatType)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Day&rsquo;s Range:</span>
+                  <span className="value">
+                    {formatNumber(item.regularMarketDayLow, formatType)} -{" "}
+                    {formatNumber(item.regularMarketDayHigh, formatType)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Ask:</span>
+                  <span className="value">
+                    {formatNumber(item.ask, formatType)}
+                  </span>
                 </div>
               </div>
             )}

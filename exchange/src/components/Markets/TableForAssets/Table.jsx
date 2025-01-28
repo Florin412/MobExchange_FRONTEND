@@ -2,7 +2,8 @@
 /* eslint-disable react/prop-types */
 import "./Table.css";
 import DynamicChart from "../DimamicChart/DynamicChart";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+
 // Funcție pentru a clampa valorile între un minim și un maxim
 const clampValue = (value, min, max) => Math.min(Math.max(value, min), max);
 
@@ -62,6 +63,19 @@ const renderRangeColumn = (
 
 // Componenta principală Table
 const Table = ({ data, columns, formatTypeForNumbers }) => {
+  const location = useLocation();
+  let formatType = "normal"; // Valoare implicită
+
+  // Verifică ruta curentă pentru a putea asigna tipul de formatare a numerelor potrivit.
+  if (
+    location.pathname.includes("/markets/bonds") ||
+    location.pathname.includes("/markets/currencies")
+  ) {
+    formatType = "long"; // Setează la "long" dacă ruta se potrivește
+  }
+
+  console.log(formatType);
+
   return (
     <div className="table-container">
       <table className="custom-table">
@@ -98,7 +112,7 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
                       <Link
                         to={`/quote/${item.symbol}`}
                         className="symbol-link"
-                        state={{ item }}
+                        state={{ item, formatType }}
                       >
                         {item.symbol && item.symbol.length > 9
                           ? `${item.symbol.slice(0, 9)}...`
