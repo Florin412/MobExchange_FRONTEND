@@ -53,7 +53,7 @@ const Bonds = () => {
     "Graph",
     "Price",
     "Change",
-    "Change%",
+    "Change %",
     "52 Wk Range"
   ];
 

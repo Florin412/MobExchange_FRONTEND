@@ -54,7 +54,7 @@ const Futures = () => {
     "Price",
     "Market Time",
     "Change",
-    "Change%",
+    "Change %",
     "Volume",
     "Open Interest"
   ];

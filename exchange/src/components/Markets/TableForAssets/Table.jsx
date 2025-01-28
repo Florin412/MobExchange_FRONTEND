@@ -140,7 +140,7 @@ const Table = ({ data, columns }) => {
                       : "0.00";
                     break;
 
-                  case "Change%":
+                  case "Change %":
                     value = item.regularMarketChangePercent
                       ? item.regularMarketChangePercent > 0
                         ? `+${item.regularMarketChangePercent.toFixed(2)}%`
@@ -206,7 +206,7 @@ const Table = ({ data, columns }) => {
 
                 // Aplicăm stiluri condiționate pentru schimbări pozitive/negative
                 const className =
-                  (col === "Change" || col === "Change%") && value
+                  (col === "Change" || col === "Change %") && value
                     ? String(value).includes("-")
                       ? "negative"
                       : "positive"
