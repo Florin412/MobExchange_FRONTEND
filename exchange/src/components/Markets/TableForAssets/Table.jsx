@@ -30,28 +30,23 @@ const renderRangeColumn = (
       .split("-")
       .map((val) => parseFloat(val.trim()));
 
-    // Determinarea valorii slider-ului
-    const sliderValue = clampValue(currentValue, minRange, maxRange);
+    currentValue = parseFloat(currentValue);
 
-    // Adăugare clasă CSS pentru a indica poziția slider-ului
-    const rangeClass =
-      sliderValue === minRange
-        ? "slider-min"
-        : sliderValue === maxRange
-        ? "slider-max"
-        : "slider-in-range";
+    // Determinarea valorilor pentru slider
+    const sliderValue = clampValue(currentValue, minRange, maxRange);
 
     return (
       <td key={`${columnKey}-${rowIndex}-${colIndex}`}>
         <div className="range-container">
           <input
             type="range"
-            className={`form-range ${rangeClass}`}
+            className="form-range"
             id={`${columnKey}-${rowIndex}`}
             min={minRange}
             max={maxRange}
             value={sliderValue}
-            disabled
+            readOnly // Face sliderul să fie doar informativ
+            step={0.01} // Setează pasul pentru a permite zecimale
           />
           <div className="range-labels">
             <span>{formatNumber(minRange)}</span>
