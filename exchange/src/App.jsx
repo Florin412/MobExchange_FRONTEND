@@ -29,6 +29,7 @@ import WorldIndices from "./components/Markets/WorldIndices/WordlIndices";
 import Quote from "./components/Quote/Quote";
 import ErrorBoundary from "./components/Quote/ErrorBoundary";
 import Futures from "./components/Markets/Futures/Futures";
+import Bonds from "./components/Markets/Bonds/Bonds";
 
 function App() {
   // Here is the default state of the app.
@@ -334,6 +335,8 @@ function App() {
             </ErrorBoundary>
           }
         />
+
+        <Route path="/markets/bonds" element={<Bonds></Bonds>} />
 
         <Route path="*" element={<Navigate to={"/signin"}></Navigate>}></Route>
       </Routes>
