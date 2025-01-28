@@ -62,7 +62,11 @@ const Currencies = () => {
       <div className="quote-container">
         <div className="market-container">
           <h1 className="page-title">Currencies</h1>
-          <Table data={data} columns={columns} />{" "}
+          <Table
+            data={data}
+            columns={columns}
+            formatTypeForNumbers={"long"}
+          />{" "}
           {/* Trimitem datele și coloanele */}
         </div>
       </div>

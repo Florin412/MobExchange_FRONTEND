@@ -62,7 +62,11 @@ const Bonds = () => {
       <div className="quote-container">
         <div className="market-container">
           <h1 className="page-title">Bonds</h1>
-          <Table data={data} columns={columns} />{" "}
+          <Table
+            data={data}
+            columns={columns}
+            formatTypeForNumbers={"long"}
+          />{" "}
           {/* Trimitem datele și coloanele */}
         </div>
       </div>

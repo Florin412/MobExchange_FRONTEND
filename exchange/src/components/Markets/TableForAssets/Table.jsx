@@ -7,11 +7,15 @@ import { Link } from "react-router-dom";
 const clampValue = (value, min, max) => Math.min(Math.max(value, min), max);
 
 // Funcție pentru a formata numerele
-const formatNumber = (num) =>
-  new Intl.NumberFormat("en-US", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2
-  }).format(num);
+
+const formatNumber = (num, formatType = "normal") => {
+  const options = {
+    minimumFractionDigits: formatType === "long" ? 4 : 2,
+    maximumFractionDigits: formatType === "long" ? 4 : 2
+  };
+
+  return new Intl.NumberFormat("en-US", options).format(num);
+};
 
 // Funcție pentru a reda coloanele de tip range
 const renderRangeColumn = (
@@ -62,7 +66,7 @@ const renderRangeColumn = (
 };
 
 // Componenta principală Table
-const Table = ({ data, columns }) => {
+const Table = ({ data, columns, formatTypeForNumbers }) => {
   return (
     <div className="table-container">
       <table className="custom-table">
@@ -128,23 +132,45 @@ const Table = ({ data, columns }) => {
 
                   case "Price":
                     value = item.regularMarketPrice
-                      ? formatNumber(item.regularMarketPrice)
+                      ? formatNumber(
+                          item.regularMarketPrice,
+                          formatTypeForNumbers
+                        )
                       : "-";
                     break;
 
                   case "Change":
                     value = item.regularMarketChange
                       ? item.regularMarketChange > 0
-                        ? `+${formatNumber(item.regularMarketChange)}`
-                        : formatNumber(item.regularMarketChange)
+                        ? `+${formatNumber(
+                            item.regularMarketChange,
+                            formatTypeForNumbers
+                          )}`
+                        : formatNumber(
+                            item.regularMarketChange,
+                            formatTypeForNumbers
+                          )
                       : "0.00";
                     break;
 
+                  // case "Change %":
+                  //   value = item.regularMarketChangePercent
+                  //     ? item.regularMarketChangePercent > 0
+                  //       ? `+${item.regularMarketChangePercent.toFixed(2)}%`
+                  //       : `${item.regularMarketChangePercent.toFixed(2)}%`
+                  //     : "0.00%";
+                  //   break;
                   case "Change %":
+                    const decimalPlaces =
+                      formatTypeForNumbers === "long" ? 4 : 2;
                     value = item.regularMarketChangePercent
                       ? item.regularMarketChangePercent > 0
-                        ? `+${item.regularMarketChangePercent.toFixed(2)}%`
-                        : `${item.regularMarketChangePercent.toFixed(2)}%`
+                        ? `+${item.regularMarketChangePercent.toFixed(
+                            decimalPlaces
+                          )}%`
+                        : `${item.regularMarketChangePercent.toFixed(
+                            decimalPlaces
+                          )}%`
                       : "0.00%";
                     break;
 
@@ -192,12 +218,13 @@ const Table = ({ data, columns }) => {
 
                   case "Market Time":
                     const date = new Date(item.regularMarketTime * 1000); // Convertim din secunde în milisecunde
-                    value = date.toLocaleString("en-RO", {
-                      timeZone: "Europe/Bucharest",
+                    const options = {
                       hour: "numeric",
                       minute: "numeric",
-                      hour12: false // Setăm la false pentru format de 24h
-                    }); // Formatare pentru ora României
+                      hour12: true, // Setăm la true pentru format de 12h
+                      timeZone: "America/New_York" // Setăm fusul orar pe EST
+                    };
+                    value = date.toLocaleString("en-US", options) + " EST"; // Adăugăm "EST" la sfârșit
                     break;
 
                   default:
