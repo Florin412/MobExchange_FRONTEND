@@ -16,14 +16,6 @@ const Quote = () => {
 
   console.log("Date generale asset: ", item);
 
-  // Funcție pentru formatarea numerelor în stilul US
-  // const formatNumber = (num) => {
-  //   return num.toLocaleString("en-US", {
-  //     minimumFractionDigits: 2,
-  //     maximumFractionDigits: 2
-  //   });
-  // };
-
   const formatNumber = (num, formatType = "normal") => {
     const options = {
       minimumFractionDigits: formatType === "long" ? 4 : 2,
@@ -63,8 +55,9 @@ const Quote = () => {
                     : formatNumber(item.regularMarketChange, formatType)}{" "}
                   {/* Adaugă "+" fără spațiu */}(
                   {item.regularMarketChangePercent >= 0
-                    ? "+" + formatNumber(item.regularMarketChangePercent)
-                    : formatNumber(item.regularMarketChangePercent)}
+                    ? "+" +
+                      formatNumber(item.regularMarketChangePercent, formatType)
+                    : formatNumber(item.regularMarketChangePercent, formatType)}
                   %{/* Elimină spațiul înainte de paranteză */})
                 </span>
               </div>
