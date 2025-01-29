@@ -15,7 +15,7 @@ const Options = () => {
 
       try {
         const response = await axios.get(
-          "http://localhost:8080/markets/bonds",
+          "http://localhost:8080/markets/options/most-active",
           {
             headers: {
               Authorization: `Bearer ${accessToken}`
@@ -24,7 +24,9 @@ const Options = () => {
         );
 
         if (response.status === 200 || response.status === 201) {
-          setData(response.data.quoteResponse.result);
+        //   console.log("Date pentru options:");
+        //   console.log(response.data.finance.result[0].quotes);
+            setData(response.data.finance.result[0].quotes);
         } else if (response.status === 400 || response.status === 401) {
           const newAccessToken = await getNewAccessToken();
           if (newAccessToken) {
