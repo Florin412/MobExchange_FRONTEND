@@ -352,7 +352,12 @@ function App() {
           element={<Options></Options>}
         />
 
-        <Route path="*" element={<Navigate to={"/signin"}></Navigate>}></Route>
+        <Route
+          path="/markets/options/top-losers"
+          element={<Options></Options>}
+        />
+
+        {/* <Route path="*" element={<Navigate to={"/signin"}></Navigate>}></Route> */}
       </Routes>
     </div>
   );
