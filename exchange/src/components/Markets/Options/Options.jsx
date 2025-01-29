@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; // Importă useNavigate
 import Footer from "../../footer/Footer";
 import axios from "axios";
 import Table from "../TableForAssets/Table";
@@ -8,40 +9,37 @@ import "./Options.css";
 const Options = () => {
   const [data, setData] = useState([]);
   const [activeButton, setActiveButton] = useState("Most Active"); // Butonul activ
+  const navigate = useNavigate(); // Inițializează useNavigate
 
   useEffect(() => {
-    const fetchMarketData = async () => {
-      const accessToken = localStorage.getItem("accessToken");
-
-      try {
-        const response = await axios.get(
-          "http://localhost:8080/markets/options/most-active",
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`
-            }
-          }
-        );
-
-        if (response.status === 200 || response.status === 201) {
-        //   console.log("Date pentru options:");
-        //   console.log(response.data.finance.result[0].quotes);
-            setData(response.data.finance.result[0].quotes);
-        } else if (response.status === 400 || response.status === 401) {
-          const newAccessToken = await getNewAccessToken();
-          if (newAccessToken) {
-            fetchMarketData();
-          } else {
-            console.error("Failed to refresh token");
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching market data for Options:", error);
-      }
-    };
-
-    fetchMarketData();
+    // Apelează funcția pentru a obține datele inițiale
+    fetchMarketData("http://localhost:8080/markets/options/most-active");
   }, []);
+
+  const fetchMarketData = async (url) => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    try {
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+
+      if (response.status === 200 || response.status === 201) {
+        setData(response.data.finance.result[0].quotes);
+      } else if (response.status === 400 || response.status === 401) {
+        const newAccessToken = await getNewAccessToken();
+        if (newAccessToken) {
+          fetchMarketData(url); // Reapelează cu același URL
+        } else {
+          console.error("Failed to refresh token");
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching market data for Options:", error);
+    }
+  };
 
   const columns = [
     "Symbol",
@@ -58,9 +56,40 @@ const Options = () => {
     "Open Interest"
   ];
 
-  // Funcția pentru a schimba butonul activ
+  // Funcția pentru a schimba butonul activ și a obține datele corespunzătoare
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
+    let url = "";
+
+    switch (buttonName) {
+      case "Most Active":
+        url = "http://localhost:8080/markets/options/most-active";
+        break;
+      case "Top Gainers":
+        url = "http://localhost:8080/markets/options/gainers";
+        break;
+      case "Top Losers":
+        url = "http://localhost:8080/markets/options/losers";
+        break;
+      case "Highest Implied Volatility":
+        url =
+          "http://localhost:8080/markets/options/highest-implied-volatility";
+        break;
+      case "Highest Open Interest":
+        url = "http://localhost:8080/markets/options/highest-open-interest";
+        break;
+      default:
+        break;
+    }
+
+    // Apelează funcția fetchMarketData cu URL-ul corespunzător
+    if (url) {
+      fetchMarketData(url);
+      // Schimbă URL-ul din browser folosind navigate
+      navigate(
+        `/markets/options/${buttonName.replace(" ", "-").toLowerCase()}`
+      );
+    }
   };
 
   return (

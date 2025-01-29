@@ -347,6 +347,11 @@ function App() {
           element={<Options></Options>}
         />
 
+        <Route
+          path="/markets/options/top-gainers"
+          element={<Options></Options>}
+        />
+
         <Route path="*" element={<Navigate to={"/signin"}></Navigate>}></Route>
       </Routes>
     </div>
