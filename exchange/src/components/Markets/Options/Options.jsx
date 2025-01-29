@@ -73,7 +73,7 @@ const Options = () => {
         break;
       case "Highest Implied Volatility":
         url =
-          "http://localhost:8080/markets/options/highest-implied-volatility";
+          "http://localhost:8080/markets/options/highest-implied-volatility"; // Asigură-te că URL-ul este corect
         break;
       case "Highest Open Interest":
         url = "http://localhost:8080/markets/options/highest-open-interest";
@@ -82,13 +82,11 @@ const Options = () => {
         break;
     }
 
-    // Apelează funcția fetchMarketData cu URL-ul corespunzător
     if (url) {
       fetchMarketData(url);
-      // Schimbă URL-ul din browser folosind navigate
       navigate(
-        `/markets/options/${buttonName.replace(" ", "-").toLowerCase()}`
-      );
+        `/markets/options/${buttonName.replace(/\s+/g, "-").toLowerCase()}`
+      ); // Înlocuiește spațiile cu cratime
     }
   };
 

@@ -357,6 +357,10 @@ function App() {
           element={<Options></Options>}
         />
 
+        <Route path="/markets/options/highest-implied-volatility" element={<Options />} /> {/* Adaugă această linie */} 
+        <Route path="/markets/options/highest-implied%20volatility" element={<Options />} /> {/* Adaugă această linie */} 
+
+
         {/* <Route path="*" element={<Navigate to={"/signin"}></Navigate>}></Route> */}
       </Routes>
     </div>
