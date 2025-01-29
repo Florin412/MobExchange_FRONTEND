@@ -1,0 +1,29 @@
+.button-group {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20px; /* Spațiu între butoane și tabel */
+  margin-left: 20px;
+}
+
+.option-button {
+  background-color: transparent;
+  border: 1px solid transparent; /* Culoarea bordurii */
+  padding: 7px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s; /* Tranziție pentru efecte */
+  border-radius: 5px;
+  font-weight: bolder;
+}
+
+.option-button:hover {
+  color: #1967d2;
+}
+
+.active {
+  background-color: #e7f3ff; /* Culoarea de fundal pentru butonul activ */
+  color: #1967d2; /* Culoarea textului pentru butonul activ */
+}
+
+.active:hover {
+  color: #1967d2; /* Culoarea textului pentru butonul activ */
+}

@@ -162,13 +162,6 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
                       : "0.00";
                     break;
 
-                  // case "Change %":
-                  //   value = item.regularMarketChangePercent
-                  //     ? item.regularMarketChangePercent > 0
-                  //       ? `+${item.regularMarketChangePercent.toFixed(2)}%`
-                  //       : `${item.regularMarketChangePercent.toFixed(2)}%`
-                  //     : "0.00%";
-                  //   break;
                   case "Change %":
                     const decimalPlaces =
                       formatTypeForNumbers === "long" ? 4 : 2;

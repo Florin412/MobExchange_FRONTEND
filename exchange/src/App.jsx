@@ -31,6 +31,7 @@ import ErrorBoundary from "./components/Quote/ErrorBoundary";
 import Futures from "./components/Markets/Futures/Futures";
 import Bonds from "./components/Markets/Bonds/Bonds";
 import Currencies from "./components/Markets/Currencies/Currencies";
+import Options from "./components/Markets/Options/Options";
 
 function App() {
   // Here is the default state of the app.
@@ -340,6 +341,11 @@ function App() {
         <Route path="/markets/bonds" element={<Bonds></Bonds>} />
 
         <Route path="/markets/currencies" element={<Currencies></Currencies>} />
+
+        <Route
+          path="/markets/options/most-active"
+          element={<Options></Options>}
+        />
 
         <Route path="*" element={<Navigate to={"/signin"}></Navigate>}></Route>
       </Routes>
