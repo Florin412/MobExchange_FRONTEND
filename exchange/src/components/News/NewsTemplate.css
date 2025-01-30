@@ -11,7 +11,7 @@
   max-width: 1200px; /* Lățime maximă */
   margin: 0 auto;
   padding: 40px 20px;
-  font-family: "Roboto", sans-serif; /* Font elegant */
+  /* font-family: "Roboto", sans-serif; Font elegant */
   background-color: #fafafa; /* Fundal ușor gri pentru contrast */
   color: #333; /* Culoare text principală */
 }

@@ -170,7 +170,7 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
                   case "Underlying Symbol":
                     value = (
                       <span
-                        className="symbol-link"
+                        className="underlying-symbol-link"
                         onClick={() =>
                           handleUnderlyingSymbolClick(item.underlyingSymbol)
                         } // Apelează funcția la clic
@@ -239,15 +239,21 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
                     break;
 
                   case "Change %":
-                    const decimalPlaces =
-                      formatTypeForNumbers === "long" ? 4 : 2;
+                    const decimalPlaces = 2; // Setează numărul de zecimale la 2
+
+                    const formatNumberWithCommas = (num) => {
+                      const parts = num.toFixed(decimalPlaces).split(".");
+                      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Adaugă virgule la mii
+                      return parts.join("."); // Reunește partea întreagă cu partea zecimală
+                    };
+
                     value = item.regularMarketChangePercent
                       ? item.regularMarketChangePercent > 0
-                        ? `+${item.regularMarketChangePercent.toFixed(
-                            decimalPlaces
+                        ? `+${formatNumberWithCommas(
+                            item.regularMarketChangePercent
                           )}%`
-                        : `${item.regularMarketChangePercent.toFixed(
-                            decimalPlaces
+                        : `${formatNumberWithCommas(
+                            item.regularMarketChangePercent
                           )}%`
                       : "0.00%";
                     break;

@@ -6,7 +6,7 @@
 .custom-table {
   width: 100%;
   border-collapse: collapse;
-  font-family: Arial, sans-serif;
+  /* font-family: Arial, sans-serif; */
   font-size: 12px;
 }
 
@@ -142,4 +142,19 @@ td.name-column {
 
 p[title] {
   margin-bottom: 0;
+}
+
+.underlying-symbol-link {
+  color: #1967d2;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.underlying-symbol-link:hover {
+  border-bottom: 1px solid #1967d2;
+}
+
+.symbol-link {
+  color: #1967d2;
+  font-weight: 600;
 }

@@ -25,6 +25,15 @@ const Quote = () => {
     return new Intl.NumberFormat("en-US", options).format(num);
   };
 
+  const formatOpenInterest = (number) => {
+    if (number >= 1e6) {
+      return (number / 1e6).toFixed(2) + "M"; // Formatează în milioane
+    } else if (number >= 1e3) {
+      return (number / 1e3).toFixed(2) + "k"; // Formatează în mii
+    }
+    return number.toString(); // Returnează numărul ca string
+  };
+
   return (
     <div>
       <div className="quote-container">
@@ -218,6 +227,75 @@ const Quote = () => {
                   <span className="label">Ask:</span>
                   <span className="value">
                     {formatNumber(item.ask, formatType)}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* MAI JOS E ASSET-STATS PENTRU OPTIONS */}
+            {item.quoteType === "OPTION" && (
+              <div className="asset-stats">
+                <div className="stat">
+                  <span className="label">Previous Close:</span>
+                  <span className="value">
+                    {formatNumber(item.regularMarketPreviousClose, formatType)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Open:</span>
+                  <span className="value">
+                    {formatNumber(item.regularMarketOpen, formatType)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Bid:</span>
+                  <span className="value">
+                    {formatNumber(item.bid, formatType)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Ask:</span>
+                  <span className="value">
+                    {formatNumber(item.ask, formatType)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Strike:</span>
+                  <span className="value">{formatNumber(item.strike)}</span>
+                </div>
+                <div className="stat">
+                  <span className="label">Expire Date:</span>
+                  <span className="value">
+                    {item.expireIsoDate
+                      ? item.expireIsoDate.split("T")[0] // Extrage partea de dată din formatul ISO
+                      : "--"}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Day’s Range:</span>
+                  <span className="value">
+                    {formatNumber(item.regularMarketDayLow, formatType)} -{" "}
+                    {formatNumber(item.regularMarketDayHigh, formatType)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Contract Range:</span>
+                  <span className="value">
+                    {item.contractRange
+                      ? `${item.contractRange.min} - ${item.contractRange.max}`
+                      : "--"}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Volume:</span>
+                  <span className="value">
+                    {formatNumber(item.regularMarketVolume)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Open Interest:</span>
+                  <span className="value">
+                    {formatOpenInterest(item.openInterest)}
                   </span>
                 </div>
               </div>
