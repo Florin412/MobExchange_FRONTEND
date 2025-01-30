@@ -14,7 +14,7 @@ const Quote = () => {
   const formatType = location.state.formatType;
   console.log("Salut, aici aici formatul: ", formatType);
 
-  console.log("Date generale asset: ", item);
+  console.log("Date generale asset !!!!!!!!!!!: ", item);
 
   const formatNumber = (num, formatType = "normal") => {
     const options = {
@@ -34,7 +34,7 @@ const Quote = () => {
               {item.fullExchangeName} - {item.quoteSourceName} • {item.currency}
             </span>
             <h1 className="symbol-title">
-              {item.shortName} ({item.symbol})
+              {item.longName} ({item.symbol})
             </h1>
             <hr />
           </div>
@@ -61,7 +61,7 @@ const Quote = () => {
                   %{/* Elimină spațiul înainte de paranteză */})
                 </span>
               </div>
-              <div className="close-time">
+              {/* <div className="close-time">
                 At close:{" "}
                 {new Intl.DateTimeFormat("en-US", {
                   year: "numeric",
@@ -72,7 +72,7 @@ const Quote = () => {
                   hour12: false, // Asigură-te că ora este în format 24 de ore
                   timeZone: item.exchangeTimezoneName
                 }).format(new Date(item.regularMarketTime * 1000))}
-              </div>
+              </div> */}
             </div>
 
             {/* Graficul plasat sub "At close" */}
@@ -218,6 +218,103 @@ const Quote = () => {
                   <span className="label">Ask:</span>
                   <span className="value">
                     {formatNumber(item.ask, formatType)}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* MAI JOS E ASSET-STATS PENTRU ETF */}
+            {item.quoteType === "ETF" && (
+              <div className="asset-stats">
+                <div className="stat">
+                  <span className="label">Previous Close:</span>
+                  <span className="value">
+                    {formatNumber(item.regularMarketPreviousClose)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Day&apos;s Range:</span>
+                  <span className="value">
+                    {formatNumber(item.regularMarketDayLow)} -{" "}
+                    {formatNumber(item.regularMarketDayHigh)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Open:</span>
+                  <span className="value">
+                    {formatNumber(item.regularMarketOpen)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Net Assets:</span>
+                  <span className="value">
+                    {item.netAssets
+                      ? item.netAssets >= 1_000_000_000
+                        ? `${(item.netAssets / 1_000_000_000).toFixed(1)}B`
+                        : item.netAssets >= 1_000_000
+                        ? `${(item.netAssets / 1_000_000).toFixed(1)}M`
+                        : item.netAssets.toLocaleString()
+                      : "0"}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">NAV:</span>
+                  <span className="value">
+                    {formatNumber(item.quoteSummary.summaryDetail.navPrice)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Bid:</span>
+                  <span className="value">
+                    {formatNumber(item.bid)} x{" "}
+                    {item.quoteSummary.summaryDetail.bidSize}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Ask:</span>
+                  <span className="value">{`${formatNumber(item.ask)} x ${
+                    item.quoteSummary.summaryDetail.askSize
+                  }`}</span>
+                </div>
+                <div className="stat">
+                  <span className="label">Volume:</span>
+                  <span className="value">
+                    {formatNumber(item.regularMarketVolume)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Avg. Volume:</span>
+                  <span className="value">
+                    {formatNumber(item.averageDailyVolume3Month)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">PE Ratio (TTM):</span>
+                  <span className="value">{formatNumber(item.trailingPE)}</span>
+                </div>
+                <div className="stat">
+                  <span className="label">Yield:</span>
+                  <span className="value">{formatNumber(item.yield)}%</span>
+                </div>
+                <div className="stat">
+                  <span className="label">Expense Ratio (net):</span>
+                  <span className="value">
+                    {formatNumber(item.netExpenseRatio)}%
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">YTD Daily Total Return:</span>
+                  <span className="value">{formatNumber(item.ytdReturn)}</span>
+                </div>
+                <div className="stat">
+                  <span className="label">Beta (5Y Monthly):</span>
+                  <span className="value">{formatNumber(item.beta)}</span>
+                </div>
+                <div className="stat">
+                  <span className="label">52 Week Range:</span>
+                  <span className="value">
+                    {formatNumber(item.fiftyTwoWeekLow)} -{" "}
+                    {formatNumber(item.fiftyTwoWeekHigh)}
                   </span>
                 </div>
               </div>

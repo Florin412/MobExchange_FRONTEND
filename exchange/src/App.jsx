@@ -272,7 +272,6 @@ function App() {
             </>
           }
         />
-
         <Route
           path="/signin"
           element={
@@ -301,7 +300,6 @@ function App() {
           path="/change-password"
           element={<ChangePassword signOut={signOut}></ChangePassword>}
         ></Route>
-
         <Route path="/news/business" element={<BusinessNews></BusinessNews>} />
         <Route path="/news/stocks" element={<StocksNews></StocksNews>} />
         <Route path="/news/crypto" element={<CryptoNews></CryptoNews>} />
@@ -314,21 +312,16 @@ function App() {
           path="/news/precious-metals"
           element={<PreciousMetalsNews></PreciousMetalsNews>}
         />
-
         {/* Market Routes */}
-
         <Route
           path="/markets/overview"
           element={<MarketOverview></MarketOverview>}
         />
-
         <Route
           path="/markets/world-indices"
           element={<WorldIndices></WorldIndices>}
         />
-
         <Route path="/markets/commodities" element={<Futures></Futures>} />
-
         <Route
           path="/quote/:symbol"
           element={
@@ -337,33 +330,32 @@ function App() {
             </ErrorBoundary>
           }
         />
-
         <Route path="/markets/bonds" element={<Bonds></Bonds>} />
-
         <Route path="/markets/currencies" element={<Currencies></Currencies>} />
-
         <Route
           path="/markets/options/most-active"
           element={<Options></Options>}
         />
-
         <Route
           path="/markets/options/top-gainers"
           element={<Options></Options>}
         />
-
         <Route
           path="/markets/options/top-losers"
           element={<Options></Options>}
         />
-
-        <Route path="/markets/options/highest-implied-volatility" element={<Options />} /> {/* Adaugă această linie */} 
+        <Route
+          path="/markets/options/highest-implied-volatility"
+          element={<Options />}
+        />{" "}
+        {/* Adaugă această linie */}
         {/* <Route path="/markets/options/highest-implied%20volatility" element={<Options />} /> Adaugă această linie  */}
-
-        <Route path="/markets/options/highest-open-interest" element={<Options />} /> {/* Adaugă această linie */} 
-
-
-        {/* <Route path="*" element={<Navigate to={"/signin"}></Navigate>}></Route> */}
+        <Route
+          path="/markets/options/highest-open-interest"
+          element={<Options />}
+        />{" "}
+        {/* Adaugă această linie */}
+        <Route path="*" element={<Navigate to={"/signin"}></Navigate>}></Route>
       </Routes>
     </div>
   );

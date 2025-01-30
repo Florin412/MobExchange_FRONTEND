@@ -3,6 +3,7 @@
 import "./Table.css";
 import DynamicChart from "../DimamicChart/DynamicChart";
 import { Link, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // Funcție pentru a clampa valorile între un minim și un maxim
 const clampValue = (value, min, max) => Math.min(Math.max(value, min), max);
@@ -64,17 +65,53 @@ const renderRangeColumn = (
 // Componenta principală Table
 const Table = ({ data, columns, formatTypeForNumbers }) => {
   const location = useLocation();
+  const navigate = useNavigate();
+
   let formatType = "normal"; // Valoare implicită
 
   // Verifică ruta curentă pentru a putea asigna tipul de formatare a numerelor potrivit.
   if (
     location.pathname.includes("/markets/bonds") ||
-    location.pathname.includes("/markets/currencies")
+    location.pathname.includes("/markets/currencies") ||
+    location.pathname.includes("/markets/options/most-active")
   ) {
     formatType = "long"; // Setează la "long" dacă ruta se potrivește
   }
 
   console.log(formatType);
+
+  const handleUnderlyingSymbolClick = async (symbol) => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    try {
+      const response = await fetch(
+        `http://localhost:8080/markets/options/get-general-data-for-1-asset?symbol=${symbol}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: accessToken,
+            "Content-Type": "application/json"
+          }
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      console.log(
+        "Salut varule, uite ca am primit datele generale pentru 1 asset, hai noroc !!"
+      );
+      console.log(data); // Procesați datele după cum este necesar
+      // Navigăm către pagina Quote și trimitem datele prin state
+      navigate(`/quote/${symbol}`, {
+        state: { item: data.quoteResponse.result[0] }
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   return (
     <div className="table-container">
@@ -129,6 +166,21 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
                     );
                     break;
 
+                  case "Underlying Symbol":
+                    value = (
+                      <span
+                        className="symbol-link"
+                        onClick={() =>
+                          handleUnderlyingSymbolClick(item.underlyingSymbol)
+                        } // Apelează funcția la clic
+                      >
+                        {item.underlyingSymbol
+                          ? `${item.underlyingSymbol}`
+                          : "-"}
+                      </span>
+                    );
+                    break;
+
                   case "Graph": // Cazul pentru coloana graficului
                     return (
                       <td key={colIndex}>
@@ -146,6 +198,29 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
                           formatTypeForNumbers
                         )
                       : "-";
+                    break;
+
+                  case "Bid":
+                    value = item.bid ? formatNumber(item.bid) : "0.00";
+                    break;
+
+                  case "Ask":
+                    value = item.ask ? formatNumber(item.bid) : "-";
+                    break;
+
+                  case "Strike":
+                    value = item.strike ? formatNumber(item.strike) : "-";
+                    break;
+
+                  case "Expiration Date":
+                    const expirationDate =
+                      item.expireDate || item.expireIsoDate; // Alege proprietatea corectă
+                    if (expirationDate) {
+                      const date = new Date(expirationDate * 1000); // Convertim din secunde în milisecunde dacă este cazul
+                      value = date.toISOString().split("T")[0]; // Formatează data ca YYYY-MM-DD
+                    } else {
+                      value = "-"; // Fallback în cazul în care nu există o dată
+                    }
                     break;
 
                   case "Change":
