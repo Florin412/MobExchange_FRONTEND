@@ -150,9 +150,10 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
                         to={`/quote/${item.symbol}`}
                         className="symbol-link"
                         state={{ item, formatType }}
+                        title={item.symbol || ""} // Aici adăugăm atributul title
                       >
-                        {item.symbol && item.symbol.length > 9
-                          ? `${item.symbol.slice(0, 9)}...`
+                        {item.symbol && item.symbol.length > 7
+                          ? `${item.symbol.slice(0, 7)}...`
                           : item.symbol || "-"}
                       </Link>
                     );
