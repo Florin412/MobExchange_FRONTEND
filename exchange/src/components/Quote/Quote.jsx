@@ -34,6 +34,18 @@ const Quote = () => {
     return number.toString(); // Returnează numărul ca string
   };
 
+  const formatMarketCap = (value) => {
+    if (value >= 1e12) {
+      return `${(value / 1e12).toFixed(2)} T`; // Trilioane
+    } else if (value >= 1e9) {
+      return `${(value / 1e9).toFixed(2)} B`; // Miliarde
+    } else if (value >= 1e6) {
+      return `${(value / 1e6).toFixed(2)} M`; // Milioane
+    } else {
+      return value.toString(); // Returnează valoarea originală dacă este mai mică de 1 milion
+    }
+  };
+
   return (
     <div>
       <div className="quote-container">
@@ -91,48 +103,52 @@ const Quote = () => {
             />
 
             {/* MAI JOS E ASSET-STATS PENTRU WORLD INDICES */}
-            {(item.quoteType === "INDEX" || item.quoteType === "EQUITY") && (
-              <div className="asset-stats">
-                <div className="stat">
-                  <span className="label">Previous Close:</span>
-                  <span className="value">
-                    {formatNumber(item.regularMarketPreviousClose, formatType)}
-                  </span>
+            {(item.quoteType === "INDEX" || item.quoteType === "EQUITY") &&
+              item.trailingPE === undefined && (
+                <div className="asset-stats">
+                  <div className="stat">
+                    <span className="label">Previous Close:</span>
+                    <span className="value">
+                      {formatNumber(
+                        item.regularMarketPreviousClose,
+                        formatType
+                      )}
+                    </span>
+                  </div>
+                  <div className="stat">
+                    <span className="label">Volume:</span>
+                    <span className="value">
+                      {formatNumber(item.regularMarketVolume)}
+                    </span>
+                  </div>
+                  <div className="stat">
+                    <span className="label">52 Week Range:</span>
+                    <span className="value">
+                      {formatNumber(item.fiftyTwoWeekLow, formatType)} -{" "}
+                      {formatNumber(item.fiftyTwoWeekHigh, formatType)}
+                    </span>
+                  </div>
+                  <div className="stat">
+                    <span className="label">Open:</span>
+                    <span className="value">
+                      {formatNumber(item.regularMarketOpen, formatType)}
+                    </span>
+                  </div>
+                  <div className="stat">
+                    <span className="label">Day&rsquo;s Range:</span>
+                    <span className="value">
+                      {formatNumber(item.regularMarketDayLow, formatType)} -{" "}
+                      {formatNumber(item.regularMarketDayHigh, formatType)}
+                    </span>
+                  </div>
+                  <div className="stat">
+                    <span className="label">Avg Volume:</span>
+                    <span className="value">
+                      {formatNumber(item.averageDailyVolume3Month)}
+                    </span>
+                  </div>
                 </div>
-                <div className="stat">
-                  <span className="label">Volume:</span>
-                  <span className="value">
-                    {formatNumber(item.regularMarketVolume)}
-                  </span>
-                </div>
-                <div className="stat">
-                  <span className="label">52 Week Range:</span>
-                  <span className="value">
-                    {formatNumber(item.fiftyTwoWeekLow, formatType)} -{" "}
-                    {formatNumber(item.fiftyTwoWeekHigh, formatType)}
-                  </span>
-                </div>
-                <div className="stat">
-                  <span className="label">Open:</span>
-                  <span className="value">
-                    {formatNumber(item.regularMarketOpen, formatType)}
-                  </span>
-                </div>
-                <div className="stat">
-                  <span className="label">Day&rsquo;s Range:</span>
-                  <span className="value">
-                    {formatNumber(item.regularMarketDayLow, formatType)} -{" "}
-                    {formatNumber(item.regularMarketDayHigh, formatType)}
-                  </span>
-                </div>
-                <div className="stat">
-                  <span className="label">Avg Volume:</span>
-                  <span className="value">
-                    {formatNumber(item.averageDailyVolume3Month)}
-                  </span>
-                </div>
-              </div>
-            )}
+              )}
 
             {/* MAI JOS E ASSET-STATS PENTRU Futures */}
             {(item.quoteType === "FUTURE" ||
@@ -393,6 +409,118 @@ const Quote = () => {
                   <span className="value">
                     {formatNumber(item.fiftyTwoWeekLow)} -{" "}
                     {formatNumber(item.fiftyTwoWeekHigh)}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* MAI JOS E ASSET-STATS PENTRU STOCKS */}
+            {item.quoteType === "EQUITY" && item.trailingPE !== undefined && (
+              <div className="asset-stats grid grid-cols-4 gap-4">
+                <div className="stat">
+                  <span className="label">Previous Close:</span>
+                  <span className="value">
+                    {formatNumber(item.regularMarketPreviousClose, formatType)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Day&rsquo;s Range:</span>
+                  <span className="value">
+                    {formatNumber(item.regularMarketDayLow, formatType)} -{" "}
+                    {formatNumber(item.regularMarketDayHigh, formatType)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Open:</span>
+                  <span className="value">
+                    {formatNumber(item.regularMarketOpen, formatType)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Market Cap (intraday):</span>
+                  <span className="value">
+                    {formatMarketCap(item.marketCap)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Bid:</span>
+                  <span className="value">
+                    {formatNumber(item.bid)} x {formatNumber(item.bidSize)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">52 Week Range:</span>
+                  <span className="value">
+                    {formatNumber(item.fiftyTwoWeekLow, formatType)} -{" "}
+                    {formatNumber(item.fiftyTwoWeekHigh, formatType)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Ask:</span>
+                  <span className="value">
+                    {formatNumber(item.ask)} x {formatNumber(item.askSize)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Beta (5Y Monthly):</span>
+                  <span className="value">{formatNumber(item.beta)}</span>
+                </div>
+                <div className="stat">
+                  <span className="label">PE Ratio (TTM):</span>
+                  <span className="value">{formatNumber(item.trailingPE)}</span>
+                </div>
+                <div className="stat">
+                  <span className="label">Avg Volume:</span>
+                  <span className="value">
+                    {formatNumber(item.averageDailyVolume3Month)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">EPS (TTM):</span>
+                  <span className="value">
+                    {formatNumber(item.epsTrailingTwelveMonths)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Earnings Date:</span>
+                  <span className="value">
+                    {item.earningsDate
+                      ? new Date(item.earningsDate).toLocaleDateString(
+                          "en-US",
+                          {
+                            month: "short",
+                            day: "2-digit",
+                            year: "numeric"
+                          }
+                        )
+                      : "N/A"}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Forward Dividend & Yield:</span>
+                  <span className="value">
+                    {formatNumber(item.dividendRate)} ({item.dividendYield}%)
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Ex-Dividend Date:</span>
+                  <span className="value">
+                    {item.exDividendDate
+                      ? new Date(item.exDividendDate).toLocaleDateString(
+                          "en-US",
+                          {
+                            month: "short",
+                            day: "2-digit",
+                            year: "numeric"
+                          }
+                        )
+                      : "N/A"}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">1y Target Est:</span>
+                  <span className="value">
+                    {formatNumber(item.targetEstimate)}
                   </span>
                 </div>
               </div>
