@@ -201,6 +201,42 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
                       : "-";
                     break;
 
+                  case "Avg Vol (3M)":
+                    value = item.averageDailyVolume3Month
+                      ? item.averageDailyVolume3Month >= 1_000_000
+                        ? `${(
+                            item.averageDailyVolume3Month / 1_000_000
+                          ).toFixed(3)}M`
+                        : item.averageDailyVolume3Month.toLocaleString()
+                      : "0";
+                    break;
+
+                  case "Market Cap":
+                    value = item.marketCap
+                      ? item.marketCap >= 1_000_000_000_000
+                        ? `${(item.marketCap / 1_000_000_000_000).toFixed(3)}T`
+                        : item.marketCap >= 1_000_000_000
+                        ? `${(item.marketCap / 1_000_000_000).toFixed(3)}B`
+                        : item.marketCap >= 1_000_000
+                        ? `${(item.marketCap / 1_000_000).toFixed(3)}M`
+                        : item.marketCap.toLocaleString()
+                      : "0";
+                    break;
+
+                  case "P/E Ratio (TTM)":
+                    value =
+                      item.trailingPE !== undefined
+                        ? item.trailingPE.toFixed(2) // Formatează cu 2 zecimale
+                        : "-"; // Valoare implicită dacă nu există
+                    break;
+
+                  case "52 Wk Change %":
+                    value =
+                      item.fiftyTwoWeekChangePercent !== undefined
+                        ? `${formatNumber(item.fiftyTwoWeekChangePercent)}%` // Apelează funcția pentru a formata procentul
+                        : "-"; // Valoare implicită dacă nu există
+                    break;
+
                   case "Bid":
                     value = item.bid ? formatNumber(item.bid) : "0.00";
                     break;

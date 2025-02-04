@@ -148,7 +148,11 @@ const Stocks = () => {
               52 Week Losers
             </button>
           </div>
-          <Table data={data} columns={columns} formatTypeForNumbers={"long"} />
+          <Table
+            data={data}
+            columns={columns}
+            formatTypeForNumbers={"normal"}
+          />
         </div>
       </div>
 
