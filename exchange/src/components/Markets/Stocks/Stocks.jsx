@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // Importă useNavigate
+import { useNavigate } from "react-router-dom";
 import Footer from "../../footer/Footer";
 import axios from "axios";
 import Table from "../TableForAssets/Table";
@@ -13,7 +13,7 @@ const Stocks = () => {
 
   useEffect(() => {
     // Apelează funcția pentru a obține datele inițiale
-    fetchMarketData("http://localhost:8080/markets/options/most-active");
+    fetchMarketData("http://localhost:8080/markets/stocks/most-active");
   }, []);
 
   const fetchMarketData = async (url) => {
@@ -64,23 +64,22 @@ const Stocks = () => {
 
     switch (buttonName) {
       case "Most Active":
-        url = "http://localhost:8080/markets/options/most-active";
+        url = "http://localhost:8080/markets/stocks/most-active";
         break;
       case "Trending Now":
-        url = "http://localhost:8080/markets/options/gainers";
+        url = "http://localhost:8080/markets/stocks/trending";
         break;
       case "Top Gainers":
-        url = "http://localhost:8080/markets/options/gainers";
+        url = "http://localhost:8080/markets/stocks/gainers";
         break;
       case "Top Losers":
-        url = "http://localhost:8080/markets/options/losers";
+        url = "http://localhost:8080/markets/stocks/losers";
         break;
       case "52 Week Gainers":
-        url =
-          "http://localhost:8080/markets/options/highest-implied-volatility"; // Asigură-te că URL-ul este corect
+        url = "http://localhost:8080/markets/stocks/52-wk-gainers";
         break;
       case "52 Week Losers":
-        url = "http://localhost:8080/markets/options/highest-open-interest";
+        url = "http://localhost:8080/markets/stocks/52-wk-losers";
         break;
       default:
         break;
@@ -89,7 +88,7 @@ const Stocks = () => {
     if (url) {
       fetchMarketData(url);
       navigate(
-        `/markets/options/${buttonName.replace(/\s+/g, "-").toLowerCase()}`
+        `/markets/stocks/${buttonName.replace(/\s+/g, "-").toLowerCase()}`
       ); // Înlocuiește spațiile cu cratime
     }
   };

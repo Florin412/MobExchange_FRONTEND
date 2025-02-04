@@ -36,7 +36,7 @@ import Stocks from "./components/Markets/Stocks/Stocks";
 
 function App() {
   // Here is the default state of the app.
-  const [setRoute] = useState("signin");
+  const [route, setRoute] = useState("signin");
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [userName, setUserName] = useState("");
 
@@ -158,7 +158,7 @@ function App() {
     };
 
     checkAccessToken();
-  }, [navigate, setRoute]);
+  }, []);
 
   const signOut = () => {
     // Reset application state
@@ -333,6 +333,10 @@ function App() {
         />
         <Route path="/markets/bonds" element={<Bonds></Bonds>} />
         <Route path="/markets/currencies" element={<Currencies></Currencies>} />
+
+        {/* --------------- */}
+        {/* Options routes */}
+        {/* --------------- */}
         <Route
           path="/markets/options/most-active"
           element={<Options></Options>}
@@ -349,14 +353,22 @@ function App() {
           path="/markets/options/highest-implied-volatility"
           element={<Options />}
         />{" "}
-        {/* Adaugă această linie */}
-        {/* <Route path="/markets/options/highest-implied%20volatility" element={<Options />} /> Adaugă această linie  */}
         <Route
           path="/markets/options/highest-open-interest"
           element={<Options />}
         />{" "}
+        {/* ------------- */}
+        {/* Stoks routes */}
+        {/* ------------- */}
         <Route path="/markets/stocks/most-active" element={<Stocks></Stocks>} />
-        {/* Adaugă această linie */}
+        <Route
+          path="/markets/stocks/trending-now"
+          element={<Stocks></Stocks>}
+        />
+        <Route path="/markets/stocks/top-gainers" element={<Stocks></Stocks>} />
+        <Route path="/markets/stocks/top-losers" element={<Stocks></Stocks>} />
+        <Route path="/markets/stocks/52-week-gainers" element={<Stocks></Stocks>} />
+        <Route path="/markets/stocks/52-week-losers" element={<Stocks></Stocks>} />
         <Route path="*" element={<Navigate to={"/signin"}></Navigate>}></Route>
       </Routes>
     </div>
