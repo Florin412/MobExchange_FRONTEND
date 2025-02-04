@@ -14,7 +14,7 @@ const Options = () => {
   useEffect(() => {
     // Apelează funcția pentru a obține datele inițiale
     fetchMarketData("http://localhost:8080/markets/options/most-active");
-  });
+  }, []);
 
   const fetchMarketData = async (url) => {
     const accessToken = localStorage.getItem("accessToken");
