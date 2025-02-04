@@ -4,9 +4,9 @@ import Footer from "../../footer/Footer";
 import axios from "axios";
 import Table from "../TableForAssets/Table";
 import { getNewAccessToken } from "../../Auth/auth_functions";
-import "./Options.css";
+import "../Options/Options.css";
 
-const Options = () => {
+const Stocks = () => {
   const [data, setData] = useState([]);
   const [activeButton, setActiveButton] = useState("Most Active"); // Butonul activ
   const navigate = useNavigate(); // Inițializează useNavigate
@@ -38,23 +38,23 @@ const Options = () => {
         }
       }
     } catch (error) {
-      console.error("Error fetching market data for Options:", error);
+      console.error("Error fetching market data for stocks:", error);
     }
   };
 
   const columns = [
     "Symbol",
     "Name",
-    "Underlying Symbol",
-    "Strike",
-    "Expiration Date",
+    "Graph",
     "Price",
     "Change",
     "Change %",
-    "Bid",
-    "Ask",
     "Volume",
-    "Open Interest"
+    "Avg Vol (3M)",
+    "Market Cap",
+    "P/E Ratio (TTM)",
+    "52 Wk Change %",
+    "52 Wk Range"
   ];
 
   // Funcția pentru a schimba butonul activ și a obține datele corespunzătoare
@@ -66,17 +66,20 @@ const Options = () => {
       case "Most Active":
         url = "http://localhost:8080/markets/options/most-active";
         break;
+      case "Trending Now":
+        url = "http://localhost:8080/markets/options/gainers";
+        break;
       case "Top Gainers":
         url = "http://localhost:8080/markets/options/gainers";
         break;
       case "Top Losers":
         url = "http://localhost:8080/markets/options/losers";
         break;
-      case "Highest Implied Volatility":
+      case "52 Week Gainers":
         url =
           "http://localhost:8080/markets/options/highest-implied-volatility"; // Asigură-te că URL-ul este corect
         break;
-      case "Highest Open Interest":
+      case "52 Week Losers":
         url = "http://localhost:8080/markets/options/highest-open-interest";
         break;
       default:
@@ -95,7 +98,7 @@ const Options = () => {
     <div>
       <div className="quote-container">
         <div className="market-container">
-          <h1 className="page-title">Options</h1>
+          <h1 className="page-title">Stocks</h1>
           <div className="button-group">
             <button
               className={`option-button ${
@@ -104,6 +107,14 @@ const Options = () => {
               onClick={() => handleButtonClick("Most Active")}
             >
               Most Active
+            </button>
+            <button
+              className={`option-button ${
+                activeButton === "Trending Now" ? "active" : ""
+              }`}
+              onClick={() => handleButtonClick("Trending Now")}
+            >
+              Trending Now
             </button>
             <button
               className={`option-button ${
@@ -123,19 +134,19 @@ const Options = () => {
             </button>
             <button
               className={`option-button ${
-                activeButton === "Highest Implied Volatility" ? "active" : ""
+                activeButton === "52 Week Gainers" ? "active" : ""
               }`}
-              onClick={() => handleButtonClick("Highest Implied Volatility")}
+              onClick={() => handleButtonClick("52 Week Gainers")}
             >
-              Highest Implied Volatility
+              52 Week Gainers
             </button>
             <button
               className={`option-button ${
-                activeButton === "Highest Open Interest" ? "active" : ""
+                activeButton === "52 Week Losers" ? "active" : ""
               }`}
-              onClick={() => handleButtonClick("Highest Open Interest")}
+              onClick={() => handleButtonClick("52 Week Losers")}
             >
-              Highest Open Interest
+              52 Week Losers
             </button>
           </div>
           <Table data={data} columns={columns} formatTypeForNumbers={"long"} />
@@ -147,4 +158,4 @@ const Options = () => {
   );
 };
 
-export default Options;
+export default Stocks;

@@ -32,10 +32,11 @@ import Futures from "./components/Markets/Futures/Futures";
 import Bonds from "./components/Markets/Bonds/Bonds";
 import Currencies from "./components/Markets/Currencies/Currencies";
 import Options from "./components/Markets/Options/Options";
+import Stocks from "./components/Markets/Stocks/Stocks";
 
 function App() {
   // Here is the default state of the app.
-  const [route, setRoute] = useState("signin");
+  const [setRoute] = useState("signin");
   const [isSignedIn, setIsSignedIn] = useState(false);
   const [userName, setUserName] = useState("");
 
@@ -157,7 +158,7 @@ function App() {
     };
 
     checkAccessToken();
-  }, []);
+  }, [navigate, setRoute]);
 
   const signOut = () => {
     // Reset application state
@@ -354,6 +355,7 @@ function App() {
           path="/markets/options/highest-open-interest"
           element={<Options />}
         />{" "}
+        <Route path="/markets/stocks/most-active" element={<Stocks></Stocks>} />
         {/* Adaugă această linie */}
         <Route path="*" element={<Navigate to={"/signin"}></Navigate>}></Route>
       </Routes>
