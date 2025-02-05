@@ -525,6 +525,86 @@ const Quote = () => {
                 </div>
               </div>
             )}
+
+            {/* MAI JOS E ASSET-STATS PENTRU CRYPTO */}
+            {item.quoteType === "CRYPTOCURRENCY" && (
+              <div className="asset-stats grid grid-cols-4 gap-4">
+                <div className="stat">
+                  <span className="label">Previous Close:</span>
+                  <span className="value">
+                    {formatNumber(item.regularMarketPreviousClose, formatType)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Open:</span>
+                  <span className="value">
+                    {formatNumber(item.regularMarketOpen, formatType)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Day&rsquo;s Range:</span>
+                  <span className="value">
+                    {formatNumber(item.regularMarketDayLow, formatType)} -{" "}
+                    {formatNumber(item.regularMarketDayHigh, formatType)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">52 Week Range:</span>
+                  <span className="value">
+                    {formatNumber(item.fiftyTwoWeekLow, formatType)} -{" "}
+                    {formatNumber(item.fiftyTwoWeekHigh, formatType)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Start Date:</span>
+                  <span className="value">
+                    {item.startDate
+                      ? new Date(item.startDate).toLocaleDateString("en-US")
+                      : "N/A"}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Algorithm:</span>
+                  <span className="value">{item.algorithm || "--"}</span>
+                </div>
+                <div className="stat">
+                  <span className="label">Market Cap:</span>
+                  <span className="value">
+                    {formatMarketCap(item.marketCap)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Max Supply:</span>
+                  <span className="value">
+                    {formatNumber(item.maxSupply) || "--"}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Volume:</span>
+                  <span className="value">
+                    {item.regularMarketVolume.toLocaleString("en-US")}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Volume (24hr):</span>
+                  <span className="value">
+                    {formatMarketCap(item.volume24Hr)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Circulating Supply:</span>
+                  <span className="value">
+                    {formatMarketCap(item.circulatingSupply)}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Volume (24hr) All Currencies:</span>
+                  <span className="value">
+                    {formatMarketCap(item.volumeAllCurrencies)}
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
