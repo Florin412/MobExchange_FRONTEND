@@ -33,6 +33,7 @@ import Bonds from "./components/Markets/Bonds/Bonds";
 import Currencies from "./components/Markets/Currencies/Currencies";
 import Options from "./components/Markets/Options/Options";
 import Stocks from "./components/Markets/Stocks/Stocks";
+import Crypto from "./components/Markets/Crypto/Crypto";
 
 function App() {
   // Here is the default state of the app.
@@ -333,7 +334,6 @@ function App() {
         />
         <Route path="/markets/bonds" element={<Bonds></Bonds>} />
         <Route path="/markets/currencies" element={<Currencies></Currencies>} />
-
         {/* --------------- */}
         {/* Options routes */}
         {/* --------------- */}
@@ -367,8 +367,24 @@ function App() {
         />
         <Route path="/markets/stocks/top-gainers" element={<Stocks></Stocks>} />
         <Route path="/markets/stocks/top-losers" element={<Stocks></Stocks>} />
-        <Route path="/markets/stocks/52-week-gainers" element={<Stocks></Stocks>} />
-        <Route path="/markets/stocks/52-week-losers" element={<Stocks></Stocks>} />
+        <Route
+          path="/markets/stocks/52-week-gainers"
+          element={<Stocks></Stocks>}
+        />
+        <Route
+          path="/markets/stocks/52-week-losers"
+          element={<Stocks></Stocks>}
+        />
+        {/* ------------- */}
+        {/* Crypto routes */}
+        {/* ------------- */}
+        <Route path="/markets/crypto/most-active" element={<Crypto></Crypto>} />
+        <Route path="/markets/crypto/top-gainers" element={<Crypto></Crypto>} />
+        <Route path="/markets/crypto/top-losers" element={<Crypto></Crypto>} />
+        <Route
+          path="/markets/crypto/trending-now"
+          element={<Crypto></Crypto>}
+        />
         <Route path="*" element={<Navigate to={"/signin"}></Navigate>}></Route>
       </Routes>
     </div>

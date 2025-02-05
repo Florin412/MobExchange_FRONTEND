@@ -175,7 +175,7 @@ const Navigation = ({
                   className="dropdown-item"
                   style={{ fontSize: "1.5rem", padding: "10px 20px" }}
                 >
-                  Overview
+                  Overview x
                 </Link>
               </li>
               <li>
@@ -229,7 +229,7 @@ const Navigation = ({
                   className="dropdown-item"
                   style={{ fontSize: "1.5rem", padding: "10px 20px" }}
                 >
-                  Sectors
+                  Sectors x
                 </Link>
               </li>
               <li>
@@ -243,7 +243,7 @@ const Navigation = ({
               </li>
               <li>
                 <Link
-                  to="/markets/crypto/all"
+                  to="/markets/crypto/most-active"
                   className="dropdown-item"
                   style={{ fontSize: "1.5rem", padding: "10px 20px" }}
                 >
@@ -257,7 +257,7 @@ const Navigation = ({
                   className="dropdown-item"
                   style={{ fontSize: "1.5rem", padding: "10px 20px" }}
                 >
-                  ETFs
+                  ETFs x
                 </Link>
               </li>
               <li>
@@ -266,7 +266,7 @@ const Navigation = ({
                   className="dropdown-item"
                   style={{ fontSize: "1.5rem", padding: "10px 20px" }}
                 >
-                  Mutual Funds
+                  Mutual Funds x
                 </Link>
               </li>
             </ul>
