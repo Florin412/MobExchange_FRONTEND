@@ -381,10 +381,6 @@ function App() {
         <Route path="/markets/crypto/most-active" element={<Crypto></Crypto>} />
         <Route path="/markets/crypto/top-gainers" element={<Crypto></Crypto>} />
         <Route path="/markets/crypto/top-losers" element={<Crypto></Crypto>} />
-        <Route
-          path="/markets/crypto/trending-now"
-          element={<Crypto></Crypto>}
-        />
         <Route path="*" element={<Navigate to={"/signin"}></Navigate>}></Route>
       </Routes>
     </div>

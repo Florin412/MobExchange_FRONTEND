@@ -158,3 +158,13 @@ p[title] {
   color: #1967d2;
   font-weight: 600;
 }
+
+.logo-image {
+  width: 24px; /* Lățimea imaginii */
+  height: 24px; /* Înălțimea imaginii */
+  object-fit: cover; /* Asigură că imaginea se potrivește în dimensiunile specificate */
+  margin-right: 5px; /* Spațiu între imagine și text */
+  vertical-align: middle; /* Alinierea verticală a imaginii */
+  border-radius: 50%; /* Face imaginea rotundă */
+  border: 1px solid #ccc; /* Opțional: adaugă o margine pentru un aspect mai definit */
+}

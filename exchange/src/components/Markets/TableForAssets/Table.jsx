@@ -144,6 +144,21 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
                 let value = "";
 
                 switch (col) {
+                  // case "Symbol":
+                  //   value = (
+                  //     <Link
+                  //       to={`/quote/${item.symbol}`}
+                  //       className="symbol-link"
+                  //       state={{ item, formatType }}
+                  //       title={item.symbol || ""} // Aici adăugăm atributul title
+                  //     >
+                  //       {item.symbol && item.symbol.length > 7
+                  //         ? `${item.symbol.slice(0, 7)}...`
+                  //         : item.symbol || "-"}
+                  //     </Link>
+                  //   );
+                  //   break;
+
                   case "Symbol":
                     value = (
                       <Link
@@ -152,6 +167,17 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
                         state={{ item, formatType }}
                         title={item.symbol || ""} // Aici adăugăm atributul title
                       >
+                        {item.logoUrl && item.logoUrl !== undefined ? (
+                          <img
+                            src={item.logoUrl}
+                            alt={item.symbol}
+                            className="logo-image"
+                            style={{
+                              marginRight: "5px",
+                              verticalAlign: "middle"
+                            }}
+                          />
+                        ) : null}
                         {item.symbol && item.symbol.length > 7
                           ? `${item.symbol.slice(0, 7)}...`
                           : item.symbol || "-"}
@@ -220,6 +246,52 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
                         : item.marketCap >= 1_000_000
                         ? `${(item.marketCap / 1_000_000).toFixed(3)}M`
                         : item.marketCap.toLocaleString()
+                      : "0";
+                    break;
+
+                  case "Volume in Currency (24hr)":
+                    value = item.volume24Hr
+                      ? item.volume24Hr >= 1_000_000_000_000
+                        ? `${(item.volume24Hr / 1_000_000_000_000).toFixed(3)}T`
+                        : item.volume24Hr >= 1_000_000_000
+                        ? `${(item.volume24Hr / 1_000_000_000).toFixed(3)}B`
+                        : item.volume24Hr >= 1_000_000
+                        ? `${(item.volume24Hr / 1_000_000).toFixed(3)}M`
+                        : item.volume24Hr.toLocaleString()
+                      : "0";
+                    break;
+
+                  case "Total Volume All Currencies (24hr)":
+                    value = item.volumeAllCurrencies
+                      ? item.volumeAllCurrencies >= 1_000_000_000_000
+                        ? `${(
+                            item.volumeAllCurrencies / 1_000_000_000_000
+                          ).toFixed(3)}T`
+                        : item.volumeAllCurrencies >= 1_000_000_000
+                        ? `${(item.volumeAllCurrencies / 1_000_000_000).toFixed(
+                            3
+                          )}B`
+                        : item.volumeAllCurrencies >= 1_000_000
+                        ? `${(item.volumeAllCurrencies / 1_000_000).toFixed(
+                            3
+                          )}M`
+                        : item.volumeAllCurrencies.toLocaleString()
+                      : "0";
+                    break;
+
+                  case "Circulating Supply":
+                    value = item.circulatingSupply
+                      ? item.circulatingSupply >= 1_000_000_000_000
+                        ? `${(
+                            item.circulatingSupply / 1_000_000_000_000
+                          ).toFixed(3)}T`
+                        : item.circulatingSupply >= 1_000_000_000
+                        ? `${(item.circulatingSupply / 1_000_000_000).toFixed(
+                            3
+                          )}B`
+                        : item.circulatingSupply >= 1_000_000
+                        ? `${(item.circulatingSupply / 1_000_000).toFixed(3)}M`
+                        : item.circulatingSupply.toLocaleString()
                       : "0";
                     break;
 

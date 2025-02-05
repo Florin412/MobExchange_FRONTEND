@@ -51,7 +51,7 @@ const Crypto = () => {
     "Change %",
     "Market Cap",
     "Volume",
-    "Volume In Currency (24hr)",
+    "Volume in Currency (24hr)",
     "Total Volume All Currencies (24hr)",
     "Circulating Supply",
     "52 Wk Change %",
@@ -73,9 +73,7 @@ const Crypto = () => {
       case "Top Losers":
         url = "http://localhost:8080/markets/crypto/losers";
         break;
-      case "Trending Now":
-        url = "http://localhost:8080/markets/crypto/trending";
-        break;
+
       default:
         break;
     }
@@ -119,20 +117,8 @@ const Crypto = () => {
             >
               Top Losers
             </button>
-            <button
-              className={`option-button ${
-                activeButton === "Trending Now" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("Trending Now")}
-            >
-              Trending Now
-            </button>
           </div>
-          <Table
-            data={data}
-            columns={columns}
-            formatTypeForNumbers={"normal"}
-          />
+          <Table data={data} columns={columns} formatTypeForNumbers={"long"} />
         </div>
       </div>
 
