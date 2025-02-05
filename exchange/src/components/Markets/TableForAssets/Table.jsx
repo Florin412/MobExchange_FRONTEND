@@ -12,8 +12,10 @@ const clampValue = (value, min, max) => Math.min(Math.max(value, min), max);
 
 const formatNumber = (num, formatType = "normal") => {
   const options = {
-    minimumFractionDigits: formatType === "long" ? 4 : 2,
-    maximumFractionDigits: formatType === "long" ? 4 : 2
+    minimumFractionDigits:
+      formatType === "veryLong" ? 8 : formatType === "long" ? 4 : 2,
+    maximumFractionDigits:
+      formatType === "veryLong" ? 8 : formatType === "long" ? 4 : 2
   };
 
   return new Intl.NumberFormat("en-US", options).format(num);

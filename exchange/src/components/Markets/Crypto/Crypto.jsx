@@ -118,7 +118,11 @@ const Crypto = () => {
               Top Losers
             </button>
           </div>
-          <Table data={data} columns={columns} formatTypeForNumbers={"long"} />
+          <Table
+            data={data}
+            columns={columns}
+            formatTypeForNumbers={"veryLong"}
+          />
         </div>
       </div>
 
