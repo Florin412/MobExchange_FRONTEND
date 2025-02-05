@@ -78,7 +78,7 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
     formatType = "long"; // Setează la "long" dacă ruta se potrivește
   }
 
-  console.log(formatType);
+  // console.log(formatType);
 
   const handleUnderlyingSymbolClick = async (symbol) => {
     const accessToken = localStorage.getItem("accessToken");

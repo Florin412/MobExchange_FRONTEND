@@ -279,6 +279,15 @@ const QuoteChart = ({ symbol, change }) => {
     borderWidth: 2
   };
 
+  const formatNumber = (num, formatType = "normal") => {
+    const options = {
+      minimumFractionDigits: formatType === "long" ? 4 : 2,
+      maximumFractionDigits: formatType === "long" ? 4 : 2
+    };
+
+    return new Intl.NumberFormat("en-US", options).format(num);
+  };
+
   return (
     <div style={{ width: "100%", minHeight: "150px" }}>
       <div className="numeUnic">
@@ -347,7 +356,7 @@ const QuoteChart = ({ symbol, change }) => {
                 fontWeight: "bold"
               }}
             >
-              {percentageChange}%
+              {formatNumber(percentageChange)}%
             </span>
           )}
         </div>
