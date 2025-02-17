@@ -351,25 +351,25 @@ const Quote = () => {
                       : "0"}
                   </span>
                 </div>
-                <div className="stat">
+                {/* <div className="stat">
                   <span className="label">NAV:</span>
                   <span className="value">
                     {formatNumber(item.quoteSummary.summaryDetail.navPrice)}
                   </span>
-                </div>
-                <div className="stat">
+                </div> */}
+                {/* <div className="stat">
                   <span className="label">Bid:</span>
                   <span className="value">
                     {formatNumber(item.bid)} x{" "}
                     {item.quoteSummary.summaryDetail.bidSize}
                   </span>
-                </div>
-                <div className="stat">
+                </div> */}
+                {/* <div className="stat">
                   <span className="label">Ask:</span>
                   <span className="value">{`${formatNumber(item.ask)} x ${
                     item.quoteSummary.summaryDetail.askSize
                   }`}</span>
-                </div>
+                </div> */}
                 <div className="stat">
                   <span className="label">Volume:</span>
                   <span className="value">
