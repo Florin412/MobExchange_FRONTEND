@@ -82,6 +82,14 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
 
   // console.log(formatType);
 
+  const decimalPlaces = 2; // Setează numărul de zecimale la 2
+
+  const formatNumberWithCommas = (num) => {
+    const parts = num.toFixed(decimalPlaces).split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Adaugă virgule la mii
+    return parts.join("."); // Reunește partea întreagă cu partea zecimală
+  };
+
   const handleUnderlyingSymbolClick = async (symbol) => {
     const accessToken = localStorage.getItem("accessToken");
 
@@ -146,21 +154,6 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
                 let value = "";
 
                 switch (col) {
-                  // case "Symbol":
-                  //   value = (
-                  //     <Link
-                  //       to={`/quote/${item.symbol}`}
-                  //       className="symbol-link"
-                  //       state={{ item, formatType }}
-                  //       title={item.symbol || ""} // Aici adăugăm atributul title
-                  //     >
-                  //       {item.symbol && item.symbol.length > 7
-                  //         ? `${item.symbol.slice(0, 7)}...`
-                  //         : item.symbol || "-"}
-                  //     </Link>
-                  //   );
-                  //   break;
-
                   case "Symbol":
                     value = (
                       <Link
@@ -224,6 +217,21 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
                     value = item.regularMarketPrice
                       ? formatNumber(
                           item.regularMarketPrice,
+                          formatTypeForNumbers
+                        )
+                      : "-";
+                    break;
+
+                  case "50 Day Average":
+                    value = item.fiftyDayAverage
+                      ? formatNumber(item.fiftyDayAverage, formatTypeForNumbers)
+                      : "-";
+                    break;
+
+                  case "200 Day Average":
+                    value = item.twoHundredDayAverage
+                      ? formatNumber(
+                          item.twoHundredDayAverage,
                           formatTypeForNumbers
                         )
                       : "-";
@@ -311,6 +319,13 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
                         : "-"; // Valoare implicită dacă nu există
                     break;
 
+                  case "3 Month Return":
+                    value =
+                      item.trailingThreeMonthReturns !== undefined
+                        ? `${formatNumber(item.trailingThreeMonthReturns)}%` // Apelează funcția pentru a formata procentul
+                        : "-"; // Valoare implicită dacă nu există
+                    break;
+
                   case "Bid":
                     value = item.bid ? formatNumber(item.bid) : "0.00";
                     break;
@@ -349,14 +364,6 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
                     break;
 
                   case "Change %":
-                    const decimalPlaces = 2; // Setează numărul de zecimale la 2
-
-                    const formatNumberWithCommas = (num) => {
-                      const parts = num.toFixed(decimalPlaces).split(".");
-                      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Adaugă virgule la mii
-                      return parts.join("."); // Reunește partea întreagă cu partea zecimală
-                    };
-
                     value = item.regularMarketChangePercent
                       ? item.regularMarketChangePercent > 0
                         ? `+${formatNumberWithCommas(
@@ -366,6 +373,14 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
                             item.regularMarketChangePercent
                           )}%`
                       : "0.00%";
+                    break;
+
+                  case "YTD Return":
+                    value = item.ytdReturn
+                      ? item.ytdReturn > 0
+                        ? `+${formatNumberWithCommas(item.ytdReturn)}%`
+                        : `${formatNumberWithCommas(item.ytdReturn)}%`
+                      : "--";
                     break;
 
                   case "Volume":
@@ -427,7 +442,11 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
 
                 // Aplicăm stiluri condiționate pentru schimbări pozitive/negative
                 const className =
-                  (col === "Change" || col === "Change %") && value
+                  (col === "Change" ||
+                    col === "Change %" ||
+                    col === "YTD Return") &&
+                  value &&
+                  value !== "--"
                     ? String(value).includes("-")
                       ? "negative"
                       : "positive"

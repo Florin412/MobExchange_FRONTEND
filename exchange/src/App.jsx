@@ -34,6 +34,7 @@ import Currencies from "./components/Markets/Currencies/Currencies";
 import Options from "./components/Markets/Options/Options";
 import Stocks from "./components/Markets/Stocks/Stocks";
 import Crypto from "./components/Markets/Crypto/Crypto";
+import Etfs from "./components/Markets/Etfs/Etfs";
 
 function App() {
   // Here is the default state of the app.
@@ -381,6 +382,15 @@ function App() {
         <Route path="/markets/crypto/most-active" element={<Crypto></Crypto>} />
         <Route path="/markets/crypto/top-gainers" element={<Crypto></Crypto>} />
         <Route path="/markets/crypto/top-losers" element={<Crypto></Crypto>} />
+        {/* ------------- */}
+        {/* ETFS routes */}
+        {/* ------------- */}
+        <Route path="/markets/etfs/most-active" element={<Etfs></Etfs>} />
+        <Route path="/markets/etfs/top-gainers" element={<Etfs></Etfs>} />
+        <Route path="/markets/etfs/top-losers" element={<Etfs></Etfs>} />
+        <Route path="/markets/etfs/top-performing" element={<Etfs></Etfs>} />
+        <Route path="/markets/etfs/trending-now" element={<Etfs></Etfs>} />
+        <Route path="/markets/etfs/best-historical-performance" element={<Etfs></Etfs>} />
         <Route path="*" element={<Navigate to={"/signin"}></Navigate>}></Route>
       </Routes>
     </div>

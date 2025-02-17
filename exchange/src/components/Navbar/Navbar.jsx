@@ -257,7 +257,7 @@ const Navigation = ({
                   className="dropdown-item"
                   style={{ fontSize: "1.5rem", padding: "10px 20px" }}
                 >
-                  ETFs x
+                  ETFs
                 </Link>
               </li>
               <li>
