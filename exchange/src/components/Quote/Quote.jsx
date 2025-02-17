@@ -351,25 +351,7 @@ const Quote = () => {
                       : "0"}
                   </span>
                 </div>
-                {/* <div className="stat">
-                  <span className="label">NAV:</span>
-                  <span className="value">
-                    {formatNumber(item.quoteSummary.summaryDetail.navPrice)}
-                  </span>
-                </div> */}
-                {/* <div className="stat">
-                  <span className="label">Bid:</span>
-                  <span className="value">
-                    {formatNumber(item.bid)} x{" "}
-                    {item.quoteSummary.summaryDetail.bidSize}
-                  </span>
-                </div> */}
-                {/* <div className="stat">
-                  <span className="label">Ask:</span>
-                  <span className="value">{`${formatNumber(item.ask)} x ${
-                    item.quoteSummary.summaryDetail.askSize
-                  }`}</span>
-                </div> */}
+
                 <div className="stat">
                   <span className="label">Volume:</span>
                   <span className="value">
@@ -384,11 +366,19 @@ const Quote = () => {
                 </div>
                 <div className="stat">
                   <span className="label">PE Ratio (TTM):</span>
-                  <span className="value">{formatNumber(item.trailingPE)}</span>
+                  <span className="value">
+                    {item.trailingPE !== undefined
+                      ? formatNumber(item.trailingPE)
+                      : "--"}
+                  </span>
                 </div>
                 <div className="stat">
                   <span className="label">Yield:</span>
-                  <span className="value">{formatNumber(item.yield)}%</span>
+                  <span className="value">
+                    {item.yield !== undefined
+                      ? formatNumber(item.yield) + "%"
+                      : "--"}
+                  </span>
                 </div>
                 <div className="stat">
                   <span className="label">Expense Ratio (net):</span>
@@ -402,7 +392,81 @@ const Quote = () => {
                 </div>
                 <div className="stat">
                   <span className="label">Beta (5Y Monthly):</span>
-                  <span className="value">{formatNumber(item.beta)}</span>
+                  <span className="value">
+                    {item.beta !== undefined ? formatNumber(item.beta) : "--"}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">52 Week Range:</span>
+                  <span className="value">
+                    {formatNumber(item.fiftyTwoWeekLow)} -{" "}
+                    {formatNumber(item.fiftyTwoWeekHigh)}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {/* MAI JOS E ASSET-STATS PENTRU Mutual Funds */}
+            {item.quoteType === "MUTUALFUND" && (
+              <div className="asset-stats">
+                <div className="stat">
+                  <span className="label">Previous Close:</span>
+                  <span className="value">
+                    {formatNumber(item.regularMarketPreviousClose)}
+                  </span>
+                </div>
+
+                <div className="stat">
+                  <span className="label">Last Dividend:</span>
+                  <span className="value">
+                    {formatNumber(item.dividendRate)}
+                  </span>
+                </div>
+
+                <div className="stat">
+                  <span className="label">Net Assets:</span>
+                  <span className="value">
+                    {item.netAssets
+                      ? item.netAssets >= 1_000_000_000
+                        ? `${(item.netAssets / 1_000_000_000).toFixed(1)}B`
+                        : item.netAssets >= 1_000_000
+                        ? `${(item.netAssets / 1_000_000).toFixed(1)}M`
+                        : item.netAssets.toLocaleString()
+                      : "0"}
+                  </span>
+                </div>
+
+                <div className="stat">
+                  <span className="label">PE Ratio (TTM):</span>
+                  <span className="value">
+                    {item.trailingPE !== undefined
+                      ? formatNumber(item.trailingPE)
+                      : "--"}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Yield:</span>
+                  <span className="value">
+                    {item.yield !== undefined
+                      ? formatNumber(item.yield) + "%"
+                      : "--"}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">Expense Ratio:</span>
+                  <span className="value">
+                    {formatNumber(item.netExpenseRatio)}%
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="label">YTD Return:</span>
+                  <span className="value">{formatNumber(item.ytdReturn)}%</span>
+                </div>
+                <div className="stat">
+                  <span className="label">Beta (5Y Monthly):</span>
+                  <span className="value">
+                    {item.beta !== undefined ? formatNumber(item.beta) : "--"}
+                  </span>
                 </div>
                 <div className="stat">
                   <span className="label">52 Week Range:</span>
@@ -467,7 +531,11 @@ const Quote = () => {
                 </div>
                 <div className="stat">
                   <span className="label">PE Ratio (TTM):</span>
-                  <span className="value">{formatNumber(item.trailingPE)}</span>
+                  <span className="value">
+                    {item.trailingPE !== undefined
+                      ? formatNumber(item.trailingPE)
+                      : "--"}
+                  </span>
                 </div>
                 <div className="stat">
                   <span className="label">Avg Volume:</span>

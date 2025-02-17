@@ -35,6 +35,7 @@ import Options from "./components/Markets/Options/Options";
 import Stocks from "./components/Markets/Stocks/Stocks";
 import Crypto from "./components/Markets/Crypto/Crypto";
 import Etfs from "./components/Markets/Etfs/Etfs";
+import MutualFunds from "./components/Markets/MutualFunds/MutualFunds";
 
 function App() {
   // Here is the default state of the app.
@@ -390,7 +391,29 @@ function App() {
         <Route path="/markets/etfs/top-losers" element={<Etfs></Etfs>} />
         <Route path="/markets/etfs/top-performing" element={<Etfs></Etfs>} />
         <Route path="/markets/etfs/trending-now" element={<Etfs></Etfs>} />
-        <Route path="/markets/etfs/best-historical-performance" element={<Etfs></Etfs>} />
+        <Route
+          path="/markets/etfs/best-historical-performance"
+          element={<Etfs></Etfs>}
+        />
+        {/* ------------- */}
+        {/* Mutual Funds routes */}
+        {/* ------------- */}
+        <Route
+          path="/markets/mutual-funds/top-gainers"
+          element={<MutualFunds></MutualFunds>}
+        />
+        <Route
+          path="/markets/mutual-funds/top-losers"
+          element={<MutualFunds></MutualFunds>}
+        />
+        <Route
+          path="/markets/mutual-funds/top-performing"
+          element={<MutualFunds></MutualFunds>}
+        />
+        <Route
+          path="/markets/mutual-funds/best-historical-performance"
+          element={<MutualFunds></MutualFunds>}
+        />
         <Route path="*" element={<Navigate to={"/signin"}></Navigate>}></Route>
       </Routes>
     </div>

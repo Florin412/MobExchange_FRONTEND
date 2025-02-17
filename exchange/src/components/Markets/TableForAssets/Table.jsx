@@ -182,8 +182,8 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
 
                   case "Name":
                     value = (
-                      <p title={item.shortName || ""}>
-                        {item.shortName || "-"}
+                      <p title={item.shortName || item.longName || ""}>
+                        {item.shortName || item.longName || "-"}
                       </p>
                     );
                     break;

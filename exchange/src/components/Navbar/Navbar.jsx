@@ -262,11 +262,11 @@ const Navigation = ({
               </li>
               <li>
                 <Link
-                  to="/markets/mutualfunds/gainers"
+                  to="/markets/mutual-funds/top-gainers"
                   className="dropdown-item"
                   style={{ fontSize: "1.5rem", padding: "10px 20px" }}
                 >
-                  Mutual Funds x
+                  Mutual Funds
                 </Link>
               </li>
             </ul>
