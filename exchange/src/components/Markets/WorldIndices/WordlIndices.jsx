@@ -26,7 +26,7 @@ const WorldIndices = () => {
 
         if (response.status === 200 || response.status === 201) {
           console.log(
-            "Salut, Acces token bun, mai jos ai raspunsul pentru world indices"
+            "________Salut, Acces token bun, mai jos ai raspunsul pentru world indices ___________"
           );
           console.log(response.data.quoteResponse.result);
           setData(response.data.quoteResponse.result); // Stocăm datele în state

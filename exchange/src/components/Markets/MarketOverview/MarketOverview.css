@@ -29,3 +29,18 @@
   font-weight: 700;
   color: #2c3e50;
 }
+
+.page-title-overview {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.page-subtitle-overview {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+}
+
+.page-subtitle-overview:hover {
+  text-decoration: none;
+}

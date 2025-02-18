@@ -134,7 +134,7 @@ const DynamicChart = ({ symbol, change }) => {
   };
 
   return (
-    <div style={{ width: "100%", height: "45px" }}>
+    <div style={{ width: "100%", height: "30px" }}>
       <Line data={chartData} options={options} className="full-size" />
     </div>
   );

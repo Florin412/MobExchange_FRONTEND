@@ -154,13 +154,45 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
                 let value = "";
 
                 switch (col) {
+                  // case "Symbol":
+                  //   value = (
+                  //     <Link
+                  //       to={`/quote/${item.symbol}`}
+                  //       className="symbol-link"
+                  //       state={{ item, formatType }}
+                  //       title={item.symbol || ""} // Aici adăugăm atributul title
+                  //     >
+                  //       {item.logoUrl && item.logoUrl !== undefined ? (
+                  //         <img
+                  //           src={item.logoUrl}
+                  //           alt={item.symbol}
+                  //           className="logo-image"
+                  //           style={{
+                  //             marginRight: "5px",
+                  //             verticalAlign: "middle"
+                  //           }}
+                  //         />
+                  //       ) : null}
+                  //       {item.symbol && item.symbol.length > 7
+                  //         ? `${item.symbol.slice(0, 7)}...`
+                  //         : item.symbol || "-"}
+                  //     </Link>
+                  //   );
+                  //   break;
+
                   case "Symbol":
+                    const currentPath = window.location.pathname; // Obținem ruta curentă
+
                     value = (
                       <Link
                         to={`/quote/${item.symbol}`}
                         className="symbol-link"
                         state={{ item, formatType }}
-                        title={item.symbol || ""} // Aici adăugăm atributul title
+                        title={
+                          currentPath === "/markets/overview"
+                            ? item.shortName || ""
+                            : item.symbol || ""
+                        } // Atribuim title în funcție de ruta curentă
                       >
                         {item.logoUrl && item.logoUrl !== undefined ? (
                           <img
@@ -173,9 +205,15 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
                             }}
                           />
                         ) : null}
-                        {item.symbol && item.symbol.length > 7
-                          ? `${item.symbol.slice(0, 7)}...`
-                          : item.symbol || "-"}
+                        {currentPath === "/markets/overview"
+                          ? item.shortName && item.shortName.length > 10
+                            ? `${item.shortName.slice(0, 10)}...` // Afișăm primele 10 caractere + "..."
+                            : item.shortName || "-" // Afișăm întregul shortName sau "-"
+                          : item.symbol && item.symbol.length > 7
+                          ? `${item.symbol.slice(0, 7)}...` // Afișăm simbolul cu truncare
+                          : item.symbol ||
+                            "-" // Afișăm simbolul sau "-"
+                        }
                       </Link>
                     );
                     break;

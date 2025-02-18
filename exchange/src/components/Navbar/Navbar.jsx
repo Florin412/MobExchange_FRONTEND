@@ -175,7 +175,7 @@ const Navigation = ({
                   className="dropdown-item"
                   style={{ fontSize: "1.5rem", padding: "10px 20px" }}
                 >
-                  Overview x
+                  Overview
                 </Link>
               </li>
               <li>
