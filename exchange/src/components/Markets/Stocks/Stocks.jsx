@@ -98,56 +98,63 @@ const Stocks = () => {
       <div className="quote-container">
         <div className="market-container">
           <h1 className="page-title">Stocks</h1>
-          <div className="button-group">
-            <button
-              className={`option-button ${
-                activeButton === "Most Active" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("Most Active")}
-            >
-              Most Active
-            </button>
-            <button
-              className={`option-button ${
-                activeButton === "Trending Now" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("Trending Now")}
-            >
-              Trending Now
-            </button>
-            <button
-              className={`option-button ${
-                activeButton === "Top Gainers" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("Top Gainers")}
-            >
-              Top Gainers
-            </button>
-            <button
-              className={`option-button ${
-                activeButton === "Top Losers" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("Top Losers")}
-            >
-              Top Losers
-            </button>
-            <button
-              className={`option-button ${
-                activeButton === "52 Week Gainers" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("52 Week Gainers")}
-            >
-              52 Week Gainers
-            </button>
-            <button
-              className={`option-button ${
-                activeButton === "52 Week Losers" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("52 Week Losers")}
-            >
-              52 Week Losers
-            </button>
+          <div className="button-group overflow-auto">
+            {" "}
+            {/* Adaugă overflow-auto pentru derularea orizontală */}
+            <div className="d-flex">
+              {" "}
+              {/* Flexbox pentru a aranja butoanele pe orizontală */}
+              <button
+                className={`option-button ${
+                  activeButton === "Most Active" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("Most Active")}
+              >
+                Most Active
+              </button>
+              <button
+                className={`option-button ${
+                  activeButton === "Trending Now" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("Trending Now")}
+              >
+                Trending Now
+              </button>
+              <button
+                className={`option-button ${
+                  activeButton === "Top Gainers" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("Top Gainers")}
+              >
+                Top Gainers
+              </button>
+              <button
+                className={`option-button ${
+                  activeButton === "Top Losers" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("Top Losers")}
+              >
+                Top Losers
+              </button>
+              <button
+                className={`option-button ${
+                  activeButton === "52 Week Gainers" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("52 Week Gainers")}
+              >
+                52 Week Gainers
+              </button>
+              <button
+                className={`option-button ${
+                  activeButton === "52 Week Losers" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("52 Week Losers")}
+              >
+                52 Week Losers
+              </button>
+            </div>
           </div>
+
           <Table
             data={data}
             columns={columns}

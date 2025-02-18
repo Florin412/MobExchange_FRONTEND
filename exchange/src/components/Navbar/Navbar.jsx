@@ -223,15 +223,7 @@ const Navigation = ({
                   Options
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/markets/sectors"
-                  className="dropdown-item"
-                  style={{ fontSize: "1.5rem", padding: "10px 20px" }}
-                >
-                  Sectors x
-                </Link>
-              </li>
+
               <li>
                 <Link
                   to="/markets/stocks/most-active"

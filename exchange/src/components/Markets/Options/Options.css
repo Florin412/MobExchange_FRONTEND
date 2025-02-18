@@ -2,7 +2,6 @@
   display: flex;
   justify-content: flex-start;
   margin-bottom: 20px; /* Spațiu între butoane și tabel */
-  margin-left: 20px;
 }
 
 .option-button {
@@ -26,4 +25,13 @@
 
 .active:hover {
   color: #1967d2; /* Culoarea textului pentru butonul activ */
+}
+
+/* Media query pentru dispozitive mobile */
+@media (max-width: 768px) {
+  .option-button {
+    font-size: 12px; /* Dimensiune font mai mică pe mobil */
+    padding: 10px; /* Ajustează padding-ul dacă este necesar */
+    min-width: 120px;
+  }
 }
