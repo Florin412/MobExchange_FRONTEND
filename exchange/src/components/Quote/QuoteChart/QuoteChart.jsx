@@ -289,7 +289,7 @@ const QuoteChart = ({ symbol, change }) => {
   };
 
   return (
-    <div style={{ width: "100%", minHeight: "150px" }}>
+    <div style={{ width: "100%" }}>
       <div className="numeUnic">
         <div className="chart-controls">
           {/* Butoanele de timp */}
@@ -344,7 +344,7 @@ const QuoteChart = ({ symbol, change }) => {
         </div>
 
         {/* Afișarea procentajului sub butoanele de timp */}
-        <div style={{ textAlign: "center", marginTop: "10px" }}>
+        <div>
           {percentageChange !== null && (
             <span
               style={{

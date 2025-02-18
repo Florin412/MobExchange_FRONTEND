@@ -5,24 +5,27 @@
 }
 
 .chart-controls button {
-  margin-right: 10px; /* Spațiu între butoane */
-  padding: 5px 15px; /* Spațiu interior pentru butoane (am redus înălțimea) */
-  background-color: #f0f0f0; /* Culoarea de fundal a butoanelor */
-  color: #333; /* Culoarea textului */
-  border: 1px solid transparent; /* Fără margine vizibilă */
-  border-radius: 5px; /* Colțuri rotunjite */
-  cursor: pointer; /* Cursor pointer pentru butoane */
-  transition: background-color 0.3s, border-color 0.3s; /* Tranziție pentru hover */
+  background-color: transparent;
+  border: 1px solid transparent; /* Culoarea bordurii */
+  padding: 6px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s; /* Tranziție pentru efecte */
+  border-radius: 5px;
+  font-weight: bolder;
+  max-height: fit-content;
 }
 
 .chart-controls button:hover {
-  background-color: #e0e0e0; /* Culoare la hover */
+  color: #1967d2;
 }
 
 .chart-controls button.active {
-  background-color: #398bff; /* Culoare pentru butonul activ */
-  color: white; /* Culoare text pentru butonul activ */
-  border-color: #398bff; /* Bordură pentru butonul activ */
+  background-color: #e7f3ff; /* Culoarea de fundal pentru butonul activ */
+  color: #1967d2; /* Culoarea textului pentru butonul activ */
+}
+
+.chart-controls button.active:hover {
+  color: #1967d2; /* Culoarea textului pentru butonul activ */
 }
 
 .price-display {
@@ -69,6 +72,8 @@
 .numeUnic {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 /* Stilizare pentru procentaj */
