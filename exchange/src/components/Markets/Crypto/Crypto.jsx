@@ -91,33 +91,37 @@ const Crypto = () => {
       <div className="quote-container">
         <div className="market-container">
           <h1 className="page-title">Crypto</h1>
-          <div className="button-group">
-            <button
-              className={`option-button ${
-                activeButton === "Most Active" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("Most Active")}
-            >
-              Most Active
-            </button>
 
-            <button
-              className={`option-button ${
-                activeButton === "Top Gainers" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("Top Gainers")}
-            >
-              Top Gainers
-            </button>
-            <button
-              className={`option-button ${
-                activeButton === "Top Losers" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("Top Losers")}
-            >
-              Top Losers
-            </button>
+          <div className="button-group overflow-auto">
+            <div className="d-flex">
+              <button
+                className={`option-button ${
+                  activeButton === "Most Active" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("Most Active")}
+              >
+                Most Active
+              </button>
+
+              <button
+                className={`option-button ${
+                  activeButton === "Top Gainers" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("Top Gainers")}
+              >
+                Top Gainers
+              </button>
+              <button
+                className={`option-button ${
+                  activeButton === "Top Losers" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("Top Losers")}
+              >
+                Top Losers
+              </button>
+            </div>
           </div>
+
           <Table
             data={data}
             columns={columns}

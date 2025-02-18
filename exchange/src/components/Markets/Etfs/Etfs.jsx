@@ -100,57 +100,61 @@ const Etfs = () => {
       <div className="quote-container">
         <div className="market-container">
           <h1 className="page-title">ETFs</h1>
-          <div className="button-group">
-            <button
-              className={`option-button ${
-                activeButton === "Most Active" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("Most Active")}
-            >
-              Most Active
-            </button>
 
-            <button
-              className={`option-button ${
-                activeButton === "Top Gainers" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("Top Gainers")}
-            >
-              Top Gainers
-            </button>
-            <button
-              className={`option-button ${
-                activeButton === "Top Losers" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("Top Losers")}
-            >
-              Top Losers
-            </button>
-            <button
-              className={`option-button ${
-                activeButton === "Top Performing" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("Top Performing")}
-            >
-              Top Performing
-            </button>
-            <button
-              className={`option-button ${
-                activeButton === "Trending Now" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("Trending Now")}
-            >
-              Trending Now
-            </button>
-            <button
-              className={`option-button ${
-                activeButton === "Best Historical Performance" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("Best Historical Performance")}
-            >
-              Best Historical Performance
-            </button>
+          <div className="button-group overflow-auto">
+            <div className="d-flex">
+              <button
+                className={`option-button ${
+                  activeButton === "Most Active" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("Most Active")}
+              >
+                Most Active
+              </button>
+
+              <button
+                className={`option-button ${
+                  activeButton === "Top Gainers" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("Top Gainers")}
+              >
+                Top Gainers
+              </button>
+              <button
+                className={`option-button ${
+                  activeButton === "Top Losers" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("Top Losers")}
+              >
+                Top Losers
+              </button>
+              <button
+                className={`option-button ${
+                  activeButton === "Top Performing" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("Top Performing")}
+              >
+                Top Performing
+              </button>
+              <button
+                className={`option-button ${
+                  activeButton === "Trending Now" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("Trending Now")}
+              >
+                Trending Now
+              </button>
+              <button
+                className={`option-button ${
+                  activeButton === "Best Historical Performance" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("Best Historical Performance")}
+              >
+                Best Historical Performance
+              </button>
+            </div>
           </div>
+
           <Table
             data={data}
             columns={columns}

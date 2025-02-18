@@ -96,48 +96,52 @@ const Options = () => {
       <div className="quote-container">
         <div className="market-container">
           <h1 className="page-title">Options</h1>
-          <div className="button-group">
-            <button
-              className={`option-button ${
-                activeButton === "Most Active" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("Most Active")}
-            >
-              Most Active
-            </button>
-            <button
-              className={`option-button ${
-                activeButton === "Top Gainers" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("Top Gainers")}
-            >
-              Top Gainers
-            </button>
-            <button
-              className={`option-button ${
-                activeButton === "Top Losers" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("Top Losers")}
-            >
-              Top Losers
-            </button>
-            <button
-              className={`option-button ${
-                activeButton === "Highest Implied Volatility" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("Highest Implied Volatility")}
-            >
-              Highest Implied Volatility
-            </button>
-            <button
-              className={`option-button ${
-                activeButton === "Highest Open Interest" ? "active" : ""
-              }`}
-              onClick={() => handleButtonClick("Highest Open Interest")}
-            >
-              Highest Open Interest
-            </button>
+
+          <div className="button-group overflow-auto">
+            <div className="d-flex">
+              <button
+                className={`option-button ${
+                  activeButton === "Most Active" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("Most Active")}
+              >
+                Most Active
+              </button>
+              <button
+                className={`option-button ${
+                  activeButton === "Top Gainers" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("Top Gainers")}
+              >
+                Top Gainers
+              </button>
+              <button
+                className={`option-button ${
+                  activeButton === "Top Losers" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("Top Losers")}
+              >
+                Top Losers
+              </button>
+              <button
+                className={`option-button ${
+                  activeButton === "Highest Implied Volatility" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("Highest Implied Volatility")}
+              >
+                Highest Implied Volatility
+              </button>
+              <button
+                className={`option-button ${
+                  activeButton === "Highest Open Interest" ? "active" : ""
+                }`}
+                onClick={() => handleButtonClick("Highest Open Interest")}
+              >
+                Highest Open Interest
+              </button>
+            </div>
           </div>
+
           <Table data={data} columns={columns} formatTypeForNumbers={"long"} />
         </div>
       </div>

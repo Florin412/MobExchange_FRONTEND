@@ -98,6 +98,7 @@ const Stocks = () => {
       <div className="quote-container">
         <div className="market-container">
           <h1 className="page-title">Stocks</h1>
+
           <div className="button-group overflow-auto">
             {" "}
             {/* Adaugă overflow-auto pentru derularea orizontală */}
@@ -153,6 +154,7 @@ const Stocks = () => {
                 52 Week Losers
               </button>
             </div>
+            
           </div>
 
           <Table

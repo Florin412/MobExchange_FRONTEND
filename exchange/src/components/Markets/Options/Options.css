@@ -32,6 +32,6 @@
   .option-button {
     font-size: 12px; /* Dimensiune font mai mică pe mobil */
     padding: 10px; /* Ajustează padding-ul dacă este necesar */
-    min-width: 120px;
+    min-width: fit-content;
   }
 }
