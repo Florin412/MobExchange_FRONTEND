@@ -344,15 +344,14 @@ const QuoteChart = ({ symbol, change }) => {
         </div>
 
         {/* Afișarea procentajului sub butoanele de timp */}
-        <div>
+        <div className="hide-on-mobile">
           {percentageChange !== null && (
             <span
               style={{
                 backgroundColor: percentageChange >= 0 ? "#4CAF50" : "#F44336",
                 color: "white",
-                padding: "5px 10px",
+                padding: "8px 10px",
                 borderRadius: "5px",
-                marginLeft: "10px",
                 fontWeight: "bold"
               }}
             >
@@ -385,6 +384,75 @@ const QuoteChart = ({ symbol, change }) => {
         options={options}
         className="full-size"
       />
+
+      <div className="chart-controls for-mobile">
+        {/* Butoanele de timp */}
+        <button
+          className={activeButton === "1d" ? "active" : ""}
+          onClick={() => handleButtonClick("1d", "1m")}
+        >
+          1D
+        </button>
+        <button
+          className={activeButton === "5d" ? "active" : ""}
+          onClick={() => handleButtonClick("5d", "15m")}
+        >
+          5D
+        </button>
+        <button
+          className={activeButton === "1mo" ? "active" : ""}
+          onClick={() => handleButtonClick("1mo", "1d")}
+        >
+          1M
+        </button>
+        <button
+          className={activeButton === "6mo" ? "active" : ""}
+          onClick={() => handleButtonClick("6mo", "1d")}
+        >
+          6M
+        </button>
+        <button
+          className={activeButton === "ytd" ? "active" : ""}
+          onClick={() => handleButtonClick("ytd", "1d")}
+        >
+          YTD
+        </button>
+        <button
+          className={activeButton === "1y" ? "active" : ""}
+          onClick={() => handleButtonClick("1y", "1d")}
+        >
+          1Y
+        </button>
+        <button
+          className={activeButton === "5y" ? "active" : ""}
+          onClick={() => handleButtonClick("5y", "1wk")}
+        >
+          5Y
+        </button>
+        <button
+          className={activeButton === "max" ? "active" : ""}
+          onClick={() => handleButtonClick("max", "1mo")}
+        >
+          ALL
+        </button>
+      </div>
+
+      {/* Afișarea procentajului sub butoanele de timp */}
+      <div className="for-mobile a">
+        {percentageChange !== null && (
+          <span
+            style={{
+              backgroundColor: percentageChange >= 0 ? "#4CAF50" : "#F44336",
+              color: "white",
+              padding: "8px 10px",
+              borderRadius: "5px",
+              fontWeight: "bold"
+            }}
+          >
+            {formatNumber(percentageChange)}%
+          </span>
+        )}
+      </div>
     </div>
   );
 };

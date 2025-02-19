@@ -596,7 +596,7 @@ const Quote = () => {
 
             {/* MAI JOS E ASSET-STATS PENTRU CRYPTO */}
             {item.quoteType === "CRYPTOCURRENCY" && (
-              <div className="asset-stats grid grid-cols-4 gap-4">
+              <div className="asset-stats">
                 <div className="stat">
                   <span className="label">Previous Close:</span>
                   <span className="value">

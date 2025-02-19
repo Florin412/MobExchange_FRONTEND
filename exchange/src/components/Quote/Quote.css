@@ -98,36 +98,6 @@
   margin-top: 5px;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-  .asset-details {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .asset-price {
-    justify-content: center;
-  }
-
-  .asset-stats {
-    flex-direction: column;
-  }
-}
-
-@media (max-width: 480px) {
-  .page-title {
-    font-size: 20px;
-  }
-
-  .asset-price .price {
-    font-size: 24px;
-  }
-
-  .asset-price .change {
-    font-size: 16px;
-  }
-}
-
 .asset-stats {
   display: flex;
   flex-wrap: wrap; /* Permite rânduri multiple */
@@ -152,6 +122,43 @@
   }
 }
 
-/* CONTAINER STATS */
+/* Responsive design */
+@media (max-width: 768px) {
+  .asset-details {
+    flex-direction: column;
+    gap: 8px;
+  }
 
-/* 
+  .asset-price {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 20px;
+  }
+
+  .asset-price .price {
+    font-size: 24px;
+  }
+
+  .asset-price .change {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .asset-stats {
+    display: grid; /* Activează Grid */
+    grid-template-columns: repeat(2, 1fr); /* 2 coloane egale */
+    gap: 10px 35px; /* Spațiu între elemente */
+  }
+
+  .asset-stats .stat {
+    display: grid; /* Activează Grid */
+    grid-template-columns: 1fr; /* O singură coloană */
+    gap: 2px; /* Spațiu între elemente */
+    padding-bottom: 2px;
+  }
+}
