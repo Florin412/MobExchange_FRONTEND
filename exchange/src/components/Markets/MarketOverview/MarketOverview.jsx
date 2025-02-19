@@ -2,7 +2,6 @@ import Footer from "../../footer/Footer";
 import "./MarketOverview.css";
 import Table from "../TableForAssets/Table";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { getNewAccessToken } from "../../Auth/auth_functions";
 import "../Options/Options.css";
@@ -15,6 +14,20 @@ const MarketOverview = () => {
   const [commoditiesOverview, setCommoditiesOverview] = useState([]);
   const [currenciesOverview, setCurrenciesOverview] = useState([]);
   const [bondsOverview, setBondsOverview] = useState([]);
+  const [etfsMostActive, setEtfsMostActive] = useState([]);
+  const [etfsGainers, setEtfsGainers] = useState([]);
+  const [etfsLosers, setEtfsLosers] = useState([]);
+  const [etfsTopPerforming, setEtfsTopPerforming] = useState([]);
+  const [etfsTrending, setEtfsTrending] = useState([]);
+  const [etfsBestHPerformance, setEtfsBestHPerformance] = useState([]);
+
+  const [mutualFundsGainers, setMutualFundsGainers] = useState([]);
+  const [mutualFundsLosers, setMutualFundsLosers] = useState([]);
+  const [mutualFundsTopPerforming, setMutualFundsTopPerforming] = useState([]);
+  const [
+    mutualFundsBestHistoricalPerformance,
+    setMutualFundsBestHistoricalPerformance
+  ] = useState([]);
 
   // This methos fetches data for world indices in us, europa and asia
   const fetchWorldIndices = async (url, logMessage, region) => {
@@ -29,7 +42,7 @@ const MarketOverview = () => {
 
       if (response.status === 200 || response.status === 201) {
         console.log(logMessage);
-        console.log(response.data.quoteResponse.result);
+        //console.log(response.data.quoteResponse.result);
 
         // Logica specifică pentru fiecare regiune
         if (region === "us") {
@@ -44,6 +57,48 @@ const MarketOverview = () => {
           setCurrenciesOverview(response.data.quoteResponse.result);
         } else if (region === "bonds-overview") {
           setBondsOverview(response.data.quoteResponse.result);
+        } else if (region === "etfs-most-active") {
+          console.log(response.data.finance.result[0].quotes.slice(0, 5));
+          setEtfsMostActive(response.data.finance.result[0].quotes.slice(0, 5));
+        } else if (region === "etfs-gainers") {
+          console.log(response.data.finance.result[0].quotes.slice(0, 5));
+          setEtfsGainers(response.data.finance.result[0].quotes.slice(0, 5));
+        } else if (region === "etfs-losers") {
+          console.log(response.data.finance.result[0].quotes.slice(0, 5));
+          setEtfsLosers(response.data.finance.result[0].quotes.slice(0, 5));
+        } else if (region === "etfs-top-performing") {
+          console.log(response.data.finance.result[0].quotes.slice(0, 5));
+          setEtfsTopPerforming(
+            response.data.finance.result[0].quotes.slice(0, 5)
+          );
+        } else if (region === "etfs-trending") {
+          console.log(response.data.finance.result[0].quotes.slice(0, 5));
+          setEtfsTrending(response.data.finance.result[0].quotes.slice(0, 5));
+        } else if (region === "etfs-best-historical-performance") {
+          console.log(response.data.finance.result[0].quotes.slice(0, 5));
+          setEtfsBestHPerformance(
+            response.data.finance.result[0].quotes.slice(0, 5)
+          );
+        } else if (region === "mutual-funds-gainers") {
+          console.log(response.data.finance.result[0].quotes.slice(0, 5));
+          setMutualFundsGainers(
+            response.data.finance.result[0].quotes.slice(0, 5)
+          );
+        } else if (region === "mutual-funds-losers") {
+          console.log(response.data.finance.result[0].quotes.slice(0, 5));
+          setMutualFundsLosers(
+            response.data.finance.result[0].quotes.slice(0, 5)
+          );
+        } else if (region === "mutual-funds-top-performing") {
+          console.log(response.data.finance.result[0].quotes.slice(0, 5));
+          setMutualFundsTopPerforming(
+            response.data.finance.result[0].quotes.slice(0, 5)
+          );
+        } else if (region === "mutual-funds-best-historical-performance") {
+          console.log(response.data.finance.result[0].quotes.slice(0, 5));
+          setMutualFundsBestHistoricalPerformance(
+            response.data.finance.result[0].quotes.slice(0, 5)
+          );
         } else {
           console.error("Regiune necunoscută");
         }
@@ -92,6 +147,56 @@ const MarketOverview = () => {
       "http://localhost:8080/markets/bonds/overview",
       "__Salut, Acces token bun, mai jos ai raspunsul pentru bonds overview",
       "bonds-overview"
+    );
+    fetchWorldIndices(
+      "http://localhost:8080/markets/etfs/most-active",
+      "__Salut, Acces token bun, mai jos ai raspunsul pentru etfs most active",
+      "etfs-most-active"
+    );
+    fetchWorldIndices(
+      "http://localhost:8080/markets/etfs/gainers",
+      "__Salut, Acces token bun, mai jos ai raspunsul pentru etfs gainers",
+      "etfs-gainers"
+    );
+    fetchWorldIndices(
+      "http://localhost:8080/markets/etfs/losers",
+      "__Salut, Acces token bun, mai jos ai raspunsul pentru etfs losers",
+      "etfs-losers"
+    );
+    fetchWorldIndices(
+      "http://localhost:8080/markets/etfs/top-performing",
+      "__Salut, Acces token bun, mai jos ai raspunsul pentru etfs top performing",
+      "etfs-top-performing"
+    );
+    fetchWorldIndices(
+      "http://localhost:8080/markets/etfs/trending",
+      "__Salut, Acces token bun, mai jos ai raspunsul pentru etfs trending",
+      "etfs-trending"
+    );
+    fetchWorldIndices(
+      "http://localhost:8080/markets/etfs/best-historical-performance",
+      "__Salut, Acces token bun, mai jos ai raspunsul pentru etfs trending",
+      "etfs-best-historical-performance"
+    );
+    fetchWorldIndices(
+      "http://localhost:8080/markets/mutual-funds/gainers",
+      "__Salut, Acces token bun, mai jos ai raspunsul pentru mutual funds gainers",
+      "mutual-funds-gainers"
+    );
+    fetchWorldIndices(
+      "http://localhost:8080/markets/mutual-funds/losers",
+      "__Salut, Acces token bun, mai jos ai raspunsul pentru mutual funds losers",
+      "mutual-funds-losers"
+    );
+    fetchWorldIndices(
+      "http://localhost:8080/markets/mutual-funds/top-performing",
+      "__Salut, Acces token bun, mai jos ai raspunsul pentru mutual funds top performing",
+      "mutual-funds-top-performing"
+    );
+    fetchWorldIndices(
+      "http://localhost:8080/markets/mutual-funds/best-historical-performance",
+      "__Salut, Acces token bun, mai jos ai raspunsul pentru mutual funds best historical performance",
+      "mutual-funds-best-historical-performance"
     );
   }, []);
 
@@ -254,6 +359,261 @@ const MarketOverview = () => {
           </div>
 
           <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
+
+          {/* --------------------- */}
+          {/* ETFs Section */}
+          {/* --------------------- */}
+          <div>
+            <h2 style={{ marginBottom: "15px", fontSize: "24px" }}>ETFs</h2>
+
+            <div className="row">
+              <div className="col-12">
+                {" "}
+                {/* Folosește col-12 pentru a ocupa întreaga lățime */}
+                <div className="d-flex overflow-auto hide-scrollbar">
+                  {" "}
+                  {/* Flexbox pentru a permite derularea orizontală */}
+                  <div
+                    className="col-md-3"
+                    style={{ minWidth: "450px", marginRight: "14px" }}
+                  >
+                    <div>
+                      <Link
+                        to="/markets/etfs/most-active"
+                        className="page-subtitle-overview small"
+                      >
+                        Most Active &rarr;
+                      </Link>
+                    </div>
+                    <div style={{ overflowX: "hidden" }}>
+                      {" "}
+                      {/* Permite scroll orizontal pe container */}
+                      <Table
+                        data={etfsMostActive}
+                        columns={["Symbol", "Name", "Price", "Change %"]}
+                        formatTypeForNumbers={"normal"}
+                        style={{ width: "100%" }} // Asigură-te că tabelul se ajustează corect
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className="col-md-3"
+                    style={{ minWidth: "450px", marginRight: "14px" }}
+                  >
+                    <div>
+                      <Link
+                        to="/markets/etfs/top-gainers"
+                        className="page-subtitle-overview small"
+                      >
+                        Top Gainers &rarr;
+                      </Link>
+                    </div>
+                    <div style={{ overflowX: "hidden" }}>
+                      <Table
+                        data={etfsGainers}
+                        columns={["Symbol", "Name", "Price", "Change %"]}
+                        formatTypeForNumbers={"normal"}
+                        style={{ width: "100%" }}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-3" style={{ minWidth: "450px" }}>
+                    <div>
+                      <Link
+                        to="/markets/etfs/top-losers"
+                        className="page-subtitle-overview small"
+                      >
+                        Top Losers &rarr;
+                      </Link>
+                    </div>
+                    <div style={{ overflowX: "hidden" }}>
+                      <Table
+                        data={etfsLosers}
+                        columns={["Symbol", "Name", "Price", "Change %"]}
+                        formatTypeForNumbers={"normal"}
+                        style={{ width: "100%" }}
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className="col-md-3"
+                    style={{
+                      minWidth: "450px",
+                      marginRight: "14px",
+                      marginLeft: "14px"
+                    }}
+                  >
+                    <div>
+                      <Link
+                        to="/markets/etfs/top-performing"
+                        className="page-subtitle-overview small"
+                      >
+                        Top Performing &rarr;
+                      </Link>
+                    </div>
+                    <div style={{ overflowX: "hidden" }}>
+                      {" "}
+                      {/* Permite scroll orizontal pe container */}
+                      <Table
+                        data={etfsTopPerforming}
+                        columns={["Symbol", "Name", "Price", "Change %"]}
+                        formatTypeForNumbers={"normal"}
+                        style={{ width: "100%" }} // Asigură-te că tabelul se ajustează corect
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className="col-md-3"
+                    style={{ minWidth: "450px", marginRight: "14px" }}
+                  >
+                    <div>
+                      <Link
+                        to="/markets/etfs/trending-now"
+                        className="page-subtitle-overview small"
+                      >
+                        Trending Now &rarr;
+                      </Link>
+                    </div>
+                    <div style={{ overflowX: "hidden" }}>
+                      <Table
+                        data={etfsTrending}
+                        columns={["Symbol", "Name", "Price", "Change %"]}
+                        formatTypeForNumbers={"normal"}
+                        style={{ width: "100%" }}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-3" style={{ minWidth: "450px" }}>
+                    <div>
+                      <Link
+                        to="/markets/etfs/best-historical-performance"
+                        className="page-subtitle-overview small"
+                      >
+                        Best Historical Performance &rarr;
+                      </Link>
+                    </div>
+                    <div style={{ overflowX: "hidden" }}>
+                      <Table
+                        data={etfsBestHPerformance}
+                        columns={["Symbol", "Name", "Price", "Change %"]}
+                        formatTypeForNumbers={"normal"}
+                        style={{ width: "100%" }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
+
+          {/* --------------------- */}
+          {/* Mutual Funds Section  */}
+          {/* --------------------- */}
+
+          <div>
+            <h2 style={{ marginBottom: "15px", fontSize: "24px" }}>
+              Mutual Funds
+            </h2>
+
+            <div className="row">
+              <div className="col-12">
+                {" "}
+                {/* Folosește col-12 pentru a ocupa întreaga lățime */}
+                <div className="d-flex overflow-auto hide-scrollbar">
+                  {" "}
+                  {/* Flexbox pentru a permite derularea orizontală */}
+                  <div
+                    className="col-md-3"
+                    style={{ minWidth: "450px", marginRight: "14px" }}
+                  >
+                    <div>
+                      <Link
+                        to="/markets/mutual-funds/top-gainers"
+                        className="page-subtitle-overview small"
+                      >
+                        Top Gainers &rarr;
+                      </Link>
+                    </div>
+                    <div style={{ overflowX: "hidden" }}>
+                      {" "}
+                      {/* Permite scroll orizontal pe container */}
+                      <Table
+                        data={mutualFundsGainers}
+                        columns={["Symbol", "Name", "Price", "Change %"]}
+                        formatTypeForNumbers={"normal"}
+                        style={{ width: "100%" }} // Asigură-te că tabelul se ajustează corect
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-3" style={{ minWidth: "450px" }}>
+                    <div>
+                      <Link
+                        to="/markets/mutual-funds/top-losers"
+                        className="page-subtitle-overview small"
+                      >
+                        Top Losers &rarr;
+                      </Link>
+                    </div>
+                    <div style={{ overflowX: "hidden" }}>
+                      <Table
+                        data={mutualFundsLosers}
+                        columns={["Symbol", "Name", "Price", "Change %"]}
+                        formatTypeForNumbers={"normal"}
+                        style={{ width: "100%" }}
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className="col-md-3"
+                    style={{
+                      minWidth: "450px",
+                      marginRight: "14px",
+                      marginLeft: "14px"
+                    }}
+                  >
+                    <div>
+                      <Link
+                        to="/markets/mutual-funds/top-performing"
+                        className="page-subtitle-overview small"
+                      >
+                        Top Performing &rarr;
+                      </Link>
+                    </div>
+                    <div style={{ overflowX: "hidden" }}>
+                      {" "}
+                      {/* Permite scroll orizontal pe container */}
+                      <Table
+                        data={mutualFundsTopPerforming}
+                        columns={["Symbol", "Name", "Price", "Change %"]}
+                        formatTypeForNumbers={"normal"}
+                        style={{ width: "100%" }} // Asigură-te că tabelul se ajustează corect
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-3" style={{ minWidth: "450px" }}>
+                    <div>
+                      <Link
+                        to="/markets/mutual-funds/best-historical-performance"
+                        className="page-subtitle-overview small"
+                      >
+                        Best Historical Performance &rarr;
+                      </Link>
+                    </div>
+                    <div style={{ overflowX: "hidden" }}>
+                      <Table
+                        data={mutualFundsBestHistoricalPerformance}
+                        columns={["Symbol", "Name", "Price", "Change %"]}
+                        formatTypeForNumbers={"normal"}
+                        style={{ width: "100%" }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

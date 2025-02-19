@@ -170,7 +170,11 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
                           />
                         ) : null}
                         {
-                          currentPath === "/markets/overview"
+                          item.quoteType === "ETF" ||
+                          item.quoteType === "EQUITY" ||
+                          item.quoteType === "MUTUALFUND"
+                            ? item.symbol || "-" // Afișăm simbolul sau "-"
+                            : currentPath === "/markets/overview"
                             ? item.shortName && item.shortName.length > 10
                               ? `${item.shortName.slice(0, 10)}...` // Afișăm primele 10 caractere + "..."
                               : item.shortName || "-" // Afișăm întregul shortName sau "-"
