@@ -55,7 +55,7 @@ const Quote = () => {
               {item.fullExchangeName} - {item.quoteSourceName} • {item.currency}
             </span>
             <h1 className="symbol-title">
-              {item.longName} ({item.symbol})
+              {item.longName ? item.longName : item.shortName} ({item.symbol})
             </h1>
             <hr />
           </div>

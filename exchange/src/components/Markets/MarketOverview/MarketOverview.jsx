@@ -12,6 +12,9 @@ const MarketOverview = () => {
   const [usWorldIndices, setUSWorldIndices] = useState([]);
   const [europaWorldIndices, setEuropaWorldIndices] = useState([]);
   const [asiaWorldIndices, setAsiaWorldIndices] = useState([]);
+  const [commoditiesOverview, setCommoditiesOverview] = useState([]);
+  const [currenciesOverview, setCurrenciesOverview] = useState([]);
+  const [bondsOverview, setBondsOverview] = useState([]);
 
   // This methos fetches data for world indices in us, europa and asia
   const fetchWorldIndices = async (url, logMessage, region) => {
@@ -35,6 +38,12 @@ const MarketOverview = () => {
           setEuropaWorldIndices(response.data.quoteResponse.result);
         } else if (region === "asia") {
           setAsiaWorldIndices(response.data.quoteResponse.result);
+        } else if (region === "commodities-overview") {
+          setCommoditiesOverview(response.data.quoteResponse.result);
+        } else if (region === "currencies-overview") {
+          setCurrenciesOverview(response.data.quoteResponse.result);
+        } else if (region === "bonds-overview") {
+          setBondsOverview(response.data.quoteResponse.result);
         } else {
           console.error("Regiune necunoscută");
         }
@@ -69,6 +78,21 @@ const MarketOverview = () => {
       "__Salut, Acces token bun, mai jos ai raspunsul pentru world indices asia",
       "asia"
     );
+    fetchWorldIndices(
+      "http://localhost:8080/markets/commodities/overview",
+      "__Salut, Acces token bun, mai jos ai raspunsul pentru commodities overview",
+      "commodities-overview"
+    );
+    fetchWorldIndices(
+      "http://localhost:8080/markets/currencies/overview",
+      "__Salut, Acces token bun, mai jos ai raspunsul pentru currencies overview",
+      "currencies-overview"
+    );
+    fetchWorldIndices(
+      "http://localhost:8080/markets/bonds/overview",
+      "__Salut, Acces token bun, mai jos ai raspunsul pentru bonds overview",
+      "bonds-overview"
+    );
   }, []);
 
   return (
@@ -81,7 +105,6 @@ const MarketOverview = () => {
           {/* World Indices Section */}
           {/* --------------------- */}
           <div>
-            {/* <h2 className="page-title">World Indices &rarr;</h2> */}
             <div style={{ padding: "15px 0" }}>
               <Link
                 to="/markets/world-indices"
@@ -102,7 +125,9 @@ const MarketOverview = () => {
                     className="col-md-3"
                     style={{ minWidth: "380px", marginRight: "14px" }}
                   >
-                    <h3 style={{ fontWeight: 600 }}>Americas</h3>
+                    <h3 style={{ fontWeight: 600, fontSize: "16px" }}>
+                      Americas
+                    </h3>
                     <div style={{ overflowX: "hidden" }}>
                       {" "}
                       {/* Permite scroll orizontal pe container */}
@@ -118,7 +143,9 @@ const MarketOverview = () => {
                     className="col-md-3"
                     style={{ minWidth: "380px", marginRight: "14px" }}
                   >
-                    <h3 style={{ fontWeight: 600 }}>Europe</h3>
+                    <h3 style={{ fontWeight: 600, fontSize: "16px" }}>
+                      Europe
+                    </h3>
                     <div style={{ overflowX: "hidden" }}>
                       <Table
                         data={europaWorldIndices}
@@ -129,7 +156,7 @@ const MarketOverview = () => {
                     </div>
                   </div>
                   <div className="col-md-3" style={{ minWidth: "380px" }}>
-                    <h3 style={{ fontWeight: 600 }}>Asia</h3>
+                    <h3 style={{ fontWeight: 600, fontSize: "16px" }}>Asia</h3>
                     <div style={{ overflowX: "hidden" }}>
                       <Table
                         data={asiaWorldIndices}
@@ -145,16 +172,88 @@ const MarketOverview = () => {
           </div>
 
           <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
-          {/* <hr /> */}
 
           {/* --------------------- */}
           {/* Assets Section */}
           {/* --------------------- */}
           <div>
-            <h2>Assets</h2>
+            <h2 style={{ marginBottom: "15px", fontSize: "24px" }}>Assets</h2>
 
-            <div>{/* restul de cod */}</div>
+            <div className="row">
+              <div className="col-12">
+                {" "}
+                {/* Folosește col-12 pentru a ocupa întreaga lățime */}
+                <div className="d-flex overflow-auto">
+                  {" "}
+                  {/* Flexbox pentru a permite derularea orizontală */}
+                  <div
+                    className="col-md-3"
+                    style={{ minWidth: "380px", marginRight: "14px" }}
+                  >
+                    <div>
+                      <Link
+                        to="/markets/commodities"
+                        className="page-subtitle-overview small"
+                      >
+                        Commodities &rarr;
+                      </Link>
+                    </div>
+                    <div style={{ overflowX: "hidden" }}>
+                      {" "}
+                      {/* Permite scroll orizontal pe container */}
+                      <Table
+                        data={commoditiesOverview}
+                        columns={["Symbol", "Graph", "Price", "Change %"]}
+                        formatTypeForNumbers={"normal"}
+                        style={{ width: "100%" }} // Asigură-te că tabelul se ajustează corect
+                      />
+                    </div>
+                  </div>
+                  <div
+                    className="col-md-3"
+                    style={{ minWidth: "380px", marginRight: "14px" }}
+                  >
+                    <div>
+                      <Link
+                        to="/markets/currencies"
+                        className="page-subtitle-overview small"
+                      >
+                        Currencies &rarr;
+                      </Link>
+                    </div>
+                    <div style={{ overflowX: "hidden" }}>
+                      <Table
+                        data={currenciesOverview}
+                        columns={["Symbol", "Graph", "Price", "Change %"]}
+                        formatTypeForNumbers={"long"}
+                        style={{ width: "100%" }}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-3" style={{ minWidth: "380px" }}>
+                    <div>
+                      <Link
+                        to="/markets/bonds"
+                        className="page-subtitle-overview small"
+                      >
+                        US Treasury Bonds &rarr;
+                      </Link>
+                    </div>
+                    <div style={{ overflowX: "hidden" }}>
+                      <Table
+                        data={bondsOverview}
+                        columns={["Symbol", "Graph", "Price", "Change %"]}
+                        formatTypeForNumbers={"long"}
+                        style={{ width: "100%" }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
         </div>
       </div>
 

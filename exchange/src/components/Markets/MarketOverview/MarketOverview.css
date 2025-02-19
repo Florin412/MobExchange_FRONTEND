@@ -44,3 +44,7 @@
 .page-subtitle-overview:hover {
   text-decoration: none;
 }
+
+.page-subtitle-overview.small {
+  font-size: 16px;
+}

@@ -80,16 +80,6 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
     formatType = "long"; // Setează la "long" dacă ruta se potrivește
   }
 
-  // console.log(formatType);
-
-  const decimalPlaces = 2; // Setează numărul de zecimale la 2
-
-  const formatNumberWithCommas = (num) => {
-    const parts = num.toFixed(decimalPlaces).split(".");
-    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ","); // Adaugă virgule la mii
-    return parts.join("."); // Reunește partea întreagă cu partea zecimală
-  };
-
   const handleUnderlyingSymbolClick = async (symbol) => {
     const accessToken = localStorage.getItem("accessToken");
 
@@ -378,11 +368,13 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
                   case "Change %":
                     value = item.regularMarketChangePercent
                       ? item.regularMarketChangePercent > 0
-                        ? `+${formatNumberWithCommas(
-                            item.regularMarketChangePercent
+                        ? `+${formatNumber(
+                            item.regularMarketChangePercent,
+                            formatTypeForNumbers
                           )}%`
-                        : `${formatNumberWithCommas(
-                            item.regularMarketChangePercent
+                        : `${formatNumber(
+                            item.regularMarketChangePercent,
+                            formatTypeForNumbers
                           )}%`
                       : "0.00%";
                     break;
@@ -390,8 +382,8 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
                   case "YTD Return":
                     value = item.ytdReturn
                       ? item.ytdReturn > 0
-                        ? `+${formatNumberWithCommas(item.ytdReturn)}%`
-                        : `${formatNumberWithCommas(item.ytdReturn)}%`
+                        ? `+${formatNumber(item.ytdReturn)}%`
+                        : `${formatNumber(item.ytdReturn)}%`
                       : "--";
                     break;
 
