@@ -31,7 +31,10 @@ const MarketOverview = () => {
   ] = useState([]);
 
   const [data, setData] = useState([]);
-  const [activeButton, setActiveButton] = useState("Most Active"); // Butonul activ
+  const [activeButton, setActiveButton] = useState("Most Active"); // Butonul activ pt stocks
+
+  const [data1, setData1] = useState([]);
+  const [activeButton1, setActiveButton1] = useState("Most Active"); // Butonul activ pt crypto
 
   // This methos fetches data for world indices in us, europa and asia
   const fetchWorldIndices = async (url, logMessage, region) => {
@@ -120,7 +123,7 @@ const MarketOverview = () => {
     }
   };
 
-  const fetchMarketData = async (url) => {
+  const fetchMarketData = async (url, category) => {
     const accessToken = localStorage.getItem("accessToken");
 
     try {
@@ -132,11 +135,16 @@ const MarketOverview = () => {
 
       if (response.status === 200 || response.status === 201) {
         console.log(response.data.finance.result[0].quotes);
-        setData(response.data.finance.result[0].quotes.slice(0, 6));
+
+        if (category === "stocks") {
+          setData(response.data.finance.result[0].quotes.slice(0, 8));
+        } else if (category === "crypto") {
+          setData1(response.data.finance.result[0].quotes.slice(0, 8));
+        }
       } else if (response.status === 400 || response.status === 401) {
         const newAccessToken = await getNewAccessToken();
         if (newAccessToken) {
-          fetchMarketData(url); // Reapelează cu același URL
+          fetchMarketData(url, category); // Reapelează cu același URL
         } else {
           console.error("Failed to refresh token");
         }
@@ -157,6 +165,22 @@ const MarketOverview = () => {
     "Avg Vol (3M)",
     "Market Cap",
     "P/E Ratio (TTM)",
+    "52 Wk Change %",
+    "52 Wk Range"
+  ];
+
+  const columns1 = [
+    "Symbol",
+    "Name",
+    "Graph",
+    "Price",
+    "Change",
+    "Change %",
+    "Market Cap",
+    "Volume",
+    "Volume in Currency (24hr)",
+    "Total Volume All Currencies (24hr)",
+    "Circulating Supply",
     "52 Wk Change %",
     "52 Wk Range"
   ];
@@ -212,6 +236,51 @@ const MarketOverview = () => {
         }
       } catch (error) {
         console.error("Error fetching market data for stocks:", error);
+      }
+    }
+  };
+
+  const handleButtonClick1 = async (buttonName) => {
+    setActiveButton1(buttonName);
+    let url1 = "";
+
+    switch (buttonName) {
+      case "Most Active":
+        url1 = "http://localhost:8080/markets/crypto/most-active";
+        break;
+      case "Top Gainers":
+        url1 = "http://localhost:8080/markets/crypto/gainers";
+        break;
+      case "Top Losers":
+        url1 = "http://localhost:8080/markets/crypto/losers";
+        break;
+      default:
+        return; // Ieșim din funcție dacă nu se potrivește niciun caz
+    }
+
+    if (url1) {
+      const accessToken = localStorage.getItem("accessToken");
+
+      try {
+        const response = await axios.get(url1, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        });
+
+        if (response.status === 200 || response.status === 201) {
+          console.log(response.data.finance.result[0].quotes.slice(0, 8));
+          setData1(response.data.finance.result[0].quotes.slice(0, 8)); // Actualizăm datele pentru crypto
+        } else if (response.status === 400 || response.status === 401) {
+          const newAccessToken = await getNewAccessToken();
+          if (newAccessToken) {
+            handleButtonClick1(buttonName); // Reapelează cu același buttonName
+          } else {
+            console.error("Failed to refresh token");
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching market data for crypto:", error);
       }
     }
   };
@@ -298,7 +367,14 @@ const MarketOverview = () => {
       "__Salut, Acces token bun, mai jos ai raspunsul pentru mutual funds best historical performance",
       "mutual-funds-best-historical-performance"
     );
-    fetchMarketData("http://localhost:8080/markets/stocks/most-active");
+    fetchMarketData(
+      "http://localhost:8080/markets/stocks/most-active",
+      "stocks"
+    );
+    fetchMarketData(
+      "http://localhost:8080/markets/crypto/most-active",
+      "crypto"
+    );
   }, []);
 
   return (
@@ -489,7 +565,7 @@ const MarketOverview = () => {
                       className={`option-button ${
                         activeButton === "Most Active" ? "active" : ""
                       }`}
-                      onClick={() => handleButtonClick("Most Active")}
+                      onClick={() => handleButtonClick("Most Active", "stocks")}
                     >
                       Most Active
                     </button>
@@ -497,7 +573,9 @@ const MarketOverview = () => {
                       className={`option-button ${
                         activeButton === "Trending Now" ? "active" : ""
                       }`}
-                      onClick={() => handleButtonClick("Trending Now")}
+                      onClick={() =>
+                        handleButtonClick("Trending Now", "stocks")
+                      }
                     >
                       Trending Now
                     </button>
@@ -505,7 +583,7 @@ const MarketOverview = () => {
                       className={`option-button ${
                         activeButton === "Top Gainers" ? "active" : ""
                       }`}
-                      onClick={() => handleButtonClick("Top Gainers")}
+                      onClick={() => handleButtonClick("Top Gainers", "stocks")}
                     >
                       Top Gainers
                     </button>
@@ -513,7 +591,7 @@ const MarketOverview = () => {
                       className={`option-button ${
                         activeButton === "Top Losers" ? "active" : ""
                       }`}
-                      onClick={() => handleButtonClick("Top Losers")}
+                      onClick={() => handleButtonClick("Top Losers", "stocks")}
                     >
                       Top Losers
                     </button>
@@ -521,7 +599,9 @@ const MarketOverview = () => {
                       className={`option-button ${
                         activeButton === "52 Week Gainers" ? "active" : ""
                       }`}
-                      onClick={() => handleButtonClick("52 Week Gainers")}
+                      onClick={() =>
+                        handleButtonClick("52 Week Gainers", "stocks")
+                      }
                     >
                       52 Week Gainers
                     </button>
@@ -529,7 +609,9 @@ const MarketOverview = () => {
                       className={`option-button ${
                         activeButton === "52 Week Losers" ? "active" : ""
                       }`}
-                      onClick={() => handleButtonClick("52 Week Losers")}
+                      onClick={() =>
+                        handleButtonClick("52 Week Losers", "stocks")
+                      }
                     >
                       52 Week Losers
                     </button>
@@ -539,6 +621,67 @@ const MarketOverview = () => {
                   data={data}
                   columns={columns}
                   formatTypeForNumbers={"normal"}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
+          {/* --------------------- */}
+          {/* Crypto Section */}
+          {/* --------------------- */}
+          <div>
+            <div style={{ paddingBottom: "15px" }}>
+              <Link
+                to="/markets/crypto/most-active"
+                className="page-subtitle-overview"
+              >
+                Cryptocurrencies &rarr;
+              </Link>
+            </div>
+
+            <div>
+              <div>
+                <div className="button-group overflow-auto">
+                  {" "}
+                  {/* Adaugă overflow-auto pentru derularea orizontală */}
+                  <div className="d-flex">
+                    {" "}
+                    {/* Flexbox pentru a aranja butoanele pe orizontală */}
+                    <button
+                      className={`option-button ${
+                        activeButton1 === "Most Active" ? "active" : ""
+                      }`}
+                      onClick={() =>
+                        handleButtonClick1("Most Active", "crypto")
+                      }
+                    >
+                      Most Active
+                    </button>
+                    <button
+                      className={`option-button ${
+                        activeButton1 === "Top Gainers" ? "active" : ""
+                      }`}
+                      onClick={() =>
+                        handleButtonClick1("Top Gainers", "crypto")
+                      }
+                    >
+                      Top Gainers
+                    </button>
+                    <button
+                      className={`option-button ${
+                        activeButton1 === "Top Losers" ? "active" : ""
+                      }`}
+                      onClick={() => handleButtonClick1("Top Losers", "crypto")}
+                    >
+                      Top Losers
+                    </button>
+                  </div>
+                </div>
+                <Table
+                  data={data1}
+                  columns={columns1}
+                  formatTypeForNumbers={"veryLong"}
                 />
               </div>
             </div>
