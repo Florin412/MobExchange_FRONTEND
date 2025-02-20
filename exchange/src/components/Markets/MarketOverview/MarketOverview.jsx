@@ -30,6 +30,9 @@ const MarketOverview = () => {
     setMutualFundsBestHistoricalPerformance
   ] = useState([]);
 
+  const [data, setData] = useState([]);
+  const [activeButton, setActiveButton] = useState("Most Active"); // Butonul activ
+
   // This methos fetches data for world indices in us, europa and asia
   const fetchWorldIndices = async (url, logMessage, region) => {
     const accessToken = localStorage.getItem("accessToken");
@@ -117,6 +120,102 @@ const MarketOverview = () => {
     }
   };
 
+  const fetchMarketData = async (url) => {
+    const accessToken = localStorage.getItem("accessToken");
+
+    try {
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+
+      if (response.status === 200 || response.status === 201) {
+        console.log(response.data.finance.result[0].quotes);
+        setData(response.data.finance.result[0].quotes.slice(0, 6));
+      } else if (response.status === 400 || response.status === 401) {
+        const newAccessToken = await getNewAccessToken();
+        if (newAccessToken) {
+          fetchMarketData(url); // Reapelează cu același URL
+        } else {
+          console.error("Failed to refresh token");
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching market data for stocks:", error);
+    }
+  };
+
+  const columns = [
+    "Symbol",
+    "Name",
+    "Graph",
+    "Price",
+    "Change",
+    "Change %",
+    "Volume",
+    "Avg Vol (3M)",
+    "Market Cap",
+    "P/E Ratio (TTM)",
+    "52 Wk Change %",
+    "52 Wk Range"
+  ];
+
+  // Funcția pentru a schimba butonul activ și a obține datele corespunzătoare
+  const handleButtonClick = async (buttonName) => {
+    setActiveButton(buttonName);
+    let url = "";
+
+    switch (buttonName) {
+      case "Most Active":
+        url = "http://localhost:8080/markets/stocks/most-active";
+        break;
+      case "Trending Now":
+        url = "http://localhost:8080/markets/stocks/trending";
+        break;
+      case "Top Gainers":
+        url = "http://localhost:8080/markets/stocks/gainers";
+        break;
+      case "Top Losers":
+        url = "http://localhost:8080/markets/stocks/losers";
+        break;
+      case "52 Week Gainers":
+        url = "http://localhost:8080/markets/stocks/52-wk-gainers";
+        break;
+      case "52 Week Losers":
+        url = "http://localhost:8080/markets/stocks/52-wk-losers";
+        break;
+      default:
+        return; // Ieșim din funcție dacă nu se potrivește niciun caz
+    }
+
+    if (url) {
+      const accessToken = localStorage.getItem("accessToken");
+
+      try {
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
+        });
+
+        if (response.status === 200 || response.status === 201) {
+          console.log(response.data.finance.result[0].quotes.slice(0, 8));
+          setData(response.data.finance.result[0].quotes.slice(0, 8));
+        } else if (response.status === 400 || response.status === 401) {
+          const newAccessToken = await getNewAccessToken();
+          if (newAccessToken) {
+            fetchMarketData(url); // Reapelează cu același URL
+          } else {
+            console.error("Failed to refresh token");
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching market data for stocks:", error);
+      }
+    }
+  };
+
   // Acest hook este folosit pentru a face request -uri la server pentru a obtine toate datele din tabele.
   useEffect(() => {
     fetchWorldIndices(
@@ -199,6 +298,7 @@ const MarketOverview = () => {
       "__Salut, Acces token bun, mai jos ai raspunsul pentru mutual funds best historical performance",
       "mutual-funds-best-historical-performance"
     );
+    fetchMarketData("http://localhost:8080/markets/stocks/most-active");
   }, []);
 
   return (
@@ -376,6 +476,71 @@ const MarketOverview = () => {
 
             <div>
               <TrendingNowCards></TrendingNowCards>
+
+              {/* Mai jos ai de lucru */}
+              <div style={{ marginTop: "25px" }}>
+                <div className="button-group overflow-auto">
+                  {" "}
+                  {/* Adaugă overflow-auto pentru derularea orizontală */}
+                  <div className="d-flex">
+                    {" "}
+                    {/* Flexbox pentru a aranja butoanele pe orizontală */}
+                    <button
+                      className={`option-button ${
+                        activeButton === "Most Active" ? "active" : ""
+                      }`}
+                      onClick={() => handleButtonClick("Most Active")}
+                    >
+                      Most Active
+                    </button>
+                    <button
+                      className={`option-button ${
+                        activeButton === "Trending Now" ? "active" : ""
+                      }`}
+                      onClick={() => handleButtonClick("Trending Now")}
+                    >
+                      Trending Now
+                    </button>
+                    <button
+                      className={`option-button ${
+                        activeButton === "Top Gainers" ? "active" : ""
+                      }`}
+                      onClick={() => handleButtonClick("Top Gainers")}
+                    >
+                      Top Gainers
+                    </button>
+                    <button
+                      className={`option-button ${
+                        activeButton === "Top Losers" ? "active" : ""
+                      }`}
+                      onClick={() => handleButtonClick("Top Losers")}
+                    >
+                      Top Losers
+                    </button>
+                    <button
+                      className={`option-button ${
+                        activeButton === "52 Week Gainers" ? "active" : ""
+                      }`}
+                      onClick={() => handleButtonClick("52 Week Gainers")}
+                    >
+                      52 Week Gainers
+                    </button>
+                    <button
+                      className={`option-button ${
+                        activeButton === "52 Week Losers" ? "active" : ""
+                      }`}
+                      onClick={() => handleButtonClick("52 Week Losers")}
+                    >
+                      52 Week Losers
+                    </button>
+                  </div>
+                </div>
+                <Table
+                  data={data}
+                  columns={columns}
+                  formatTypeForNumbers={"normal"}
+                />
+              </div>
             </div>
           </div>
 
