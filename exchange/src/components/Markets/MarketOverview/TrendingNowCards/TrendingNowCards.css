@@ -1,0 +1,17 @@
+.button-prev,
+.button-next {
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 20px;
+  color: #333; /* Culoarea textului */
+  padding: 0 10px; /* Spațiu pe laterale */
+  transition: color 0.3s, border 0.3s; /* Efect de tranziție pentru hover */
+  border: 2px solid transparent; /* Border albastru la hover */
+  border-radius: 50%; /* Colțuri rotunde */
+}
+
+.button-prev:hover,
+.button-next:hover {
+  color: #1967d2; /* Culoarea textului la hover */
+  border: 2px solid #1967d2; /* Border albastru la hover */
+}

@@ -52,7 +52,7 @@ const Quote = () => {
         <div className="market-container">
           <div className="header">
             <span className="exchange">
-              {item.fullExchangeName} - {item.quoteSourceName} • {item.currency}
+              {item.fullExchangeName} ||  - {item.quoteSourceName} • {item.currency}
             </span>
             <h1 className="symbol-title">
               {item.longName ? item.longName : item.shortName} ({item.symbol})

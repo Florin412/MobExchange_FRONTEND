@@ -6,6 +6,7 @@ import axios from "axios";
 import { getNewAccessToken } from "../../Auth/auth_functions";
 import "../Options/Options.css";
 import { Link } from "react-router-dom";
+import TrendingNowCards from "./TrendingNowCards/TrendingNowCards";
 
 const MarketOverview = () => {
   const [usWorldIndices, setUSWorldIndices] = useState([]);
@@ -361,6 +362,26 @@ const MarketOverview = () => {
           <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
 
           {/* --------------------- */}
+          {/* Stocks Section */}
+          {/* --------------------- */}
+          <div>
+            <div style={{ paddingBottom: "15px" }}>
+              <Link
+                to="/markets/stocks/most-active"
+                className="page-subtitle-overview"
+              >
+                Stocks &rarr;
+              </Link>
+            </div>
+
+            <div>
+              <TrendingNowCards></TrendingNowCards>
+            </div>
+          </div>
+
+          <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
+
+          {/* --------------------- */}
           {/* ETFs Section */}
           {/* --------------------- */}
           <div>
@@ -614,6 +635,8 @@ const MarketOverview = () => {
               </div>
             </div>
           </div>
+
+          <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
         </div>
       </div>
 
