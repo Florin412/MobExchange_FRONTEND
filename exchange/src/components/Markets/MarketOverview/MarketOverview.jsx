@@ -478,7 +478,7 @@ const MarketOverview = () => {
               <TrendingNowCards></TrendingNowCards>
 
               {/* Mai jos ai de lucru */}
-              <div style={{ marginTop: "25px" }}>
+              <div style={{ marginTop: "15px" }}>
                 <div className="button-group overflow-auto">
                   {" "}
                   {/* Adaugă overflow-auto pentru derularea orizontală */}
