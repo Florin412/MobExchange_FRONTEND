@@ -11,14 +11,14 @@ const Navigation = ({
   return (
     <nav
       className="navbar navbar-expand-lg navbar-dark bg-dark"
-      style={{ height: "70px" }}
+      style={{ minHeight: "70px" }}
     >
       <div className="container-fluid good-navbar">
-        {/* Logo */}
+        {/* MobiExchange Logo */}
         <Link
           to={isSignedIn ? "/home" : "/signin"}
           className="navbar-brand d-flex align-items-center ms-3"
-          style={{ marginRight: "60px" }}
+          style={{ marginRight: "35px" }}
         >
           <h1
             className="mb-0 d-flex align-items-center"
@@ -33,6 +33,7 @@ const Navigation = ({
           </h1>
         </Link>
 
+        {/* Search Bar that shows only for Desktop when user is logged*/}
         {isSignedIn && (
           <div
             style={{
@@ -42,6 +43,7 @@ const Navigation = ({
               width: "25%", // Ocupă întreaga lățime disponibilă
               margin: "0 auto" // Centrează elementul
             }}
+            className="hide-search-bar-on-mobile"
           >
             {/* Input de căutare */}
             <input
@@ -73,9 +75,9 @@ const Navigation = ({
           </div>
         )}
 
-        {/* Dropdown pentru News */}
+        {/* Dropdown pentru News when user in logged on Desktop */}
         {isSignedIn && (
-          <div className="dropdown mx-3">
+          <div className="dropdown mx-3 hide-news-on-mobile">
             <button
               className="btn btn-warning dropdown-toggle"
               type="button"
@@ -151,9 +153,9 @@ const Navigation = ({
           </div>
         )}
 
-        {/* Dropdown pentru Market */}
+        {/* Dropdown pentru Market when user is loged and on Desktop */}
         {isSignedIn && (
-          <div className="dropdown mx-3">
+          <div className="dropdown mx-3 hide-market-on-mobile">
             <button
               className="btn btn-warning dropdown-toggle"
               type="button"
@@ -265,100 +267,164 @@ const Navigation = ({
           </div>
         )}
 
-        {/* Conditional rendering for profile image or hamburger menu */}
         {isSignedIn ? (
-          <li
-            className="nav-item dropdown d-lg-none"
-            style={{ listStyleType: "none" }}
-          >
-            <a
-              className="nav-link"
-              href="#"
-              id="profileDropdownMobile"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              style={{ padding: "0", display: "flex", alignItems: "center" }}
+          <div>
+            {/* Cand userul este logat pe Desktop, afiseaza un iconProfile cu 2 optiuni: Change Password si signOut */}
+            <li
+              className="nav-item dropdown d-lg-none hide-profile-on-mobile"
+              style={{ listStyleType: "none" }}
             >
-              <img
-                src="https://tse1.mm.bing.net/th?q=blank%20profile%20picture%20image&w=250&h=250&c=7"
-                alt="Profile"
+              <a
+                className="nav-link"
+                href="#"
+                id="profileDropdownMobile"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+                style={{ padding: "0", display: "flex", alignItems: "center" }}
+              >
+                <img
+                  src="https://tse1.mm.bing.net/th?q=blank%20profile%20picture%20image&w=250&h=250&c=7"
+                  alt="Profile"
+                  style={{
+                    width: "50px",
+                    height: "50px",
+                    borderRadius: "50%",
+                    cursor: "pointer",
+                    objectFit: "cover",
+                    boxShadow: "rgba(0, 0, 0, 0.3) 0px 5px 15px"
+                  }}
+                />
+              </a>
+              <ul
+                className="dropdown-menu dropdown-menu-end shadow-lg p-3"
+                aria-labelledby="profileDropdownMobile"
                 style={{
-                  width: "50px",
-                  height: "50px",
-                  borderRadius: "50%",
-                  cursor: "pointer",
-                  objectFit: "cover",
-                  boxShadow: "rgba(0, 0, 0, 0.3) 0px 5px 15px"
+                  backgroundColor: "#FFD824",
+                  border: "1px solid #FFD824",
+                  borderRadius: "10px",
+                  minWidth: "200px", // Lățime minimă pentru dropdown
+                  padding: "0" // Eliminăm padding-ul pentru a controla mai bine stilul
                 }}
-              />
-            </a>
-            <ul
-              className="dropdown-menu dropdown-menu-end shadow-lg p-3"
-              aria-labelledby="profileDropdownMobile"
+              >
+                <li>
+                  <Link
+                    to="/changePassword"
+                    className="dropdown-item"
+                    onClick={() => {
+                      onRouteChange("changePassword");
+                    }}
+                    style={{
+                      fontSize: "18px",
+                      padding: "12px 20px",
+                      borderRadius: "5px",
+                      color: "black",
+                      transition: "background-color 0.3s ease, color 0.3s ease" // Tranziție pentru fundal și culoare text
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.backgroundColor = "#f0c300"; // Schimbă culoarea fundalului la hover
+                      e.target.style.color = "black"; // Schimbă culoarea textului la hover
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.backgroundColor = "transparent"; // Revine la culoarea inițială
+                      e.target.style.color = "black"; // Revine la culoarea inițială a textului
+                    }}
+                  >
+                    Change Password
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/signin"
+                    className="dropdown-item"
+                    onClick={() => {
+                      signOut();
+                    }}
+                    style={{
+                      fontSize: "18px",
+                      padding: "12px 20px",
+                      borderRadius: "5px",
+                      color: "black",
+                      transition: "background-color 0.3s ease, color 0.3s ease" // Tranziție pentru fundal și culoare text
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.backgroundColor = "#f0c300"; // Schimbă culoarea fundalului la hover
+                      e.target.style.color = "black"; // Schimbă culoarea textului la hover
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.backgroundColor = "transparent"; // Revine la culoarea inițială
+                      e.target.style.color = "black"; // Revine la culoarea inițială a textului
+                    }}
+                  >
+                    Sign Out
+                  </Link>
+                </li>
+              </ul>
+            </li>
+
+            {/* Cand userul este logat pe Mobile, afiseaza un hamburger button */}
+            <button
+              className="navbar-toggler custom-toggler hide-on-desktop"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
               style={{
-                backgroundColor: "#FFD824",
-                border: "1px solid #FFD824",
-                borderRadius: "10px",
-                minWidth: "200px", // Lățime minimă pentru dropdown
-                padding: "0" // Eliminăm padding-ul pentru a controla mai bine stilul
+                marginLeft: "10px",
+                border: "2px solid white", // White border
+                borderRadius: "4px", // Optional: adjust as needed
+                padding: "8px" // Optional: adjust padding for better alignment
               }}
             >
-              <li>
-                <Link
-                  to="/changePassword"
-                  className="dropdown-item"
-                  onClick={() => {
-                    onRouteChange("changePassword");
-                  }}
+              <span
+                className="navbar-toggler-icon"
+                style={{
+                  position: "relative",
+                  display: "block",
+                  width: "24px",
+                  height: "24px"
+                }}
+              >
+                <span
                   style={{
-                    fontSize: "18px",
-                    padding: "12px 20px",
-                    borderRadius: "5px",
-                    color: "black",
-                    transition: "background-color 0.3s ease, color 0.3s ease" // Tranziție pentru fundal și culoare text
+                    display: "block",
+                    width: "100%",
+                    height: "2px",
+                    backgroundColor: "white", // White line
+                    position: "absolute",
+                    top: "4px",
+                    left: "0"
                   }}
-                  onMouseEnter={(e) => {
-                    e.target.style.backgroundColor = "#f0c300"; // Schimbă culoarea fundalului la hover
-                    e.target.style.color = "black"; // Schimbă culoarea textului la hover
-                  }}
-                  onMouseLeave={(e) => {
-                    e.target.style.backgroundColor = "transparent"; // Revine la culoarea inițială
-                    e.target.style.color = "black"; // Revine la culoarea inițială a textului
-                  }}
-                >
-                  Change Password
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/signin"
-                  className="dropdown-item"
-                  onClick={() => {
-                    signOut();
-                  }}
+                ></span>
+                <span
                   style={{
-                    fontSize: "18px",
-                    padding: "12px 20px",
-                    borderRadius: "5px",
-                    color: "black",
-                    transition: "background-color 0.3s ease, color 0.3s ease" // Tranziție pentru fundal și culoare text
+                    display: "block",
+                    width: "100%",
+                    height: "2px",
+                    backgroundColor: "white", // White line
+                    position: "absolute",
+                    top: "10px",
+                    left: "0"
                   }}
-                  onMouseEnter={(e) => {
-                    e.target.style.backgroundColor = "#f0c300"; // Schimbă culoarea fundalului la hover
-                    e.target.style.color = "black"; // Schimbă culoarea textului la hover
+                ></span>
+                <span
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    height: "2px",
+                    backgroundColor: "white", // White line
+                    position: "absolute",
+                    top: "16px",
+                    left: "0"
                   }}
-                  onMouseLeave={(e) => {
-                    e.target.style.backgroundColor = "transparent"; // Revine la culoarea inițială
-                    e.target.style.color = "black"; // Revine la culoarea inițială a textului
-                  }}
-                >
-                  Sign Out
-                </Link>
-              </li>
-            </ul>
-          </li>
+                ></span>
+              </span>
+            </button>
+          </div>
         ) : (
+          // Cand userul nu este logat pe Mobile, afiseaza acest buton hamburger, cu 2 optiuni: Sign IN si Sign Up
           <button
             className="navbar-toggler custom-toggler"
             type="button"
@@ -420,79 +486,95 @@ const Navigation = ({
           </button>
         )}
 
-        {/* The actual links from navbar */}
+        {/* DIV pentru linkurile care apar dupa ce faci click pe ProfilePicture si HamburgerMenuButton */}
+        {/* Acest div conține meniul de navigare și se va extinde sau se va colapsa în funcție de interacțiunile utilizatorului. */}
         <div
           className="collapse navbar-collapse justify-content-end"
           id="navbarSupportedContent"
         >
+          {/* Aceasta este o listă de linkuri (buton) care va conține opțiuni pentru utilizatori, în funcție de starea de autentificare. */}
           <ul className="navbar-nav w-100 justify-content-center justify-content-lg-end">
+            {/* CAND USERUL ESTE LOGAT pe Desktop, afiseaza urmatoarele link-uir/butoane pentru ProfilePicture */}
             {isSignedIn ? (
-              <li className="nav-item dropdown d-none d-lg-block">
-                <a
-                  className="nav-link"
-                  href="#"
-                  id="profileDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                  style={{
-                    padding: "0",
-                    display: "flex",
-                    alignItems: "center"
-                  }}
-                >
-                  <img
-                    src="https://tse1.mm.bing.net/th?q=blank%20profile%20picture%20image&w=250&h=250&c=7"
-                    alt="Profile"
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      borderRadius: "50%",
-                      cursor: "pointer",
-                      objectFit: "cover",
-                      boxShadow: "rgba(0, 0, 0, 0.3) 0px 5px 15px"
-                    }}
-                  />
-                </a>
+              <div>
+                {/* data utilizatorul este autentificat pe Desktop, se va afișa un element de tip dropdown care conține IMAGINEA DE PROFIL și opțiunile de meniu: change password si signout */}
+                <div className="hide-profile-image-on-mobile">
+                  <li className="nav-item dropdown d-none d-lg-block">
+                    <a
+                      className="nav-link"
+                      href="#"
+                      id="profileDropdown"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      style={{
+                        padding: "0",
+                        display: "flex",
+                        alignItems: "center"
+                      }}
+                    >
+                      <img
+                        src="https://tse1.mm.bing.net/th?q=blank%20profile%20picture%20image&w=250&h=250&c=7"
+                        alt="Profile"
+                        style={{
+                          width: "50px",
+                          height: "50px",
+                          borderRadius: "50%",
+                          cursor: "pointer",
+                          objectFit: "cover",
+                          boxShadow: "rgba(0, 0, 0, 0.3) 0px 5px 15px"
+                        }}
+                      />
+                    </a>
 
-                <ul
-                  className="dropdown-menu dropdown-menu-end shadow-lg"
-                  aria-labelledby="profileDropdown"
-                  style={{
-                    backgroundColor: "#FFD824",
-                    border: "1px solid #FFD824"
-                  }}
-                >
-                  <li>
-                    <Link
-                      to="/change-password"
-                      className="dropdown-item"
-                      onClick={() => {
-                        onRouteChange("change-password");
+                    <ul
+                      className="dropdown-menu dropdown-menu-end shadow-lg"
+                      aria-labelledby="profileDropdown"
+                      style={{
+                        backgroundColor: "#FFD824",
+                        border: "1px solid #FFD824"
                       }}
-                      style={{ fontSize: "16px" }}
                     >
-                      Change Password
-                    </Link>
+                      <li>
+                        <Link
+                          to="/change-password"
+                          className="dropdown-item"
+                          onClick={() => {
+                            onRouteChange("change-password");
+                          }}
+                          style={{ fontSize: "16px" }}
+                        >
+                          Change Password
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/signin"
+                          className="dropdown-item"
+                          onClick={() => {
+                            onSignedInChange(false);
+                            signOut();
+                          }}
+                          style={{ fontSize: "16px" }}
+                        >
+                          Sign Out
+                        </Link>
+                      </li>
+                    </ul>
                   </li>
-                  <li>
-                    <Link
-                      to="/signin"
-                      className="dropdown-item"
-                      onClick={() => {
-                        onSignedInChange(false);
-                        signOut();
-                      }}
-                      style={{ fontSize: "16px" }}
-                    >
-                      Sign Out
-                    </Link>
-                  </li>
-                </ul>
-              </li>
+                </div>
+
+                {/* data utilizatorul este autentificat pe MOBIL, se va afișa un hamburger menu cu diferite linkuri */}
+                <div className="hide-on-desktop">
+                  <div>salut boss</div>
+                  <div>salut boss</div>
+                  <div>salut boss</div>
+                  <div>salut boss</div>
+                </div>
+              </div>
             ) : (
               <>
-                {/* SignIn Link */}
+                {/* CADND utilizatorul nu este autentificat, se vor afișa butoanele pentru Sign In și Sign Up. */}
                 <li className="nav-item text-center my-2 my-lg-0">
                   <Link
                     className="nav-link d-block d-sm-block mx-2"
@@ -572,6 +654,27 @@ const Navigation = ({
           </ul>
         </div>
       </div>
+
+      {/* Cand userul este LOGAT pe MOBIL, afiseaza acest search bar  */}
+      {isSignedIn && (
+        <div className="container show-search-bar-on-mobile">
+          <div className="row justify-content-center" style={{ width: "103%" }}>
+            <div
+              className="col-md-6"
+              style={{ paddingInline: "17px", width: "100%" }}
+            >
+              <div className="search-container">
+                <input
+                  type="text"
+                  className="form-control search-input"
+                  placeholder="Search for news or symbols"
+                ></input>
+                <i className="fas fa-search search-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };

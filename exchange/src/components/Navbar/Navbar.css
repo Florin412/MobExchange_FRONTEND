@@ -1,3 +1,63 @@
 .good-navbar {
   max-width: 1650px;
 }
+
+.search-container {
+  position: relative;
+}
+
+.search-input {
+  height: 50px;
+  border-radius: 30px;
+  padding-left: 35px;
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  color: #888;
+}
+
+.show-search-bar-on-mobile {
+  display: none !important;
+}
+
+@media (max-width: 1024px) {
+  .hide-search-bar-on-mobile {
+    display: none !important;
+  }
+
+  .show-search-bar-on-mobile {
+    display: block !important;
+  }
+
+  .hide-news-on-mobile {
+    display: none;
+  }
+
+  .hide-market-on-mobile {
+    display: none;
+  }
+
+  .hide-profile-on-mobile {
+    display: none;
+  }
+
+  .hide-profile-image-on-mobile {
+    display: none;
+  }
+
+  .good-navbar {
+    padding: 10px 7px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hide-on-desktop {
+    display: none;
+  }
+}
