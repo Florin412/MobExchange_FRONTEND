@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Navbar.css";
 const Navigation = ({
@@ -8,6 +9,16 @@ const Navigation = ({
   onRouteChange,
   signOut
 }) => {
+  const [IsNewsOpen, setIsNewsOpen] = useState(false);
+  const [isMarketOpen, setIsMarketOpen] = useState(false);
+
+  const toggleDropdownNews = () => {
+    setIsNewsOpen(!IsNewsOpen);
+  };
+
+  const toggleDropdownMarket = () => {
+    setIsMarketOpen(!isMarketOpen);
+  };
   return (
     <nav
       className="navbar navbar-expand-lg navbar-dark bg-dark"
@@ -433,17 +444,161 @@ const Navigation = ({
               aria-labelledby="offcanvasRightLabel"
             >
               <div className="offcanvas-header">
-                <h5 id="offcanvasRightLabel">Offcanvas right</h5>
                 <button
                   type="button"
                   className="btn-close text-reset"
                   data-bs-dismiss="offcanvas"
                   aria-label="Close"
+                  style={{
+                    fontSize: "2rem",
+                    borderRadius: "50%",
+                    backgroundColor: "rgb(231, 231, 231)",
+                    padding: "10px",
+                    marginRight: "5px",
+                    marginTop: "5px"
+                  }}
                 ></button>
               </div>
               <div className="offcanvas-body">
-                <h2>Menu for pages</h2>
-                <hr />
+                <div className="news-container-for-mobile">
+                  {/* Butonul pentru News */}
+                  <button onClick={toggleDropdownNews} className="news-button">
+                    News{" "}
+                    <span style={{ fontSize: "15px" }}>
+                      {IsNewsOpen ? "▲" : "▼"}
+                    </span>
+                  </button>
+                  {IsNewsOpen && (
+                    <ul className={`news-list ${IsNewsOpen ? "open" : ""}`}>
+                      <li>
+                        <Link to="/news/business" className="dropdown-item">
+                          {" "}
+                          {/* Mărirea fontului */}
+                          Business News
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/news/stocks" className="dropdown-item">
+                          Stocks News
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/news/crypto" className="dropdown-item">
+                          Crypto News
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/news/forex" className="dropdown-item">
+                          Forex
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/news/precious-metals"
+                          className="dropdown-item"
+                        >
+                          Precious Metals
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/news/real-estate" className="dropdown-item">
+                          Real Estate
+                        </Link>
+                      </li>
+                    </ul>
+                  )}
+
+                  {/* Butonul pentru Market */}
+                  <button
+                    onClick={toggleDropdownMarket}
+                    className="news-button"
+                  >
+                    Market{" "}
+                    <span style={{ fontSize: "15px" }}>
+                      {isMarketOpen ? "▲" : "▼"}
+                    </span>
+                  </button>
+                  {isMarketOpen && (
+                    <ul className={`news-list ${isMarketOpen ? "open" : ""}`}>
+                      <li>
+                        <Link to="/markets/overview" className="dropdown-item">
+                          Overview
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/markets/world-indices"
+                          className="dropdown-item"
+                        >
+                          World Indices
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/markets/commodities"
+                          className="dropdown-item"
+                        >
+                          Futures
+                        </Link>
+                      </li>
+                      <li>
+                        <Link to="/markets/bonds" className="dropdown-item">
+                          Bonds
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/markets/currencies"
+                          className="dropdown-item"
+                        >
+                          Currencies
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/markets/options/most-active"
+                          className="dropdown-item"
+                        >
+                          Options
+                        </Link>
+                      </li>
+
+                      <li>
+                        <Link
+                          to="/markets/stocks/most-active"
+                          className="dropdown-item"
+                        >
+                          Stocks
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/markets/crypto/most-active"
+                          className="dropdown-item"
+                        >
+                          Crypto
+                        </Link>
+                      </li>
+
+                      <li>
+                        <Link
+                          to="/markets/etfs/most-active"
+                          className="dropdown-item"
+                        >
+                          ETFs
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/markets/mutual-funds/top-gainers"
+                          className="dropdown-item"
+                        >
+                          Mutual Funds
+                        </Link>
+                      </li>
+                    </ul>
+                  )}
+                </div>
 
                 <div>
                   <Link
@@ -543,15 +698,25 @@ const Navigation = ({
               aria-labelledby="offcanvasRightLabel"
             >
               <div className="offcanvas-header">
-                <h5 id="offcanvasRightLabel">Offcanvas right</h5>
                 <button
                   type="button"
                   className="btn-close text-reset"
                   data-bs-dismiss="offcanvas"
                   aria-label="Close"
+                  style={{
+                    fontSize: "2rem",
+                    borderRadius: "50%",
+                    backgroundColor: "rgb(231, 231, 231)",
+                    padding: "10px",
+                    marginRight: "5px",
+                    marginTop: "5px"
+                  }}
                 ></button>
               </div>
               <div className="offcanvas-body">
+                <br />
+                <br />
+
                 <div>
                   {/* Sign in Link Button */}
                   <Link
@@ -592,7 +757,7 @@ const Navigation = ({
 
                 <br />
 
-                {/* Register Link Button */}
+                {/* Sign Up Link Button */}
                 <div>
                   <Link
                     className="nav-link d-block d-sm-block mx-2"

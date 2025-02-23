@@ -61,3 +61,32 @@
     display: none;
   }
 }
+
+.news-container-for-mobile .news-button {
+  border: none; /* Fără bordură */
+  padding: 10px; /* Padding */
+  width: 100%; /* Lățimea butonului */
+  text-align: left; /* Aliniere text la stânga */
+  background-color: transparent;
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  color: #232a31;
+}
+
+.news-container-for-mobile .news-list {
+  list-style-type: none; /* Fără puncte */
+  padding: 0; /* Fără padding */
+  margin: 0; /* Fără margine */
+}
+
+.news-container-for-mobile .news-list li {
+  padding: 8px 25px; /* Padding pentru fiecare element */
+  font-size: 16px;
+  color: #5b636a;
+}
+
+.news-container-for-mobile .news-list li:last-child {
+  border-bottom: none; /* Fără bordură pentru ultimul element */
+}
