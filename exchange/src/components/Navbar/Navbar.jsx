@@ -19,6 +19,7 @@ const Navigation = ({
   const toggleDropdownMarket = () => {
     setIsMarketOpen(!isMarketOpen);
   };
+
   return (
     <nav
       className="navbar navbar-expand-lg navbar-dark bg-dark"
@@ -473,7 +474,6 @@ const Navigation = ({
                       <li>
                         <Link to="/news/business" className="dropdown-item">
                           {" "}
-                          {/* Mărirea fontului */}
                           Business News
                         </Link>
                       </li>
@@ -607,7 +607,12 @@ const Navigation = ({
                     onClick={() => {
                       onRouteChange("change-password");
                     }}
-                    style={{ fontSize: "16px" }}
+                    style={{
+                      fontSize: "16px",
+                      marginLeft: "10px",
+                      marginTop: "30px",
+                      marginBottom: "10px"
+                    }}
                   >
                     Change Password
                   </Link>
@@ -620,7 +625,7 @@ const Navigation = ({
                       onSignedInChange(false);
                       signOut();
                     }}
-                    style={{ fontSize: "16px" }}
+                    style={{ fontSize: "16px", marginLeft: "10px" }}
                   >
                     Sign Out
                   </Link>
