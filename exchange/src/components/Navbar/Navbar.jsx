@@ -362,13 +362,15 @@ const Navigation = ({
               </ul>
             </li>
 
-            {/* Cand userul este logat pe Mobile, afiseaza un hamburger button */}
+            {/* Cand userul este logat pe Mobile, afiseaza un button offcanvas */}
+            {/* Mai jos sunt stilurile pentru buton */}
+
             <button
               className="navbar-toggler custom-toggler hide-on-desktop"
               type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasRight"
+              aria-controls="offcanvasRight"
               aria-expanded="false"
               aria-label="Toggle navigation"
               style={{
@@ -422,79 +424,221 @@ const Navigation = ({
                 ></span>
               </span>
             </button>
+
+            {/* In divul de mai jos sunt butoanele din canvasul de mai sus */}
+            <div
+              className="offcanvas offcanvas-end"
+              tabIndex="-1"
+              id="offcanvasRight"
+              aria-labelledby="offcanvasRightLabel"
+            >
+              <div className="offcanvas-header">
+                <h5 id="offcanvasRightLabel">Offcanvas right</h5>
+                <button
+                  type="button"
+                  className="btn-close text-reset"
+                  data-bs-dismiss="offcanvas"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div className="offcanvas-body">
+                <h2>Menu for pages</h2>
+                <hr />
+
+                <div>
+                  <Link
+                    to="/change-password"
+                    className="dropdown-item"
+                    onClick={() => {
+                      onRouteChange("change-password");
+                    }}
+                    style={{ fontSize: "16px" }}
+                  >
+                    Change Password
+                  </Link>
+                </div>
+                <div>
+                  <Link
+                    to="/signin"
+                    className="dropdown-item"
+                    onClick={() => {
+                      onSignedInChange(false);
+                      signOut();
+                    }}
+                    style={{ fontSize: "16px" }}
+                  >
+                    Sign Out
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         ) : (
-          // Cand userul nu este logat pe Mobile, afiseaza acest buton hamburger, cu 2 optiuni: Sign IN si Sign Up
-          <button
-            className="navbar-toggler custom-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-            style={{
-              marginLeft: "10px",
-              border: "2px solid white", // White border
-              borderRadius: "4px", // Optional: adjust as needed
-              padding: "8px" // Optional: adjust padding for better alignment
-            }}
-          >
-            <span
-              className="navbar-toggler-icon"
+          // Cand userul NU este logat, pe Mobile, afiseaza acest buton canvas, cu 2 optiuni: Sign IN si Sign Up
+          <div>
+            <button
+              className="navbar-toggler custom-toggler"
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasRight"
+              aria-controls="offcanvasRight"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
               style={{
-                position: "relative",
-                display: "block",
-                width: "24px",
-                height: "24px"
+                marginLeft: "10px",
+                border: "2px solid white", // White border
+                borderRadius: "4px", // Optional: adjust as needed
+                padding: "8px" // Optional: adjust padding for better alignment
               }}
             >
               <span
+                className="navbar-toggler-icon"
                 style={{
+                  position: "relative",
                   display: "block",
-                  width: "100%",
-                  height: "2px",
-                  backgroundColor: "white", // White line
-                  position: "absolute",
-                  top: "4px",
-                  left: "0"
+                  width: "24px",
+                  height: "24px"
                 }}
-              ></span>
-              <span
-                style={{
-                  display: "block",
-                  width: "100%",
-                  height: "2px",
-                  backgroundColor: "white", // White line
-                  position: "absolute",
-                  top: "10px",
-                  left: "0"
-                }}
-              ></span>
-              <span
-                style={{
-                  display: "block",
-                  width: "100%",
-                  height: "2px",
-                  backgroundColor: "white", // White line
-                  position: "absolute",
-                  top: "16px",
-                  left: "0"
-                }}
-              ></span>
-            </span>
-          </button>
+              >
+                <span
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    height: "2px",
+                    backgroundColor: "white", // White line
+                    position: "absolute",
+                    top: "4px",
+                    left: "0"
+                  }}
+                ></span>
+                <span
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    height: "2px",
+                    backgroundColor: "white", // White line
+                    position: "absolute",
+                    top: "10px",
+                    left: "0"
+                  }}
+                ></span>
+                <span
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    height: "2px",
+                    backgroundColor: "white", // White line
+                    position: "absolute",
+                    top: "16px",
+                    left: "0"
+                  }}
+                ></span>
+              </span>
+            </button>
+
+            <div
+              className="offcanvas offcanvas-end hide-on-desktop"
+              tabIndex="-1"
+              id="offcanvasRight"
+              aria-labelledby="offcanvasRightLabel"
+            >
+              <div className="offcanvas-header">
+                <h5 id="offcanvasRightLabel">Offcanvas right</h5>
+                <button
+                  type="button"
+                  className="btn-close text-reset"
+                  data-bs-dismiss="offcanvas"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div className="offcanvas-body">
+                <div>
+                  {/* Sign in Link Button */}
+                  <Link
+                    className="nav-link d-block d-sm-block mx-2"
+                    to="/signin"
+                    onClick={() => {
+                      onSignedInChange(false);
+                      onRouteChange("signin");
+                    }}
+                    style={{
+                      backgroundColor: "white",
+                      color: "black",
+                      border: "1px solid black",
+                      padding: "10px 20px",
+                      fontFamily: "Poppins",
+                      fontSize: "18px",
+                      borderRadius: "30px",
+                      boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)", // Umbra neagră
+                      textAlign: "center",
+                      textDecoration: "none",
+                      transition: "all 0.3s ease"
+                    }}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.boxShadow =
+                        "0px 6px 12px rgba(0, 0, 0, 0.5)";
+                      e.currentTarget.style.backgroundColor = "#f0f0f0"; // Schimbă culoarea de fundal la hover
+                      e.currentTarget.style.color = "black"; // Culoarea textului rămâne constantă
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.boxShadow =
+                        "0px 4px 8px rgba(0, 0, 0, 0.3)";
+                      e.currentTarget.style.backgroundColor = "white"; // Restaurează culoarea de fundal
+                    }}
+                  >
+                    Sign In
+                  </Link>
+                </div>
+
+                <br />
+
+                {/* Register Link Button */}
+                <div>
+                  <Link
+                    className="nav-link d-block d-sm-block mx-2"
+                    to="/register"
+                    onClick={() => {
+                      onSignedInChange(false);
+                      onRouteChange("register");
+                    }}
+                    style={{
+                      backgroundColor: "#FFD824",
+                      color: "black",
+                      border: "1px solid black",
+                      padding: "10px 20px",
+                      fontFamily: "Poppins",
+                      fontSize: "18px",
+                      borderRadius: "30px",
+                      boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)", // Umbra neagră
+                      textAlign: "center",
+                      textDecoration: "none",
+                      transition: "all 0.3s ease"
+                    }}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.boxShadow =
+                        "0px 6px 12px rgba(0, 0, 0, 0.5)";
+                      e.currentTarget.style.backgroundColor = "#f7f0b8"; // Schimbă culoarea de fundal la hover
+                      e.currentTarget.style.color = "black"; // Culoarea textului rămâne constantă
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.boxShadow =
+                        "0px 4px 8px rgba(0, 0,                       0, 0.3)"; // Restaurează culoarea de fundal
+                      e.currentTarget.style.backgroundColor = "#FFD824"; // Restaurează culoarea de fundal
+                    }}
+                  >
+                    Sign Up
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
         )}
 
-        {/* DIV pentru linkurile care apar dupa ce faci click pe ProfilePicture si HamburgerMenuButton */}
-        {/* Acest div conține meniul de navigare și se va extinde sau se va colapsa în funcție de interacțiunile utilizatorului. */}
         <div
           className="collapse navbar-collapse justify-content-end"
           id="navbarSupportedContent"
         >
-          {/* Aceasta este o listă de linkuri (buton) care va conține opțiuni pentru utilizatori, în funcție de starea de autentificare. */}
           <ul className="navbar-nav w-100 justify-content-center justify-content-lg-end">
-            {/* CAND USERUL ESTE LOGAT pe Desktop, afiseaza urmatoarele link-uir/butoane pentru ProfilePicture */}
             {isSignedIn ? (
               <div>
                 {/* data utilizatorul este autentificat pe Desktop, se va afișa un element de tip dropdown care conține IMAGINEA DE PROFIL și opțiunile de meniu: change password si signout */}
@@ -563,18 +707,11 @@ const Navigation = ({
                     </ul>
                   </li>
                 </div>
-
-                {/* data utilizatorul este autentificat pe MOBIL, se va afișa un hamburger menu cu diferite linkuri */}
-                <div className="hide-on-desktop">
-                  <div>salut boss</div>
-                  <div>salut boss</div>
-                  <div>salut boss</div>
-                  <div>salut boss</div>
-                </div>
               </div>
             ) : (
               <>
-                {/* CADND utilizatorul nu este autentificat, se vor afișa butoanele pentru Sign In și Sign Up. */}
+                {/* CADND utilizatorul NU este autentificat pe DESKTOP, se vor afișa butoanele pentru Sign In și Sign Up. */}
+
                 <li className="nav-item text-center my-2 my-lg-0">
                   <Link
                     className="nav-link d-block d-sm-block mx-2"
