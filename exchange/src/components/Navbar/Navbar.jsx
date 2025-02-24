@@ -407,7 +407,7 @@ const Navigation = ({
 
             {/* In divul de mai jos sunt butoanele din canvasul de mai sus */}
             <div
-              className="offcanvas offcanvas-end hide-on-desktop"
+              className="offcanvas offcanvas-end hide-on-desktop hide-buttons-on-desktop"
               tabIndex="-1"
               id="offcanvasRight"
               aria-labelledby="offcanvasRightLabel"

@@ -91,3 +91,9 @@
 .news-container-for-mobile .news-list li:last-child {
   border-bottom: none; /* Fără bordură pentru ultimul element */
 }
+
+@media (min-width: 992px) {
+  .hide-buttons-on-desktop {
+    display: none;
+  }
+}
