@@ -1,25 +1,61 @@
-// import { useState } from "react";
+import { useState } from "react";
 import "./SearchBar.css"; // Importă fișierul CSS
+import axios from "axios";
+import { getNewAccessToken } from "../../Auth/auth_functions";
 
 const SearchBar = () => {
-  // const [query, setQuery] = useState("");
-  // const [results, setResults] = useState([]);
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState([]);
 
-  // const handleInputChange = (event) => {
-  //   setQuery(event.target.value);
-  // };
+  const handleInputChange = (event) => {
+    const newQuery = event.target.value;
+    setQuery(newQuery);
 
-  // const handleSearch = () => {
-  //   // Simulează o căutare (înlocuiește cu logica ta reală)
-  //   const simulatedResults = [
-  //     "Rezultatul 1",
-  //     "Rezultatul 2",
-  //     "Rezultatul 3"
-  //   ].filter((item) => item.toLowerCase().includes(query.toLowerCase()));
+    // Apelează API-ul doar dacă inputul nu este gol
+    if (newQuery.trim() !== "") {
+      handleSearch(newQuery);
+    } else {
+      setResults([]); // Resetează rezultatele dacă inputul este gol
+    }
+  };
 
-  //   setResults(simulatedResults);
-  //   setQuery(""); // Resetează câmpul de input după căutare
-  // };
+  const handleSearch = async (searchQuery) => {
+    if (
+      searchQuery === null ||
+      searchQuery === undefined ||
+      searchQuery.trim() === ""
+    ) {
+      return;
+    }
+
+    const accessToken = localStorage.getItem("accessToken");
+    const url = `http://localhost:8080/markets/autocomplete?query=${encodeURIComponent(
+      searchQuery
+    )}`;
+
+    try {
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+
+      if (response.status === 200 || response.status === 201) {
+        console.log("Răspuns pentru autocomplete: ", response.data);
+        setResults(response.data); // Setează rezultatele din răspuns
+        // console.log(response.data.news); functioneaza aceste props
+      } else if (response.status === 400 || response.status === 401) {
+        const newAccessToken = await getNewAccessToken();
+        if (newAccessToken) {
+          handleSearch(searchQuery); // Reapelează funcția cu noul token
+        } else {
+          console.error("Failed to refresh token");
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching market data for stocks:", error);
+    }
+  };
 
   return (
     <div>
@@ -31,13 +67,18 @@ const SearchBar = () => {
               type="text"
               className="form-control search-input"
               placeholder="Search for news, symbols or companies"
+              value={query}
+              onChange={handleInputChange}
               style={{
                 height: "40px",
-                padding: " 0 25px 0 25px",
+                padding: "0 25px",
                 fontSize: "1.3rem"
               }}
-            ></input>
-            <button className="btn btn-success search-button">
+            />
+            <button
+              className="btn btn-success search-button"
+              // onClick={() => handleSearch(query)}
+            >
               <i
                 className="fas fa-search search-icon"
                 style={{ fontSize: "1.2rem" }}
@@ -59,11 +100,14 @@ const SearchBar = () => {
                 type="text"
                 className="form-control search-input"
                 placeholder="Search for news and symbols"
+                value={query}
+                onChange={handleInputChange}
                 style={{ height: "40px", fontSize: "1.3rem" }}
               />
               <i
                 className="fas fa-search search-icon"
                 style={{ fontSize: "1.2rem" }}
+                // onClick={() => handleSearch(query)}
               ></i>
             </div>
           </div>
