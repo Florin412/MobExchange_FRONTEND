@@ -81,3 +81,17 @@ search-wrapper {
   position: absolute;
   left: 44%;
 }
+
+.clear-button {
+  position: absolute;
+  right: 90px;
+  top: 54%;
+  transform: translateY(-50%);
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  min-height: fit-content;
+}
+
+.clear-button:hover {
+  background-color: green;
+}

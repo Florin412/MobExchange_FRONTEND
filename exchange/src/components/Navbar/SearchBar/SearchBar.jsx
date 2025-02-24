@@ -43,7 +43,6 @@ const SearchBar = () => {
       if (response.status === 200 || response.status === 201) {
         console.log("Răspuns pentru autocomplete: ", response.data);
         setResults(response.data); // Setează rezultatele din răspuns
-        // console.log(response.data.news); functioneaza aceste props
       } else if (response.status === 400 || response.status === 401) {
         const newAccessToken = await getNewAccessToken();
         if (newAccessToken) {
@@ -55,6 +54,11 @@ const SearchBar = () => {
     } catch (error) {
       console.error("Error fetching market data for stocks:", error);
     }
+  };
+
+  const clearInput = () => {
+    setQuery(""); // Golește inputul
+    setResults([]); // Resetează rezultatele
   };
 
   return (
@@ -75,6 +79,15 @@ const SearchBar = () => {
                 fontSize: "1.3rem"
               }}
             />
+            {query && ( // Afișează butonul de ștergere doar dacă există text
+              <button
+                className="btn  clear-button"
+                onClick={clearInput}
+                style={{ marginLeft: "10px" }} // Adaugă un mic spațiu între input și buton
+              >
+                <i className="fas fa-times" style={{ fontSize: "1.1rem" }}></i>
+              </button>
+            )}
             <button
               className="btn btn-success search-button"
               // onClick={() => handleSearch(query)}
