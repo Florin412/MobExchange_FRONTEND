@@ -1,0 +1,40 @@
+.search-bar {
+  display: flex;
+  flex-direction: column; /* Aranjează inputul și butonul pe verticală */
+  align-items: flex-start; /* Aliniază la stânga */
+}
+
+.search-input {
+  border: 1px solid #ccc;
+  border-radius: 4px 0 0 4px;
+  padding: 10px;
+  width: 200px; /* Poți ajusta lățimea după cum dorești */
+  margin-bottom: 5px; /* Spațiu între input și buton */
+}
+
+.search-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.search-button:hover {
+  background-color: #0056b3; /* Culoare mai închisă la hover */
+}
+
+.search-results {
+  list-style-type: none; /* Elimină marcajele de listă */
+  padding: 0; /* Elimină padding-ul */
+  margin-top: 5px; /* Spațiu între buton și lista de rezultate */
+}
+
+.search-results li {
+  background-color: #f8f9fa; /* Fundal deschis pentru rezultate */
+  padding: 5px;
+  border: 1px solid #ccc; /* Contur pentru rezultate */
+  margin-top: 2px; /* Spațiu între rezultate */
+  width: 200px; /* Asigură-te că lista are aceeași lățime ca inputul */
+}
