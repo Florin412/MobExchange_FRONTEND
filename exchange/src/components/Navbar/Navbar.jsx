@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Navbar.css";
+import SearchBar from "./SearchBar/SearchBar";
+
 const Navigation = ({
   isSignedIn,
   onSignedInChange,
@@ -47,43 +49,8 @@ const Navigation = ({
 
         {/* Search Bar that shows only for Desktop when user is logged*/}
         {isSignedIn && (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              maxWidth: "800px", // Crește lățimea containerului
-              width: "25%", // Ocupă întreaga lățime disponibilă
-              margin: "0 auto" // Centrează elementul
-            }}
-            className="hide-search-bar-on-mobile"
-          >
-            {/* Input de căutare */}
-            <input
-              className="form-control"
-              type="search"
-              placeholder="Search for news, symbols or companies"
-              aria-label="Search"
-              style={{
-                flex: "1", // Face input-ul să ocupe tot spațiul disponibil în container
-                padding: "0.8rem 2rem",
-                border: "1px solid #ccc",
-                borderRadius: "15px 0 0 15px"
-              }}
-            />
-            <button
-              className="btn btn-success"
-              type="submit"
-              style={{
-                padding: "0.9rem 1rem",
-                border: "none",
-                backgroundColor: "#28a745",
-                color: "white",
-                borderRadius: "0 15px 15px 0",
-                cursor: "pointer"
-              }}
-            >
-              Search
-            </button>
+          <div className="hide-search-bar-on-mobile" style={{ width: "785px" }}>
+            <SearchBar></SearchBar>
           </div>
         )}
 
@@ -387,6 +354,7 @@ const Navigation = ({
               aria-label="Toggle navigation"
               style={{
                 marginLeft: "10px",
+                marginRight: "10px",
                 border: "2px solid white", // White border
                 borderRadius: "4px", // Optional: adjust as needed
                 padding: "8px" // Optional: adjust padding for better alignment
@@ -964,22 +932,8 @@ const Navigation = ({
 
       {/* Cand userul este LOGAT pe MOBIL, afiseaza acest search bar  */}
       {isSignedIn && (
-        <div className="container show-search-bar-on-mobile">
-          <div className="row justify-content-center" style={{ width: "103%" }}>
-            <div
-              className="col-md-6"
-              style={{ paddingInline: "17px", width: "100%" }}
-            >
-              <div className="search-container">
-                <input
-                  type="text"
-                  className="form-control search-input"
-                  placeholder="Search for news or symbols"
-                ></input>
-                <i className="fas fa-search search-icon"></i>
-              </div>
-            </div>
-          </div>
+        <div className="show-search-bar-on-mobile">
+          <SearchBar></SearchBar>
         </div>
       )}
     </nav>

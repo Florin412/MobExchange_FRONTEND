@@ -33,6 +33,7 @@
 
   .show-search-bar-on-mobile {
     display: block !important;
+    width: 100%;
   }
 
   .hide-news-on-mobile {
