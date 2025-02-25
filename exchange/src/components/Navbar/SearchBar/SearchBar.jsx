@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 const SearchBar = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState({ news: [], quotes: [] });
+  const [isSearchActive, setIsSearchActive] = useState(false); // Starea pentru a controla vizibilitatea div-ului de căutare
 
   const navigate = useNavigate();
 
@@ -28,6 +29,14 @@ const SearchBar = () => {
     setResults({ news: [], quotes: [] }); // Resetează rezultatele
   };
 
+  const toggleScroll = (isActive) => {
+    if (isActive) {
+      document.body.classList.add("no-scroll"); // Blochează derularea
+    } else {
+      document.body.classList.remove("no-scroll"); // Permite derularea
+    }
+  };
+
   const handleSymbolClick = async (symbol) => {
     const accessToken = localStorage.getItem("accessToken");
 
@@ -43,7 +52,10 @@ const SearchBar = () => {
         }
       );
 
+      console.log("ai urmatorul simbol: ", symbol);
+
       if (!response.ok) {
+        console.log(response);
         throw new Error("Network response was not ok");
       }
 
@@ -58,6 +70,11 @@ const SearchBar = () => {
       });
 
       clearInput();
+      setIsSearchActive(false);
+      toggleScroll(false); // Permite derularea
+      // _________________
+      // backbutton add here
+      // _________________
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -85,6 +102,8 @@ const SearchBar = () => {
         console.log(newsResults, quotesResults);
 
         setResults({ news: newsResults, quotes: quotesResults });
+        setIsSearchActive(true); // Activează div-ul de căutare
+        toggleScroll(true); // Blochează derularea
       } else if (response.status === 400 || response.status === 401) {
         const newAccessToken = await getNewAccessToken();
         if (newAccessToken) {
@@ -119,7 +138,9 @@ const SearchBar = () => {
             {query && (
               <button
                 className="btn clear-button"
-                onClick={clearInput}
+                onClick={() => {
+                  clearInput(), toggleScroll(false);
+                }}
                 style={{ marginLeft: "10px" }}
               >
                 <i className="fas fa-times" style={{ fontSize: "1.1rem" }}></i>
@@ -222,13 +243,14 @@ const SearchBar = () => {
       </div>
 
       {/* Search Bar pentru Mobile */}
-      <div
-        className="container-fluid show-search-bar-on-mobile"
-        style={{ paddingLeft: "17px", paddingRight: "17px" }}
-      >
+
+      <div className="container-fluid show-search-bar-on-mobile search-bar-for-mobile">
         <div className="row justify-content-center">
           <div className="col-12">
-            <div className="search-container" style={{ marginBottom: "10px" }}>
+            <div
+              className="search-container"
+              style={{ marginBottom: "10px", position: "relative" }}
+            >
               <input
                 type="text"
                 className="form-control search-input"
@@ -236,15 +258,146 @@ const SearchBar = () => {
                 value={query}
                 onChange={handleInputChange}
                 style={{ height: "40px", fontSize: "1.3rem" }}
+                onClick={() => {
+                  setIsSearchActive(true), toggleScroll(true);
+                }}
               />
-              <i
-                className="fas fa-search search-icon"
-                style={{ fontSize: "1.2rem" }}
-              ></i>
+              {query && ( // Afișează butonul de CLEAR doar dacă există text în input
+                <button
+                  className="btn clear-button"
+                  onClick={clearInput}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    marginLeft: "10px"
+                  }}
+                >
+                  <i className="fas fa-times"></i>
+                </button>
+              )}
+              {isSearchActive ? ( // Afișează săgeata de întoarcere dacă căutarea este activă
+                <button
+                  className="btn back-button"
+                  onClick={() => {
+                    setIsSearchActive(false), clearInput(), toggleScroll(false);
+                  }}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    position: "absolute",
+                    top: "-4px",
+                    left: "10px",
+                    marginBottom: 0
+                  }}
+                >
+                  <i
+                    className="fas fa-arrow-left"
+                    style={{
+                      fontSize: "1.5rem"
+                    }}
+                  ></i>
+                </button>
+              ) : (
+                <i
+                  className="fas fa-search search-icon"
+                  style={{ fontSize: "1.2rem" }}
+                ></i>
+              )}
             </div>
           </div>
         </div>
       </div>
+
+      {/* Div pentru rezultate căutare pe MOBILE */}
+      {isSearchActive && (
+        <div className="search-results-overlay hide-on-desktop">
+          <div className="results-container results-container-for-mobile">
+            {results.quotes.length > 0 && (
+              <>
+                <h3>Symbols</h3>
+                <ul>
+                  {results.quotes.map((item, index) => (
+                    <li
+                      key={index}
+                      onClick={() => handleSymbolClick(item.symbol)}
+                    >
+                      <div style={{ cursor: "pointer" }}>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between"
+                          }}
+                        >
+                          <div>
+                            <div
+                              style={{
+                                color: "#1967d2",
+                                fontSize: "14px",
+                                fontWeight: "600"
+                              }}
+                            >
+                              {item.symbol}
+                            </div>
+                            <div
+                              style={{
+                                color: "#232a31",
+                                fontSize: "14px",
+                                fontWeight: "100"
+                              }}
+                            >
+                              {item.longname || item.shortname}
+                            </div>
+                          </div>
+                          <div
+                            style={{
+                              textAlign: "right",
+                              color: "#232a31",
+                              fontSize: "12px",
+                              fontWeight: "100"
+                            }}
+                          >
+                            <div>{item.typeDisp}</div>
+                            <div>{item.exchange}</div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+
+            {results.news.length > 0 && (
+              <>
+                <h3 style={{ marginTop: "25px" }}>News</h3>
+                <ul className="notBorderHere">
+                  {results.news.map((item, index) => (
+                    <li key={index}>
+                      <div style={{ color: "#232a31" }}>
+                        <div>
+                          <a
+                            href={item.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{ color: "#232a31", fontSize: "18px" }}
+                          >
+                            {item.title}
+                          </a>
+                        </div>
+                        <div style={{ fontSize: "12px" }}>
+                          <span>{item.publisher} </span>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -42,7 +42,7 @@ const Quote = () => {
     } else if (value >= 1e6) {
       return `${(value / 1e6).toFixed(2)} M`; // Milioane
     } else {
-      return value.toString(); // Returnează valoarea originală dacă este mai mică de 1 milion
+      return value; // Returnează valoarea originală dacă este mai mică de 1 milion
     }
   };
 
@@ -52,7 +52,8 @@ const Quote = () => {
         <div className="market-container">
           <div className="header">
             <span className="exchange">
-              {item.fullExchangeName} ||  - {item.quoteSourceName} • {item.currency}
+              {item.fullExchangeName} || - {item.quoteSourceName} •{" "}
+              {item.currency}
             </span>
             <h1 className="symbol-title">
               {item.longName ? item.longName : item.shortName} ({item.symbol})

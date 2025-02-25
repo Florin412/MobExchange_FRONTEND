@@ -159,3 +159,47 @@ search-wrapper {
   background-color: #333; /* Fundal mai deschis la hover */
   border-radius: 4px; /* Colțuri rotunjite la hover */
 }
+
+/* ______________________________________________ */
+/* Cod pentru autocompletare searchbar for Mobile */
+/* ______________________________________________ */
+
+.search-results-overlay {
+  position: fixed;
+  top: 110px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10; /* Asigură-te că este deasupra altor elemente */
+  overflow-y: auto; /* Permite derularea rezultatelor */
+  padding: 20px; /* Spațiu interior pentru conținut */
+}
+
+.back-button {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  margin-bottom: 20px; /* Spațiu sub buton */
+}
+
+.search-bar-for-mobile .clear-button {
+  position: absolute;
+  right: 10px;
+  top: 21px;
+}
+
+.search-bar-for-mobile .clear-button i {
+  font-size: 18px;
+}
+
+.results-container-for-mobile {
+  top: 0;
+  min-height: 100%;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+body.no-scroll {
+  overflow: hidden; /* Previne derularea paginii */
+}
