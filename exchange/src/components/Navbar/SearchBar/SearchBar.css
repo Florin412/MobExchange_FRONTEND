@@ -95,3 +95,67 @@ search-wrapper {
 .clear-button:hover {
   background-color: green;
 }
+
+/* ____________________ */
+/* rezultatul cautarii din search bar pe Desktoop */
+/* ____________________ */
+
+.search-bar-for-desktop {
+  position: relative;
+}
+
+.results-container {
+  position: absolute; /* Face ca div-ul să plutească peste conținut */
+  top: 3.8rem; /* Poziționează div-ul imediat sub bara de căutare */
+  left: 0; /* Aliniază la stânga */
+  right: 0;
+  background-color: #ffffff;
+  color: white; /* Text alb pentru contrast */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Umbră pentru adâncime */
+  z-index: 10; /* Asigură-te că este deasupra altor elemente */
+  padding: 10px; /* Spațiu interior */
+  border-bottom-left-radius: 1.5rem; /* Colțuri rotunjite */
+  border-bottom-right-radius: 1.5rem; /* Colțuri rotunjite */
+  min-height: fit-content; /* Limitează înălțimea maximă */
+}
+
+.results-container a {
+  text-decoration: none !important;
+}
+
+.results-container h3 {
+  margin: 0 0 10px; /* Margine pentru titluri */
+  font-size: 16px; /* Dimensiune font pentru titluri */
+  color: #232a31; /* Culoare pentru titluri */
+  font-weight: 600;
+}
+
+.results-container ul {
+  list-style-type: none; /* Elimină punctele din listă */
+  padding: 0; /* Elimină padding-ul */
+}
+
+.results-container li {
+  padding: 5px 0; /* Spațiu între elementele listei */
+  border-bottom: 1px solid rgb(221, 224, 228);
+}
+
+.results-container li:hover {
+  background-color: #e7f5ff;
+}
+
+.notBorderHere li:last-child {
+  border-bottom: none; /* Remove border from the last child */
+}
+
+.results-container .symbol-link {
+  display: flex; /* Folosește flexbox pentru aliniere */
+  align-items: center; /* Aliniază vertical */
+  color: white; /* Text alb */
+  text-decoration: none; /* Elimină sublinierea */
+}
+
+.results-container .symbol-link:hover {
+  background-color: #333; /* Fundal mai deschis la hover */
+  border-radius: 4px; /* Colțuri rotunjite la hover */
+}

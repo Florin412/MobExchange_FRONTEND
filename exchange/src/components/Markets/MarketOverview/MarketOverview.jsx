@@ -48,7 +48,7 @@ const MarketOverview = () => {
       });
 
       if (response.status === 200 || response.status === 201) {
-        console.log(logMessage);
+        // console.log(logMessage);
         //console.log(response.data.quoteResponse.result);
 
         // Logica specifică pentru fiecare regiune
@@ -65,44 +65,44 @@ const MarketOverview = () => {
         } else if (region === "bonds-overview") {
           setBondsOverview(response.data.quoteResponse.result);
         } else if (region === "etfs-most-active") {
-          console.log(response.data.finance.result[0].quotes.slice(0, 5));
+          // console.log(response.data.finance.result[0].quotes.slice(0, 5));
           setEtfsMostActive(response.data.finance.result[0].quotes.slice(0, 5));
         } else if (region === "etfs-gainers") {
-          console.log(response.data.finance.result[0].quotes.slice(0, 5));
+          // console.log(response.data.finance.result[0].quotes.slice(0, 5));
           setEtfsGainers(response.data.finance.result[0].quotes.slice(0, 5));
         } else if (region === "etfs-losers") {
-          console.log(response.data.finance.result[0].quotes.slice(0, 5));
+          // console.log(response.data.finance.result[0].quotes.slice(0, 5));
           setEtfsLosers(response.data.finance.result[0].quotes.slice(0, 5));
         } else if (region === "etfs-top-performing") {
-          console.log(response.data.finance.result[0].quotes.slice(0, 5));
+          // console.log(response.data.finance.result[0].quotes.slice(0, 5));
           setEtfsTopPerforming(
             response.data.finance.result[0].quotes.slice(0, 5)
           );
         } else if (region === "etfs-trending") {
-          console.log(response.data.finance.result[0].quotes.slice(0, 5));
+          // console.log(response.data.finance.result[0].quotes.slice(0, 5));
           setEtfsTrending(response.data.finance.result[0].quotes.slice(0, 5));
         } else if (region === "etfs-best-historical-performance") {
-          console.log(response.data.finance.result[0].quotes.slice(0, 5));
+          // console.log(response.data.finance.result[0].quotes.slice(0, 5));
           setEtfsBestHPerformance(
             response.data.finance.result[0].quotes.slice(0, 5)
           );
         } else if (region === "mutual-funds-gainers") {
-          console.log(response.data.finance.result[0].quotes.slice(0, 5));
+          // console.log(response.data.finance.result[0].quotes.slice(0, 5));
           setMutualFundsGainers(
             response.data.finance.result[0].quotes.slice(0, 5)
           );
         } else if (region === "mutual-funds-losers") {
-          console.log(response.data.finance.result[0].quotes.slice(0, 5));
+          // console.log(response.data.finance.result[0].quotes.slice(0, 5));
           setMutualFundsLosers(
             response.data.finance.result[0].quotes.slice(0, 5)
           );
         } else if (region === "mutual-funds-top-performing") {
-          console.log(response.data.finance.result[0].quotes.slice(0, 5));
+          // console.log(response.data.finance.result[0].quotes.slice(0, 5));
           setMutualFundsTopPerforming(
             response.data.finance.result[0].quotes.slice(0, 5)
           );
         } else if (region === "mutual-funds-best-historical-performance") {
-          console.log(response.data.finance.result[0].quotes.slice(0, 5));
+          // console.log(response.data.finance.result[0].quotes.slice(0, 5));
           setMutualFundsBestHistoricalPerformance(
             response.data.finance.result[0].quotes.slice(0, 5)
           );
