@@ -224,7 +224,7 @@ const MarketOverview = () => {
         });
 
         if (response.status === 200 || response.status === 201) {
-          console.log(response.data.finance.result[0].quotes.slice(0, 8));
+          // console.log(response.data.finance.result[0].quotes.slice(0, 8));
           setData(response.data.finance.result[0].quotes.slice(0, 8));
         } else if (response.status === 400 || response.status === 401) {
           const newAccessToken = await getNewAccessToken();
@@ -269,7 +269,7 @@ const MarketOverview = () => {
         });
 
         if (response.status === 200 || response.status === 201) {
-          console.log(response.data.finance.result[0].quotes.slice(0, 8));
+          // console.log(response.data.finance.result[0].quotes.slice(0, 8));
           setData1(response.data.finance.result[0].quotes.slice(0, 8)); // Actualizăm datele pentru crypto
         } else if (response.status === 400 || response.status === 401) {
           const newAccessToken = await getNewAccessToken();

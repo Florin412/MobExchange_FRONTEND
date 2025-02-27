@@ -24,10 +24,10 @@ const Futures = () => {
         );
 
         if (response.status === 200 || response.status === 201) {
-          console.log(
-            "Salut, ai aici date pentru futures: ",
-            response.data.quoteResponse.result
-          );
+          // console.log(
+          //   "Salut, ai aici date pentru futures: ",
+          //   response.data.quoteResponse.result
+          // );
           setData(response.data.quoteResponse.result); // Stocăm datele în state
         } else if (response.status === 400 || response.status === 401) {
           // If access token is expired, lets creat a new one.

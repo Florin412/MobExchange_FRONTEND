@@ -14,7 +14,7 @@ const Quote = () => {
   const formatType = location.state.formatType;
   // console.log("Salut, aici aici formatul: ", formatType);
 
-  console.log("Date generale asset !: ", item);
+  // console.log("Date generale asset !: ", item);
 
   const formatNumber = (num, formatType = "normal") => {
     const options = {
