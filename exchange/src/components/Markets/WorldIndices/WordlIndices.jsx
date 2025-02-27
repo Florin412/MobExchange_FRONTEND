@@ -25,10 +25,10 @@ const WorldIndices = () => {
         );
 
         if (response.status === 200 || response.status === 201) {
-          console.log(
-            "________Salut, Acces token bun, mai jos ai raspunsul pentru world indices ___________"
-          );
-          console.log(response.data.quoteResponse.result);
+          // console.log(
+          //   "________Salut, Acces token bun, mai jos ai raspunsul pentru world indices ___________"
+          // );
+          // console.log(response.data.quoteResponse.result);
           setData(response.data.quoteResponse.result); // Stocăm datele în state
         } else if (response.status === 400 || response.status === 401) {
           // If access token is expired, lets creat a new one.

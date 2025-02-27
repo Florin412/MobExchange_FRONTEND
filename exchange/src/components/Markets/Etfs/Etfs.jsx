@@ -27,7 +27,7 @@ const Etfs = () => {
       });
 
       if (response.status === 200 || response.status === 201) {
-        console.log(response.data.finance.result[0].quotes);
+        // console.log(response.data.finance.result[0].quotes);
         setData(response.data.finance.result[0].quotes);
       } else if (response.status === 400 || response.status === 401) {
         const newAccessToken = await getNewAccessToken();

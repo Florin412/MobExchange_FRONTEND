@@ -156,7 +156,7 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
                           currentPath === "/markets/overview"
                             ? item.shortName || ""
                             : item.symbol || ""
-                        } // Atribuim title în funcție de ruta curentă
+                        } // Atribuim title/valoarea afisata pe coloana de symbol în funcție de ruta curentă
                       >
                         {item.logoUrl && item.logoUrl !== undefined ? (
                           <img

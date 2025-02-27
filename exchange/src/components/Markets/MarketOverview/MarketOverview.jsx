@@ -134,7 +134,7 @@ const MarketOverview = () => {
       });
 
       if (response.status === 200 || response.status === 201) {
-        console.log(response.data.finance.result[0].quotes);
+        // console.log(response.data.finance.result[0].quotes);
 
         if (category === "stocks") {
           setData(response.data.finance.result[0].quotes.slice(0, 8));

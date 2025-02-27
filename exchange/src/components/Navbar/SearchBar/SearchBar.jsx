@@ -37,12 +37,25 @@ const SearchBar = () => {
     }
   };
 
+  const formatSymbol = (symbol) => {
+    const encodedSymbol = encodeURIComponent(symbol);
+
+    // Verifică dacă encodedSymbol conține caracterul "="
+    if (symbol.includes("=")) {
+      return encodedSymbol + "%2C"; // Adaugă "%2C" dacă conține "="
+    } else {
+      return encodedSymbol; // Returnează encodedSymbol dacă nu conține "="
+    }
+  };
+
   const handleSymbolClick = async (symbol) => {
     const accessToken = localStorage.getItem("accessToken");
 
     try {
       const response = await fetch(
-        `http://localhost:8080/markets/options/get-general-data-for-1-asset?symbol=${symbol}`,
+        `http://localhost:8080/markets/options/get-general-data-for-1-asset?symbol=${formatSymbol(
+          symbol
+        )}`,
         {
           method: "GET",
           headers: {
@@ -52,7 +65,7 @@ const SearchBar = () => {
         }
       );
 
-      console.log("ai urmatorul simbol: ", symbol);
+      console.log("ai urmatorul simbol: ", formatSymbol(symbol));
 
       if (!response.ok) {
         console.log(response);
@@ -72,9 +85,6 @@ const SearchBar = () => {
       clearInput();
       setIsSearchActive(false);
       toggleScroll(false); // Permite derularea
-      // _________________
-      // backbutton add here
-      // _________________
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -99,7 +109,7 @@ const SearchBar = () => {
         const newsResults = response.data.news.slice(0, 3);
         const quotesResults = response.data.quotes.slice(0, 6);
 
-        console.log(newsResults, quotesResults);
+        // console.log(newsResults, quotesResults);
 
         setResults({ news: newsResults, quotes: quotesResults });
         setIsSearchActive(true); // Activează div-ul de căutare

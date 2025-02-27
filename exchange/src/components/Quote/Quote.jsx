@@ -12,9 +12,9 @@ const Quote = () => {
   // asta sincronizeaza datele in aplicatie, incat sa fie peste tot aceleasi date.
   const item = location.state.item;
   const formatType = location.state.formatType;
-  console.log("Salut, aici aici formatul: ", formatType);
+  // console.log("Salut, aici aici formatul: ", formatType);
 
-  console.log("Date generale asset !!!!!!!!!!!: ", item);
+  console.log("Date generale asset !: ", item);
 
   const formatNumber = (num, formatType = "normal") => {
     const options = {
