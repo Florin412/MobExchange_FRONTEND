@@ -3,7 +3,7 @@
 import "./NewsTemplate.css";
 
 const NewsTemplate = ({ newsData, pageTitle }) => {
-  console.log("news template: ", newsData);
+  // console.log("news template: ", newsData);
 
   // Verificăm dacă newsData este valid
   if (!newsData || newsData.length === 0) {
