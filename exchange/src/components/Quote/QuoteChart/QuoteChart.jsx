@@ -20,6 +20,7 @@ const QuoteChart = ({ symbol, change }) => {
 
   const fetchChartData = async () => {
     const accessToken = localStorage.getItem("accessToken");
+    setError(null);
 
     try {
       const encodedSymbol = encodeURIComponent(symbol);
