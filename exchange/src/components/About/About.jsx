@@ -12,16 +12,16 @@ const About = () => {
                 style={{ backgroundColor: "transparent", border: "none" }}
               >
                 <div
-                  className="card-body"
+                  className="card-body "
                   style={{
                     backgroundColor: "transparent",
                     padding: "3rem 2rem"
                   }}
                 >
                   <h1
-                    className="card-title text-center mb-5"
+                    className="card-title text-center mb-5 footer-title-for-mobile"
                     style={{
-                      fontSize: "4.5rem",
+                      fontSize: "3.5rem",
                       fontWeight: "600", // Subțiat fontul
                       color: "#FFD824"
                     }}
@@ -29,9 +29,9 @@ const About = () => {
                     About Us
                   </h1>
                   <p
-                    className="card-text text-white mb-4"
+                    className="card-text text-white mb-4 footer-description-for-mobile"
                     style={{
-                      fontSize: "1.5rem", // Puțin mai mic
+                      fontSize: "21px", // Puțin mai mic
                       fontWeight: "400", // Font subțire
                       textAlign: "justify",
                       marginTop: "30px"
@@ -48,9 +48,9 @@ const About = () => {
                     the ideal choice for all your currency exchange needs.
                   </p>
                   <p
-                    className="card-text text-white mb-4"
+                    className="card-text text-white mb-4 footer-description-for-mobile"
                     style={{
-                      fontSize: "1.5rem",
+                      fontSize: "21px",
                       fontWeight: "400",
                       textAlign: "justify"
                     }}
@@ -62,9 +62,9 @@ const About = () => {
                     , we prioritize:
                   </p>
                   <ul
-                    className="card-text text-white mb-4"
+                    className="card-text text-white mb-4 footer-description-for-mobile"
                     style={{
-                      fontSize: "1.5rem",
+                      fontSize: "21px",
                       fontWeight: "400",
                       paddingLeft: "2rem",
                       textAlign: "justify"
@@ -97,9 +97,9 @@ const About = () => {
                     </li>
                   </ul>
                   <p
-                    className="card-text text-white mb-4"
+                    className="card-text text-white mb-4 footer-description-for-mobile"
                     style={{
-                      fontSize: "1.5rem",
+                      fontSize: "21px",
                       fontWeight: "400",
                       textAlign: "justify"
                     }}
@@ -111,9 +111,9 @@ const About = () => {
                     transactions, we are here to assist you at every turn.
                   </p>
                   <p
-                    className="card-text text-white mb-4"
+                    className="card-text text-white mb-4 footer-description-for-mobile"
                     style={{
-                      fontSize: "1.5rem",
+                      fontSize: "21px",
                       fontWeight: "400",
                       textAlign: "justify"
                     }}
@@ -127,9 +127,9 @@ const About = () => {
                     efficient, and transparent transactions.
                   </p>
                   <p
-                    className="card-text text-white mb-4"
+                    className="card-text text-white mb-4 footer-description-for-mobile"
                     style={{
-                      fontSize: "1.5rem",
+                      fontSize: "21px",
                       fontWeight: "400",
                       textAlign: "justify"
                     }}

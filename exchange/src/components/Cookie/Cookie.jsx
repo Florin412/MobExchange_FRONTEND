@@ -1,4 +1,5 @@
 import Footer from "../footer/Footer";
+import "./Cookie.css";
 
 const Cookie = () => {
   return (
@@ -23,9 +24,9 @@ const Cookie = () => {
                   }}
                 >
                   <h1
-                    className="card-title text-center mb-5"
+                    className="card-title text-center mb-5 footer-title-for-mobile"
                     style={{
-                      fontSize: "4.5rem",
+                      fontSize: "3.5rem",
                       fontWeight: "600", // Mai puțin bold
                       color: "#FFD824"
                     }}
@@ -33,9 +34,9 @@ const Cookie = () => {
                     Cookies
                   </h1>
                   <p
-                    className="card-text text-white mb-4"
+                    className="card-text text-white mb-4 footer-description-for-mobile"
                     style={{
-                      fontSize: "1.5rem",
+                      fontSize: "21px",
                       fontWeight: "400", // Text subțire
                       textAlign: "justify",
                       marginTop: "30px"
@@ -47,9 +48,9 @@ const Cookie = () => {
                     to provide personalized content.
                   </p>
                   <p
-                    className="card-text text-white mb-4"
+                    className="card-text text-white mb-4 footer-description-for-mobile"
                     style={{
-                      fontSize: "1.5rem",
+                      fontSize: "21px",
                       fontWeight: "400",
                       textAlign: "justify"
                     }}
@@ -61,9 +62,9 @@ const Cookie = () => {
                     correctly.
                   </p>
                   <p
-                    className="card-text text-white mb-4"
+                    className="card-text text-white mb-4 footer-description-for-mobile"
                     style={{
-                      fontSize: "1.5rem",
+                      fontSize: "21px",
                       fontWeight: "400",
                       textAlign: "justify"
                     }}

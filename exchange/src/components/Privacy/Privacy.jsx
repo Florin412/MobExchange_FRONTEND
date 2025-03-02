@@ -11,9 +11,9 @@ function Privacy() {
               {/* Păstrat col-lg-10 pentru lățime echilibrată */}
               <div className="privacy-section p-4">
                 <h1
-                  className="privacy-header text-center mb-5"
+                  className="privacy-header text-center mb-5 footer-title-for-mobile"
                   style={{
-                    fontSize: "4rem",
+                    fontSize: "3.5rem",
                     fontWeight: "bold",
                     color: "#FFD824"
                   }}
@@ -21,8 +21,8 @@ function Privacy() {
                   Privacy Policy
                 </h1>
                 <p
-                  className="privacy-text text-white text-justify"
-                  style={{ fontSize: "1.5rem" }}
+                  className="privacy-text text-white text-justify footer-description-for-mobile"
+                  style={{ fontSize: "21px" }}
                 >
                   Your privacy is important to us. This privacy statement
                   explains the personal data we collect, how we process it, and
@@ -31,9 +31,9 @@ function Privacy() {
               </div>
               <div className="privacy-section p-4">
                 <h2
-                  className="privacy-header"
+                  className="privacy-header footer-description-for-mobile"
                   style={{
-                    fontSize: "2.5rem",
+                    fontSize: "21px",
                     fontWeight: "bold",
                     color: "#FFD824"
                   }}
@@ -41,15 +41,15 @@ function Privacy() {
                   Information We Collect
                 </h2>
                 <p
-                  className="privacy-text text-white text-justify"
-                  style={{ fontSize: "1.5rem" }}
+                  className="privacy-text text-white text-justify footer-description-for-mobile"
+                  style={{ fontSize: "21px" }}
                 >
                   We collect information to provide better services to our
                   users. We collect information in the following ways:
                 </p>
                 <ul
-                  className="privacy-text text-white"
-                  style={{ fontSize: "1.5rem", paddingLeft: "1.5rem" }}
+                  className="privacy-text text-white footer-description-for-mobile"
+                  style={{ fontSize: "21px", paddingLeft: "1.5rem" }}
                 >
                   <li>Information you give us directly.</li>
                   <li>Information we get from your use of our services.</li>
@@ -57,9 +57,9 @@ function Privacy() {
               </div>
               <div className="privacy-section  p-4">
                 <h2
-                  className="privacy-header"
+                  className="privacy-header footer-description-for-mobile"
                   style={{
-                    fontSize: "2.5rem",
+                    fontSize: "21px",
                     fontWeight: "bold",
                     color: "#FFD824"
                   }}
@@ -67,8 +67,8 @@ function Privacy() {
                   How We Use Information
                 </h2>
                 <p
-                  className="privacy-text text-white text-justify"
-                  style={{ fontSize: "1.5rem" }}
+                  className="privacy-text text-white text-justify footer-description-for-mobile"
+                  style={{ fontSize: "21px" }}
                 >
                   We use the information we collect to provide, maintain,
                   protect, and improve our services, to develop new ones, and to
@@ -77,9 +77,9 @@ function Privacy() {
               </div>
               <div className="privacy-section  p-4">
                 <h2
-                  className="privacy-header"
+                  className="privacy-header footer-description-for-mobile"
                   style={{
-                    fontSize: "2.5rem",
+                    fontSize: "21px",
                     fontWeight: "bold",
                     color: "#FFD824"
                   }}
@@ -87,16 +87,16 @@ function Privacy() {
                   Information Sharing
                 </h2>
                 <p
-                  className="privacy-text text-white text-justify"
-                  style={{ fontSize: "1.5rem" }}
+                  className="privacy-text text-white text-justify footer-description-for-mobile"
+                  style={{ fontSize: "21px" }}
                 >
                   We do not share personal information with companies,
                   organizations, and individuals outside of our company unless
                   one of the following circumstances applies:
                 </p>
                 <ul
-                  className="privacy-text text-white"
-                  style={{ fontSize: "1.5rem", paddingLeft: "1.5rem" }}
+                  className="privacy-text text-white footer-description-for-mobile"
+                  style={{ fontSize: "21px", paddingLeft: "1.5rem" }}
                 >
                   <li>With your consent.</li>
                   <li>For legal reasons.</li>
@@ -104,9 +104,9 @@ function Privacy() {
               </div>
               <div className="privacy-section  p-4">
                 <h2
-                  className="privacy-header"
+                  className="privacy-header footer-description-for-mobile"
                   style={{
-                    fontSize: "2.5rem",
+                    fontSize: "21px",
                     fontWeight: "bold",
                     color: "#FFD824"
                   }}
@@ -114,8 +114,8 @@ function Privacy() {
                   Changes to This Privacy Policy
                 </h2>
                 <p
-                  className="privacy-text text-white text-justify"
-                  style={{ fontSize: "1.5rem" }}
+                  className="privacy-text text-white text-justify footer-description-for-mobile"
+                  style={{ fontSize: "21px" }}
                 >
                   Our Privacy Policy may change from time to time. We will post
                   any privacy policy changes on this page.
