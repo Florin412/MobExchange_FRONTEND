@@ -35,7 +35,7 @@ const Navigation = ({
           style={{ marginRight: "35px" }}
         >
           <h1
-            className="mb-0 d-flex align-items-center"
+            className="mb-0 d-flex align-items-center mobi-exchange-header-mobile"
             style={{
               fontSize: "2.5rem",
               fontWeight: "700",

@@ -153,7 +153,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
   //convertHandler with api data
   const convertHandler = () => {
     try {
-      console.log(`The conversion is from ${currencyFrom} to ${currencyFinal}`);
+      // console.log(`The conversion is from ${currencyFrom} to ${currencyFinal}`);
 
       // Convert exchangeRatesState to an array of objects
       let result = Object.keys(exchangeRatesState).map((key) => {
@@ -165,7 +165,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
       let exchangeRateTo = result.find(
         (item) => item.currency.toLowerCase() === currencyFinal.toLowerCase()
       );
-      console.log(exchangeRateTo);
+      // console.log(exchangeRateTo);
 
       if (
         !exchangeRateTo &&
@@ -183,7 +183,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
         ).toFixed(2);
       }
 
-      console.log(convertedValue);
+      // console.log(convertedValue);
       setCurrencyTo(convertedValue);
     } catch (err) {
       console.error(err);
@@ -192,7 +192,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
 
   const handleCurrencyFromChange = (e) => {
     setCurrencyFrom(e.target.value);
-    console.log(e.target.value);
+    // console.log(e.target.value);
   };
 
   const handleCurrencyToChange = (e) => {
@@ -202,25 +202,25 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
   const handleClickAddCurrency = (e) => {
     e.preventDefault();
     setClickAddCurrency(true);
-    console.log(clickAddCurrency + " add curency");
+    // console.log(clickAddCurrency + " add curency");
   };
 
   const handleLiveExchange = (e) => {
     const value = e.target.value;
-    console.log(allCurrenciesAvailable);
+    // console.log(allCurrenciesAvailable);
 
     setLiveExchange(value);
     const [filteredInfo] = allCurrenciesAvailable.filter(
       (item) => item[1] === value
     );
-    console.log(filteredInfo);
+    // console.log(filteredInfo);
 
     const isAlreadyListed = tableInfoState.some((item) => item[1] === value);
-    console.log(isAlreadyListed);
+    // console.log(isAlreadyListed);
 
     if (isAlreadyListed === false) {
       const [idTemp, currency, price, percent] = filteredInfo;
-      console.log(idTemp, allCurrencies);
+      // console.log(idTemp, allCurrencies);
       let id = tableInfoState.length + 1;
       tableInfo.push[(currency, price, percent)];
       setTableInfoState((prevTableInfo) => [
@@ -229,7 +229,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
       ]);
       setClickAddCurrency(false);
     } else {
-      alert("You have selected that currency in the table.");
+      alert("Currency already selected in your table.");
       setClickAddCurrency(false);
     }
   };
@@ -239,10 +239,10 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
 
     if ([1, 3, 6, 12].includes(value)) {
       setMonthButton(value);
-      console.log(true);
+      // console.log(true);
     }
 
-    console.log(value);
+    // console.log(value);
   };
 
   return (
@@ -251,8 +251,9 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
         {/* Page Header */}
         <div className="container my-5 d-flex flex-column align-items-center justify-content-center">
           <h1
+            className="currency-converter-title"
             style={{
-              marginTop: "50px",
+              // marginTop: "50px",
               fontSize: "4.5rem",
               color: "#FFD824", // Text color
               textShadow:
@@ -269,13 +270,14 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
         </div>
 
         {/* Introductory Text */}
-        <div className="text-center mb-5">
+        <div className="text-center">
           <p
+            className="currency-converter-description"
             style={{
               fontSize: "2.1rem",
               margin: "0 auto",
               maxWidth: "90%",
-              marginTop: "50px",
+              marginTop: "20px",
               textAlign: "justify",
               textAlignLast: "left"
             }}
@@ -301,14 +303,13 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
               }}
             >
               <div className="card-body">
-                <div className="form-group mb-5">
+                <div className="form-group">
                   <label
                     htmlFor="fromCurr"
-                    className="form-label fs-1"
+                    className="form-label"
                     style={{
                       color: "#FFD824",
-                      marginTop: "20px",
-                      marginLeft: "30px"
+                      marginTop: "20px"
                     }}
                   >
                     From Currency
@@ -318,7 +319,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
                     className="form-select form-select-lg"
                     style={{
                       fontSize: "2rem",
-                      borderRadius: "25px",
+                      borderRadius: "5px",
                       borderColor: "#FFD824",
                       backgroundColor: "#FFF9E5",
                       padding: "0.75rem",
@@ -334,11 +335,11 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
                     ))}
                   </select>
                 </div>
-                <div className="form-group mb-5">
+                <div className="form-group">
                   <label
                     htmlFor="fromInput"
-                    className="form-label fs-1"
-                    style={{ color: "#FFD824", marginLeft: "30px" }}
+                    className="form-label"
+                    style={{ color: "#FFD824" }}
                   >
                     Amount to Convert
                   </label>
@@ -346,18 +347,18 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
                     type="text"
                     id="fromInput"
                     className="form-control form-control-lg"
-                    style={{ fontSize: "2rem", borderRadius: "25px" }}
+                    style={{ fontSize: "2rem", borderRadius: "5px" }}
                     ref={fromCurr}
                     onChange={handleChange}
                     value={numberToConvert}
                     placeholder="0"
                   />
                 </div>
-                <div className="form-group mb-5">
+                <div className="form-group">
                   <label
                     htmlFor="toCurr"
-                    className="form-label fs-1"
-                    style={{ color: "#FFD824", marginLeft: "30px" }}
+                    className="form-label "
+                    style={{ color: "#FFD824" }}
                   >
                     To Currency
                   </label>
@@ -366,7 +367,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
                     className="form-select form-select-lg"
                     style={{
                       fontSize: "2rem",
-                      borderRadius: "25px",
+                      borderRadius: "5px",
                       borderColor: "#FFD824",
                       backgroundColor: "#FFF9E5",
                       padding: "0.75rem",
@@ -382,11 +383,11 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
                     ))}
                   </select>
                 </div>
-                <div className="form-group mb-5">
+                <div className="form-group">
                   <label
                     htmlFor="toInput"
-                    className="form-label fs-1"
-                    style={{ color: "#FFD824", marginLeft: "30px" }}
+                    className="form-label"
+                    style={{ color: "#FFD824" }}
                   >
                     Converted Amount
                   </label>
@@ -394,15 +395,15 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
                     type="text"
                     id="toInput"
                     className="form-control form-control-lg"
-                    style={{ fontSize: "2rem", borderRadius: "25px" }}
+                    style={{ fontSize: "2rem", borderRadius: "5px" }}
                     value={currencyTo}
                     readOnly
                     placeholder="0"
                   />
                 </div>
-                <div className="text-center mb-5">
+                <div className="text-center">
                   <button
-                    className="btn btn-warning rounded-pill shadow-lg"
+                    className="btn btn-warning rounded-pill shadow-lg btn-convert-mobile"
                     style={{
                       padding: "12px 40px",
                       fontSize: "18px",
@@ -419,9 +420,9 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
         </div>
 
         {/* Chart Section */}
-        <div className="graph graph_display" style={{ marginTop: "50px" }}>
+        <div className="graph graph_display">
           <h1
-            className="mb-5 mt-5 text-center fw-bold"
+            className="mb-5 mt-5 text-center fw-bold convertor-graph-title"
             style={{
               fontSize: "3.8rem",
               color: "#FFD824",
@@ -449,11 +450,11 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
             </span>
           </h1>
           <div
-            className="flexButtons mb-5 d-flex justify-content-center flex-wrap gap-4"
+            className="flexButtons mb-4 d-flex justify-content-center flex-wrap gap-4 currency-graph-buttons"
             style={{ marginTop: "15px" }}
           >
             <button
-              className="btn btn-outline-warning btn-lg rounded-pill px-4 fs-3"
+              className="btn btn-outline-warning btn-lg rounded-pill  "
               style={{ width: "150px", minWidth: "150px" }} // Set a consistent width
               value={1}
               onClick={handleDateFunction}
@@ -461,7 +462,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
               1 Month
             </button>
             <button
-              className="btn btn-outline-warning btn-lg rounded-pill px-4 fs-3"
+              className="btn btn-outline-warning btn-lg rounded-pill "
               style={{ width: "150px", minWidth: "150px" }} // Set a consistent width
               value={3}
               onClick={handleDateFunction}
@@ -469,7 +470,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
               3 Months
             </button>
             <button
-              className="btn btn-outline-warning btn-lg rounded-pill px-4 fs-3"
+              className="btn btn-outline-warning btn-lg rounded-pill "
               style={{ width: "150px", minWidth: "150px" }} // Set a consistent width
               value={6}
               onClick={handleDateFunction}
@@ -477,7 +478,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
               6 Months
             </button>
             <button
-              className="btn btn-outline-warning btn-lg rounded-pill px-4 fs-3"
+              className="btn btn-outline-warning btn-lg rounded-pill "
               style={{ width: "150px", minWidth: "150px" }} // Set a consistent width
               value={12}
               onClick={handleDateFunction}
@@ -496,9 +497,9 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
         <div className="container my-5">
           <div className="text-center mb-5">
             <h2
-              className="text-center mb-5"
+              className="text-center live-exchange-rates-title"
               style={{
-                marginTop: "50px",
+                marginTop: "20px",
                 fontSize: "4.5rem",
                 color: "#FFD824", // Text color
                 textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
@@ -512,11 +513,12 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
               Live Exchange Rates
             </h2>
             <p
+              className="live-exchange-rates-description"
               style={{
                 fontSize: "2.1rem",
                 margin: "0 auto",
                 maxWidth: "90%",
-                marginTop: "50px",
+                marginTop: "20px",
                 textAlign: "justify",
                 textAlignLast: "left",
                 marginBottom: "50px"
@@ -527,12 +529,19 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
               information to help you make informed decisions.
               <br></br>
               <br></br>
-              The currency marked with the number 1, is the reference currency,
-              while the rest from 2 onward, are target currencies.
+              The currency marked with the number 1, is the{" "}
+              <span style={{ textDecoration: "underline" }}>
+                reference currency
+              </span>
+              , while the rest from 2 onward, are{" "}
+              <span style={{ textDecoration: "underline" }}>
+                target currencies
+              </span>
+              .
             </p>
           </div>
           <div className="table-responsive mb-5">
-            <table className="table table-hover table-bordered">
+            <table className="table table-hover table-bordered live-exchange-table">
               <thead className="thead-light">
                 <tr>
                   {titlesTables.map((title) => (
@@ -609,7 +618,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
           {/* Add Currency Button */}
           <div className="text-center mb-5">
             <button
-              className="btn btn-success btn-lg shadow-sm"
+              className="btn btn-success btn-lg shadow-sm add-currency-button"
               onClick={handleClickAddCurrency}
               style={{
                 fontSize: "2rem",
@@ -628,7 +637,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
           {clickAddCurrency && (
             <div className="text-center mb-5">
               <select
-                className="form-select form-select-lg"
+                className="form-select form-select-lg select-a-new-currency"
                 aria-label="Default select example"
                 onChange={handleLiveExchange}
                 defaultValue=""
@@ -642,7 +651,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
                 }}
               >
                 <option disabled value="">
-                  Open this select menu
+                  Select a new currency
                 </option>
                 {availableCurrencies.map((curr, index) => (
                   <option value={curr} key={index}>

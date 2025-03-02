@@ -36,7 +36,7 @@ const Footer = () => {
         style={{ minHeight: "50px" }}
       >
         {/* Logo Section */}
-        <div className="col-12 col-md-6 text-center text-md-start mb-3 mb-md-0">
+        <div className="col-12 col-md-6 text-center text-md-start mb-3 mb-md-0 footer-logo-section">
           <Link
             to="/home"
             className="navbar-brand d-flex align-items-center ms-3"
@@ -64,7 +64,7 @@ const Footer = () => {
           </Link>
         </div>
         {/* Links Section */}
-        <div className="col-12 col-md-6 d-flex flex-column flex-md-row justify-content-center justify-content-md-end align-items-center gap-3">
+        <div className="col-12 my-2 col-md-6 d-flex flex-row flex-md-row justify-content-center justify-content-md-end align-items-center gap-3 footer-buttons-mobile">
           <button
             className="btn"
             style={activeButton === "about" ? activeButtonStyle : buttonStyle}

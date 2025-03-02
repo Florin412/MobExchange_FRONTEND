@@ -9,3 +9,20 @@
   align-items: center;
   justify-content: center;
 }
+
+@media (max-width: 768px) {
+  .footer-logo-section {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+  }
+
+  .footer-logo-section h1 {
+    font-size: 22px !important;
+  }
+
+  .footer-buttons-mobile button h3 a {
+    font-size: 16px;
+    font-weight: 500;
+  }
+}

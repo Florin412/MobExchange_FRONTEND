@@ -173,3 +173,77 @@ tr {
 .flexButtons > button {
   padding: 20px;
 }
+
+.card-body div {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.currency-graph-buttons button {
+  padding: 14px 10px;
+  font-size: 16px;
+}
+
+/* Design for mobile */
+@media (max-width: 768px) {
+  /* currency convertor */
+  .currency-converter-title {
+    font-size: 32px !important;
+    margin: 0 !important;
+    font-size: 25px !important;
+  }
+
+  .currency-converter-description {
+    font-size: 16px !important;
+    margin: 0 20px !important;
+  }
+
+  .convertor-graph-title {
+    font-size: 22px !important;
+  }
+
+  .card-body div {
+    margin-bottom: 15px;
+    font-size: 16px;
+  }
+
+  .card-body div select,
+  .card-body div input {
+    font-size: 16px !important;
+  }
+
+  .btn-convert-mobile {
+    font-size: 16px !important;
+    padding: 8px 35px !important;
+  }
+
+  /* currency graph buttons */
+  .currency-graph-buttons button {
+    font-size: 14px !important;
+    padding: 10px 10px !important;
+  }
+
+  /* live exchage rates */
+  .live-exchange-rates-title {
+    font-size: 25px !important;
+  }
+
+  .live-exchange-rates-description {
+    font-size: 16px !important;
+  }
+
+  .live-exchange-table thead th,
+  .live-exchange-table tbody td {
+    font-size: 16px !important;
+  }
+
+  .add-currency-button span {
+    font-size: 16px !important;
+  }
+
+  .select-a-new-currency {
+    font-size: 16px !important;
+  }
+
+  
+}
