@@ -21,7 +21,7 @@ const ForgotPassword = () => {
       .then((response) => {
         if (response.status === 200 || response.status === 201) {
           alert("Check your email, there you can change your password");
-          console.log(response);
+          // console.log(response);
           setServerError(""); // Clear previous server errors
         }
       })
@@ -60,7 +60,7 @@ const ForgotPassword = () => {
     }
 
     if (valid) {
-      console.log("Form submitted");
+      // console.log("Form submitted");
     }
 
     forgotPassword();
@@ -128,12 +128,7 @@ const ForgotPassword = () => {
             )}
 
             {serverError && ( // Display the server error if it exists
-              <div
-                className="fs-4 text-danger mt-3"
-                style={{ marginLeft: "40px" }}
-              >
-                {serverError}
-              </div>
+              <div className="fs-4 text-danger mt-3">{serverError}</div>
             )}
           </div>
 

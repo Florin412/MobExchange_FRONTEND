@@ -191,13 +191,13 @@ function App() {
       )
       .then((response) => {
         if (response.status === 200 || response.status === 201) {
-          console.log(response);
+          // console.log(response);
 
           // Remove access and refresh tokens from local storage
           localStorage.removeItem("accessToken");
           localStorage.removeItem("refreshToken");
 
-          console.log("User logged out successfully");
+          // console.log("User logged out successfully");
           // Redirect to the signIn page after successful logout
           navigate("/signin");
         }

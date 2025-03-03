@@ -36,7 +36,7 @@ const SignUp = ({ onRouteChange, setIsSignedIn, getUserName }) => {
       })
       .then((response) => {
         if (response.status === 200 || response.status === 201) {
-          console.log("Register was a success.");
+          // console.log("Register was a success.");
 
           const accessToken = response.data.accessToken; // Access token received from the response
           const refreshToken = response.data.refreshToken; // Refresh token received from the response
@@ -238,10 +238,7 @@ const SignUp = ({ onRouteChange, setIsSignedIn, getUserName }) => {
               required
             />
             {emailError && (
-              <div
-                className="fs-3 text-danger"
-                style={{ marginTop: "10px", marginLeft: "40px" }}
-              >
+              <div className="fs-3 text-danger" style={{ marginTop: "10px" }}>
                 {emailError}
               </div>
             )}
@@ -268,10 +265,7 @@ const SignUp = ({ onRouteChange, setIsSignedIn, getUserName }) => {
               onChange={(e) => setPassword(e.target.value)}
             />
             {passwordError && (
-              <div
-                className="fs-3 text-danger"
-                style={{ marginTop: "10px", marginLeft: "40px" }}
-              >
+              <div className="fs-3 text-danger" style={{ marginTop: "10px" }}>
                 {passwordError}
               </div>
             )}
@@ -301,10 +295,7 @@ const SignUp = ({ onRouteChange, setIsSignedIn, getUserName }) => {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
             {confirmPasswordError && (
-              <div
-                className="fs-3 text-danger"
-                style={{ marginTop: "10px", marginLeft: "40px" }}
-              >
+              <div className="fs-3 text-danger" style={{ marginTop: "10px" }}>
                 {confirmPasswordError}
               </div>
             )}

@@ -46,7 +46,7 @@ const ChangePassword = ({ signOut }) => {
     }
 
     if (valid) {
-      console.log("Password change submitted");
+      // console.log("Password change submitted");
       changePassword();
     }
   };
@@ -71,7 +71,7 @@ const ChangePassword = ({ signOut }) => {
 
       if (response.status === 200 || response.status === 201) {
         alert("Password changed successfully!");
-        console.log("Password changed successfully");
+        // console.log("Password changed successfully");
         signOut();
       } else if (response.status === 400) {
         console.log("Old password doesn't match / invalid new password format");
@@ -196,10 +196,7 @@ const ChangePassword = ({ signOut }) => {
               onChange={(e) => setCurrentPassword(e.target.value)}
             />
             {currentPasswordError && (
-              <div
-                className="fs-3 text-danger"
-                style={{ marginTop: "10px", marginLeft: "40px" }}
-              >
+              <div className="fs-3 text-danger" style={{ marginTop: "10px" }}>
                 {currentPasswordError}
               </div>
             )}
@@ -229,10 +226,7 @@ const ChangePassword = ({ signOut }) => {
               onChange={(e) => setNewPassword(e.target.value)}
             />
             {newPasswordError && (
-              <div
-                className="fs-3 text-danger"
-                style={{ marginTop: "10px", marginLeft: "40px" }}
-              >
+              <div className="fs-3 text-danger" style={{ marginTop: "10px" }}>
                 {newPasswordError}
               </div>
             )}
@@ -261,10 +255,7 @@ const ChangePassword = ({ signOut }) => {
               onChange={(e) => setConfirmPassword(e.target.value)}
             />
             {confirmPasswordError && (
-              <div
-                className="fs-3 text-danger"
-                style={{ marginTop: "10px", marginLeft: "40px" }}
-              >
+              <div className="fs-3 text-danger" style={{ marginTop: "10px" }}>
                 {confirmPasswordError}
               </div>
             )}

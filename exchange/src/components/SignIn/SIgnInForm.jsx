@@ -28,7 +28,7 @@ const SignIn = ({ onRouteChange, setIsSignedIn, getUserName }) => {
       .then((response) => {
         // If the response status is 200 (OK), log in was successful
         if (response.status === 200 || response.status === 201) {
-          console.log("SignIn was a success.");
+          // console.log("SignIn was a success.");
 
           // accessToken is used to access protected resources.
           // refreshToken is used to get a new accessToken when it expires.
@@ -91,7 +91,7 @@ const SignIn = ({ onRouteChange, setIsSignedIn, getUserName }) => {
     }
 
     if (valid) {
-      console.log("Form submitted");
+      // console.log("Form submitted");
       // Send a POST request to the login API endpoint.
       onSubmitSignIn();
     }
@@ -147,10 +147,7 @@ const SignIn = ({ onRouteChange, setIsSignedIn, getUserName }) => {
               onChange={(e) => setEmail(e.target.value)}
             />
             {emailError && (
-              <div
-                className="fs-3 text-danger"
-                style={{ marginTop: "10px", marginLeft: "40px" }}
-              >
+              <div className="fs-3 text-danger" style={{ marginTop: "10px" }}>
                 {emailError}
               </div>
             )}
@@ -178,7 +175,7 @@ const SignIn = ({ onRouteChange, setIsSignedIn, getUserName }) => {
             {passwordError && (
               <div
                 className="fs-3 text-danger"
-                style={{ marginTop: "10px", marginLeft: "40px" }}
+                style={{ marginTop: "10px" }}
               >
                 {passwordError}
               </div>
