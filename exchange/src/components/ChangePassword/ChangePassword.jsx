@@ -118,37 +118,37 @@ const ChangePassword = ({ signOut }) => {
       className="d-flex justify-content-center align-items-center min-vh-100"
       style={{
         backgroundColor: "#181A20",
-        paddingTop: "20px",
-        marginTop: "0px"
+        paddingTop: "20px"
       }}
     >
       <div
-        className="bg-dark text-light p-4 rounded-4 shadow-lg"
+        className="bg-dark text-light rounded-4 shadow-lg m-3 sign-in-small-padding"
         style={{
           maxWidth: "600px",
           width: "100%",
           boxShadow:
-            "0 10px 20px rgba(0, 0, 0, 0.3), 0 6px 6px rgba(0, 0, 0, 0.1)"
+            "0 10px 20px rgba(0, 0, 0, 0.3), 0 6px 6px rgba(0, 0, 0, 0.1)",
+          padding: "20px 45px"
         }}
       >
         <form className="row g-4" onSubmit={submitForm}>
           <h1
-            className="text-warning text-center mb-4 fw-bold"
+            className="text-warning text-center mb-4 fw-bold sign-in-title-mobile"
             style={{
-              fontSize: "48px",
+              fontSize: "45px",
               fontFamily: "Poppins",
               textShadow: "2px 2px 4px rgba(0,0,0,0.6)"
             }}
           >
             Change Password
           </h1>
-          <p
+          {/* <p
             className="text-warning text-center mb-4"
-            style={{ fontSize: "20px" }}
+            style={{ fontSize: "14px" }}
           >
             Enter your current password, new password, and confirm your new
             password to proceed.
-          </p>
+          </p> */}
 
           {/* Username Field, it's defined just for accesibility but its hidded in page */}
           <div className="mb-4 d-none">
@@ -177,13 +177,13 @@ const ChangePassword = ({ signOut }) => {
               htmlFor="InputCurrentPassword"
               className="form-label text-warning"
             >
-              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>
+              <h2 className=" mb-2" style={{ fontSize: "24px" }}>
                 Current Password:
               </h2>
             </label>
             <input
               type="password"
-              className="form-control form-control-sm rounded-pill px-4"
+              className="form-control form-control-sm px-4"
               id="InputCurrentPassword"
               style={{
                 fontSize: "20px",
@@ -210,13 +210,13 @@ const ChangePassword = ({ signOut }) => {
               htmlFor="InputNewPassword"
               className="form-label text-warning"
             >
-              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>
+              <h2 className=" mb-2" style={{ fontSize: "24px" }}>
                 New Password:
               </h2>
             </label>
             <input
               type="password"
-              className="form-control form-control-sm rounded-pill px-4"
+              className="form-control form-control-sm px-4"
               id="InputNewPassword"
               style={{
                 fontSize: "20px",
@@ -242,13 +242,13 @@ const ChangePassword = ({ signOut }) => {
               htmlFor="InputConfirmPassword"
               className="form-label text-warning"
             >
-              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>
+              <h2 className=" mb-2" style={{ fontSize: "24px" }}>
                 Confirm Password:
               </h2>
             </label>
             <input
               type="password"
-              className="form-control form-control-sm rounded-pill px-4"
+              className="form-control form-control-sm px-4"
               id="InputConfirmPassword"
               style={{
                 fontSize: "20px",

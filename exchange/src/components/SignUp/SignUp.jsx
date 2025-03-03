@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import apiUrl from "../../assets/api_url";
+import "../SignIn/SIgnInForm.css";
 
 const SignUp = ({ onRouteChange, setIsSignedIn, getUserName }) => {
   const [firstName, setFirstName] = useState("");
@@ -131,20 +132,21 @@ const SignUp = ({ onRouteChange, setIsSignedIn, getUserName }) => {
       style={{ backgroundColor: "#181A20" }}
     >
       <div
-        className="bg-dark text-light p-4 rounded-4 shadow-lg mt-4"
+        className="bg-dark text-light rounded-4 shadow-lg m-3 sign-up-small-padding"
         style={{
           maxWidth: "600px",
           width: "100%",
           boxShadow:
             "0 10px 20px rgba(0, 0, 0, 0.3), 0 6px 6px rgba(0, 0, 0, 0.1)",
-          marginBottom: "15px"
+          marginBottom: "15px",
+          padding: "20px 45px"
         }}
       >
         <form className="row g-4" onSubmit={verifyInputsData}>
           <h1
-            className="text-warning text-center mb-4 fw-bold pt-3"
+            className="text-warning text-center mb-4 fw-bold pt-3 sign-in-title-mobile"
             style={{
-              fontSize: "48px",
+              fontSize: "45px",
               fontFamily: "Poppins",
               textShadow: "2px 2px 4px rgba(0,0,0,0.6)"
             }}
@@ -153,13 +155,13 @@ const SignUp = ({ onRouteChange, setIsSignedIn, getUserName }) => {
           </h1>
           <div className="mb-4">
             <label htmlFor="firstName" className="form-label text-warning">
-              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>
+              <h2 className=" mb-2" style={{ fontSize: "24px" }}>
                 First Name:
               </h2>
             </label>
             <input
               type="text"
-              className="form-control form-control-sm rounded-pill px-4"
+              className="form-control form-control-sm  px-4"
               id="firstName"
               style={{
                 fontSize: "20px",
@@ -184,13 +186,13 @@ const SignUp = ({ onRouteChange, setIsSignedIn, getUserName }) => {
           </div>
           <div className="mb-4">
             <label htmlFor="lastName" className="form-label text-warning">
-              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>
+              <h2 className=" mb-2" style={{ fontSize: "24px" }}>
                 Last Name:
               </h2>
             </label>
             <input
               type="text"
-              className="form-control form-control-sm rounded-pill px-4"
+              className="form-control form-control-sm px-4"
               id="lastName"
               style={{
                 fontSize: "20px",
@@ -215,13 +217,13 @@ const SignUp = ({ onRouteChange, setIsSignedIn, getUserName }) => {
           </div>
           <div className="mb-4">
             <label htmlFor="email" className="form-label text-warning">
-              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>
+              <h2 className=" mb-2" style={{ fontSize: "24px" }}>
                 Email:
               </h2>
             </label>
             <input
               type="email"
-              className="form-control form-control-sm rounded-pill px-4"
+              className="form-control form-control-sm  px-4"
               id="email"
               style={{
                 fontSize: "20px",
@@ -246,13 +248,13 @@ const SignUp = ({ onRouteChange, setIsSignedIn, getUserName }) => {
           </div>
           <div className="mb-4">
             <label htmlFor="password" className="form-label text-warning">
-              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>
+              <h2 className=" mb-2" style={{ fontSize: "24px" }}>
                 Password:
               </h2>
             </label>
             <input
               type="password"
-              className="form-control form-control-sm rounded-pill px-4"
+              className="form-control form-control-sm px-4"
               id="password"
               style={{
                 fontSize: "20px",
@@ -279,13 +281,13 @@ const SignUp = ({ onRouteChange, setIsSignedIn, getUserName }) => {
               htmlFor="confirmPassword"
               className="form-label text-warning"
             >
-              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>
+              <h2 className=" mb-2" style={{ fontSize: "24px" }}>
                 Confirm Password:
               </h2>
             </label>
             <input
               type="password"
-              className="form-control form-control-sm rounded-pill px-4"
+              className="form-control form-control-sm px-4"
               id="confirmPassword"
               style={{
                 fontSize: "20px",

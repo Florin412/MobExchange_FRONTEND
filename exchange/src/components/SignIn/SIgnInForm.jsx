@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import apiUrl from "../../assets/api_url";
+import "./SignInForm.css";
 
 const SignIn = ({ onRouteChange, setIsSignedIn, getUserName }) => {
   const [email, setEmail] = useState("");
@@ -99,22 +100,23 @@ const SignIn = ({ onRouteChange, setIsSignedIn, getUserName }) => {
   return (
     <div
       className="d-flex justify-content-center align-items-center min-vh-100"
-      style={{ backgroundColor: "#181A20", marginTop: "-40px" }}
+      style={{ backgroundColor: "#181A20" }}
     >
       <div
-        className="bg-dark text-light p-4 rounded-4"
+        className="bg-dark text-light rounded-4 m-3 sign-in-small-padding"
         style={{
           maxWidth: "600px",
           width: "100%",
           boxShadow:
-            "0 10px 20px rgba(0, 0, 0, 0.3), 0 6px 6px rgba(0, 0, 0, 0.1)"
+            "0 10px 20px rgba(0, 0, 0, 0.3), 0 6px 6px rgba(0, 0, 0, 0.1)",
+          padding: "20px 45px"
         }}
       >
         <form className="row g-4" onSubmit={validateInputsData}>
           <h1
-            className="text-warning text-center mb-4 fw-bold pt-3"
+            className="text-warning text-center mb-4 fw-bold pt-3 sign-in-title-mobile"
             style={{
-              fontSize: "48px",
+              fontSize: "45px",
               fontFamily: "Poppins",
               textShadow: "2px 2px 4px rgba(0,0,0,0.6)"
             }}
@@ -123,13 +125,16 @@ const SignIn = ({ onRouteChange, setIsSignedIn, getUserName }) => {
           </h1>
           <div className="mb-4">
             <label htmlFor="InputEmail" className="form-label text-warning">
-              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>
+              <h2
+                className=" mb-2 sign-in-mobile"
+                style={{ marginLeft: "", fontSize: "24px" }}
+              >
                 Email address:
               </h2>
             </label>
             <input
               type="email"
-              className="form-control form-control-sm rounded-pill px-4 w-100"
+              className="form-control form-control-sm  px-4 w-100 "
               id="InputEmail"
               style={{
                 fontSize: "20px",
@@ -152,13 +157,13 @@ const SignIn = ({ onRouteChange, setIsSignedIn, getUserName }) => {
           </div>
           <div className="mb-4">
             <label htmlFor="InputPassword" className="form-label text-warning">
-              <h2 className="fs-1 mb-2" style={{ marginLeft: "60px" }}>
+              <h2 className="mb-2" style={{ marginLeft: "", fontSize: "24px" }}>
                 Password:
               </h2>
             </label>
             <input
               type="password"
-              className="form-control form-control-sm rounded-pill px-4"
+              className="form-control form-control-sm  px-4"
               id="InputPassword"
               style={{
                 fontSize: "20px",
