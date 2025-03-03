@@ -22,7 +22,7 @@ const PreciousMetalsNews = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{ width: "100%", backgroundColor: "#fafafa" }}>
       <NewsTemplate newsData={newsData} pageTitle={"Precious Metals News"} />
       <Footer></Footer>
     </div>

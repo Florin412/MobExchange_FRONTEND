@@ -20,7 +20,7 @@ const CryptoNews = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{ width: "100%", backgroundColor: "#fafafa" }}>
       <NewsTemplate newsData={newsData} pageTitle={"Crypto News"} />
       <Footer></Footer>
     </div>

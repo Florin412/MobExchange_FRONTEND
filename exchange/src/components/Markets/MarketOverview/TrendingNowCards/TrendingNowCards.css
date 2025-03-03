@@ -3,7 +3,7 @@
   background-color: transparent;
   cursor: pointer;
   font-size: 20px;
-  color: #333; /* Culoarea textului */
+  color: #232a31; /* Culoarea textului */
   padding: 0 10px; /* Spațiu pe laterale */
   transition: color 0.3s, border 0.3s; /* Efect de tranziție pentru hover */
   border: 2px solid transparent; /* Border albastru la hover */

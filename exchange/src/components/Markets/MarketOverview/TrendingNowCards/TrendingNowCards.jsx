@@ -57,7 +57,7 @@ const Card = ({
         }}
       >
         <h3 style={{ color: "#1967d2", fontWeight: "600" }}>{symbol}</h3>
-        <p title={shortName || longName || ""} style={{ color: "#333" }}>
+        <p title={shortName || longName || ""} style={{ color: "#232a31" }}>
           {displayName}
         </p>
         <div
@@ -71,7 +71,7 @@ const Card = ({
               fontWeight: "600",
               fontSize: "17px",
               marginRight: "8px",
-              color: "#333"
+              color: "#232a31"
             }}
           >
             {formattedPrice}{" "}

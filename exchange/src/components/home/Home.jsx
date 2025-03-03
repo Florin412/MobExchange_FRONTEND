@@ -550,7 +550,7 @@ const Home = ({ setRoute, setIsSignedIn, signOut }) => {
                       key={title}
                       style={{
                         backgroundColor: "#FFD700",
-                        color: "#333",
+                        color: "#232a31",
                         fontWeight: "bold",
                         textAlign: "center",
                         borderBottom: "2px solid black",

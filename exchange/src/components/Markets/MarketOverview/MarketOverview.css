@@ -12,13 +12,13 @@
   padding: 40px 20px;
   /* font-family: "Roboto", sans-serif; Font elegant */
   background-color: #fafafa; /* Fundal ușor gri pentru contrast */
-  color: #333; /* Culoare text principală */
+  color: #232a31; /* Culoare text principală */
 }
 
 .page-title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #2c3e50;
+  color: #232a31;
   margin-bottom: 25px !important;
   text-align: left !important;
   /* margin-left: 20px; */
@@ -27,7 +27,7 @@
 .market-container h2 {
   font-size: 2.2rem;
   font-weight: 700;
-  color: #2c3e50;
+  color: #232a31;
 }
 
 .page-title-overview {
@@ -38,7 +38,7 @@
 .page-subtitle-overview {
   font-size: 24px;
   font-weight: 600;
-  color: #333;
+  color: #232a31;
 }
 
 .page-subtitle-overview:hover {

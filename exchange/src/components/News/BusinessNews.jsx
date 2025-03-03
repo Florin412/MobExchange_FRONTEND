@@ -20,7 +20,7 @@ const BusinessNews = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{ width: "100%", backgroundColor: "#fafafa" }}>
       <NewsTemplate newsData={newsData} pageTitle={"Business News"} />
       <Footer></Footer>
     </div>

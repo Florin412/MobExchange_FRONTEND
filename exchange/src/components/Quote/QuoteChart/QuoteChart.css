@@ -51,7 +51,7 @@
 
 .chart-type-controls button {
   background-color: transparent; /* Culoare de fundal pentru butoanele de tip grafic */
-  color: #333; /* Culoare text */
+  color: #232a31; /* Culoare text */
   border: 1px solid transparent; /* Fără margine vizibilă */
   padding: 5px 15px; /* Padding pentru butoane (am redus înălțimea) */
   cursor: pointer; /* Cursor pointer */

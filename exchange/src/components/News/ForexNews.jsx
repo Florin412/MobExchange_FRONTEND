@@ -20,7 +20,7 @@ const ForexNews = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{ width: "100%", backgroundColor: "#fafafa" }}>
       <NewsTemplate newsData={newsData} pageTitle={"Forex News"} />
       <Footer></Footer>
     </div>

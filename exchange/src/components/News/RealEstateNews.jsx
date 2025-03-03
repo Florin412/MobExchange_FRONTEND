@@ -22,7 +22,7 @@ const RealEstateNews = () => {
   }, []);
 
   return (
-    <div>
+    <div style={{ width: "100%", backgroundColor: "#fafafa" }}>
       <NewsTemplate newsData={newsData} pageTitle={"Real Estate News"} />
       <Footer></Footer>
     </div>

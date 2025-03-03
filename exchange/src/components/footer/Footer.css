@@ -10,6 +10,10 @@
   justify-content: center;
 }
 
+.footer-buttons-mobile button h3 a {
+  font-weight: 500;
+}
+
 @media (max-width: 768px) {
   .footer-logo-section {
     display: flex;
