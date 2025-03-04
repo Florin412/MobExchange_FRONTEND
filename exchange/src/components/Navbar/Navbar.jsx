@@ -13,7 +13,7 @@ const Navigation = ({
 }) => {
   const [IsNewsOpen, setIsNewsOpen] = useState(false);
   const [isMarketOpen, setIsMarketOpen] = useState(false);
-
+  
   const toggleDropdownNews = () => {
     setIsNewsOpen(!IsNewsOpen);
   };
@@ -341,8 +341,10 @@ const Navigation = ({
               </ul>
             </li>
 
+            {/* -------------------------------------------------------------- */}
             {/* Cand userul este logat pe Mobile, afiseaza un button offcanvas */}
             {/* Mai jos sunt stilurile pentru buton */}
+            {/* -------------------------------------------------------------- */}
 
             <button
               className="navbar-toggler custom-toggler hide-on-desktop"
@@ -405,7 +407,8 @@ const Navigation = ({
               </span>
             </button>
 
-            {/* In divul de mai jos sunt butoanele din canvasul de mai sus */}
+            {/* In divul de mai jos sunt butoanele din meniul canvas de mai sus, pentru MOBILE */}
+
             <div
               className="offcanvas offcanvas-end hide-on-desktop hide-buttons-on-desktop"
               tabIndex="-1"
@@ -413,6 +416,7 @@ const Navigation = ({
               aria-labelledby="offcanvasRightLabel"
             >
               <div className="offcanvas-header">
+                {/* Butonul de mai jos este acel X care inchide meniul */}
                 <button
                   type="button"
                   className="btn-close text-reset"
@@ -440,7 +444,10 @@ const Navigation = ({
                   {IsNewsOpen && (
                     <ul className={`news-list ${IsNewsOpen ? "open" : ""}`}>
                       <li>
-                        <Link to="/news/business" className="dropdown-item">
+                        <Link
+                          to="/news/business"
+                          className="dropdown-item"
+                        >
                           {" "}
                           Business News
                         </Link>

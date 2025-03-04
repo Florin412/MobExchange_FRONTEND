@@ -72,7 +72,6 @@ search-wrapper {
 }
 
 .search-button:hover {
-  background-color: green;
   transform: translateY(-50%) scale(1.05);
 }
 

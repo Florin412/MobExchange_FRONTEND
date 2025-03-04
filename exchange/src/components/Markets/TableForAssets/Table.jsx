@@ -100,10 +100,10 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
       }
 
       const data = await response.json();
-      console.log(
-        "Salut varule, uite ca am primit datele generale pentru 1 asset, hai noroc !!"
-      );
-      console.log(data); // Procesați datele după cum este necesar
+      // console.log(
+      //   "Salut varule, uite ca am primit datele generale pentru 1 asset, hai noroc !!"
+      // );
+      // console.log(data);
       // Navigăm către pagina Quote și trimitem datele prin state
       navigate(`/quote/${symbol}`, {
         state: { item: data.quoteResponse.result[0] }
