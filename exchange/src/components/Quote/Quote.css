@@ -7,13 +7,13 @@
   background-color: #f8f9fa;
   font-size: 12px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   min-height: 89.5vh; /* Asigură că containerul ocupă întreaga înălțime a ferestrei */
 }
 
 .market-container {
   max-width: 1200px;
-  margin: 0 auto;
+  /* margin: 0 auto; */
   background: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -162,3 +162,4 @@
     padding-bottom: 2px;
   }
 }
+

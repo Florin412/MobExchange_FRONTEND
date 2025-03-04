@@ -3,11 +3,16 @@ import Footer from "../../footer/Footer";
 import axios from "axios";
 import Table from "../TableForAssets/Table";
 import { getNewAccessToken } from "../../Auth/auth_functions";
+import LeftSidebarWithLinks from "../LeftSidebarWithLinks/LeftSidebarWithLinks";
+import { useNavigate } from "react-router-dom";
 
 const Bonds = () => {
   // data este un array cu 40 de obiecte, obiecte ce reprezinta cate un asset, iar in obiect sunt date generale despre asset.
   // NU contine date istorice, deci nu se poate crea coloana pentru graph !!
   const [data, setData] = useState([]);
+  const [activeButton1, setActiveButton1] = useState("Bonds");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMarketData = async () => {
@@ -46,6 +51,13 @@ const Bonds = () => {
     fetchMarketData();
   }, []);
 
+  const handleLinkClick = (buttonName) => {
+    setActiveButton1(buttonName);
+    navigate(
+      `/markets/stocks/${buttonName.replace(/\s+/g, "-").toLowerCase()}`
+    );
+  };
+
   // Array cu numele coloanelor
   const columns = [
     "Symbol",
@@ -60,6 +72,13 @@ const Bonds = () => {
   return (
     <div>
       <div className="quote-container">
+        {/* Mai jos vine acel left-side-links doar pentru DESKTOP */}
+        <LeftSidebarWithLinks
+          activeButton1={activeButton1}
+          handleLinkClick={handleLinkClick}
+        />
+
+        {/* Mai jos ai tabelul efectiv */}
         <div className="market-container">
           <h1 className="page-title">Bonds</h1>
           <Table

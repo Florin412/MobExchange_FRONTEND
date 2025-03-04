@@ -13,7 +13,7 @@ const Navigation = ({
 }) => {
   const [IsNewsOpen, setIsNewsOpen] = useState(false);
   const [isMarketOpen, setIsMarketOpen] = useState(false);
-  
+
   const toggleDropdownNews = () => {
     setIsNewsOpen(!IsNewsOpen);
   };
@@ -25,7 +25,12 @@ const Navigation = ({
   return (
     <nav
       className="navbar navbar-expand-lg navbar-dark bg-dark"
-      style={{ minHeight: "70px" }}
+      style={{
+        minHeight: "70px",
+        position: "sticky",
+        top: "0",
+        zIndex: "9999"
+      }}
     >
       <div className="container-fluid good-navbar">
         {/* MobiExchange Logo */}
@@ -444,10 +449,7 @@ const Navigation = ({
                   {IsNewsOpen && (
                     <ul className={`news-list ${IsNewsOpen ? "open" : ""}`}>
                       <li>
-                        <Link
-                          to="/news/business"
-                          className="dropdown-item"
-                        >
+                        <Link to="/news/business" className="dropdown-item">
                           {" "}
                           Business News
                         </Link>

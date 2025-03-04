@@ -5,16 +5,25 @@ import axios from "axios";
 import Table from "../TableForAssets/Table";
 import { getNewAccessToken } from "../../Auth/auth_functions";
 import "../Options/Options.css";
+import LeftSidebarWithLinks from "../LeftSidebarWithLinks/LeftSidebarWithLinks";
 
 const Etfs = () => {
   const [data, setData] = useState([]);
   const [activeButton, setActiveButton] = useState("Most Active"); // Butonul activ
+  const [activeButton1, setActiveButton1] = useState("ETFs");
   const navigate = useNavigate(); // Inițializează useNavigate
 
   useEffect(() => {
     // Apelează funcția pentru a obține datele inițiale
     fetchMarketData("http://localhost:8080/markets/etfs/most-active");
   }, []);
+
+  const handleLinkClick = (buttonName) => {
+    setActiveButton1(buttonName);
+    navigate(
+      `/markets/stocks/${buttonName.replace(/\s+/g, "-").toLowerCase()}`
+    );
+  };
 
   const fetchMarketData = async (url) => {
     const accessToken = localStorage.getItem("accessToken");
@@ -98,6 +107,12 @@ const Etfs = () => {
   return (
     <div>
       <div className="quote-container">
+        {/* Mai jos vine acel left-side-links doar pentru DESKTOP */}
+        <LeftSidebarWithLinks
+          activeButton1={activeButton1}
+          handleLinkClick={handleLinkClick}
+        />
+
         <div className="market-container">
           <h1 className="page-title">ETFs</h1>
 

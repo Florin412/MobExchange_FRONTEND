@@ -3,10 +3,12 @@ import "./MarketOverview.css";
 import Table from "../TableForAssets/Table";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { getNewAccessToken } from "../../Auth/auth_functions";
 import "../Options/Options.css";
 import { Link } from "react-router-dom";
 import TrendingNowCards from "./TrendingNowCards/TrendingNowCards";
+import LeftSidebarWithLinks from "../LeftSidebarWithLinks/LeftSidebarWithLinks";
 
 const MarketOverview = () => {
   const [usWorldIndices, setUSWorldIndices] = useState([]);
@@ -35,6 +37,16 @@ const MarketOverview = () => {
 
   const [data1, setData1] = useState([]);
   const [activeButton1, setActiveButton1] = useState("Most Active"); // Butonul activ pt crypto
+
+  const [activeButton11, setActiveButton11] = useState("Overview");
+  const navigate = useNavigate(); // Inițializează useNavigate
+
+  const handleLinkClick = (buttonName) => {
+    setActiveButton1(buttonName);
+    navigate(
+      `/markets/stocks/${buttonName.replace(/\s+/g, "-").toLowerCase()}`
+    );
+  };
 
   // This methos fetches data for world indices in us, europa and asia
   const fetchWorldIndices = async (url, logMessage, region) => {
@@ -380,6 +392,12 @@ const MarketOverview = () => {
   return (
     <div>
       <div className="quote-container">
+        {/* Mai jos vine acel left-side-links doar pentru DESKTOP */}
+        <LeftSidebarWithLinks
+          activeButton1={activeButton11}
+          handleLinkClick={handleLinkClick}
+        />
+
         <div className="market-container">
           <h1 className="page-title-overview">Markets Overview</h1>
 

@@ -1,14 +1,16 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
 import Footer from "../../footer/Footer";
 import axios from "axios";
 import Table from "../TableForAssets/Table";
 import { getNewAccessToken } from "../../Auth/auth_functions";
+import { useNavigate } from "react-router-dom";
+import "./WorldIndices.css";
+import LeftSidebarWithLinks from "../LeftSidebarWithLinks/LeftSidebarWithLinks";
 
 const WorldIndices = () => {
-  // data este un array cu 40 de obiecte, obiecte ce reprezinta cate un asset, iar in obiect sunt date generale despre asset.
-  // NU contine date istorice, deci nu se poate crea coloana pentru graph !!
   const [data, setData] = useState([]);
+  const [activeButton1, setActiveButton1] = useState("World Indices");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMarketData = async () => {
@@ -25,16 +27,11 @@ const WorldIndices = () => {
         );
 
         if (response.status === 200 || response.status === 201) {
-          // console.log(
-          //   "________Salut, Acces token bun, mai jos ai raspunsul pentru world indices ___________"
-          // );
-          // console.log(response.data.quoteResponse.result);
-          setData(response.data.quoteResponse.result); // Stocăm datele în state
+          setData(response.data.quoteResponse.result);
         } else if (response.status === 400 || response.status === 401) {
-          // If access token is expired, lets creat a new one.
           const newAccessToken = await getNewAccessToken();
           if (newAccessToken) {
-            fetchMarketData(); // Retry the request with the new access token
+            fetchMarketData();
           } else {
             console.error("Failed to refresh token");
           }
@@ -47,7 +44,6 @@ const WorldIndices = () => {
     fetchMarketData();
   }, []);
 
-  // Array cu numele coloanelor
   const columns = [
     "Symbol",
     "Name",
@@ -60,13 +56,27 @@ const WorldIndices = () => {
     "52 Wk Range"
   ];
 
+  const handleLinkClick = (buttonName) => {
+    setActiveButton1(buttonName);
+    navigate(
+      `/markets/stocks/${buttonName.replace(/\s+/g, "-").toLowerCase()}`
+    );
+  };
+
   return (
     <div>
       <div className="quote-container">
+        {/* Mai jos vine acel left-side-links doar pentru DESKTOP */}
+
+        <LeftSidebarWithLinks
+          activeButton1={activeButton1}
+          handleLinkClick={handleLinkClick}
+        />
+
+        {/* Mai jos ai continutul pentru tabelul propriu zis */}
         <div className="market-container">
           <h1 className="page-title">World Indices</h1>
-          <Table data={data} columns={columns} />{" "}
-          {/* Trimitem datele și coloanele */}
+          <Table data={data} columns={columns} />
         </div>
       </div>
 
