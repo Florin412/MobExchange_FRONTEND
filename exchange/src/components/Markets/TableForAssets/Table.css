@@ -1,12 +1,14 @@
 .table-container {
   overflow-x: auto;
-  /* margin: 20px; */
+}
+
+.table-body tr {
+  height: 37px;
 }
 
 .custom-table {
   width: 100%;
   border-collapse: collapse;
-  /* font-family: Arial, sans-serif; */
   font-size: 12px;
 }
 
@@ -111,8 +113,6 @@ thead tr th:last-child {
   border: none;
   border-bottom: 1px solid #eee;
 }
-
-
 
 /* Adăugăm border-right doar pentru primul td din fiecare tr */
 tbody tr td:first-child {

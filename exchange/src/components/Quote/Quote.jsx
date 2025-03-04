@@ -50,7 +50,7 @@ const Quote = () => {
     <div>
       <div className="quote-container">
         <div className="market-container">
-          <div className="header">
+          <div className="header" style={{ borderBottom: "1px solid #ddd" }}>
             <span className="exchange">
               {item.fullExchangeName} || - {item.quoteSourceName} •{" "}
               {item.currency}
@@ -58,11 +58,11 @@ const Quote = () => {
             <h1 className="symbol-title">
               {item.longName ? item.longName : item.shortName} ({item.symbol})
             </h1>
-            <hr />
+            {/* <hr /> */}
           </div>
 
           <div className="asset-details">
-            <div className="asset-price">
+            <div className="asset-price" style={{ marginTop: "3px" }}>
               <div className="price-change">
                 <span className="price">
                   {formatNumber(item.regularMarketPrice, formatType)}

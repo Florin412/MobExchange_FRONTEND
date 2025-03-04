@@ -137,7 +137,7 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
         </thead>
 
         {/* Body */}
-        <tbody>
+        <tbody className="table-body">
           {data.map((item, rowIndex) => (
             <tr key={rowIndex}>
               {columns.map((col, colIndex) => {

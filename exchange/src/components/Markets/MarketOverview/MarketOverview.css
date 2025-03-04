@@ -10,9 +10,9 @@
   max-width: 1200px; /* Lățime maximă */
   margin: 0 auto;
   padding: 40px 20px;
-  /* font-family: "Roboto", sans-serif; Font elegant */
-  background-color: #fafafa; /* Fundal ușor gri pentru contrast */
-  color: #232a31; /* Culoare text principală */
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #232a31;
 }
 
 .page-title {

@@ -15,3 +15,7 @@
   color: #1967d2; /* Culoarea textului la hover */
   border: 2px solid #1967d2; /* Border albastru la hover */
 }
+
+.card {
+  background-color: transparent;
+}
