@@ -6,10 +6,7 @@
 
 /* Containerul principal */
 .market-container {
-  width: 100%;
-  max-width: 1200px; /* Lățime maximă */
-  /* margin: 0 auto; */
-  padding: 40px 20px;
+  /* padding: 40px 20px; */
   background: transparent !important;
   box-shadow: none !important;
   color: #232a31;

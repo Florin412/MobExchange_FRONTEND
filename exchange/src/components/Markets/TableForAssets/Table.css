@@ -1,5 +1,6 @@
 .table-container {
   overflow-x: auto;
+  border-radius: 8px;
 }
 
 .table-body tr {
@@ -127,10 +128,6 @@ tbody tr td:last-child {
 
 .custom-table {
   border-radius: 20px;
-}
-
-.table-container {
-  border-radius: 8px;
 }
 
 td.name-column {
