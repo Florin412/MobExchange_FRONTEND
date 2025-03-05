@@ -8,11 +8,11 @@
   overflow: auto;
 }
 
-@media (max-width: 1201px) {
+/* @media (max-width: 1201px) {
   .container-for-leftsidebar-links {
     width: 100%;
   }
-}
+} */
 
 @media (min-width: 992px) {
   .show-on-larger-devices {
