@@ -1,7 +1,3 @@
-.show-on-smaller-devices {
-  display: none;
-}
-
 .show-on-larger-devices {
   display: none;
 }
@@ -18,7 +14,7 @@
   }
 }
 
-@media (min-width: 1201px) {
+@media (min-width: 992px) {
   .show-on-larger-devices {
     display: block;
   }

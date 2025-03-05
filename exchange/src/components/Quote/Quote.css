@@ -12,7 +12,7 @@
   /* width: fit-content; */
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 991px) {
   .quote-container {
     flex-direction: column;
   }
