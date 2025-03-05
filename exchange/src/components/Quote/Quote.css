@@ -2,13 +2,20 @@
 
 /* General container styling */
 .quote-container {
-  /* font-family: Arial, sans-serif; */
   padding: 16px;
   background-color: #f8f9fa;
   font-size: 12px;
   display: flex;
   flex-direction: row;
   min-height: 89.5vh; /* Asigură că containerul ocupă întreaga înălțime a ferestrei */
+  justify-content: center;
+  /* width: fit-content; */
+}
+
+@media (max-width: 1200px) {
+  .quote-container {
+    flex-direction: column;
+  }
 }
 
 .market-container {
@@ -162,4 +169,3 @@
     padding-bottom: 2px;
   }
 }
-

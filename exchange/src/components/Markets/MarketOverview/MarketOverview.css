@@ -56,3 +56,9 @@
 .hide-scrollbar::-webkit-scrollbar {
   display: none; /* Chrome, Safari și Opera */
 }
+
+@media (max-width: 768px) {
+  .market-container {
+    padding: 0 !important;
+  }
+}

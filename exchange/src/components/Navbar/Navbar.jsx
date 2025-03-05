@@ -789,7 +789,10 @@ const Navigation = ({
             {isSignedIn ? (
               <div>
                 {/* data utilizatorul este autentificat pe Desktop, se va afișa un element de tip dropdown care conține IMAGINEA DE PROFIL și opțiunile de meniu: change password si signout */}
-                <div className="hide-profile-image-on-mobile">
+                <div
+                  className="hide-profile-image-on-mobile"
+                  style={{ marginRight: "10px" }}
+                >
                   <li className="nav-item dropdown d-none d-lg-block">
                     <a
                       className="nav-link"

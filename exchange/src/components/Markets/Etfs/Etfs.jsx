@@ -20,9 +20,7 @@ const Etfs = () => {
 
   const handleLinkClick = (buttonName) => {
     setActiveButton1(buttonName);
-    navigate(
-      `/markets/stocks/${buttonName.replace(/\s+/g, "-").toLowerCase()}`
-    );
+   
   };
 
   const fetchMarketData = async (url) => {

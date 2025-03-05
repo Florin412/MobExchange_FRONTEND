@@ -1,0 +1,29 @@
+.show-on-smaller-devices {
+  display: none;
+}
+
+.show-on-larger-devices {
+  display: none;
+}
+
+.show-on-smaller-devices {
+  display: block;
+  max-width: 100%;
+  overflow: auto;
+}
+
+@media (max-width: 1201px) {
+  .container-for-leftsidebar-links {
+    width: 100%;
+  }
+}
+
+@media (min-width: 1201px) {
+  .show-on-larger-devices {
+    display: block;
+  }
+
+  .show-on-smaller-devices {
+    display: none;
+  }
+}

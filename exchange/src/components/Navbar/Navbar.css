@@ -1,5 +1,5 @@
 .good-navbar {
-  max-width: 1650px;
+  max-width: 1360px;
 }
 
 .search-container {
@@ -26,7 +26,7 @@
   display: none !important;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 991px) {
   .hide-search-bar-on-mobile {
     display: none !important;
   }
@@ -57,7 +57,7 @@
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 992px) {
   .hide-on-desktop {
     display: none;
   }

@@ -58,9 +58,6 @@ const WorldIndices = () => {
 
   const handleLinkClick = (buttonName) => {
     setActiveButton1(buttonName);
-    navigate(
-      `/markets/stocks/${buttonName.replace(/\s+/g, "-").toLowerCase()}`
-    );
   };
 
   return (

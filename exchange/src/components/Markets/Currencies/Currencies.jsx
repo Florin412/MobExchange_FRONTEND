@@ -54,9 +54,7 @@ const Currencies = () => {
 
   const handleLinkClick = (buttonName) => {
     setActiveButton1(buttonName);
-    navigate(
-      `/markets/stocks/${buttonName.replace(/\s+/g, "-").toLowerCase()}`
-    );
+    
   };
 
   // Array cu numele coloanelor

@@ -43,9 +43,7 @@ const MarketOverview = () => {
 
   const handleLinkClick = (buttonName) => {
     setActiveButton1(buttonName);
-    navigate(
-      `/markets/stocks/${buttonName.replace(/\s+/g, "-").toLowerCase()}`
-    );
+    
   };
 
   // This methos fetches data for world indices in us, europa and asia

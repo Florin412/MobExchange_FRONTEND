@@ -1,11 +1,10 @@
 /* MAI JOS AI STILURILE PENTRU ACEL LEFT SIDE BAR CU LINKURI */
 .option-button1 {
-  padding: 10px 20px;
+  padding: 5px 15px;
   text-align: left;
   color: #232a31;
   text-decoration: none;
   border: 1px solid transparent; /* Border transparent pentru a păstra dimensiunea */
-  margin-bottom: 5px; /* Spațiu între linkuri */
   transition: background-color 0.3s;
 }
 
