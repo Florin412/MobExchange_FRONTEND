@@ -115,10 +115,11 @@ const ChangePassword = ({ signOut }) => {
 
   return (
     <div
-      className="d-flex justify-content-center align-items-center min-vh-100"
+      className="d-flex justify-content-center align-items-center"
       style={{
         backgroundColor: "#181A20",
-        paddingTop: "20px"
+        paddingTop: "20px",
+        minHeight: "95vh"
       }}
     >
       <div

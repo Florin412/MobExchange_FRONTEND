@@ -68,8 +68,8 @@ const ForgotPassword = () => {
 
   return (
     <div
-      className="d-flex justify-content-center align-items-center min-vh-100"
-      style={{ backgroundColor: "#181A20" }}
+      className="d-flex justify-content-center align-items-center"
+      style={{ backgroundColor: "#181A20", minHeight: "90vh" }}
     >
       <div
         className="bg-dark text-light rounded-4 shadow-lg m-3 sign-in-small-padding "

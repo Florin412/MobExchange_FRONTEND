@@ -2,7 +2,7 @@ import Footer from "../footer/Footer";
 
 function Privacy() {
   return (
-    <div className="d-flex flex-column min-vh-100">
+    <div className="d-flex flex-column" style={{ minHeight: "95vh" }}>
       <main className="flex-fill">
         <div className="container mt-5">
           <div className="row justify-content-center">

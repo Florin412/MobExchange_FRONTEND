@@ -3,7 +3,7 @@ import "./Cookie.css";
 
 const Cookie = () => {
   return (
-    <div className="d-flex flex-column min-vh-100">
+    <div className="d-flex flex-column" style={{ minHeight: "95vh" }}>
       <main className="flex-fill">
         <div className="container-lg my-5">
           {" "}

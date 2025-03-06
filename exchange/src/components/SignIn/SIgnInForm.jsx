@@ -99,8 +99,8 @@ const SignIn = ({ onRouteChange, setIsSignedIn, getUserName }) => {
 
   return (
     <div
-      className="d-flex justify-content-center align-items-center min-vh-100"
-      style={{ backgroundColor: "#181A20" }}
+      className="d-flex justify-content-center align-items-center"
+      style={{ backgroundColor: "#181A20", minHeight: "90vh" }}
     >
       <div
         className="bg-dark text-light rounded-4 m-3 sign-in-small-padding"
@@ -173,10 +173,7 @@ const SignIn = ({ onRouteChange, setIsSignedIn, getUserName }) => {
               onChange={(e) => setPassword(e.target.value)}
             />
             {passwordError && (
-              <div
-                className="fs-3 text-danger"
-                style={{ marginTop: "10px" }}
-              >
+              <div className="fs-3 text-danger" style={{ marginTop: "10px" }}>
                 {passwordError}
               </div>
             )}

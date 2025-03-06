@@ -5,11 +5,11 @@
 
   .sign-in-small-padding {
     padding: 20px 15px !important;
-    margin-top: -20vh !important;
+    /* margin-top: -20vh !important; */
   }
 
   .sign-up-small-padding {
     padding: 20px 15px !important;
-    margin-top: -8vh !important;
+    /* margin-top: -8vh !important; */
   }
 }

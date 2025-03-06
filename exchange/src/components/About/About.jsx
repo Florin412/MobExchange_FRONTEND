@@ -2,7 +2,10 @@ import Footer from "../footer/Footer";
 
 const About = () => {
   return (
-    <div className="d-flex flex-column min-vh-100">
+    <div
+      className="d-flex flex-column"
+      style={{ minHeight: "95vh" }}
+    >
       <main className="flex-fill">
         <div className="container my-5">
           <div className="row justify-content-center">
