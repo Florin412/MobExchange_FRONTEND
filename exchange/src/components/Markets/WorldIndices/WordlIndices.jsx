@@ -127,8 +127,12 @@ const WorldIndices = () => {
           <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
           <h2 className="page-title">World Indices News</h2>
           <SpecificNewsForSymbols
-            symbols={defaultSymbols}
+            symbols={defaultSymbols} data={data}
           ></SpecificNewsForSymbols>
+          <div
+            className="hide-on-mobile"
+            style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }}
+          />
         </div>
       </div>
 

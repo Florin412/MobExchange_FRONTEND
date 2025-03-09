@@ -1,0 +1,94 @@
+/* CSS personalizat */
+.news-container-for-symbols {
+  margin: 0 auto;
+  max-width: 1200px; /* Optional: setează o lățime maximă */
+}
+
+.news-container-for-symbols .news-grid {
+  display: flex;
+  flex-wrap: wrap;
+  /* gap: 2rem; */
+  column-gap: 4rem;
+  row-gap: 2rem;
+  justify-content: center;
+}
+
+.news-container-for-symbols .news-item1 {
+  width: 100%; /* Implicit pentru mobil */
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #ddd;
+}
+
+@media (min-width: 768px) {
+  .news-container-for-symbols .news-item1 {
+    max-width: 47%; /* Două coloane pe desktop */
+  }
+}
+
+.news-container-for-symbols .news-link1 {
+  display: flex;
+  /* align-items: center; */
+  text-decoration: none;
+  color: inherit;
+}
+
+.news-container-for-symbols .news-text1 {
+  flex-grow: 1;
+}
+
+.news-container-for-symbols .news-title1 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #232a31;
+}
+
+.news-container-for-symbols .news-title1:hover {
+  color: #1967d2;
+  text-decoration: none;
+}
+
+.news-container-for-symbols .news-meta1 {
+  font-size: 12px;
+  color: inherit;
+  font-weight: 100;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.news-container-for-symbols .news-image1 {
+  width: 84px;
+  height: 63px;
+  object-fit: cover;
+  border-radius: 0.7rem;
+  margin-left: 2rem;
+}
+
+.news-tickers {
+  border: 1px solid #ddd;
+  border-radius: 2rem;
+  padding: 0 5px;
+  margin-right: 5px;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.news-tickers:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.numeUnic2 {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .news-container-for-symbols .news-image1 {
+    width: 150px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 0.7rem;
+    margin-left: 2rem;
+  }
+}
