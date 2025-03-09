@@ -9,29 +9,23 @@ const SpecificNewsForSymbols = ({ symbols }) => {
   const [error, setError] = useState(null);
 
   // Funcția ta de formatare a simbolurilor
-  const formatSymbol = (symbol) => {
-    const encodedSymbol = encodeURIComponent(symbol);
-
-    return encodedSymbol;
+  const formatOneSymbol = (symbol) => {
+    return encodeURIComponent(symbol);
   };
 
-  const fetchNews = async () => {
-    setLoading(true);
-    setError(null);
-
-    const accessToken = localStorage.getItem("accessToken");
+  const formatSymbols = (symbols) => {
     let symbolsString = "";
 
     if (Array.isArray(symbols)) {
       // Scenario 1: Lista lunga de simboluri
-      symbolsString = symbols.map(formatSymbol).join("%2C"); // Formatează fiecare simbol și unește-le
+      symbolsString = symbols.map(formatOneSymbol).join("%2C"); // Formatează fiecare simbol și unește-le
       console.log(
         "aceasta este rezultatul dupa primul scenariu, symbolsString: ",
         symbolsString
       );
     } else if (typeof symbols === "string") {
       // Scenario 2: Un singur simbol
-      symbolsString = formatSymbol(symbols); // Formatează simbolul individual
+      symbolsString = formatOneSymbol(symbols); // Formatează simbolul individual
       console.log(
         "acesta este al doilea scenariu, symbolsString: ",
         symbolsString
@@ -40,7 +34,36 @@ const SpecificNewsForSymbols = ({ symbols }) => {
       throw new Error("Invalid symbols prop: must be an array or a string.");
     }
 
-    //   Construct the URL
+    return symbolsString;
+  };
+
+  const filterNewsWithThumbnails = (newsStream) => {
+    if (!Array.isArray(newsStream)) {
+      console.warn("filterNewsWithThumbnails: Input is not an array.");
+      return []; // Returnează un array gol dacă input-ul nu este un array
+    }
+
+    const filteredNews = newsStream.filter((newsItem) => {
+      return (
+        newsItem.content &&
+        newsItem.content.thumbnail &&
+        newsItem.content.thumbnail.resolutions &&
+        newsItem.content.thumbnail.resolutions.length > 0
+      );
+    });
+
+    return filteredNews.slice(0, 12); // Returnează doar primele 12 elemente
+  };
+
+  const fetchNewsFromSymbols = async () => {
+    setLoading(true);
+    setError(null);
+    let symbolsString = "";
+
+    const accessToken = localStorage.getItem("accessToken");
+
+    symbolsString = formatSymbols(symbols);
+
     const url = `http://localhost:8080/markets/getNewsForSymbols?symbols=${symbolsString}`;
 
     try {
@@ -52,18 +75,18 @@ const SpecificNewsForSymbols = ({ symbols }) => {
 
       if (response.status === 200 || response.status === 201) {
         // array de obiecte, unde obiectele contin date despre news.
-        setNews(response.data.data.main.stream);
+        // modifica mai jos, incat sa seteze doar acele news care au poza la thumbnail
+        setNews(filterNewsWithThumbnails(response.data.data.main.stream));
         console.log("news for simbols: ", response.data.data.main.stream);
       } else if (response.status === 400 || response.status === 401) {
         const newAccessToken = await getNewAccessToken();
 
         if (newAccessToken) {
-          fetchNews(); // Reapelează funcția cu noul token
+          fetchNewsFromSymbols(); // Reapelează funcția cu noul token
         } else {
           console.error("Failed to refresh token");
         }
       }
-      // Limitează la 12 news
     } catch (error) {
       setError(error);
     } finally {
@@ -74,7 +97,7 @@ const SpecificNewsForSymbols = ({ symbols }) => {
   useEffect(() => {
     if (symbols) {
       // Verifică dacă symbols există
-      fetchNews();
+      fetchNewsFromSymbols();
     }
   }, [symbols]);
 

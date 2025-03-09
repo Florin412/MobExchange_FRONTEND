@@ -122,11 +122,17 @@ const WorldIndices = () => {
         <div className="market-container">
           <h1 className="page-title">World Indices</h1>
           <Table data={data} columns={columns} />
+
+          {/* News for World Indices */}
+          <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
+          <h2 className="page-title">World Indices News</h2>
+          <SpecificNewsForSymbols
+            symbols={defaultSymbols}
+          ></SpecificNewsForSymbols>
         </div>
       </div>
-      
+
       {/* Componenta pentru news */}
-      <SpecificNewsForSymbols symbols={defaultSymbols}></SpecificNewsForSymbols>
       <Footer />
     </div>
   );
