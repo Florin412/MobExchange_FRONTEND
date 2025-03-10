@@ -80,10 +80,13 @@ const SpecificNewsForSymbols = ({ symbols, data }) => {
         newsItem.content &&
         newsItem.content.thumbnail &&
         newsItem.content.thumbnail.resolutions &&
-        newsItem.content.thumbnail.resolutions.length > 0
+        newsItem.content.thumbnail.resolutions.length > 0 &&
+        newsItem.content.clickThroughUrl && // Verifică dacă clickThroughUrl există
+        newsItem.content.clickThroughUrl.url // Verifică dacă url-ul nu este null
       );
     });
 
+    console.log("News for symbols: ", filteredNews.slice(0, 12));
     return filteredNews.slice(0, 12); // Returnează doar primele 12 elemente
   };
 
@@ -109,7 +112,7 @@ const SpecificNewsForSymbols = ({ symbols, data }) => {
         // array de obiecte, unde obiectele contin date despre news.
         // modifica mai jos, incat sa seteze doar acele news care au poza la thumbnail
         setNews(filterNewsWithThumbnails(response.data.data.main.stream));
-        console.log("news for simbols: ", response.data.data.main.stream);
+        // console.log("news for simbols: ", response.data.data.main.stream);
       } else if (response.status === 400 || response.status === 401) {
         const newAccessToken = await getNewAccessToken();
 
@@ -152,7 +155,7 @@ const SpecificNewsForSymbols = ({ symbols, data }) => {
   };
 
   useEffect(() => {
-    if (symbols) {
+    if (symbols && symbols.length > 0) {
       // Verifică dacă symbols există
       fetchNewsFromSymbols();
     }
