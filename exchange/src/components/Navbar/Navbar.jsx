@@ -152,7 +152,7 @@ const Navigation = ({
                 transition: "background-color 0.3s"
               }}
             >
-              Market
+              Markets
             </button>
             <ul className="dropdown-menu" aria-labelledby="marketDropdown">
               <li>
@@ -491,7 +491,7 @@ const Navigation = ({
                     onClick={toggleDropdownMarket}
                     className="news-button"
                   >
-                    Market{" "}
+                    Markets{" "}
                     <span style={{ fontSize: "15px" }}>
                       {isMarketOpen ? "▲" : "▼"}
                     </span>
@@ -521,7 +521,7 @@ const Navigation = ({
                       </li>
                       <li>
                         <Link to="/markets/bonds" className="dropdown-item">
-                          US Treasury Bonds 
+                          US Treasury Bonds
                         </Link>
                       </li>
                       <li>
