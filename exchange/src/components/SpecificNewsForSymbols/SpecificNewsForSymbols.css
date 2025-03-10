@@ -8,9 +8,9 @@
   display: flex;
   flex-wrap: wrap;
   /* gap: 2rem; */
-  column-gap: 4rem;
+  column-gap: 2rem;
   row-gap: 2rem;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .news-container-for-symbols .news-item1 {
@@ -21,7 +21,7 @@
 
 @media (min-width: 768px) {
   .news-container-for-symbols .news-item1 {
-    max-width: 47%; /* Două coloane pe desktop */
+    max-width: 48%; /* Două coloane pe desktop */
   }
 }
 
@@ -81,14 +81,4 @@
 .numeUnic2 {
   display: flex;
   flex-wrap: wrap;
-}
-
-@media (max-width: 768px) {
-  .news-container-for-symbols .news-image1 {
-    width: 150px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 0.7rem;
-    margin-left: 2rem;
-  }
 }

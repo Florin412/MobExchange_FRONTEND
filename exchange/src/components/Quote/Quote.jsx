@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import Footer from "../footer/Footer";
 import QuoteChart from "./QuoteChart/QuoteChart";
 import "./Quote.css";
+import SpecificNewsForSymbols from "../SpecificNewsForSymbols/SpecificNewsForSymbols";
 
 const Quote = () => {
   const location = useLocation();
@@ -13,8 +14,8 @@ const Quote = () => {
   const item = location.state.item;
   const formatType = location.state.formatType;
   // console.log("Salut, aici aici formatul: ", formatType);
-
-  // console.log("Date generale asset !: ", item);
+  console.log("tipul simbolului este: ", typeof item.symbol);
+  console.log("Date generale asset din pagina de quote: ", item);
 
   const formatNumber = (num, formatType = "normal") => {
     const options = {
@@ -61,7 +62,7 @@ const Quote = () => {
             {/* <hr /> */}
           </div>
 
-          <div className="asset-details">
+          <div className="asset-details" style={{ marginBottom: "40px" }}>
             <div className="asset-price" style={{ marginTop: "3px" }}>
               <div className="price-change">
                 <span className="price">
@@ -675,6 +676,10 @@ const Quote = () => {
               </div>
             )}
           </div>
+
+          <SpecificNewsForSymbols
+            symbols={item.symbol}
+          ></SpecificNewsForSymbols>
         </div>
       </div>
       <Footer />

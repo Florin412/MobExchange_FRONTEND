@@ -3,12 +3,14 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { getNewAccessToken } from "../Auth/auth_functions";
 import "./SpecificNewsForSymbols.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-const SpecificNewsForSymbols = ({ symbols, data }) => {
+const SpecificNewsForSymbols = ({ symbols, data, newsTitle }) => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const location = useLocation(); // Obține informațiile despre ruta curentă
 
   // Funcția ta de formatare a simbolurilor
   const formatOneSymbol = (symbol) => {
@@ -112,7 +114,6 @@ const SpecificNewsForSymbols = ({ symbols, data }) => {
         // array de obiecte, unde obiectele contin date despre news.
         // modifica mai jos, incat sa seteze doar acele news care au poza la thumbnail
         setNews(filterNewsWithThumbnails(response.data.data.main.stream));
-        // console.log("news for simbols: ", response.data.data.main.stream);
       } else if (response.status === 400 || response.status === 401) {
         const newAccessToken = await getNewAccessToken();
 
@@ -172,6 +173,12 @@ const SpecificNewsForSymbols = ({ symbols, data }) => {
 
   return (
     <div className="news-container-for-symbols">
+      {news.length >= 1 && (
+        <h2 className="page-title">
+          {newsTitle ? newsTitle : `Recent News: ${symbols}`}
+        </h2>
+      )}
+
       <div className="news-grid">
         {news.map((item, index) => (
           <div key={index} className="news-item1">
@@ -188,35 +195,41 @@ const SpecificNewsForSymbols = ({ symbols, data }) => {
 
                 <p className="news-meta1">
                   {item.content.provider.displayName} •{" "}
-                  {getTimeAgo(item.content.pubDate)} {/* Tikers */}
-                  <span className="numeUnic2">
-                    {item.content?.finance?.stockTickers?.map(
-                      (ticker, tickerIndex) => {
-                        const changePercentElement = getChangePercent(
-                          ticker.symbol
-                        );
-                        // Găsește obiectul corespunzător din array-ul data
-                        const dataItem = data.find(
-                          (dataItem) => dataItem.symbol === ticker.symbol
-                        );
+                  {getTimeAgo(item.content.pubDate)}
+                  {/* Spanul de mai jos va fi afisat doar daca nu ne aflam pe ruta de /quote */}
+                  {!location.pathname.includes("/quote") && ( // Verifică dacă nu suntem pe ruta /quote
+                    <span className="numeUnic2">
+                      {item.content?.finance?.stockTickers?.map(
+                        (ticker, tickerIndex) => {
+                          const changePercentElement = getChangePercent(
+                            ticker.symbol
+                          );
+                          // Găsește obiectul corespunzător din array-ul data
+                          const dataItem = data.find(
+                            (dataItem) => dataItem.symbol === ticker.symbol
+                          );
 
-                        return changePercentElement ? ( // Afișează doar dacă changePercentElement nu este null
-                          <Link
-                            className="news-tickers"
-                            key={tickerIndex}
-                            to={`/quote/${ticker.symbol}`}
-                            style={{ textDecoration: "none", color: "inherit" }}
-                            state={{ item: dataItem }} // Trimite obiectul dataItem în state
-                          >
-                            <span style={{ color: "#1967d2" }}>
-                              {ticker.symbol}
-                            </span>{" "}
-                            {changePercentElement}
-                          </Link>
-                        ) : null;
-                      }
-                    )}
-                  </span>
+                          return changePercentElement ? ( // Afișează doar dacă changePercentElement nu este null
+                            <Link
+                              className="news-tickers"
+                              key={tickerIndex}
+                              to={`/quote/${ticker.symbol}`}
+                              style={{
+                                textDecoration: "none",
+                                color: "inherit"
+                              }}
+                              state={{ item: dataItem }} // Trimite obiectul dataItem în state
+                            >
+                              <span style={{ color: "#1967d2" }}>
+                                {ticker.symbol}
+                              </span>{" "}
+                              {changePercentElement}
+                            </Link>
+                          ) : null;
+                        }
+                      )}
+                    </span>
+                  )}
                 </p>
               </div>
               <div>

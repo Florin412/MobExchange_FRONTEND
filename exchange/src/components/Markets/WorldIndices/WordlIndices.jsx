@@ -125,9 +125,10 @@ const WorldIndices = () => {
 
           {/* News for World Indices */}
           <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
-          <h2 className="page-title">World Indices News</h2>
           <SpecificNewsForSymbols
-            symbols={defaultSymbols} data={data}
+            symbols={defaultSymbols}
+            data={data}
+            newsTitle="World Indices News"
           ></SpecificNewsForSymbols>
           <div
             className="hide-on-mobile"
