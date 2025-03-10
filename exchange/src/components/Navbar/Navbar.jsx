@@ -164,6 +164,7 @@ const Navigation = ({
                   Overview
                 </Link>
               </li>
+
               <li>
                 <Link
                   to="/markets/world-indices"
@@ -188,7 +189,7 @@ const Navigation = ({
                   className="dropdown-item"
                   style={{ fontSize: "1.5rem", padding: "10px 20px" }}
                 >
-                  Bonds
+                  US Treasury Bonds
                 </Link>
               </li>
               <li>
