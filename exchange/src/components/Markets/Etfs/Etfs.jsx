@@ -6,12 +6,15 @@ import Table from "../TableForAssets/Table";
 import { getNewAccessToken } from "../../Auth/auth_functions";
 import "../Options/Options.css";
 import LeftSidebarWithLinks from "../LeftSidebarWithLinks/LeftSidebarWithLinks";
+import SpecificNewsForSymbols from "../../SpecificNewsForSymbols/SpecificNewsForSymbols";
 
 const Etfs = () => {
   const [data, setData] = useState([]);
   const [activeButton, setActiveButton] = useState("Most Active"); // Butonul activ
   const [activeButton1, setActiveButton1] = useState("ETFs");
   const navigate = useNavigate(); // Inițializează useNavigate
+
+  const [defaultSymbols, setDefaultSymbols] = useState([]);
 
   useEffect(() => {
     // Apelează funcția pentru a obține datele inițiale
@@ -20,8 +23,14 @@ const Etfs = () => {
 
   const handleLinkClick = (buttonName) => {
     setActiveButton1(buttonName);
-   
   };
+
+  function getSymbols(items) {
+    // Extrage simbolurile și elimină duplicatele folosind un Set
+    const uniqueSymbols = new Set(items.map((item) => item.symbol));
+    // Convertește Set-ul în array și returnează-l
+    return Array.from(uniqueSymbols);
+  }
 
   const fetchMarketData = async (url) => {
     const accessToken = localStorage.getItem("accessToken");
@@ -34,8 +43,18 @@ const Etfs = () => {
       });
 
       if (response.status === 200 || response.status === 201) {
-        // console.log(response.data.finance.result[0].quotes);
+        setDefaultSymbols(getSymbols(response.data.finance.result[0].quotes));
         setData(response.data.finance.result[0].quotes);
+        // console.log(
+        //   "aici ai date pentru ETFs: ",
+        //   response.data.finance.result[0].quotes
+        // );
+        setData(response.data.finance.result[0].quotes);
+
+        // console.log(
+        //   "ai aici symboluripe pentru default symbols din ETFs: ",
+        //   defaultSymbols
+        // );
       } else if (response.status === 400 || response.status === 401) {
         const newAccessToken = await getNewAccessToken();
         if (newAccessToken) {
@@ -172,6 +191,18 @@ const Etfs = () => {
             data={data}
             columns={columns}
             formatTypeForNumbers={"normal"}
+          />
+
+          {/* News for Stocks */}
+          <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
+          <SpecificNewsForSymbols
+            symbols={defaultSymbols}
+            data={data}
+            newsTitle="ETFs News"
+          ></SpecificNewsForSymbols>
+          <div
+            className="hide-on-mobile"
+            style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }}
           />
         </div>
       </div>

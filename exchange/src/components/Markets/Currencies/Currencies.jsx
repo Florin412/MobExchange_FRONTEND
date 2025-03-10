@@ -4,7 +4,7 @@ import axios from "axios";
 import Table from "../TableForAssets/Table";
 import { getNewAccessToken } from "../../Auth/auth_functions";
 import LeftSidebarWithLinks from "../LeftSidebarWithLinks/LeftSidebarWithLinks";
-import { useNavigate } from "react-router-dom";
+import SpecificNewsForSymbols from "../../SpecificNewsForSymbols/SpecificNewsForSymbols";
 
 const Currencies = () => {
   // data este un array cu 40 de obiecte, obiecte ce reprezinta cate un asset, iar in obiect sunt date generale despre asset.
@@ -13,7 +13,31 @@ const Currencies = () => {
 
   const [activeButton1, setActiveButton1] = useState("Currencies");
 
-  const navigate = useNavigate();
+  const defaultSymbols = [
+    "EURUSD=X",
+    "JPY=X",
+    "GBPUSD=X",
+    "AUDUSD=X",
+    "NZDUSD=X",
+    "EURJPY=X",
+    "GBPJPY=X",
+    "EURGBP=X",
+    "EURCAD=X",
+    "EURSEK=X",
+    "EURCHF=X",
+    "EURHUF=X",
+    "CNY=X",
+    "HKD=X",
+    "SGD=X",
+    "INR=X",
+    "MXN=X",
+    "PHP=X",
+    "IDR=X",
+    "THB=X",
+    "MYR=X",
+    "ZAR=X",
+    "RUB=X"
+  ];
 
   useEffect(() => {
     const fetchMarketData = async () => {
@@ -54,7 +78,6 @@ const Currencies = () => {
 
   const handleLinkClick = (buttonName) => {
     setActiveButton1(buttonName);
-    
   };
 
   // Array cu numele coloanelor
@@ -85,7 +108,17 @@ const Currencies = () => {
             columns={columns}
             formatTypeForNumbers={"long"}
           />{" "}
-          {/* Trimitem datele și coloanele */}
+          {/* News for Currencies */}
+          <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
+          <SpecificNewsForSymbols
+            symbols={defaultSymbols}
+            data={data}
+            newsTitle="Currencies News"
+          ></SpecificNewsForSymbols>
+          <div
+            className="hide-on-mobile"
+            style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }}
+          />
         </div>
       </div>
 

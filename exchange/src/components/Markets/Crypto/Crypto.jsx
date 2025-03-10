@@ -6,12 +6,15 @@ import Table from "../TableForAssets/Table";
 import { getNewAccessToken } from "../../Auth/auth_functions";
 import "../Options/Options.css";
 import LeftSidebarWithLinks from "../LeftSidebarWithLinks/LeftSidebarWithLinks";
+import SpecificNewsForSymbols from "../../SpecificNewsForSymbols/SpecificNewsForSymbols";
 
 const Crypto = () => {
   const [data, setData] = useState([]);
   const [activeButton, setActiveButton] = useState("Most Active"); // Butonul activ
   const [activeButton1, setActiveButton1] = useState("Crypto");
   const navigate = useNavigate(); // Inițializează useNavigate
+  // variabila asta se modifica la fiecare navigare in una din optiunile din ruta de /crypto
+  const [defaultSymbols, setDefaultSymbols] = useState([]);
 
   useEffect(() => {
     // Apelează funcția pentru a obține datele inițiale
@@ -20,8 +23,14 @@ const Crypto = () => {
 
   const handleLinkClick = (buttonName) => {
     setActiveButton1(buttonName);
-    
   };
+
+  function getSymbols(items) {
+    // Extrage simbolurile și elimină duplicatele folosind un Set
+    const uniqueSymbols = new Set(items.map((item) => item.symbol));
+    // Convertește Set-ul în array și returnează-l
+    return Array.from(uniqueSymbols);
+  }
 
   const fetchMarketData = async (url) => {
     const accessToken = localStorage.getItem("accessToken");
@@ -34,8 +43,18 @@ const Crypto = () => {
       });
 
       if (response.status === 200 || response.status === 201) {
-        // console.log(response.data.finance.result[0].quotes);
+        setDefaultSymbols(getSymbols(response.data.finance.result[0].quotes));
         setData(response.data.finance.result[0].quotes);
+        // console.log(
+        //   "aici ai date pentru crypto: ",
+        //   response.data.finance.result[0].quotes
+        // );
+        setData(response.data.finance.result[0].quotes);
+
+        // console.log(
+        //   "ai aici symboluripe pentru default symbols din crypto: ",
+        //   defaultSymbols
+        // );
       } else if (response.status === 400 || response.status === 401) {
         const newAccessToken = await getNewAccessToken();
         if (newAccessToken) {
@@ -139,6 +158,18 @@ const Crypto = () => {
             data={data}
             columns={columns}
             formatTypeForNumbers={"veryLong"}
+          />
+
+          {/* News for Crypto */}
+          <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
+          <SpecificNewsForSymbols
+            symbols={defaultSymbols}
+            data={data}
+            newsTitle="Crypto News"
+          ></SpecificNewsForSymbols>
+          <div
+            className="hide-on-mobile"
+            style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }}
           />
         </div>
       </div>

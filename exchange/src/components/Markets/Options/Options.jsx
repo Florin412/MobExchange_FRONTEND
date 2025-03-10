@@ -6,12 +6,16 @@ import Table from "../TableForAssets/Table";
 import { getNewAccessToken } from "../../Auth/auth_functions";
 import "./Options.css";
 import LeftSidebarWithLinks from "../LeftSidebarWithLinks/LeftSidebarWithLinks";
+import SpecificNewsForSymbols from "../../SpecificNewsForSymbols/SpecificNewsForSymbols";
 
 const Options = () => {
   const [data, setData] = useState([]);
   const [activeButton, setActiveButton] = useState("Most Active");
   const [activeButton1, setActiveButton1] = useState("Options");
   const navigate = useNavigate();
+
+  // variabila asta se modifica la fiecare navigare in una din optiunile din ruta de /options
+  const [defaultSymbols, setDefaultSymbols] = useState([]);
 
   useEffect(() => {
     // Apelează funcția pentru a obține datele inițiale
@@ -20,8 +24,14 @@ const Options = () => {
 
   const handleLinkClick = (buttonName) => {
     setActiveButton1(buttonName);
-    
   };
+
+  function getUnderlyingSymbols(items) {
+    // Extrage simbolurile și elimină duplicatele folosind un Set
+    const uniqueSymbols = new Set(items.map((item) => item.underlyingSymbol));
+    // Convertește Set-ul în array și returnează-l
+    return Array.from(uniqueSymbols);
+  }
 
   const fetchMarketData = async (url) => {
     const accessToken = localStorage.getItem("accessToken");
@@ -34,8 +44,19 @@ const Options = () => {
       });
 
       if (response.status === 200 || response.status === 201) {
-        // console.log(response.data.finance.result[0].quotes);
+        setDefaultSymbols(
+          getUnderlyingSymbols(response.data.finance.result[0].quotes)
+        );
+        // console.log(
+        //   "aici ai date pentru options: ",
+        //   response.data.finance.result[0].quotes
+        // );
         setData(response.data.finance.result[0].quotes);
+
+        // console.log(
+        //   "ai aici symboluripe pentru default symbols din options: ",
+        //   defaultSymbols
+        // );
       } else if (response.status === 400 || response.status === 401) {
         const newAccessToken = await getNewAccessToken();
         if (newAccessToken) {
@@ -156,6 +177,18 @@ const Options = () => {
           </div>
 
           <Table data={data} columns={columns} formatTypeForNumbers={"long"} />
+
+          {/* News for Options */}
+          <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
+          <SpecificNewsForSymbols
+            symbols={defaultSymbols}
+            data={data}
+            newsTitle="Options News"
+          ></SpecificNewsForSymbols>
+          <div
+            className="hide-on-mobile"
+            style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }}
+          />
         </div>
       </div>
 

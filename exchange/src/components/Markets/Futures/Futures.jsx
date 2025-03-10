@@ -4,7 +4,7 @@ import axios from "axios";
 import Table from "../TableForAssets/Table";
 import { getNewAccessToken } from "../../Auth/auth_functions";
 import LeftSidebarWithLinks from "../LeftSidebarWithLinks/LeftSidebarWithLinks";
-import { useNavigate } from "react-router-dom";
+import SpecificNewsForSymbols from "../../SpecificNewsForSymbols/SpecificNewsForSymbols";
 
 const Futures = () => {
   // data este un array cu 40 de obiecte, obiecte ce reprezinta cate un asset, iar in obiect sunt date generale despre asset.
@@ -12,7 +12,45 @@ const Futures = () => {
   const [data, setData] = useState([]);
   const [activeButton1, setActiveButton1] = useState("Futures");
 
-  const navigate = useNavigate();
+  const defaultSymbols = [
+    "ES=F",
+    "YM=F",
+    "NQ=F",
+    "RTY=F",
+    "ZB=F",
+    "ZN=F",
+    "ZF=F",
+    "ZT=F",
+    "GC=F",
+    "MGC=F",
+    "SI=F",
+    "SIL=F",
+    "PL=F",
+    "HG=F",
+    "PA=F",
+    "CL=F",
+    "HO=F",
+    "NG=F",
+    "RB=F",
+    "BZ=F",
+    "B0=F",
+    "ZC=F",
+    "ZO=F",
+    "KE=F",
+    "ZR=F",
+    "ZM=F",
+    "ZL=F",
+    "ZS=F",
+    "GF=F",
+    "HE=F",
+    "LE=F",
+    "CC=F",
+    "KC=F",
+    "CT=F",
+    "LBS=F",
+    "OJ=F",
+    "SB=F"
+  ];
 
   useEffect(() => {
     const fetchMarketData = async () => {
@@ -66,7 +104,6 @@ const Futures = () => {
 
   const handleLinkClick = (buttonName) => {
     setActiveButton1(buttonName);
-    
   };
 
   return (
@@ -81,8 +118,19 @@ const Futures = () => {
 
         <div className="market-container">
           <h1 className="page-title">Futures</h1>
-          <Table data={data} columns={columns} />{" "}
-          {/* Trimitem datele și coloanele */}
+          <Table data={data} columns={columns} />
+
+          {/* News for Futures */}
+          <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
+          <SpecificNewsForSymbols
+            symbols={defaultSymbols}
+            data={data}
+            newsTitle="Futures News"
+          ></SpecificNewsForSymbols>
+          <div
+            className="hide-on-mobile"
+            style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }}
+          />
         </div>
       </div>
 

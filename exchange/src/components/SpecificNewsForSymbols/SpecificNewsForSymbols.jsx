@@ -23,17 +23,17 @@ const SpecificNewsForSymbols = ({ symbols, data, newsTitle }) => {
     if (Array.isArray(symbols)) {
       // Scenario 1: Lista lunga de simboluri
       symbolsString = symbols.map(formatOneSymbol).join("%2C"); // Formatează fiecare simbol și unește-le
-      console.log(
-        "aceasta este rezultatul dupa primul scenariu, symbolsString: ",
-        symbolsString
-      );
+      // console.log(
+      //   "aceasta este rezultatul dupa primul scenariu, symbolsString: ",
+      //   symbolsString
+      // );
     } else if (typeof symbols === "string") {
       // Scenario 2: Un singur simbol
       symbolsString = formatOneSymbol(symbols); // Formatează simbolul individual
-      console.log(
-        "acesta este al doilea scenariu, symbolsString: ",
-        symbolsString
-      );
+      // console.log(
+      //   "acesta este al doilea scenariu, symbolsString: ",
+      //   symbolsString
+      // );
     } else {
       throw new Error("Invalid symbols prop: must be an array or a string.");
     }
@@ -88,7 +88,7 @@ const SpecificNewsForSymbols = ({ symbols, data, newsTitle }) => {
       );
     });
 
-    console.log("News for symbols: ", filteredNews.slice(0, 12));
+    // console.log("News for symbols: ", filteredNews.slice(0, 12));
     return filteredNews.slice(0, 12); // Returnează doar primele 12 elemente
   };
 

@@ -158,7 +158,9 @@ const Table = ({ data, columns, formatTypeForNumbers }) => {
                             : item.symbol || ""
                         } // Atribuim title/valoarea afisata pe coloana de symbol în funcție de ruta curentă
                       >
-                        {item.logoUrl && item.logoUrl !== undefined ? (
+                        {item.logoUrl &&
+                        item.logoUrl !== undefined &&
+                        location.pathname.includes("crypto") ? (
                           <img
                             src={item.logoUrl}
                             alt={item.symbol}

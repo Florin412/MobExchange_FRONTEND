@@ -4,7 +4,7 @@ import axios from "axios";
 import Table from "../TableForAssets/Table";
 import { getNewAccessToken } from "../../Auth/auth_functions";
 import LeftSidebarWithLinks from "../LeftSidebarWithLinks/LeftSidebarWithLinks";
-import { useNavigate } from "react-router-dom";
+import SpecificNewsForSymbols from "../../SpecificNewsForSymbols/SpecificNewsForSymbols";
 
 const Bonds = () => {
   // data este un array cu 40 de obiecte, obiecte ce reprezinta cate un asset, iar in obiect sunt date generale despre asset.
@@ -12,7 +12,7 @@ const Bonds = () => {
   const [data, setData] = useState([]);
   const [activeButton1, setActiveButton1] = useState("Bonds");
 
-  const navigate = useNavigate();
+  const defaultSymbols = ["^IRX", "^FVX", "^TNX", "^TYX", "2YY=F", "ZN=F"];
 
   useEffect(() => {
     const fetchMarketData = async () => {
@@ -83,7 +83,17 @@ const Bonds = () => {
             columns={columns}
             formatTypeForNumbers={"long"}
           />{" "}
-          {/* Trimitem datele și coloanele */}
+          {/* News for World Indices */}
+          <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
+          <SpecificNewsForSymbols
+            symbols={defaultSymbols}
+            data={data}
+            newsTitle="Bonds News"
+          ></SpecificNewsForSymbols>
+          <div
+            className="hide-on-mobile"
+            style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }}
+          />
         </div>
       </div>
 

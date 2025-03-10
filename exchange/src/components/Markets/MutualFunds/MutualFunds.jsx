@@ -6,12 +6,15 @@ import Table from "../TableForAssets/Table";
 import { getNewAccessToken } from "../../Auth/auth_functions";
 import "../Options/Options.css";
 import LeftSidebarWithLinks from "../LeftSidebarWithLinks/LeftSidebarWithLinks";
+import SpecificNewsForSymbols from "../../SpecificNewsForSymbols/SpecificNewsForSymbols";
 
 const MutualFunds = () => {
   const [data, setData] = useState([]);
   const [activeButton, setActiveButton] = useState("Top Gainers"); // Butonul activ
   const [activeButton1, setActiveButton1] = useState("Mutual Funds");
   const navigate = useNavigate(); // Inițializează useNavigate
+
+  const [defaultSymbols, setDefaultSymbols] = useState([]);
 
   useEffect(() => {
     // Apelează funcția pentru a obține datele inițiale
@@ -20,8 +23,14 @@ const MutualFunds = () => {
 
   const handleLinkClick = (buttonName) => {
     setActiveButton1(buttonName);
-    
   };
+
+  function getSymbols(items) {
+    // Extrage simbolurile și elimină duplicatele folosind un Set
+    const uniqueSymbols = new Set(items.map((item) => item.symbol));
+    // Convertește Set-ul în array și returnează-l
+    return Array.from(uniqueSymbols);
+  }
 
   const fetchMarketData = async (url) => {
     const accessToken = localStorage.getItem("accessToken");
@@ -34,8 +43,18 @@ const MutualFunds = () => {
       });
 
       if (response.status === 200 || response.status === 201) {
-        // console.log(response.data.finance.result[0].quotes);
+        setDefaultSymbols(getSymbols(response.data.finance.result[0].quotes));
         setData(response.data.finance.result[0].quotes);
+        // console.log(
+        //   "aici ai date pentru mutual funds: ",
+        //   response.data.finance.result[0].quotes
+        // );
+        setData(response.data.finance.result[0].quotes);
+
+        // console.log(
+        //   "ai aici symboluripe pentru default symbols din mutual funds: ",
+        //   defaultSymbols
+        // );
       } else if (response.status === 400 || response.status === 401) {
         const newAccessToken = await getNewAccessToken();
         if (newAccessToken) {
@@ -149,6 +168,18 @@ const MutualFunds = () => {
             data={data}
             columns={columns}
             formatTypeForNumbers={"normal"}
+          />
+
+          {/* News for Mutual Funds */}
+          <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
+          <SpecificNewsForSymbols
+            symbols={defaultSymbols}
+            data={data}
+            newsTitle="Mutual Funds News"
+          ></SpecificNewsForSymbols>
+          <div
+            className="hide-on-mobile"
+            style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }}
           />
         </div>
       </div>
