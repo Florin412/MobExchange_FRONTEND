@@ -14,8 +14,8 @@ const Quote = () => {
   const item = location.state.item;
   const formatType = location.state.formatType;
   // console.log("Salut, aici aici formatul: ", formatType);
-  console.log("tipul simbolului este: ", typeof item.symbol);
-  console.log("Date generale asset din pagina de quote: ", item);
+  // console.log("tipul simbolului este: ", typeof item.symbol);
+  // console.log("Date generale asset din pagina de quote: ", item);
 
   const formatNumber = (num, formatType = "normal") => {
     const options = {
