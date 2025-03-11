@@ -38,8 +38,8 @@ const NewsTemplate = ({ newsData, pageTitle }) => {
   // Funcția pentru a renderiza articolele
   const renderNewsItems = (newsItems) => {
     return newsItems.map((news, index) => {
+      // Verificăm dacă urlToImage este valid
       if (news && news.urlToImage) {
-        // Verificăm dacă urlToImage este valid
         return (
           <div key={index} className="news-item">
             <img
@@ -137,10 +137,24 @@ const NewsTemplate = ({ newsData, pageTitle }) => {
               </div>
             </div>
 
+            <div
+              style={{
+                borderBottom: "1px solid rgb(221, 221, 221)",
+                margin: "40px 0"
+              }}
+            ></div>
+
             {/* Secțiunea 2 */}
             <div className="section section-2">
               {renderNewsItems(section2News)}
             </div>
+
+            <div
+              style={{
+                borderBottom: "1px solid rgb(221, 221, 221)",
+                margin: "40px 0"
+              }}
+            ></div>
 
             {/* Secțiunea 3 */}
             <div className="section section-3">
