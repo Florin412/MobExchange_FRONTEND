@@ -4,6 +4,7 @@ import Footer from "../footer/Footer";
 import QuoteChart from "./QuoteChart/QuoteChart";
 import "./Quote.css";
 import SpecificNewsForSymbols from "../SpecificNewsForSymbols/SpecificNewsForSymbols";
+import TrendingNowCards from "../Markets/MarketOverview/TrendingNowCards/TrendingNowCards";
 
 const Quote = () => {
   const location = useLocation();
@@ -677,9 +678,29 @@ const Quote = () => {
             )}
           </div>
 
+          {/* Componenta care randeaza card-uri cu asseturi recomandate */}
+          <TrendingNowCards
+            titleForCards={"People Also Watch"}
+            urlForAssets={"http://localhost:8080/markets/stocks/trending"}
+          ></TrendingNowCards>
+
+          <div
+            style={{
+              borderBottom: "1px solid rgb(221, 221, 221)",
+              margin: "30px 0"
+            }}
+          ></div>
+
+          {/* Componenta care randeaza News */}
           <SpecificNewsForSymbols
             symbols={item.symbol}
           ></SpecificNewsForSymbols>
+
+          {/* Componenta care randeaza card-uri cu asseturi recomandate */}
+          <TrendingNowCards
+            titleForCards={"Trending ETFs"}
+            urlForAssets={"http://localhost:8080/markets/etfs/most-active"}
+          ></TrendingNowCards>
         </div>
       </div>
       <Footer />

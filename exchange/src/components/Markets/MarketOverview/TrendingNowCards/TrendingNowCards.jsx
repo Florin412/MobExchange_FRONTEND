@@ -94,7 +94,7 @@ const formatNumber = (num, formatType = "normal") => {
   return new Intl.NumberFormat("en-US", options).format(num);
 };
 
-const TrendingNowCards = () => {
+const TrendingNowCards = ({ titleForCards, urlForAssets }) => {
   const [cards, setCards] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const cardsToShow = 24; // Numărul de carduri de afișat simultan
@@ -102,7 +102,7 @@ const TrendingNowCards = () => {
   useEffect(() => {
     const fetchData = async () => {
       const accessToken = localStorage.getItem("accessToken");
-      const url = "http://localhost:8080/markets/stocks/trending";
+      const url = urlForAssets;
 
       try {
         const response = await axios.get(url, {
@@ -155,7 +155,9 @@ const TrendingNowCards = () => {
           marginBottom: "10px"
         }}
       >
-        <div style={{ fontSize: "16px", fontWeight: "bold" }}>Trending Now</div>
+        <div style={{ fontSize: "16px", fontWeight: "bold" }}>
+          {titleForCards}
+        </div>
         <div
           style={{
             display: "flex",

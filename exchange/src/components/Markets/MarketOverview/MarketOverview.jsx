@@ -43,7 +43,6 @@ const MarketOverview = () => {
 
   const handleLinkClick = (buttonName) => {
     setActiveButton1(buttonName);
-    
   };
 
   // This methos fetches data for world indices in us, europa and asia
@@ -567,7 +566,10 @@ const MarketOverview = () => {
             </div>
 
             <div>
-              <TrendingNowCards></TrendingNowCards>
+              <TrendingNowCards
+                titleForCards={"Trending Now"}
+                urlForAssets={"http://localhost:8080/markets/stocks/trending"}
+              ></TrendingNowCards>
 
               {/* Mai jos ai de lucru */}
               <div style={{ marginTop: "15px" }}>
