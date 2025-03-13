@@ -28,7 +28,7 @@
   /* overflow: hidden; */
   padding: 16px;
   flex: 1;
-  overflow-x: auto;
+  /* overflow-x: auto; */
 }
 
 .page-title {
