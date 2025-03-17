@@ -143,8 +143,15 @@ const SpecificNewsForSymbols = ({ symbols, data, newsTitle }) => {
     const differenceInDays = Math.floor(
       differenceInMilliseconds / (1000 * 60 * 60 * 24)
     );
+    const differenceInMinutes = Math.floor(
+      differenceInMilliseconds / (1000 * 60)
+    );
 
-    if (differenceInHours < 24) {
+    if (differenceInMinutes < 60) {
+      return `${differenceInMinutes} minute${
+        differenceInMinutes === 1 ? "" : "s"
+      } ago`;
+    } else if (differenceInHours < 24) {
       return `${differenceInHours} hour${
         differenceInHours === 1 ? "" : "s"
       } ago`;
