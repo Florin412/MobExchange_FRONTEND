@@ -62,6 +62,18 @@ const Footer = () => {
               </span>
             </h1>
           </Link>
+          <div
+            style={{
+              fontSize: "14px",
+              marginLeft: "10px",
+              fontWeight: "100",
+              letterSpacing: "1px",
+              marginTop: "10px"
+            }}
+          >
+            <p style={{ marginBottom: 0 }}>Copyright © 2025 MobiExchange.</p>
+            <p style={{ marginBottom: 0 }}>All rights reserved.</p>
+          </div>
         </div>
         {/* Links Section */}
         <div className="col-12 my-2 col-md-6 d-flex flex-row flex-md-row justify-content-center justify-content-md-end align-items-center gap-3 footer-buttons-mobile">

@@ -19,10 +19,16 @@
     display: flex;
     justify-content: center;
     margin: 10px 0;
+    flex-direction: column;
+    align-items: center;
   }
 
   .footer-logo-section h1 {
     font-size: 22px !important;
+  }
+
+  .footer-logo-section div p {
+    font-size: 11px;
   }
 
   .footer-buttons-mobile button h3 a {
