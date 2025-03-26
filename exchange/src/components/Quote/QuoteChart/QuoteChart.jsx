@@ -196,18 +196,18 @@ const QuoteChart = ({ symbol, change }) => {
           setIndicatorData((prev) => ({ ...prev, rsi: rsiValues }));
         }
 
-        if (indicators.macd) {
-          const { macd, signalLine } = calculateMACD(closeData);
-          setIndicatorData((prev) => ({ ...prev, macd: { macd, signalLine } }));
-        }
+        // if (indicators.macd) {
+        //   const { macd, signalLine } = calculateMACD(closeData);
+        //   setIndicatorData((prev) => ({ ...prev, macd: { macd, signalLine } }));
+        // }
 
-        if (indicators.bollinger) {
-          const { upper, middle, lower } = calculateBollingerBands(closeData);
-          setIndicatorData((prev) => ({
-            ...prev,
-            bollinger: { upper, middle, lower }
-          }));
-        }
+        // if (indicators.bollinger) {
+        //   const { upper, middle, lower } = calculateBollingerBands(closeData);
+        //   setIndicatorData((prev) => ({
+        //     ...prev,
+        //     bollinger: { upper, middle, lower }
+        //   }));
+        // }
 
         setChartData(processedData);
         setLoading(false);

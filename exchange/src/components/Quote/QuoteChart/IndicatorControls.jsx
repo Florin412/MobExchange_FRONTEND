@@ -4,7 +4,7 @@ import "./IndicatorControls.css";
 
 const IndicatorControls = ({ indicators, handleIndicatorToggle }) => {
   const [tooltip, setTooltip] = useState("");
-  const [tooltipPosition, setTooltipPosition] = useState({ left: 0, top: 0 });
+  //   const [tooltipPosition, setTooltipPosition] = useState({ left: 0, top: 0 });
 
   // Descrierile pentru fiecare indicator
   const tooltips = {
@@ -16,14 +16,8 @@ const IndicatorControls = ({ indicators, handleIndicatorToggle }) => {
   };
 
   // Funcția pentru a seta tooltip-ul la hover
-  const handleMouseOver = (indicator, event) => {
+  const handleMouseOver = (indicator) => {
     setTooltip(tooltips[indicator]);
-
-    // Ajustează poziția tooltip-ului pentru a fi ușor vizibil
-    setTooltipPosition({
-      left: event.clientX + 10, // Ajustare horizontală
-      top: event.clientY + 30 // Ajustare verticală
-    });
   };
 
   const handleMouseOut = () => {
