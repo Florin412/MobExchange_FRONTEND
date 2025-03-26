@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 import { FaMountain, FaChartLine } from "react-icons/fa"; // Importă iconițele
 import "./QuoteChart.css";
 import { getNewAccessToken } from "../../Auth/auth_functions";
+import IndicatorControls from "./IndicatorControls";
 
 const QuoteChart = ({ symbol, change }) => {
   const [chartData, setChartData] = useState({ labels: [], datasets: [] });
@@ -17,6 +18,107 @@ const QuoteChart = ({ symbol, change }) => {
   const [activeButton, setActiveButton] = useState("1d");
   const [chartType, setChartType] = useState("mountain"); // Tipul graficului default
   const [percentageChange, setPercentageChange] = useState(null); // Adăugat pentru procentaj
+
+  const [indicators, setIndicators] = useState({
+    sma: false,
+    ema: false,
+    rsi: false
+    // macd: false,
+    // bollinger: false
+  });
+  const [indicatorData, setIndicatorData] = useState({});
+
+  // Calculează Media Mobilă Simplă (SMA)
+  const calculateSMA = (data, period) => {
+    const sma = [];
+    for (let i = period - 1; i < data.length; i++) {
+      const slice = data.slice(i - period + 1, i + 1);
+      const average = slice.reduce((acc, val) => acc + val, 0) / period;
+      sma.push(average);
+    }
+    return sma;
+  };
+
+  // Calculează Media Mobilă Exponențială (EMA)
+  const calculateEMA = (data, period) => {
+    const ema = [];
+    const k = 2 / (period + 1);
+    ema[period - 1] =
+      data.slice(0, period).reduce((acc, val) => acc + val, 0) / period; // media inițială
+    for (let i = period; i < data.length; i++) {
+      ema[i] = (data[i] - ema[i - 1]) * k + ema[i - 1];
+    }
+    return ema;
+  };
+
+  // Calculează RSI
+  const calculateRSI = (data, period) => {
+    const gains = [];
+    const losses = [];
+    for (let i = 1; i < data.length; i++) {
+      const change = data[i] - data[i - 1];
+      gains.push(change > 0 ? change : 0);
+      losses.push(change < 0 ? Math.abs(change) : 0);
+    }
+
+    const avgGain = calculateSMA(gains, period);
+    const avgLoss = calculateSMA(losses, period);
+    const rsi = avgGain.map((gain, idx) => {
+      if (avgLoss[idx] === 0) {
+        return 100; // evita diviziunea cu zero
+      }
+      const rs = gain / avgLoss[idx];
+      return 100 - 100 / (1 + rs);
+    });
+
+    return rsi;
+  };
+
+  // Calculează MACD
+  // const calculateMACD = (
+  //   data,
+  //   shortPeriod = 12,
+  //   longPeriod = 26,
+  //   signalPeriod = 9
+  // ) => {
+  //   const emaShort = calculateEMA(data, shortPeriod);
+  //   const emaLong = calculateEMA(data, longPeriod);
+  //   const macd = emaShort.map((val, index) =>
+  //     val !== undefined && emaLong[index] !== undefined
+  //       ? val - emaLong[index]
+  //       : null
+  //   );
+
+  //   const signalLine = calculateEMA(
+  //     macd.filter((val) => val !== null),
+  //     signalPeriod
+  //   );
+  //   return {
+  //     macd,
+  //     signalLine: [...Array(longPeriod - 1).fill(null), ...signalLine]
+  //   };
+  // };
+
+  // // Calculează Bollinger Bands
+  // const calculateBollingerBands = (data, period = 20, numStdDev = 2) => {
+  //   const upperBand = [];
+  //   const lowerBand = [];
+  //   const middleBand = [];
+
+  //   for (let i = period - 1; i < data.length; i++) {
+  //     const slice = data.slice(i - period + 1, i + 1);
+  //     const avg = slice.reduce((acc, val) => acc + val, 0) / period;
+  //     const stdDev = Math.sqrt(
+  //       slice.map((x) => Math.pow(x - avg, 2)).reduce((a, b) => a + b) / period
+  //     );
+
+  //     middleBand.push(avg);
+  //     upperBand.push(avg + stdDev * numStdDev);
+  //     lowerBand.push(avg - stdDev * numStdDev);
+  //   }
+
+  //   return { upper: upperBand, middle: middleBand, lower: lowerBand };
+  // };
 
   const fetchChartData = async () => {
     const accessToken = localStorage.getItem("accessToken");
@@ -71,6 +173,41 @@ const QuoteChart = ({ symbol, change }) => {
           volumeData,
           timestampData
         };
+
+        // mai jos adauga codul
+        // Procesare date de preț pentru indicatori
+        //const closeData = processedData.datasets[0].data; // Prețurile de închidere
+
+        if (indicators.sma) {
+          const smaPeriod = 14; // poți schimba perioada după cum dorești
+          const smaValues = calculateSMA(closeData, smaPeriod);
+          setIndicatorData((prev) => ({ ...prev, sma: smaValues }));
+        }
+
+        if (indicators.ema) {
+          const emaPeriod = 14; // poți schimba perioada după cum dorești
+          const emaValues = calculateEMA(closeData, emaPeriod);
+          setIndicatorData((prev) => ({ ...prev, ema: emaValues }));
+        }
+
+        if (indicators.rsi) {
+          const rsiPeriod = 14; // poți schimba perioada după cum dorești
+          const rsiValues = calculateRSI(closeData, rsiPeriod);
+          setIndicatorData((prev) => ({ ...prev, rsi: rsiValues }));
+        }
+
+        if (indicators.macd) {
+          const { macd, signalLine } = calculateMACD(closeData);
+          setIndicatorData((prev) => ({ ...prev, macd: { macd, signalLine } }));
+        }
+
+        if (indicators.bollinger) {
+          const { upper, middle, lower } = calculateBollingerBands(closeData);
+          setIndicatorData((prev) => ({
+            ...prev,
+            bollinger: { upper, middle, lower }
+          }));
+        }
 
         setChartData(processedData);
         setLoading(false);
@@ -260,7 +397,28 @@ const QuoteChart = ({ symbol, change }) => {
   };
 
   // Configurarea datelor pentru grafic în funcție de tipul selectat
-  const chartDataset = {
+  // const chartDataset = {
+  //   label: "Price",
+  //   data: chartData.datasets[0].data,
+  //   borderColor:
+  //     chartType === "mountain"
+  //       ? percentageChange >= 0
+  //         ? "#4CAF50"
+  //         : "#F44336"
+  //       : "#398bff",
+  //   backgroundColor:
+  //     chartType === "mountain"
+  //       ? percentageChange >= 0
+  //         ? "rgba(76, 175, 80, 0.2)"
+  //         : "rgba(244, 67, 54, 0.2)"
+  //       : "rgba(255, 255, 255, 0.2)",
+  //   fill: true,
+  //   pointRadius: 0,
+  //   borderWidth: 2
+  // };
+
+  const chartDataset = [];
+  chartDataset.push({
     label: "Price",
     data: chartData.datasets[0].data,
     borderColor:
@@ -278,7 +436,57 @@ const QuoteChart = ({ symbol, change }) => {
     fill: true,
     pointRadius: 0,
     borderWidth: 2
-  };
+  });
+
+  if (indicators.sma) {
+    chartDataset.push({
+      label: "SMA",
+      data: indicatorData.sma,
+      borderColor: "#0000FF",
+      borderWidth: 1,
+      fill: false
+    });
+  }
+
+  if (indicators.ema) {
+    chartDataset.push({
+      label: "EMA",
+      data: indicatorData.ema,
+      borderColor: "#FF8000",
+      borderWidth: 1,
+      fill: false
+    });
+  }
+
+  if (indicators.rsi) {
+    chartDataset.push({
+      label: "RSI",
+      data: indicatorData.rsi,
+      borderColor: "#FFA500",
+      borderWidth: 1,
+      fill: false
+    });
+  }
+
+  if (indicators.macd) {
+    chartDataset.push({
+      label: "MACD",
+      data: indicatorData.macd,
+      borderColor: "#FF4500",
+      borderWidth: 1,
+      fill: false
+    });
+  }
+
+  if (indicators.bollinger) {
+    chartDataset.push({
+      label: "Bollinger Bands",
+      data: indicatorData.bollinger,
+      borderColor: "#ADFF2F",
+      borderWidth: 1,
+      fill: false
+    });
+  }
 
   const formatNumber = (num, formatType = "normal") => {
     const options = {
@@ -287,6 +495,13 @@ const QuoteChart = ({ symbol, change }) => {
     };
 
     return new Intl.NumberFormat("en-US", options).format(num);
+  };
+
+  const handleIndicatorToggle = (indicator) => {
+    setIndicators((prevState) => ({
+      ...prevState,
+      [indicator]: !prevState[indicator] // Inversează starea curentă
+    }));
   };
 
   return (
@@ -380,8 +595,16 @@ const QuoteChart = ({ symbol, change }) => {
         </div>
       </div>
 
+      {/* aici o sa vina componenta pentru tooltip */}
+      {/* gggggggggggg */}
+      <IndicatorControls
+        indicators={indicators}
+        handleIndicatorToggle={handleIndicatorToggle}
+      ></IndicatorControls>
+      {/* gggggggggggg */}
+
       <Line
-        data={{ labels: chartData.labels, datasets: [chartDataset] }}
+        data={{ labels: chartData.labels, datasets: chartDataset }} // Folosește direct chartDataset
         options={options}
         className="full-size"
       />

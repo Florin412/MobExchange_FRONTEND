@@ -1,0 +1,34 @@
+.indicator-controls {
+  display: flex;
+  justify-content: flex-start;
+  padding: 10px;
+  position: relative; /* Permite tooltip-ului să se poziționeze corect în raport cu acest container */
+}
+
+.indicator-controls label {
+  margin-left: 20px;
+  font-size: 14px;
+}
+
+.indicator-controls input[type="checkbox"] {
+  margin-right: 5px;
+  transform: scale(1.2);
+}
+
+.info-icon {
+  margin-left: 5px;
+  cursor: pointer;
+  font-size: 16px; /* Dimensiune simbol */
+}
+
+.tooltip {
+  position: absolute; /* Asigură că tooltip-ul poate fi poziționat relativ la pachetul părinte */
+  background-color: #333; /* Fundal întunecat */
+  color: #fff; /* Text alb */
+  padding: 5px 10px;
+  border-radius: 5px;
+  z-index: 10; /* Asigură că este deasupra altor elemente */
+  opacity: 1; /* Asigură vizibilitatea completă */
+  font-size: 16px;
+  text-align: justify;
+}
