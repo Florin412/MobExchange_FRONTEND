@@ -8,6 +8,10 @@
 .indicator-controls label {
   margin-right: 20px;
   font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .indicator-controls input[type="checkbox"] {
@@ -18,7 +22,11 @@
 .info-icon {
   margin-left: 5px;
   cursor: pointer;
-  font-size: 16px; /* Dimensiune simbol */
+  font-size: 10px; /* Dimensiune simbol */
+  background-color: #e7f3ff;
+  padding: 1px 7px;
+  border: 1px solid #1967d2;
+  border-radius: 50%;
 }
 
 .tooltip {

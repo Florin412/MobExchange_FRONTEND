@@ -40,7 +40,7 @@ const IndicatorControls = ({ indicators, handleIndicatorToggle }) => {
             onMouseOver={(e) => handleMouseOver(key, e)}
             onMouseOut={handleMouseOut}
           >
-            ℹ️
+            ℹ
           </span>
         </label>
       ))}

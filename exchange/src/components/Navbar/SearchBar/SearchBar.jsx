@@ -1,27 +1,33 @@
 /* eslint-disable no-case-declarations */
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./SearchBar.css"; // Importă fișierul CSS
 import axios from "axios";
 import { getNewAccessToken } from "../../Auth/auth_functions";
 import { useNavigate } from "react-router-dom";
+import { useDebounce } from "use-debounce";
 
 const SearchBar = () => {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState({ news: [], quotes: [] });
   const [isSearchActive, setIsSearchActive] = useState(false); // Starea pentru a controla vizibilitatea div-ului de căutare
+  const [debouncedQuery] = useDebounce(query, 300); // Debounce query-ul cu 600 ms
 
   const navigate = useNavigate();
 
-  const handleInputChange = (event) => {
-    const newQuery = event.target.value;
-    setQuery(newQuery);
+  // const handleInputChange = (event) => {
+  //   const newQuery = event.target.value;
+  //   setQuery(newQuery);
 
-    if (newQuery.trim() !== "") {
-      handleSearch(newQuery);
-    } else {
-      setResults({ news: [], quotes: [] }); // Resetează rezultatele dacă inputul este gol
-    }
+  //   if (newQuery.trim() !== "") {
+  //     handleSearch(newQuery);
+  //   } else {
+  //     setResults({ news: [], quotes: [] }); // Resetează rezultatele dacă inputul este gol
+  //   }
+  // };
+
+  const handleInputChange = (event) => {
+    setQuery(event.target.value); // Actualizează starea input-ului
   };
 
   const clearInput = () => {
@@ -76,7 +82,7 @@ const SearchBar = () => {
       // console.log(
       //   "Salut varule, uite ca am primit datele generale pentru 1 asset, hai noroc !!"
       // );
-      // console.log(data); 
+      // console.log(data);
       // Navigăm către pagina Quote și trimitem datele prin state
       navigate(`/quote/${symbol}`, {
         state: { item: data.quoteResponse.result[0] }
@@ -126,6 +132,15 @@ const SearchBar = () => {
       console.error("Error fetching market data for stocks:", error);
     }
   };
+
+  // Folosește useEffect pentru a apela fetchData odată ce debouncedQuery se schimbă
+  useEffect(() => {
+    if (debouncedQuery) {
+      handleSearch(debouncedQuery);
+    } else {
+      setResults({ news: [], quotes: [] }); // Resetează rezultatele dacă inputul este gol
+    }
+  }, [debouncedQuery]);
 
   return (
     <div>
