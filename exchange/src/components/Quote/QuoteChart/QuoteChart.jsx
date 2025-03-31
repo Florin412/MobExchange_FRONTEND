@@ -9,6 +9,7 @@ import IndicatorControls from "./IndicatorControls";
 
 const QuoteChart = ({ symbol, change }) => {
   const [chartData, setChartData] = useState({ labels: [], datasets: [] });
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   // validRanges: 1d, 5d, 1mo, 3mo, 6mo, 1y, 2y, 5y, 10y, ytd, max
@@ -18,15 +19,18 @@ const QuoteChart = ({ symbol, change }) => {
   const [activeButton, setActiveButton] = useState("1d");
   const [chartType, setChartType] = useState("mountain"); // Tipul graficului default
   const [percentageChange, setPercentageChange] = useState(null); // Adăugat pentru procentaj
+  const [showRSI, setShowRSI] = useState(true); // Asigură-te că există această linie
 
   const [indicators, setIndicators] = useState({
     sma: false,
     ema: false,
     rsi: false
-    // macd: false,
-    // bollinger: false
   });
-  const [indicatorData, setIndicatorData] = useState({});
+  const [indicatorData, setIndicatorData] = useState({
+    rsi: [],
+    sma: [],
+    ema: []
+  });
 
   // Calculează Media Mobilă Simplă (SMA)
   const calculateSMA = (data, period) => {
@@ -51,8 +55,9 @@ const QuoteChart = ({ symbol, change }) => {
     return ema;
   };
 
-  // Calculează RSI
   const calculateRSI = (data, period) => {
+    if (data.length < period) return []; // Asigură-te că ai suficiente date
+
     const gains = [];
     const losses = [];
     for (let i = 1; i < data.length; i++) {
@@ -63,62 +68,16 @@ const QuoteChart = ({ symbol, change }) => {
 
     const avgGain = calculateSMA(gains, period);
     const avgLoss = calculateSMA(losses, period);
-    const rsi = avgGain.map((gain, idx) => {
-      if (avgLoss[idx] === 0) {
-        return 100; // evita diviziunea cu zero
-      }
+
+    if (avgLoss.some((loss) => loss === 0)) {
+      return avgGain.map((gain) => (gain ? 100 : 0)); // Evită diviziunea cu zero
+    }
+
+    return avgGain.map((gain, idx) => {
       const rs = gain / avgLoss[idx];
       return 100 - 100 / (1 + rs);
     });
-
-    return rsi;
   };
-
-  // Calculează MACD
-  // const calculateMACD = (
-  //   data,
-  //   shortPeriod = 12,
-  //   longPeriod = 26,
-  //   signalPeriod = 9
-  // ) => {
-  //   const emaShort = calculateEMA(data, shortPeriod);
-  //   const emaLong = calculateEMA(data, longPeriod);
-  //   const macd = emaShort.map((val, index) =>
-  //     val !== undefined && emaLong[index] !== undefined
-  //       ? val - emaLong[index]
-  //       : null
-  //   );
-
-  //   const signalLine = calculateEMA(
-  //     macd.filter((val) => val !== null),
-  //     signalPeriod
-  //   );
-  //   return {
-  //     macd,
-  //     signalLine: [...Array(longPeriod - 1).fill(null), ...signalLine]
-  //   };
-  // };
-
-  // // Calculează Bollinger Bands
-  // const calculateBollingerBands = (data, period = 20, numStdDev = 2) => {
-  //   const upperBand = [];
-  //   const lowerBand = [];
-  //   const middleBand = [];
-
-  //   for (let i = period - 1; i < data.length; i++) {
-  //     const slice = data.slice(i - period + 1, i + 1);
-  //     const avg = slice.reduce((acc, val) => acc + val, 0) / period;
-  //     const stdDev = Math.sqrt(
-  //       slice.map((x) => Math.pow(x - avg, 2)).reduce((a, b) => a + b) / period
-  //     );
-
-  //     middleBand.push(avg);
-  //     upperBand.push(avg + stdDev * numStdDev);
-  //     lowerBand.push(avg - stdDev * numStdDev);
-  //   }
-
-  //   return { upper: upperBand, middle: middleBand, lower: lowerBand };
-  // };
 
   const fetchChartData = async () => {
     const accessToken = localStorage.getItem("accessToken");
@@ -178,15 +137,14 @@ const QuoteChart = ({ symbol, change }) => {
         // Procesare date de preț pentru indicatori
         //const closeData = processedData.datasets[0].data; // Prețurile de închidere
 
+        // Dacă indicatorii SMA sau EMA sunt activi, recalculează-i
         if (indicators.sma) {
-          const smaPeriod = 14; // poți schimba perioada după cum dorești
-          const smaValues = calculateSMA(closeData, smaPeriod);
+          const smaValues = calculateSMA(closeData, 14);
           setIndicatorData((prev) => ({ ...prev, sma: smaValues }));
         }
 
         if (indicators.ema) {
-          const emaPeriod = 14; // poți schimba perioada după cum dorești
-          const emaValues = calculateEMA(closeData, emaPeriod);
+          const emaValues = calculateEMA(closeData, 14);
           setIndicatorData((prev) => ({ ...prev, ema: emaValues }));
         }
 
@@ -196,20 +154,11 @@ const QuoteChart = ({ symbol, change }) => {
           setIndicatorData((prev) => ({ ...prev, rsi: rsiValues }));
         }
 
-        // if (indicators.macd) {
-        //   const { macd, signalLine } = calculateMACD(closeData);
-        //   setIndicatorData((prev) => ({ ...prev, macd: { macd, signalLine } }));
-        // }
-
-        // if (indicators.bollinger) {
-        //   const { upper, middle, lower } = calculateBollingerBands(closeData);
-        //   setIndicatorData((prev) => ({
-        //     ...prev,
-        //     bollinger: { upper, middle, lower }
-        //   }));
-        // }
-
         setChartData(processedData);
+
+        // Dezactivează SMA și EMA atunci când primești date noi
+        setIndicators({ sma: false, ema: false, rsi: indicators.rsi });
+
         setLoading(false);
       } else if (response.status === 400 || response.status === 401) {
         // If access token is expired, lets creat a new one.
@@ -237,6 +186,15 @@ const QuoteChart = ({ symbol, change }) => {
     }
   };
 
+  // Calculate RSI when data is available
+  const calculateRSIData = () => {
+    const closeData = chartData.datasets[0].data; // Prețurile de închidere
+    if (closeData && closeData.length > 0) {
+      const rsiValues = calculateRSI(closeData, 14); // Perioada RSI
+      setIndicatorData({ rsi: rsiValues });
+    }
+  };
+
   useEffect(() => {
     fetchChartData();
   }, [symbol, change, range, interval]);
@@ -246,6 +204,12 @@ const QuoteChart = ({ symbol, change }) => {
       calculatePercentageChange();
     }
   }, [chartData, activeButton]);
+
+  useEffect(() => {
+    if (chartData.datasets.length > 0) {
+      calculateRSIData(); // Calculăm RSI după ce avem datele
+    }
+  }, [chartData]);
 
   if (loading) return <div>Loading...</div>;
   if (error)
@@ -271,7 +235,7 @@ const QuoteChart = ({ symbol, change }) => {
             const index = tooltipItem.dataIndex;
             const price = tooltipItem.raw;
             const timestamp = chartData.timestampData[index];
-            const date = new Date(timestamp * 1000).toLocaleDateString("en-US");
+            const date = new Date(timestamp * 1000).toLocaleDateString("ro-RO");
             const open = chartData.openData[index].toLocaleString("en-US", {
               minimumFractionDigits: 2
             });
@@ -396,27 +360,6 @@ const QuoteChart = ({ symbol, change }) => {
     setChartType(type);
   };
 
-  // Configurarea datelor pentru grafic în funcție de tipul selectat
-  // const chartDataset = {
-  //   label: "Price",
-  //   data: chartData.datasets[0].data,
-  //   borderColor:
-  //     chartType === "mountain"
-  //       ? percentageChange >= 0
-  //         ? "#4CAF50"
-  //         : "#F44336"
-  //       : "#398bff",
-  //   backgroundColor:
-  //     chartType === "mountain"
-  //       ? percentageChange >= 0
-  //         ? "rgba(76, 175, 80, 0.2)"
-  //         : "rgba(244, 67, 54, 0.2)"
-  //       : "rgba(255, 255, 255, 0.2)",
-  //   fill: true,
-  //   pointRadius: 0,
-  //   borderWidth: 2
-  // };
-
   const chartDataset = [];
   chartDataset.push({
     label: "Price",
@@ -438,6 +381,7 @@ const QuoteChart = ({ symbol, change }) => {
     borderWidth: 2
   });
 
+  // Adaugă SMA
   if (indicators.sma) {
     chartDataset.push({
       label: "SMA",
@@ -448,41 +392,12 @@ const QuoteChart = ({ symbol, change }) => {
     });
   }
 
+  // Adaugă EMA
   if (indicators.ema) {
     chartDataset.push({
       label: "EMA",
       data: indicatorData.ema,
       borderColor: "#FF8000",
-      borderWidth: 1,
-      fill: false
-    });
-  }
-
-  if (indicators.rsi) {
-    chartDataset.push({
-      label: "RSI",
-      data: indicatorData.rsi,
-      borderColor: "#FFA500",
-      borderWidth: 1,
-      fill: false
-    });
-  }
-
-  if (indicators.macd) {
-    chartDataset.push({
-      label: "MACD",
-      data: indicatorData.macd,
-      borderColor: "#FF4500",
-      borderWidth: 1,
-      fill: false
-    });
-  }
-
-  if (indicators.bollinger) {
-    chartDataset.push({
-      label: "Bollinger Bands",
-      data: indicatorData.bollinger,
-      borderColor: "#ADFF2F",
       borderWidth: 1,
       fill: false
     });
@@ -497,11 +412,39 @@ const QuoteChart = ({ symbol, change }) => {
     return new Intl.NumberFormat("en-US", options).format(num);
   };
 
+  // Logic to handle toggle for RSI
+  // const handleIndicatorToggle = (indicator) => {
+  //   if (indicator === "rsi") {
+  //     setShowRSI((prev) => !prev); // Toggle visibility for RSI graph
+  //   }
+  // };
+
   const handleIndicatorToggle = (indicator) => {
     setIndicators((prevState) => ({
       ...prevState,
-      [indicator]: !prevState[indicator] // Inversează starea curentă
+      [indicator]: !prevState[indicator]
     }));
+
+    // Recalculăm indicatori după fiecare activare
+    if (indicator === "sma" || indicator === "ema" || indicator === "rsi") {
+      const closeData = chartData.datasets[0].data;
+
+      if (indicator === "sma") {
+        const smaValues = calculateSMA(closeData, 14);
+        setIndicatorData((prev) => ({
+          ...prev,
+          sma: indicators.sma ? [] : smaValues // Dacă era activ, resetează la [] la dezactivare
+        }));
+      } else if (indicator === "ema") {
+        const emaValues = calculateEMA(closeData, 14);
+        setIndicatorData((prev) => ({
+          ...prev,
+          ema: indicators.ema ? [] : emaValues // La fel ca la SMA
+        }));
+      } else if (indicator === "rsi") {
+        setShowRSI((prev) => !prev); // Toggle visibility for RSI graph
+      }
+    }
   };
 
   return (
@@ -595,19 +538,66 @@ const QuoteChart = ({ symbol, change }) => {
         </div>
       </div>
 
-      {/* aici o sa vina componenta pentru tooltip */}
-      {/* gggggggggggg */}
+      {/* Mai jos ai componenta care afiseaza cele 3 butoane pentru indicatori avansati: SMA, EMA, RSI */}
       <IndicatorControls
         indicators={indicators}
         handleIndicatorToggle={handleIndicatorToggle}
       ></IndicatorControls>
-      {/* gggggggggggg */}
 
+      {/* Graficul cu date istorice */}
       <Line
-        data={{ labels: chartData.labels, datasets: chartDataset }} // Folosește direct chartDataset
+        data={{ labels: chartData.labels, datasets: chartDataset }}
         options={options}
         className="full-size"
       />
+
+      {/* Graficul RSI */}
+      {!showRSI && indicatorData.rsi.length > 0 && (
+        <Line
+          data={{
+            labels: chartData.labels,
+            datasets: [
+              {
+                label: "RSI Indicator",
+                data: indicatorData.rsi,
+                borderColor: "#FFA500",
+                borderWidth: 2,
+                fill: false
+              }
+            ]
+          }}
+          options={{
+            responsive: true,
+            plugins: {
+              tooltip: {
+                callbacks: {
+                  label: (tooltipItem) => {
+                    const index = tooltipItem.dataIndex;
+                    const value = tooltipItem.raw;
+
+                    // Asumăm că labels sunt timestampuri în secunde, astfel înmulțim cu 1000 pentru milisecunde
+                    const timestamp = chartData.timestampData[index] * 1000;
+                    const date = new Date(timestamp).toLocaleDateString(
+                      "ro-RO"
+                    );
+
+                    return [
+                      `Data: ${date}`, // Afișează data
+                      `RSI: ${value.toFixed(0)}`
+                    ];
+                  }
+                }
+              }
+            },
+            scales: {
+              y: {
+                min: 0,
+                max: 100
+              }
+            }
+          }}
+        />
+      )}
 
       <div className="chart-controls for-mobile">
         {/* Butoanele de timp */}
@@ -660,7 +650,6 @@ const QuoteChart = ({ symbol, change }) => {
           ALL
         </button>
       </div>
-
       {/* Afișarea procentajului sub butoanele de timp */}
       <div className="for-mobile a">
         {percentageChange !== null && (
