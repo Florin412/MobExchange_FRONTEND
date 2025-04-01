@@ -6,6 +6,9 @@ import { getNewAccessToken } from "../../Auth/auth_functions";
 import LeftSidebarWithLinks from "../LeftSidebarWithLinks/LeftSidebarWithLinks";
 import SpecificNewsForSymbols from "../../SpecificNewsForSymbols/SpecificNewsForSymbols";
 
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+
 const Bonds = () => {
   // data este un array cu 40 de obiecte, obiecte ce reprezinta cate un asset, iar in obiect sunt date generale despre asset.
   // NU contine date istorice, deci nu se poate crea coloana pentru graph !!
@@ -66,6 +69,33 @@ const Bonds = () => {
     "52 Wk Range"
   ];
 
+  const exportToPDF = () => {
+    const input = document.getElementById("my-bonds-table"); // ID-ul tabelului
+
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF();
+      const imgWidth = 190; // Lățimea imaginii în PDF
+      const pageHeight = pdf.internal.pageSize.height;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+
+      let position = 0;
+
+      pdf.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      pdf.save("table_report.pdf");
+    });
+  };
+
   return (
     <div>
       <div className="quote-container">
@@ -76,13 +106,19 @@ const Bonds = () => {
         />
 
         {/* Mai jos ai tabelul efectiv */}
-        <div className="market-container">
-          <h1 className="page-title">Bonds</h1>
-          <Table
-            data={data}
-            columns={columns}
-            formatTypeForNumbers={"long"}
-          />{" "}
+        <div className="market-container" id="my-bonds-table">
+          <h1 className="page-title">
+            Bonds
+            <span>
+              <button
+                style={{ fontSize: "16px", padding: "5px 15px" }}
+                onClick={exportToPDF}
+              >
+                Descarcă PDF
+              </button>
+            </span>
+          </h1>
+          <Table data={data} columns={columns} formatTypeForNumbers={"long"} />{" "}
           {/* News for World Indices */}
           <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
           <SpecificNewsForSymbols

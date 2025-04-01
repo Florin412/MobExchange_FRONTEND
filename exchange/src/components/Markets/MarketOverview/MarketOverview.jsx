@@ -10,6 +10,9 @@ import { Link } from "react-router-dom";
 import TrendingNowCards from "./TrendingNowCards/TrendingNowCards";
 import LeftSidebarWithLinks from "../LeftSidebarWithLinks/LeftSidebarWithLinks";
 
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+
 const MarketOverview = () => {
   const [usWorldIndices, setUSWorldIndices] = useState([]);
   const [europaWorldIndices, setEuropaWorldIndices] = useState([]);
@@ -386,6 +389,33 @@ const MarketOverview = () => {
     );
   }, []);
 
+  const exportToPDF = () => {
+    const input = document.getElementById("market-container-1"); // ID-ul tabelului
+
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF();
+      const imgWidth = 190; // Lățimea imaginii în PDF
+      const pageHeight = pdf.internal.pageSize.height;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+
+      let position = 0;
+
+      pdf.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 10, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      pdf.save("table_report.pdf");
+    });
+  };
+
   return (
     <div>
       <div className="quote-container">
@@ -395,8 +425,35 @@ const MarketOverview = () => {
           handleLinkClick={handleLinkClick}
         />
 
-        <div className="market-container">
-          <h1 className="page-title-overview">Markets Overview</h1>
+        <div className="market-container" id="market-container-1">
+          <h1 className="page-title-overview">
+            Markets Overview
+            {/* <span>
+              <button
+                onClick={exportToPDF}
+                // style={{ display: "flex", alignItems: "center" }}
+              >
+                <i
+                  className="fas fa-file-download download-icon"
+                  style={{ marginRight: "8px" }}
+                ></i>
+                <span className="tooltip-download-btn">Download PDF</span>
+              </button>
+            </span> */}
+            <button
+              type="button"
+              className="btn btn-secondary download-btn"
+              onClick={exportToPDF}
+              data-bs-toggle="tooltip"
+              data-bs-html="true"
+              title="Download PDF"
+            >
+              <i
+                className="fas fa-file-download download-icon"
+                style={{ marginRight: "8px" }}
+              ></i>
+            </button>
+          </h1>
 
           {/* --------------------- */}
           {/* World Indices Section */}
