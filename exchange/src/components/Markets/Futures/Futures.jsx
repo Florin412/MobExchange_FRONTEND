@@ -5,6 +5,7 @@ import Table from "../TableForAssets/Table";
 import { getNewAccessToken } from "../../Auth/auth_functions";
 import LeftSidebarWithLinks from "../LeftSidebarWithLinks/LeftSidebarWithLinks";
 import SpecificNewsForSymbols from "../../SpecificNewsForSymbols/SpecificNewsForSymbols";
+import DownloadButtons from "../DownloadButtons/DownloadButtons";
 
 const Futures = () => {
   // data este un array cu 40 de obiecte, obiecte ce reprezinta cate un asset, iar in obiect sunt date generale despre asset.
@@ -117,8 +118,17 @@ const Futures = () => {
         />
 
         <div className="market-container">
-          <h1 className="page-title">Futures</h1>
-          <Table data={data} columns={columns} />
+          <div id="ss-futures">
+            <h1 className="page-title">
+              Futures
+              <DownloadButtons
+                tableId={"ss-futures"}
+                data={data}
+                columns={columns}
+              ></DownloadButtons>
+            </h1>
+            <Table data={data} columns={columns} />
+          </div>
 
           {/* News for Futures */}
           <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />

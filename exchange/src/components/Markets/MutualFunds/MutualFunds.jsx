@@ -7,6 +7,7 @@ import { getNewAccessToken } from "../../Auth/auth_functions";
 import "../Options/Options.css";
 import LeftSidebarWithLinks from "../LeftSidebarWithLinks/LeftSidebarWithLinks";
 import SpecificNewsForSymbols from "../../SpecificNewsForSymbols/SpecificNewsForSymbols";
+import DownloadButtons from "../DownloadButtons/DownloadButtons";
 
 const MutualFunds = () => {
   const [data, setData] = useState([]);
@@ -124,51 +125,64 @@ const MutualFunds = () => {
         />
 
         <div className="market-container">
-          <h1 className="page-title">Mutual Funds</h1>
+          <div id="ss-mutual-funds">
+            <h1 className="page-title">
+              Mutual Funds{" "}
+              <DownloadButtons
+                tableId={"ss-mutual-funds"}
+                data={data}
+                columns={columns}
+              ></DownloadButtons>
+            </h1>
 
-          <div className="button-group overflow-auto">
-            <div className="d-flex">
-              <button
-                className={`option-button ${
-                  activeButton === "Top Gainers" ? "active" : ""
-                }`}
-                onClick={() => handleButtonClick("Top Gainers")}
-              >
-                Top Gainers
-              </button>
-              <button
-                className={`option-button ${
-                  activeButton === "Top Losers" ? "active" : ""
-                }`}
-                onClick={() => handleButtonClick("Top Losers")}
-              >
-                Top Losers
-              </button>
-              <button
-                className={`option-button ${
-                  activeButton === "Top Performing" ? "active" : ""
-                }`}
-                onClick={() => handleButtonClick("Top Performing")}
-              >
-                Top Performing
-              </button>
+            <div className="button-group overflow-auto">
+              <div className="d-flex">
+                <button
+                  className={`option-button ${
+                    activeButton === "Top Gainers" ? "active" : ""
+                  }`}
+                  onClick={() => handleButtonClick("Top Gainers")}
+                >
+                  Top Gainers
+                </button>
+                <button
+                  className={`option-button ${
+                    activeButton === "Top Losers" ? "active" : ""
+                  }`}
+                  onClick={() => handleButtonClick("Top Losers")}
+                >
+                  Top Losers
+                </button>
+                <button
+                  className={`option-button ${
+                    activeButton === "Top Performing" ? "active" : ""
+                  }`}
+                  onClick={() => handleButtonClick("Top Performing")}
+                >
+                  Top Performing
+                </button>
 
-              <button
-                className={`option-button ${
-                  activeButton === "Best Historical Performance" ? "active" : ""
-                }`}
-                onClick={() => handleButtonClick("Best Historical Performance")}
-              >
-                Best Historical Performance
-              </button>
+                <button
+                  className={`option-button ${
+                    activeButton === "Best Historical Performance"
+                      ? "active"
+                      : ""
+                  }`}
+                  onClick={() =>
+                    handleButtonClick("Best Historical Performance")
+                  }
+                >
+                  Best Historical Performance
+                </button>
+              </div>
             </div>
-          </div>
 
-          <Table
-            data={data}
-            columns={columns}
-            formatTypeForNumbers={"normal"}
-          />
+            <Table
+              data={data}
+              columns={columns}
+              formatTypeForNumbers={"normal"}
+            />
+          </div>
 
           {/* News for Mutual Funds */}
           <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />

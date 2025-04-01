@@ -5,6 +5,7 @@ import Table from "../TableForAssets/Table";
 import { getNewAccessToken } from "../../Auth/auth_functions";
 import LeftSidebarWithLinks from "../LeftSidebarWithLinks/LeftSidebarWithLinks";
 import SpecificNewsForSymbols from "../../SpecificNewsForSymbols/SpecificNewsForSymbols";
+import DownloadButtons from "../DownloadButtons/DownloadButtons";
 
 const Currencies = () => {
   // data este un array cu 40 de obiecte, obiecte ce reprezinta cate un asset, iar in obiect sunt date generale despre asset.
@@ -102,12 +103,22 @@ const Currencies = () => {
 
         {/* Mai jos ai tabelul efectiv */}
         <div className="market-container">
-          <h1 className="page-title">Currencies</h1>
-          <Table
-            data={data}
-            columns={columns}
-            formatTypeForNumbers={"long"}
-          />{" "}
+          <div id="ss-currencies">
+            <h1 className="page-title">
+              Currencies
+              <DownloadButtons
+                tableId={"ss-currencies"}
+                data={data}
+                columns={columns}
+              ></DownloadButtons>
+            </h1>
+            <Table
+              data={data}
+              columns={columns}
+              formatTypeForNumbers={"long"}
+            />{" "}
+          </div>
+
           {/* News for Currencies */}
           <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
           <SpecificNewsForSymbols

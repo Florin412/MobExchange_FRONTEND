@@ -1,0 +1,15 @@
+.pdf-button,
+.csv-button {
+  border: none;
+  font-size: 16px;
+  padding: 5px 10px;
+  background-color: transparent;
+  transition: 0.15s all ease-in;
+}
+
+.pdf-button:hover,
+.csv-button:hover {
+  color: #1967d2;
+  background-color: #e7f3ff;
+  border-radius: 5px;
+}

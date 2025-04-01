@@ -7,6 +7,7 @@ import { getNewAccessToken } from "../../Auth/auth_functions";
 import "../Options/Options.css";
 import LeftSidebarWithLinks from "../LeftSidebarWithLinks/LeftSidebarWithLinks";
 import SpecificNewsForSymbols from "../../SpecificNewsForSymbols/SpecificNewsForSymbols";
+import DownloadButtons from "../DownloadButtons/DownloadButtons";
 
 const Crypto = () => {
   const [data, setData] = useState([]);
@@ -122,43 +123,52 @@ const Crypto = () => {
         />
 
         <div className="market-container">
-          <h1 className="page-title">Crypto</h1>
+          <div id="ss-crypto">
+            <h1 className="page-title">
+              Crypto
+              <DownloadButtons
+                tableId={"ss-crypto"}
+                data={data}
+                columns={columns}
+              ></DownloadButtons>
+            </h1>
 
-          <div className="button-group overflow-auto">
-            <div className="d-flex">
-              <button
-                className={`option-button ${
-                  activeButton === "Most Active" ? "active" : ""
-                }`}
-                onClick={() => handleButtonClick("Most Active")}
-              >
-                Most Active
-              </button>
+            <div className="button-group overflow-auto">
+              <div className="d-flex">
+                <button
+                  className={`option-button ${
+                    activeButton === "Most Active" ? "active" : ""
+                  }`}
+                  onClick={() => handleButtonClick("Most Active")}
+                >
+                  Most Active
+                </button>
 
-              <button
-                className={`option-button ${
-                  activeButton === "Top Gainers" ? "active" : ""
-                }`}
-                onClick={() => handleButtonClick("Top Gainers")}
-              >
-                Top Gainers
-              </button>
-              <button
-                className={`option-button ${
-                  activeButton === "Top Losers" ? "active" : ""
-                }`}
-                onClick={() => handleButtonClick("Top Losers")}
-              >
-                Top Losers
-              </button>
+                <button
+                  className={`option-button ${
+                    activeButton === "Top Gainers" ? "active" : ""
+                  }`}
+                  onClick={() => handleButtonClick("Top Gainers")}
+                >
+                  Top Gainers
+                </button>
+                <button
+                  className={`option-button ${
+                    activeButton === "Top Losers" ? "active" : ""
+                  }`}
+                  onClick={() => handleButtonClick("Top Losers")}
+                >
+                  Top Losers
+                </button>
+              </div>
             </div>
-          </div>
 
-          <Table
-            data={data}
-            columns={columns}
-            formatTypeForNumbers={"veryLong"}
-          />
+            <Table
+              data={data}
+              columns={columns}
+              formatTypeForNumbers={"veryLong"}
+            />
+          </div>
 
           {/* News for Crypto */}
           <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />

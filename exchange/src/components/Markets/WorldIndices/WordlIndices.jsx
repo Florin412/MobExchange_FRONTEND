@@ -7,6 +7,7 @@ import { getNewAccessToken } from "../../Auth/auth_functions";
 import "./WorldIndices.css";
 import LeftSidebarWithLinks from "../LeftSidebarWithLinks/LeftSidebarWithLinks";
 import SpecificNewsForSymbols from "../../SpecificNewsForSymbols/SpecificNewsForSymbols";
+import DownloadButtons from "../DownloadButtons/DownloadButtons";
 
 const WorldIndices = () => {
   const [data, setData] = useState([]);
@@ -120,8 +121,17 @@ const WorldIndices = () => {
 
         {/* Mai jos ai continutul pentru tabelul propriu zis */}
         <div className="market-container">
-          <h1 className="page-title">World Indices</h1>
-          <Table data={data} columns={columns} />
+          <div id="ss-world-indices">
+            <h1 className="page-title">
+              World Indices
+              <DownloadButtons
+                tableId={"ss-world-indices"}
+                data={data}
+                columns={columns}
+              ></DownloadButtons>
+            </h1>
+            <Table data={data} columns={columns} />
+          </div>
 
           {/* News for World Indices */}
           <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />

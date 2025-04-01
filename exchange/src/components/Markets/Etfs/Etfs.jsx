@@ -7,6 +7,7 @@ import { getNewAccessToken } from "../../Auth/auth_functions";
 import "../Options/Options.css";
 import LeftSidebarWithLinks from "../LeftSidebarWithLinks/LeftSidebarWithLinks";
 import SpecificNewsForSymbols from "../../SpecificNewsForSymbols/SpecificNewsForSymbols";
+import DownloadButtons from "../DownloadButtons/DownloadButtons";
 
 const Etfs = () => {
   const [data, setData] = useState([]);
@@ -131,67 +132,80 @@ const Etfs = () => {
         />
 
         <div className="market-container">
-          <h1 className="page-title">ETFs</h1>
+          <div id="ss-etfs">
+            <h1 className="page-title">
+              ETFs
+              <DownloadButtons
+                tableId={"ss-etfs"}
+                data={data}
+                columns={columns}
+              ></DownloadButtons>
+            </h1>
 
-          <div className="button-group overflow-auto">
-            <div className="d-flex">
-              <button
-                className={`option-button ${
-                  activeButton === "Most Active" ? "active" : ""
-                }`}
-                onClick={() => handleButtonClick("Most Active")}
-              >
-                Most Active
-              </button>
+            <div className="button-group overflow-auto">
+              <div className="d-flex">
+                <button
+                  className={`option-button ${
+                    activeButton === "Most Active" ? "active" : ""
+                  }`}
+                  onClick={() => handleButtonClick("Most Active")}
+                >
+                  Most Active
+                </button>
 
-              <button
-                className={`option-button ${
-                  activeButton === "Top Gainers" ? "active" : ""
-                }`}
-                onClick={() => handleButtonClick("Top Gainers")}
-              >
-                Top Gainers
-              </button>
-              <button
-                className={`option-button ${
-                  activeButton === "Top Losers" ? "active" : ""
-                }`}
-                onClick={() => handleButtonClick("Top Losers")}
-              >
-                Top Losers
-              </button>
-              <button
-                className={`option-button ${
-                  activeButton === "Top Performing" ? "active" : ""
-                }`}
-                onClick={() => handleButtonClick("Top Performing")}
-              >
-                Top Performing
-              </button>
-              <button
-                className={`option-button ${
-                  activeButton === "Trending Now" ? "active" : ""
-                }`}
-                onClick={() => handleButtonClick("Trending Now")}
-              >
-                Trending Now
-              </button>
-              <button
-                className={`option-button ${
-                  activeButton === "Best Historical Performance" ? "active" : ""
-                }`}
-                onClick={() => handleButtonClick("Best Historical Performance")}
-              >
-                Best Historical Performance
-              </button>
+                <button
+                  className={`option-button ${
+                    activeButton === "Top Gainers" ? "active" : ""
+                  }`}
+                  onClick={() => handleButtonClick("Top Gainers")}
+                >
+                  Top Gainers
+                </button>
+                <button
+                  className={`option-button ${
+                    activeButton === "Top Losers" ? "active" : ""
+                  }`}
+                  onClick={() => handleButtonClick("Top Losers")}
+                >
+                  Top Losers
+                </button>
+                <button
+                  className={`option-button ${
+                    activeButton === "Top Performing" ? "active" : ""
+                  }`}
+                  onClick={() => handleButtonClick("Top Performing")}
+                >
+                  Top Performing
+                </button>
+                <button
+                  className={`option-button ${
+                    activeButton === "Trending Now" ? "active" : ""
+                  }`}
+                  onClick={() => handleButtonClick("Trending Now")}
+                >
+                  Trending Now
+                </button>
+                <button
+                  className={`option-button ${
+                    activeButton === "Best Historical Performance"
+                      ? "active"
+                      : ""
+                  }`}
+                  onClick={() =>
+                    handleButtonClick("Best Historical Performance")
+                  }
+                >
+                  Best Historical Performance
+                </button>
+              </div>
             </div>
-          </div>
 
-          <Table
-            data={data}
-            columns={columns}
-            formatTypeForNumbers={"normal"}
-          />
+            <Table
+              data={data}
+              columns={columns}
+              formatTypeForNumbers={"normal"}
+            />
+          </div>
 
           {/* News for Stocks */}
           <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
