@@ -1,0 +1,20 @@
+.not-cursor {
+  cursor: text !important;
+}
+
+.name-good {
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.name-good span {
+  margin-left: 10px;
+}
+
+.span-cu-score-ul {
+  margin-left: 5px !important;
+}
+
+.main-news .name-good {
+  justify-content: center;
+}

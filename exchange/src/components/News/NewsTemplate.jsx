@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 
+import SentimentAnalyzer from "../SentimentAnalizer/SentimentAnalizer";
 import "./NewsTemplate.css";
 
 const NewsTemplate = ({ newsData, pageTitle }) => {
@@ -58,6 +59,10 @@ const NewsTemplate = ({ newsData, pageTitle }) => {
               >
                 {news.description}
               </p>
+
+              {/* Analiza de sentiment pe baza continutul din articol */}
+              <SentimentAnalyzer text={news.content}></SentimentAnalyzer>
+
               <div className="article-meta">
                 <p className="article-source">{news.source.name}</p>
                 <span className="bullet"> • </span>
@@ -119,6 +124,11 @@ const NewsTemplate = ({ newsData, pageTitle }) => {
                       >
                         {section1News[0].description}
                       </p>
+
+                      <SentimentAnalyzer
+                        text={section1News[0].content}
+                      ></SentimentAnalyzer>
+
                       <div className="article-meta">
                         <p className="article-source">
                           {section1News[0].source.name}

@@ -11,6 +11,7 @@ const BusinessNews = () => {
       try {
         const response = await axios.get("http://localhost:8080/news/business");
         setNewsData(response.data);
+        // console.log("news pentru business: ", response.data);
       } catch (error) {
         console.error("Error fetching news:", error);
       }

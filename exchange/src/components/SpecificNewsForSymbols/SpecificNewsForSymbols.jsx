@@ -4,6 +4,7 @@ import axios from "axios";
 import { getNewAccessToken } from "../Auth/auth_functions";
 import "./SpecificNewsForSymbols.css";
 import { Link, useLocation } from "react-router-dom";
+import SentimentAnalyzer from "../SentimentAnalizer/SentimentAnalizer";
 
 const SpecificNewsForSymbols = ({ symbols, data, newsTitle }) => {
   const [news, setNews] = useState([]);
@@ -113,6 +114,7 @@ const SpecificNewsForSymbols = ({ symbols, data, newsTitle }) => {
       if (response.status === 200 || response.status === 201) {
         // array de obiecte, unde obiectele contin date despre news.
         // modifica mai jos, incat sa seteze doar acele news care au poza la thumbnail
+
         setNews(filterNewsWithThumbnails(response.data.data.main.stream));
       } else if (response.status === 400 || response.status === 401) {
         const newAccessToken = await getNewAccessToken();
@@ -200,6 +202,10 @@ const SpecificNewsForSymbols = ({ symbols, data, newsTitle }) => {
                   <h3 className="news-title1">{item.content.title}</h3>
                 </a>
 
+                <SentimentAnalyzer
+                  text={item.content.title}
+                ></SentimentAnalyzer>
+
                 <p className="news-meta1">
                   {item.content.provider.displayName} •{" "}
                   {getTimeAgo(item.content.pubDate)}
@@ -238,6 +244,8 @@ const SpecificNewsForSymbols = ({ symbols, data, newsTitle }) => {
                     </span>
                   )}
                 </p>
+
+                
               </div>
               <div>
                 <img
