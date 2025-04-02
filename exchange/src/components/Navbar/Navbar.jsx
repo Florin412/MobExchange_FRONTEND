@@ -248,6 +248,15 @@ const Navigation = ({
                   Mutual Funds
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/markets/guide"
+                  className="dropdown-item"
+                  style={{ fontSize: "1.5rem", padding: "10px 20px" }}
+                >
+                  Guide
+                </Link>
+              </li>
             </ul>
           </div>
         )}
@@ -573,6 +582,13 @@ const Navigation = ({
                         >
                           Mutual Funds
                         </Link>
+                      </li>
+                      <li>
+                        <u>
+                          <Link to="/markets/guide" className="dropdown-item">
+                            Guide
+                          </Link>
+                        </u>
                       </li>
                     </ul>
                   )}

@@ -1,0 +1,35 @@
+.chart-image {
+  border-radius: 10px;
+}
+
+.guide-section {
+  text-align: justify;
+}
+
+.guide-section p {
+  font-size: 16px !important;
+}
+.guide-section h2 {
+  font-size: 24px; /* Mărime mare pentru titluri */
+  color: #2c3e50; /* Culoarea pentru titluri */
+  margin-top: 20px; /* Spațiu deasupra titlului */
+}
+
+.guide-section h3 {
+  font-size: 20px; /* Mărime medie pentru subtitluri */
+  color: #2980b9; /* Culoare diferită pentru subtitluri */
+  margin-top: 35px; /* Spațiu deasupra subtitlurilor */
+}
+
+.guide-section p,
+.guide-section ul {
+  font-size: 16px; /* Mărime standard pentru text */
+  line-height: 1.6; /* Între liniile textului */
+  color: #555; /* Culoare mai deschisă pentru text */
+}
+
+.chart-image {
+  border-radius: 8px; /* Colțuri rotunjite ale imaginilor */
+  margin: 15px 0; /* Spațiu deasupra și dedesubtul imaginilor */
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); /* Umbre pentru imagini */
+}

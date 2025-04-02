@@ -100,6 +100,15 @@ const LeftSidebarWithLinks = ({ activeButton1, handleLinkClick }) => {
             >
               Mutual Funds
             </Link>
+            <Link
+              to="/markets/guide"
+              className={`option-button1 ${
+                activeButton1 === "Guide" ? "active" : ""
+              }`}
+              onClick={() => handleLinkClick("Guide")}
+            >
+              Guide
+            </Link>
           </div>
         </div>
       </div>
@@ -202,6 +211,15 @@ const LeftSidebarWithLinks = ({ activeButton1, handleLinkClick }) => {
               onClick={() => handleLinkClick("Mutual Funds")}
             >
               Mutual Funds
+            </Link>
+            <Link
+              to="/markets/guide"
+              className={`option-button1 ${
+                activeButton1 === "Guide" ? "active" : ""
+              }`}
+              onClick={() => handleLinkClick("Guide")}
+            >
+              Guide
             </Link>
           </div>
         </div>
