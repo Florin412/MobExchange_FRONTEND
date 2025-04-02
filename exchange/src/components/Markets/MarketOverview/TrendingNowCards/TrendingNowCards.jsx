@@ -25,6 +25,7 @@ const Card = ({
   const formattedPrice = currentPrice
     ? formatNumber(currentPrice, formatType)
     : "-";
+
   const formattedChangePercent =
     changePercent !== undefined
       ? `${changePercent > 0 ? "+" : ""}${formatNumber(
