@@ -17,8 +17,6 @@ const formatVolume = (volume) => {
 };
 
 const DownloadButtons = ({ tableId, data }) => {
-  console.log("salut, ai aici obiectul data: ", data);
-
   const exportToPDF = () => {
     const input = document.getElementById(tableId);
     if (!input) return; // Verifică dacă tabelul există
