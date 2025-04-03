@@ -259,10 +259,10 @@ const Guide = () => {
               </div>
               <p>
                 <strong>Percentage Change:</strong> In the center of the screen,
-                the percentage shown (e.g., +0.95%) reflects the stock's price
-                change over the selected time period (1D in this case). A
-                positive percentage indicates an increase in the stock's value,
-                while a negative percentage would indicate a decrease.
+                the percentage shown (e.g., +0.95%) reflects the stock&apos;s
+                price change over the selected time period (1D in this case). A
+                positive percentage indicates an increase in the stock&apos;s
+                value, while a negative percentage would indicate a decrease.
               </p>
               <h3>Detail Information</h3>
               <div style={{ maxWidth: "800px" }}>
@@ -337,8 +337,9 @@ const Guide = () => {
               </div>
               <p>
                 <strong>Definition:</strong> SMA is the arithmetic average of an
-                asset's prices over a specific period. It is simple to calculate
-                and helps smooth price fluctuations to highlight trends.
+                asset&apos;s prices over a specific period. It is simple to
+                calculate and helps smooth price fluctuations to highlight
+                trends.
               </p>
               <p>
                 <strong>Role:</strong>
@@ -494,7 +495,7 @@ const Guide = () => {
                 </li>
                 <li>
                   <strong>Market Capitalization:</strong> The total value of a
-                  company's outstanding shares of stock.
+                  company&apos;s outstanding shares of stock.
                 </li>
               </ul>
             </div>
@@ -708,7 +709,7 @@ const Guide = () => {
               </p>
               <p>
                 <strong>How They Work:</strong> The value of stocks fluctuates
-                according to the company's performance and overall market
+                according to the company&apos;s performance and overall market
                 conditions.
               </p>
               <p>
