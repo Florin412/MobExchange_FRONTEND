@@ -138,6 +138,7 @@ const Stocks = () => {
                 tableId={"ss-stocks"}
                 data={data}
                 columns={columns}
+                aria-label="Download stocks table"
               ></DownloadButtons>
             </h1>
 
@@ -152,6 +153,7 @@ const Stocks = () => {
                     activeButton === "Most Active" ? "active" : ""
                   }`}
                   onClick={() => handleButtonClick("Most Active")}
+                  aria-label="Show most active stocks"
                 >
                   Most Active
                 </button>
@@ -168,6 +170,7 @@ const Stocks = () => {
                     activeButton === "Top Gainers" ? "active" : ""
                   }`}
                   onClick={() => handleButtonClick("Top Gainers")}
+                  aria-label="Show trending now stocks"
                 >
                   Top Gainers
                 </button>
@@ -176,6 +179,7 @@ const Stocks = () => {
                     activeButton === "Top Losers" ? "active" : ""
                   }`}
                   onClick={() => handleButtonClick("Top Losers")}
+                  aria-label="Show top losers stocks"
                 >
                   Top Losers
                 </button>
@@ -184,6 +188,7 @@ const Stocks = () => {
                     activeButton === "52 Week Gainers" ? "active" : ""
                   }`}
                   onClick={() => handleButtonClick("52 Week Gainers")}
+                  aria-label="Show 52 week gainers stocks"
                 >
                   52 Week Gainers
                 </button>
@@ -192,6 +197,7 @@ const Stocks = () => {
                     activeButton === "52 Week Losers" ? "active" : ""
                   }`}
                   onClick={() => handleButtonClick("52 Week Losers")}
+                  aria-label="Show 52 week losers stocks"
                 >
                   52 Week Losers
                 </button>

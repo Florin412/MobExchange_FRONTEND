@@ -151,6 +151,7 @@ const SearchBar = () => {
             <input
               type="text"
               className="form-control search-input"
+              aria-label="Search for news, symbols or companies"
               placeholder="Search for news, symbols or companies"
               value={query}
               onChange={handleInputChange}
@@ -163,6 +164,7 @@ const SearchBar = () => {
             {query && (
               <button
                 className="btn clear-button"
+                aria-label="Clear your introduced text"
                 onClick={() => {
                   clearInput(), toggleScroll(false);
                 }}
@@ -171,7 +173,10 @@ const SearchBar = () => {
                 <i className="fas fa-times" style={{ fontSize: "1.1rem" }}></i>
               </button>
             )}
-            <button className="btn btn-success search-button">
+            <button
+              className="btn btn-success search-button"
+              aria-label="Search"
+            >
               <i
                 className="fas fa-search search-icon"
                 style={{ fontSize: "1.2rem" }}
@@ -279,6 +284,7 @@ const SearchBar = () => {
               <input
                 type="text"
                 className="form-control search-input"
+                aria-label="Search for news and symbols"
                 placeholder="Search for news and symbols"
                 value={query}
                 onChange={handleInputChange}
@@ -290,6 +296,7 @@ const SearchBar = () => {
               {query && ( // Afișează butonul de CLEAR doar dacă există text în input
                 <button
                   className="btn clear-button"
+                  aria-label="Clear your introduced text"
                   onClick={clearInput}
                   style={{
                     background: "none",

@@ -227,6 +227,7 @@ const SpecificNewsForSymbols = ({ symbols, data, newsTitle }) => {
                               className="news-tickers"
                               key={tickerIndex}
                               to={`/quote/${ticker.symbol}`}
+                              aria-label={`Go to quote for ${ticker.symbol}`}
                               style={{
                                 textDecoration: "none",
                                 color: "inherit"

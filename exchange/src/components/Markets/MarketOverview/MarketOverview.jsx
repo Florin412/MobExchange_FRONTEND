@@ -442,6 +442,7 @@ const MarketOverview = () => {
               type="button"
               className="btn btn-secondary download-btn"
               onClick={exportToPDF}
+              aria-label="Export to PDF button"
               data-bs-toggle="tooltip"
               data-bs-html="true"
               title="Download PDF"
@@ -461,6 +462,7 @@ const MarketOverview = () => {
               <Link
                 to="/markets/world-indices"
                 className="page-subtitle-overview"
+                aria-label="Go to World Indices page"
               >
                 World Indices &rarr;
               </Link>
@@ -546,6 +548,7 @@ const MarketOverview = () => {
                       <Link
                         to="/markets/commodities"
                         className="page-subtitle-overview small"
+                        aria-label="Go to Commodities page"
                       >
                         Commodities &rarr;
                       </Link>
@@ -569,6 +572,7 @@ const MarketOverview = () => {
                       <Link
                         to="/markets/currencies"
                         className="page-subtitle-overview small"
+                        aria-label="Go to Currencies page"
                       >
                         Currencies &rarr;
                       </Link>
@@ -587,6 +591,7 @@ const MarketOverview = () => {
                       <Link
                         to="/markets/bonds"
                         className="page-subtitle-overview small"
+                        aria-label="Go to Bonds page"
                       >
                         US Treasury Bonds &rarr;
                       </Link>
@@ -615,6 +620,7 @@ const MarketOverview = () => {
               <Link
                 to="/markets/stocks/most-active"
                 className="page-subtitle-overview"
+                aria-label="Go to Stocks page"
               >
                 Stocks &rarr;
               </Link>
@@ -639,6 +645,7 @@ const MarketOverview = () => {
                         activeButton === "Most Active" ? "active" : ""
                       }`}
                       onClick={() => handleButtonClick("Most Active", "stocks")}
+                      aria-label="Show most active stocks"
                     >
                       Most Active
                     </button>
@@ -649,6 +656,7 @@ const MarketOverview = () => {
                       onClick={() =>
                         handleButtonClick("Trending Now", "stocks")
                       }
+                      aria-label="Show trending now stocks"
                     >
                       Trending Now
                     </button>
@@ -657,6 +665,7 @@ const MarketOverview = () => {
                         activeButton === "Top Gainers" ? "active" : ""
                       }`}
                       onClick={() => handleButtonClick("Top Gainers", "stocks")}
+                      aria-label="Show top gainers stocks"
                     >
                       Top Gainers
                     </button>
@@ -665,6 +674,7 @@ const MarketOverview = () => {
                         activeButton === "Top Losers" ? "active" : ""
                       }`}
                       onClick={() => handleButtonClick("Top Losers", "stocks")}
+                      aria-label="Show top losers stocks"
                     >
                       Top Losers
                     </button>
@@ -675,6 +685,7 @@ const MarketOverview = () => {
                       onClick={() =>
                         handleButtonClick("52 Week Gainers", "stocks")
                       }
+                      aria-label="Show 52 week gainers stocks"
                     >
                       52 Week Gainers
                     </button>
@@ -685,6 +696,7 @@ const MarketOverview = () => {
                       onClick={() =>
                         handleButtonClick("52 Week Losers", "stocks")
                       }
+                      aria-label="Show 52 week losers stocks"
                     >
                       52 Week Losers
                     </button>
@@ -728,6 +740,7 @@ const MarketOverview = () => {
                       onClick={() =>
                         handleButtonClick1("Most Active", "crypto")
                       }
+                      aria-label="Show most active cryptocurrencies"
                     >
                       Most Active
                     </button>
@@ -738,6 +751,7 @@ const MarketOverview = () => {
                       onClick={() =>
                         handleButtonClick1("Top Gainers", "crypto")
                       }
+                      aria-label="Show top gainers cryptocurrencies"
                     >
                       Top Gainers
                     </button>
@@ -746,6 +760,7 @@ const MarketOverview = () => {
                         activeButton1 === "Top Losers" ? "active" : ""
                       }`}
                       onClick={() => handleButtonClick1("Top Losers", "crypto")}
+                      aria-label="Show top losers cryptocurrencies"
                     >
                       Top Losers
                     </button>
@@ -783,6 +798,7 @@ const MarketOverview = () => {
                       <Link
                         to="/markets/etfs/most-active"
                         className="page-subtitle-overview small"
+                        aria-label="Go to Most Active ETFs page"
                       >
                         Most Active &rarr;
                       </Link>
@@ -806,6 +822,7 @@ const MarketOverview = () => {
                       <Link
                         to="/markets/etfs/top-gainers"
                         className="page-subtitle-overview small"
+                        aria-label="Go to Top Gainers ETFs page"
                       >
                         Top Gainers &rarr;
                       </Link>
@@ -824,6 +841,7 @@ const MarketOverview = () => {
                       <Link
                         to="/markets/etfs/top-losers"
                         className="page-subtitle-overview small"
+                        aria-label="Go to Top Losers ETFs page"
                       >
                         Top Losers &rarr;
                       </Link>
@@ -849,6 +867,7 @@ const MarketOverview = () => {
                       <Link
                         to="/markets/etfs/top-performing"
                         className="page-subtitle-overview small"
+                        aria-label="Go to Top Performing ETFs page"
                       >
                         Top Performing &rarr;
                       </Link>
@@ -872,6 +891,7 @@ const MarketOverview = () => {
                       <Link
                         to="/markets/etfs/trending-now"
                         className="page-subtitle-overview small"
+                        aria-label="Go to Trending Now ETFs page"
                       >
                         Trending Now &rarr;
                       </Link>
@@ -890,6 +910,7 @@ const MarketOverview = () => {
                       <Link
                         to="/markets/etfs/best-historical-performance"
                         className="page-subtitle-overview small"
+                        aria-label="Go to Best Historical Performance ETFs page"
                       >
                         Best Historical Performance &rarr;
                       </Link>
@@ -934,6 +955,7 @@ const MarketOverview = () => {
                       <Link
                         to="/markets/mutual-funds/top-gainers"
                         className="page-subtitle-overview small"
+                        aria-label="Go to Top Gainers Mutual Funds page"
                       >
                         Top Gainers &rarr;
                       </Link>
@@ -954,6 +976,7 @@ const MarketOverview = () => {
                       <Link
                         to="/markets/mutual-funds/top-losers"
                         className="page-subtitle-overview small"
+                        aria-label="Go to Top Losers Mutual Funds page"
                       >
                         Top Losers &rarr;
                       </Link>
@@ -979,6 +1002,7 @@ const MarketOverview = () => {
                       <Link
                         to="/markets/mutual-funds/top-performing"
                         className="page-subtitle-overview small"
+                        aria-label="Go to Top Performing Mutual Funds page"
                       >
                         Top Performing &rarr;
                       </Link>
@@ -999,6 +1023,7 @@ const MarketOverview = () => {
                       <Link
                         to="/markets/mutual-funds/best-historical-performance"
                         className="page-subtitle-overview small"
+                        aria-label="Go to Best Historical Performance Mutual Funds page"
                       >
                         Best Historical Performance &rarr;
                       </Link>

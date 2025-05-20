@@ -78,6 +78,7 @@ const Bonds = () => {
                 tableId={"ss-bonds"}
                 data={data}
                 columns={columns}
+                aria-label="Download bonds table"
               ></DownloadButtons>
             </h1>
             <Table

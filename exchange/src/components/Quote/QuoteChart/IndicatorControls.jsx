@@ -33,6 +33,7 @@ const IndicatorControls = ({ indicators, handleIndicatorToggle }) => {
             type="checkbox"
             checked={indicators[key]}
             onChange={() => handleIndicatorToggle(key)}
+            aria-label={`Toggle ${key.toUpperCase()} indicator`}
           />
           {key.toUpperCase()}
           <span

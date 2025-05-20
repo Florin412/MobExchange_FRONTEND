@@ -281,6 +281,7 @@ const DownloadButtons = ({ tableId, data }) => {
       <button
         className="pdf-button"
         onClick={exportToPDF}
+         aria-label="Download table data as PDF"
         title="Download a PDF report"
       >
         PDF
@@ -288,6 +289,7 @@ const DownloadButtons = ({ tableId, data }) => {
       <button
         className="csv-button"
         onClick={exportToCSV}
+         aria-label="Download table data as CSV"
         title="Download a CSV report"
       >
         CSV

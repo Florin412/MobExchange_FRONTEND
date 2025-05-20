@@ -128,6 +128,7 @@ const WorldIndices = () => {
                 tableId={"ss-world-indices"}
                 data={data}
                 columns={columns}
+                aria-label="Download world indices table"
               ></DownloadButtons>
             </h1>
             <Table data={data} columns={columns} />

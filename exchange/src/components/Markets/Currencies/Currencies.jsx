@@ -110,6 +110,7 @@ const Currencies = () => {
                 tableId={"ss-currencies"}
                 data={data}
                 columns={columns}
+                aria-label="Download currencies table"
               ></DownloadButtons>
             </h1>
             <Table

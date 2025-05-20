@@ -137,6 +137,7 @@ const Options = () => {
                 tableId={"ss-options"}
                 data={data}
                 columns={columns}
+                aria-label="Download options table"
               ></DownloadButtons>
             </h1>
 
@@ -147,6 +148,7 @@ const Options = () => {
                     activeButton === "Most Active" ? "active" : ""
                   }`}
                   onClick={() => handleButtonClick("Most Active")}
+                  aria-label="Show most active options"
                 >
                   Most Active
                 </button>
@@ -155,6 +157,7 @@ const Options = () => {
                     activeButton === "Top Gainers" ? "active" : ""
                   }`}
                   onClick={() => handleButtonClick("Top Gainers")}
+                  aria-label="Show top gainers options"
                 >
                   Top Gainers
                 </button>
@@ -163,6 +166,7 @@ const Options = () => {
                     activeButton === "Top Losers" ? "active" : ""
                   }`}
                   onClick={() => handleButtonClick("Top Losers")}
+                  aria-label="Show top losers options"
                 >
                   Top Losers
                 </button>
@@ -175,6 +179,7 @@ const Options = () => {
                   onClick={() =>
                     handleButtonClick("Highest Implied Volatility")
                   }
+                  aria-label="Show highest implied volatility options"
                 >
                   Highest Implied Volatility
                 </button>
@@ -183,6 +188,7 @@ const Options = () => {
                     activeButton === "Highest Open Interest" ? "active" : ""
                   }`}
                   onClick={() => handleButtonClick("Highest Open Interest")}
+                  aria-label="Show highest open interest options"
                 >
                   Highest Open Interest
                 </button>

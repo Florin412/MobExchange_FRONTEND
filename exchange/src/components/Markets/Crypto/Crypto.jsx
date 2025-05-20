@@ -130,6 +130,7 @@ const Crypto = () => {
                 tableId={"ss-crypto"}
                 data={data}
                 columns={columns}
+                aria-label="Download criptocurrency table"
               ></DownloadButtons>
             </h1>
 
@@ -140,6 +141,7 @@ const Crypto = () => {
                     activeButton === "Most Active" ? "active" : ""
                   }`}
                   onClick={() => handleButtonClick("Most Active")}
+                  aria-label="Show most active cryptocurrencies"
                 >
                   Most Active
                 </button>
@@ -149,6 +151,7 @@ const Crypto = () => {
                     activeButton === "Top Gainers" ? "active" : ""
                   }`}
                   onClick={() => handleButtonClick("Top Gainers")}
+                  aria-label="Show top gainers cryptocurrencies"
                 >
                   Top Gainers
                 </button>
@@ -157,6 +160,7 @@ const Crypto = () => {
                     activeButton === "Top Losers" ? "active" : ""
                   }`}
                   onClick={() => handleButtonClick("Top Losers")}
+                  aria-label="Show top losers cryptocurrencies"
                 >
                   Top Losers
                 </button>

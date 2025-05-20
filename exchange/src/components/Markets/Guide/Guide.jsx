@@ -53,6 +53,7 @@ const Guide = () => {
                       behavior: "smooth"
                     })
                   }
+                  aria-label="Scroll to How to Read a Chart section"
                 >
                   How to Read a Chart
                 </button>
@@ -66,6 +67,7 @@ const Guide = () => {
                       behavior: "smooth"
                     })
                   }
+                  aria-label="Scroll to Advanced Indicators section"
                 >
                   Advanced Indicators
                 </button>
@@ -79,6 +81,7 @@ const Guide = () => {
                       behavior: "smooth"
                     })
                   }
+                  aria-label="Scroll to Financial Terms Glossary section"
                 >
                   Financial Terms Glossary
                 </button>
@@ -91,6 +94,7 @@ const Guide = () => {
                       behavior: "smooth"
                     })
                   }
+                  aria-label="Scroll to Trading Strategies section"
                 >
                   Trading Strategies
                 </button>
@@ -104,6 +108,7 @@ const Guide = () => {
                       behavior: "smooth"
                     })
                   }
+                  aria-label="Scroll to Best Historical Performance section"
                 >
                   Best Historical Performance
                 </button>
@@ -116,6 +121,7 @@ const Guide = () => {
                       behavior: "smooth"
                     })
                   }
+                  aria-label="Scroll to What Assets Mean in This Application section"
                 >
                   What Assets Mean in This Application
                 </button>
@@ -164,7 +170,7 @@ const Guide = () => {
 
             {/* Cum sa citesti un chart */}
             <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
-            <div id="how-to-read-chart" className="guide-section">
+            <div id="how-to-read-chart" className="guide-section" aria-label="How to Read a Chart">
               <h2>How to Read a Stock Chart</h2>
               <div style={{ maxWidth: "800px" }}>
                 <img
@@ -174,6 +180,7 @@ const Guide = () => {
                   }}
                   src={chartImg}
                   alt="Description of the chart"
+                  aria-label="Chart showing the price movement of NVIDIA Corporation (NVDA) over a one-day period"
                   className="chart-image"
                 />
               </div>
@@ -229,6 +236,7 @@ const Guide = () => {
                   }}
                   src={mountain_line}
                   alt="Description of the chart"
+                  aria-label="Comparison between Mountain Chart and Line Chart"
                   className="chart-image"
                 />
               </div>
@@ -254,6 +262,7 @@ const Guide = () => {
                   }}
                   src={buttons_for_chart}
                   alt="Description of the chart"
+                  aria-label="Buttons for changing the chart view"
                   className="chart-image"
                 />
               </div>
@@ -273,6 +282,7 @@ const Guide = () => {
                   }}
                   src={hover_peste_grafic}
                   alt="Description of the chart"
+                  aria-label="Hovering over the chart to see detailed information"
                   className="chart-image"
                 />
               </div>
@@ -302,7 +312,7 @@ const Guide = () => {
             <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
 
             {/* Despre indicatori avansati */}
-            <div id="advanced-indicators" className="guide-section">
+            <div id="advanced-indicators" className="guide-section" aria-label="Advanced Indicators">
               <h2>Advanced Indicators</h2>
               <div style={{ maxWidth: "800px" }}>
                 <img
@@ -312,6 +322,7 @@ const Guide = () => {
                   }}
                   src={indicators1}
                   alt="Description of the chart"
+                  aria-label="Advanced indicators for stock analysis"
                   className="chart-image"
                 />
               </div>
@@ -332,6 +343,7 @@ const Guide = () => {
                   }}
                   src={sma}
                   alt="Description of the chart"
+                  aria-label="Simple Moving Average (SMA) chart"
                   className="chart-image"
                 />
               </div>
@@ -379,6 +391,7 @@ const Guide = () => {
                   }}
                   src={ema}
                   alt="Description of the chart"
+                  aria-label="Exponential Moving Average (EMA) chart"
                   className="chart-image"
                 />
               </div>
@@ -390,6 +403,7 @@ const Guide = () => {
                   }}
                   src={sma_ema}
                   alt="Description of the chart"
+                  aria-label="Comparison between Simple Moving Average (SMA) and Exponential Moving Average (EMA)"
                   className="chart-image"
                 />
               </div>
@@ -436,6 +450,7 @@ const Guide = () => {
                   }}
                   src={rsi}
                   alt="Description of the chart"
+                  aria-label="Relative Strength Index (RSI) chart"
                   className="chart-image"
                 />
               </div>
@@ -477,7 +492,7 @@ const Guide = () => {
             <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
 
             {/* Similar changes for other sections */}
-            <div id="financial-terms-glossary" className="guide-section">
+            <div id="financial-terms-glossary" className="guide-section" aria-label="Financial Terms Glossary">
               <h2>Financial Terms Glossary</h2>
               <p>
                 Understanding financial terminology is crucial in the world of
@@ -502,7 +517,7 @@ const Guide = () => {
 
             <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
 
-            <div id="trading-strategies" className="guide-section">
+            <div id="trading-strategies" className="guide-section" aria-label="Trading Strategies">
               <h2>Trading Strategies</h2>
               <p>
                 There are numerous trading strategies that can be adopted based
@@ -527,7 +542,7 @@ const Guide = () => {
 
             <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
 
-            <div id="best-historical-performance" className="guide-section">
+            <div id="best-historical-performance" className="guide-section" aria-label="Best Historical Performance">
               <h2>Best Historical Performance</h2>
               <p>
                 Historical performance can provide insights into how an asset
@@ -545,7 +560,7 @@ const Guide = () => {
 
             <div style={{ borderBottom: "1px solid #ddd", margin: "30px 0" }} />
 
-            <div id="asset-meanings" className="guide-section">
+            <div id="asset-meanings" className="guide-section" aria-label="What Assets Mean in This Application">
               <h2>Types of assets</h2>
               <p>
                 In the world of investing, assets represent any resource of
@@ -564,6 +579,7 @@ const Guide = () => {
                   }}
                   src={world_indices}
                   alt="Description of the chart"
+                  aria-label="World Indices chart"
                   className="chart-image"
                 />
               </div>
@@ -593,6 +609,7 @@ const Guide = () => {
                   }}
                   src={futures}
                   alt="Description of the chart"
+                  aria-label="Futures chart"
                   className="chart-image"
                 />
               </div>
@@ -619,6 +636,7 @@ const Guide = () => {
                   }}
                   src={bonds}
                   alt="Description of the chart"
+                  aria-label="US Treasury Bonds chart"
                   className="chart-image"
                 />
               </div>
@@ -646,6 +664,7 @@ const Guide = () => {
                   }}
                   src={currency}
                   alt="Description of the chart"
+                  aria-label="Currency chart"
                   className="chart-image"
                 />
               </div>
@@ -672,6 +691,7 @@ const Guide = () => {
                   }}
                   src={option}
                   alt="Description of the chart"
+                  aria-label="Options chart"
                   className="chart-image"
                 />
               </div>
@@ -699,6 +719,7 @@ const Guide = () => {
                   }}
                   src={stocks}
                   alt="Description of the chart"
+                  aria-label="Stocks chart"
                   className="chart-image"
                 />
               </div>
@@ -726,6 +747,7 @@ const Guide = () => {
                   }}
                   src={crypto}
                   alt="Description of the chart"
+                  aria-label="Cryptocurrency chart"
                   className="chart-image"
                 />
               </div>
@@ -753,6 +775,7 @@ const Guide = () => {
                   }}
                   src={etf}
                   alt="Description of the chart"
+                  aria-label="Exchange-Traded Funds (ETFs) chart"
                   className="chart-image"
                 />
               </div>
@@ -781,6 +804,7 @@ const Guide = () => {
                   }}
                   src={mutualFund}
                   alt="Description of the chart"
+                  aria-label="Mutual Funds chart"
                   className="chart-image"
                 />
               </div>

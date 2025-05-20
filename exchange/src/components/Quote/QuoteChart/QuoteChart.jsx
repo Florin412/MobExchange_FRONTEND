@@ -455,48 +455,56 @@ const QuoteChart = ({ symbol, change }) => {
           <button
             className={activeButton === "1d" ? "active" : ""}
             onClick={() => handleButtonClick("1d", "1m")}
+            aria-label="Show 1 day chart"
           >
             1D
           </button>
           <button
             className={activeButton === "5d" ? "active" : ""}
             onClick={() => handleButtonClick("5d", "15m")}
+            aria-label="Show 5 day chart"
           >
             5D
           </button>
           <button
             className={activeButton === "1mo" ? "active" : ""}
             onClick={() => handleButtonClick("1mo", "1d")}
+            aria-label="Show 1 month chart"
           >
             1M
           </button>
           <button
             className={activeButton === "6mo" ? "active" : ""}
             onClick={() => handleButtonClick("6mo", "1d")}
+            aria-label="Show 6 months chart"
           >
             6M
           </button>
           <button
             className={activeButton === "ytd" ? "active" : ""}
             onClick={() => handleButtonClick("ytd", "1d")}
+            aria-label="Show year to date chart"
           >
             YTD
           </button>
           <button
             className={activeButton === "1y" ? "active" : ""}
             onClick={() => handleButtonClick("1y", "1d")}
+            aria-label="Show 1 year chart"
           >
             1Y
           </button>
           <button
             className={activeButton === "5y" ? "active" : ""}
             onClick={() => handleButtonClick("5y", "1wk")}
+            aria-label="Show 5 years chart"
           >
             5Y
           </button>
           <button
             className={activeButton === "max" ? "active" : ""}
             onClick={() => handleButtonClick("max", "1mo")}
+            aria-label="Show chart for all available data"
           >
             ALL
           </button>
@@ -524,6 +532,7 @@ const QuoteChart = ({ symbol, change }) => {
           <button
             className={chartType === "mountain" ? "active" : ""}
             onClick={() => handleChartTypeChange("mountain")}
+            aria-label="Switch to mountain chart"
           >
             <FaMountain style={{ marginRight: "8px" }} />
             Mountain
@@ -531,6 +540,7 @@ const QuoteChart = ({ symbol, change }) => {
           <button
             className={chartType === "line" ? "active" : ""}
             onClick={() => handleChartTypeChange("line")}
+            aria-label="Switch to line chart"
           >
             <FaChartLine style={{ marginRight: "8px" }} />
             Line
@@ -604,48 +614,56 @@ const QuoteChart = ({ symbol, change }) => {
         <button
           className={activeButton === "1d" ? "active" : ""}
           onClick={() => handleButtonClick("1d", "1m")}
+          aria-label="Show 1 day chart"
         >
           1D
         </button>
         <button
           className={activeButton === "5d" ? "active" : ""}
           onClick={() => handleButtonClick("5d", "15m")}
+          aria-label="Show 5 days chart"
         >
           5D
         </button>
         <button
           className={activeButton === "1mo" ? "active" : ""}
           onClick={() => handleButtonClick("1mo", "1d")}
+          aria-label="Show 1 month chart"
         >
           1M
         </button>
         <button
           className={activeButton === "6mo" ? "active" : ""}
           onClick={() => handleButtonClick("6mo", "1d")}
+          aria-label="Show 6 months chart"
         >
           6M
         </button>
         <button
           className={activeButton === "ytd" ? "active" : ""}
           onClick={() => handleButtonClick("ytd", "1d")}
+          aria-label="Show year to date chart"
         >
           YTD
         </button>
         <button
           className={activeButton === "1y" ? "active" : ""}
           onClick={() => handleButtonClick("1y", "1d")}
+          aria-label="Show 1 year chart"
         >
           1Y
         </button>
         <button
           className={activeButton === "5y" ? "active" : ""}
           onClick={() => handleButtonClick("5y", "1wk")}
+          aria-label="Show 1 years chart"
         >
           5Y
         </button>
         <button
           className={activeButton === "max" ? "active" : ""}
           onClick={() => handleButtonClick("max", "1mo")}
+          aria-label="Show all available data chart"
         >
           ALL
         </button>

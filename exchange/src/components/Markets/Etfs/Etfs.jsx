@@ -139,6 +139,7 @@ const Etfs = () => {
                 tableId={"ss-etfs"}
                 data={data}
                 columns={columns}
+                aria-label="Download ETFs table"
               ></DownloadButtons>
             </h1>
 
@@ -149,6 +150,7 @@ const Etfs = () => {
                     activeButton === "Most Active" ? "active" : ""
                   }`}
                   onClick={() => handleButtonClick("Most Active")}
+                  aria-label="Show most active ETFs"
                 >
                   Most Active
                 </button>
@@ -158,6 +160,7 @@ const Etfs = () => {
                     activeButton === "Top Gainers" ? "active" : ""
                   }`}
                   onClick={() => handleButtonClick("Top Gainers")}
+                  aria-label="Show top gainers ETFs"
                 >
                   Top Gainers
                 </button>
@@ -166,6 +169,7 @@ const Etfs = () => {
                     activeButton === "Top Losers" ? "active" : ""
                   }`}
                   onClick={() => handleButtonClick("Top Losers")}
+                  aria-label="Show top losers ETFs"
                 >
                   Top Losers
                 </button>
@@ -174,6 +178,7 @@ const Etfs = () => {
                     activeButton === "Top Performing" ? "active" : ""
                   }`}
                   onClick={() => handleButtonClick("Top Performing")}
+                  aria-label="Show top performing ETFs"
                 >
                   Top Performing
                 </button>
@@ -182,6 +187,7 @@ const Etfs = () => {
                     activeButton === "Trending Now" ? "active" : ""
                   }`}
                   onClick={() => handleButtonClick("Trending Now")}
+                  aria-label="Show trending now ETFs"
                 >
                   Trending Now
                 </button>
@@ -194,6 +200,7 @@ const Etfs = () => {
                   onClick={() =>
                     handleButtonClick("Best Historical Performance")
                   }
+                  aria-label="Show best historical performance ETFs"
                 >
                   Best Historical Performance
                 </button>

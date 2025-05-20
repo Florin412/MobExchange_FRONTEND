@@ -132,6 +132,7 @@ const MutualFunds = () => {
                 tableId={"ss-mutual-funds"}
                 data={data}
                 columns={columns}
+                aria-label="Download mutual funds table"
               ></DownloadButtons>
             </h1>
 

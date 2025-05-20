@@ -125,6 +125,7 @@ const Futures = () => {
                 tableId={"ss-futures"}
                 data={data}
                 columns={columns}
+                aria-label="Download futures table"
               ></DownloadButtons>
             </h1>
             <Table data={data} columns={columns} />
