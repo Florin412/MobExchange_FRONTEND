@@ -1,5 +1,6 @@
 # Screenshots from App
 
+![image](https://github.com/user-attachments/assets/15a7ad65-0d19-4df0-9b4d-33ca9450ab9d)
 ![Screenshot 2025-05-01 211742-front](https://github.com/user-attachments/assets/ff89e7d1-4970-42ca-a850-c0a2470134b0)
 ![Screenshot 2025-05-01 213529-front](https://github.com/user-attachments/assets/869b46d9-8f46-459e-8789-0ebbfa9b8914)
 ![Screenshot 2025-05-02 110542-front](https://github.com/user-attachments/assets/89ac2875-1fac-4fc5-aab3-a9b75f9c2fd1)
